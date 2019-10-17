@@ -6,6 +6,16 @@ class DashboardBkk extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model("M_Dashboard");
+		if ($this->session->has_userdata('logged_in') == TRUE) {
+			if ($this->session->userdata('level_user') == '1') {
+				redirect('Bkk');
+			}
+			if ($this->session->userdata('level_user') == '2') {
+				redirect('Dashboard');
+			}
+		} else {
+			redirect('Home');
+		}
 	}
 
 	private function load($title = '', $datapath = '')

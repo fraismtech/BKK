@@ -5,6 +5,18 @@ class Home extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		if ($this->session->has_userdata('logged_in') == TRUE) {
+			if ($this->session->userdata('level_user') == '1') {
+				redirect('Bkk');
+			}
+			if ($this->session->userdata('level_user') == '2') {
+				redirect('Dashboard');
+			}
+			if ($this->session->userdata('level_user') == '3') {
+				redirect('DashboardBkk');
+			}
+		}
+
 	}
 
 	private function load($title = '', $datapath = '')

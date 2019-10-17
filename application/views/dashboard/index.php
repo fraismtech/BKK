@@ -1,12 +1,7 @@
 <!-- Notification -->
 <div class="row">
     <div class="col-md-12">
-        <div class="alert border-0 alert-primary bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert">
-            <strong>Selamat Datang !</strong> Bursa Kerja Khusus Kota Depok
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                <i class="ti ti-close"></i>
-            </button>
-        </div>
+        <?=$this->session->flashdata('notif')?>
     </div>
 </div>
 <!-- end row -->
