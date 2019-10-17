@@ -8,7 +8,16 @@ class Dashboard extends CI_Controller {
 		$this->load->model("M_Dashboard", "dashboard");
 		$this->load->model("M_Auth", "auth");
 
-		
+		if ($this->session->has_userdata('logged_in') == TRUE) {
+			if ($this->session->userdata('level_user') == '1') {
+				redirect('Bkk');
+			}
+			if ($this->session->userdata('level_user') == '3') {
+				redirect('DashboardBkk');
+			}
+		} else {
+			redirect('Home');
+		}
 	}
 
 	private function load($title = '', $datapath = '')
@@ -23,17 +32,6 @@ class Dashboard extends CI_Controller {
 
 	public function index()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Dashboard", $path),
@@ -41,20 +39,9 @@ class Dashboard extends CI_Controller {
 		);
 		$this->load->view('dashboard/template/default_template', $data);
 	}
-	
+
 	public function databkk()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Data BKK", $path),
@@ -65,17 +52,6 @@ class Dashboard extends CI_Controller {
 
 	public function dataloker()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Data Loker", $path),
@@ -86,17 +62,6 @@ class Dashboard extends CI_Controller {
 
 	public function dataalumni()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Data Alumni", $path),
@@ -107,17 +72,6 @@ class Dashboard extends CI_Controller {
 
 	public function laporanBkkPerkecamatan()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan BKK Perkecamatan", $path),
@@ -128,17 +82,6 @@ class Dashboard extends CI_Controller {
 
 	public function laporanBkkPerjurusan()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan BKK Perjurusan", $path),
@@ -149,17 +92,6 @@ class Dashboard extends CI_Controller {
 
 	public function laporanBkkLoker()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan BKk Loker", $path),
@@ -170,17 +102,6 @@ class Dashboard extends CI_Controller {
 
 	public function dataJurusan()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Data Jurusan", $path),
@@ -191,17 +112,6 @@ class Dashboard extends CI_Controller {
 
 	public function dataPosisi()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Data Posisi", $path),
@@ -212,17 +122,6 @@ class Dashboard extends CI_Controller {
 
 	public function dataKeterampilan()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Data Keterampilan", $path),
@@ -233,17 +132,6 @@ class Dashboard extends CI_Controller {
 
 	public function helpdesk()
 	{
-		if ($this->session->has_userdata('logged_in') == TRUE) {
-			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
-				redirect('DashboardBkk');
-			}
-		} else {
-			redirect('login');
-		}
-
 		$path = "";
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Helpdesk", $path),
