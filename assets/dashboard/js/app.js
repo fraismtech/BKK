@@ -10866,8 +10866,8 @@ $(function(){
         var dataTable = jQuery(".datatable-wrapper");
         if (dataTable.length > 0) {
             $('#datatable').DataTable({
-                "bLengthChange": false,
-                "searching": false,
+                "bLengthChange": true,
+                "searching": true,
                 "bPaginate":true,
                 "bSortable": true
                 });
