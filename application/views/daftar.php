@@ -195,7 +195,7 @@
                     data: user,
                     success:function(response){
                         $('#message').html(response.message);
-                        $('#regText').html('Save');
+                        $('#regText').html('Daftar');
                         $('#daftar').attr('disabled', false);
                         if(response.error){
                             swal({

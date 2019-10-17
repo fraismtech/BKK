@@ -17,7 +17,7 @@ class Login extends CI_Controller {
 		);
 		return $page;
 	}
-	
+
 	public function index()
 	{
 		if ($this->session->has_userdata('logged_in') == TRUE) {
@@ -50,7 +50,11 @@ class Login extends CI_Controller {
             $data = $this->auth->login($username, $password);
 
             if($data){
-                $newdata = array(
+            	if ($data->status == '0') {
+            		$this->session->set_flashdata("notif", "Akun anda belum terverifikasi");
+            		redirect('login');
+            	} else {
+            		$newdata = array(
                         'username'  => $data->username,
                         'nama'  => $data->nama,
                         'email'  => $data->email,
@@ -58,22 +62,24 @@ class Login extends CI_Controller {
                         'logged_in' => TRUE,
                         'id'  => $data->id_user,
                     );
-                if ($data->level == '1') {
-                	$this->session->set_userdata($newdata);
-                	$this->session->set_flashdata('notif','<div class="alert border-0 alert-primary bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert"><strong>Selamat Datang '.$data->nama.' !</strong> Bursa Kerja Khusus Kota Depok <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti ti-close"></i></button></div>');
-                	redirect("Bkk");
-                } elseif ($data->level == '2') {
-                	$this->session->set_userdata($newdata);
-                	$this->session->set_flashdata('notif','<div class="alert border-0 alert-primary bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert"><strong>Selamat Datang '.$data->nama.' !</strong> Bursa Kerja Khusus Kota Depok <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti ti-close"></i></button></div>');
-                	redirect("Dashboard");
-                } elseif ($data->level == '3') {
-                	$this->session->set_userdata($newdata);
-                	$this->session->set_flashdata('notif','<div class="alert border-0 alert-primary bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert"><strong>Selamat Datang '.$data->nama.' !</strong> Bursa Kerja Khusus Kota Depok <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti ti-close"></i></button></div>');
-                	redirect("DashboardBkk");
-                }
+		            if ($data->level == '1') {
+		            	$this->session->set_userdata($newdata);
+		            	$this->session->set_flashdata('notif','<div class="alert border-0 alert-success bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert"><strong>Selamat Datang '.$data->nama.' !</strong> Bursa Kerja Khusus Kota Depok <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti ti-close"></i></button></div>');
+		            	redirect("Bkk");
+		            } elseif ($data->level == '2') {
+		            	$this->session->set_userdata($newdata);
+		            	$this->session->set_flashdata('notif','<div class="alert border-0 alert-success bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert"><strong>Selamat Datang '.$data->nama.' !</strong> Bursa Kerja Khusus Kota Depok <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti ti-close"></i></button></div>');
+		            	redirect("Dashboard");
+		            } elseif ($data->level == '3') {
+		            	$this->session->set_userdata($newdata);
+		            	$this->session->set_flashdata('notif','<div class="alert border-0 alert-success bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert"><strong>Selamat Datang '.$data->nama.' !</strong> Bursa Kerja Khusus Kota Depok <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti ti-close"></i></button></div>');
+		            	redirect("DashboardBkk");
+		            }
+            	}
+                
             }
             else{
-            	$this->session->set_flashdata('notif','<div class="alert alert-danger" role="alert" style="text-align: center"> Masukkan Username & Password Dengan Benar <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>');
+            	$this->session->set_flashdata("notif", "Masukkan Username & Password Dengan Benar");
                 redirect('login');
             }
 		} catch(Exception $e) {

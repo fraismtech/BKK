@@ -49,7 +49,6 @@
                                         <h1 class="mb-2">Silahkan Masuk</h1>
                                         <p>Selamat Datang Di Website Bursa Kerja Khusus Kota Depok, Silahkan Masukan Akun Anda.</p><br>
 
-                                        <?=$this->session->flashdata('notif')?>
                                         <form method="POST" action="<?php echo base_url();?>auth_login"  id="logForm" class="mt-3 mt-sm-5">
                                             <div class="row">
                                                 <div class="col-12">
@@ -94,45 +93,21 @@
 
     <!-- plugins -->
     <script src="<?php echo base_url(); ?>assets/dashboard/js/vendors.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- custom app -->
     <script src="<?php echo base_url(); ?>assets/dashboard/js/app.js"></script>
-    <!-- <script type="text/javascript">
-    $(document).ready(function(){
-        $('#logText').html('masuk');
-        $('#logForm').submit(function(e){
-            e.preventDefault();
-            $('#logText').html('Memproses ...');
-            var url = '';
-            var user = $('#logForm').serialize();
-            var login = function(){
-                $.ajax({
-                    type: 'POST',
-                    url: url + 'Dashboard/auth_login',
-                    dataType: 'json',
-                    data: user,
-                    success:function(response){
-                        $('#message').html(response.message);
-                        $('#logText').html('masuk');
-                        if(response.error){
-                            $('#responseDiv').removeClass('alert-success').addClass('alert-danger').show();
-                        }
-                        else{
-                            $('#responseDiv').removeClass('alert-danger').addClass('alert-success').show();
-                            $('#logForm')[0].reset();
-                            setTimeout(function(){
-                                location.reload();
-                            }, 2000);
-                        }   
-                    }
-                });
-            };
-        setTimeout(login, 1000);
+    <?php if ($this->session->flashdata('notif')): ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        swal({
+          title: "Login Failed !",
+          text: "<?php echo $this->session->flashdata('notif'); ?>",
+          icon: "error",
+          timer: 10000
         });
-
-        $(document).on('click', '#clearMsg', function(){
-            $('#responseDiv').hide();
-        });
-    });
-    </script> -->
+      });
+    </script>
+  <?php endif; ?>
 </body>
 </html>

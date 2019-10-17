@@ -307,7 +307,7 @@
 						<!-- begin sidebar-nav -->
 						<div class="sidebar-nav scrollbar scroll_light">
 							<ul class="metismenu " id="sidebarNav">
-								<?php if ($this->uri->segment(1) == "dashboardBkk") { ?>
+								<?php if ($this->uri->segment(1) == "dashboardBkk" || $this->uri->segment(1) == "DashboardBkk") { ?>
 								<li class="nav-static-title">Dashboard</li>
 								<li class="active"><a href="<?php echo base_url(); ?>dashboardBkk" aria-expanded="false"><i class="nav-icon ti ti-dashboard"></i><span class="nav-title">Dashboard</span></a> </li>
 								<li class="nav-static-title">Menu</li>
