@@ -169,7 +169,7 @@
     $("#kecamatan").change(function(){
         var kec = $(this).val();
         $.ajax({
-            url:"<?php echo base_url(); ?>Dashboard/get_kelurahan",
+            url:"<?php echo base_url(); ?>Daftar/get_kelurahan",
             method:"POST",
             data:{kec:kec},
             success:function(data) {
@@ -190,7 +190,7 @@
             var save = function(){
                 $.ajax({
                     type: 'POST',
-                    url: url + 'Dashboard/registrasi_user',
+                    url: url + 'Daftar/registrasi_user',
                     dataType: 'json',
                     data: user,
                     success:function(response){

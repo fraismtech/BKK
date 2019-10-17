@@ -65,7 +65,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-12 mt-3">
-                                                    <button type="submit" name="login" id="login" class="btn btn-primary text-uppercase"><span id="logText"></span></button>
+                                                    <button type="submit" name="login" id="login" class="btn btn-primary text-uppercase"><span id="logText">masuk</span></button>
                                                 </div>
                                                 <div class="col-12  mt-3">
                                                     <p>Tidak Punya Akun ?<a href="<?php echo base_url(); ?>daftar"> Register</a></p>
