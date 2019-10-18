@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2019 at 07:22 PM
+-- Generation Time: Oct 18, 2019 at 05:13 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -7845,6 +7845,27 @@ INSERT INTO `regencies` (`id`, `province_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `table_kegiatan`
+--
+
+CREATE TABLE `table_kegiatan` (
+  `id_kegiatan` int(11) NOT NULL,
+  `tanggal_kegiatan` date NOT NULL,
+  `judul_kegiatan` text NOT NULL,
+  `uraian_kegiatan` text NOT NULL,
+  `foto_kegiatan` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_kegiatan`
+--
+
+INSERT INTO `table_kegiatan` (`id_kegiatan`, `tanggal_kegiatan`, `judul_kegiatan`, `uraian_kegiatan`, `foto_kegiatan`) VALUES
+(2, '2019-10-22', 'sadasd', 'sadasda', 'kepala_keluarga.PNG');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `table_login`
 --
 
@@ -7891,12 +7912,7 @@ CREATE TABLE `table_slider` (
 --
 
 INSERT INTO `table_slider` (`id_slider`, `tanggal_slider`, `judul_slider`, `foto_slider`) VALUES
-(1, '2019-10-17', '123', 'chart.png'),
-(2, '2019-10-18', 'asd', '0.png'),
-(3, '2019-10-24', 'ddsf', 'pixel_google.jpg'),
-(4, '2019-10-24', 'ddsf', 'pixel_google1.jpg'),
-(5, '2019-10-25', 'sas', 'ic_collections_white_18dp.png'),
-(6, '2019-10-18', 'sdaa', 'photo_2.jpg');
+(6, '2019-10-25', 'sdasda', 'halaman_unit.PNG');
 
 -- --------------------------------------------------------
 
@@ -82999,6 +83015,12 @@ ALTER TABLE `regencies`
   ADD KEY `regencies_province_id_index` (`province_id`);
 
 --
+-- Indexes for table `table_kegiatan`
+--
+ALTER TABLE `table_kegiatan`
+  ADD PRIMARY KEY (`id_kegiatan`);
+
+--
 -- Indexes for table `table_login`
 --
 ALTER TABLE `table_login`
@@ -83022,6 +83044,12 @@ ALTER TABLE `villages`
 --
 
 --
+-- AUTO_INCREMENT for table `table_kegiatan`
+--
+ALTER TABLE `table_kegiatan`
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `table_login`
 --
 ALTER TABLE `table_login`
@@ -83031,7 +83059,7 @@ ALTER TABLE `table_login`
 -- AUTO_INCREMENT for table `table_slider`
 --
 ALTER TABLE `table_slider`
-  MODIFY `id_slider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_slider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

@@ -22,6 +22,8 @@
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/vendor/datatables/datatables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- custom app -->
     <script src="<?php echo base_url(); ?>assets/dashboard/js/app.js"></script>
     <script> window.setTimeout(function() { $(".alert-success").fadeTo(200, 0).slideUp(200, function(){ $(this).remove(); }); }, 1000); </script>

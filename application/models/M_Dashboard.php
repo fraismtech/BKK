@@ -8,6 +8,12 @@ class M_Dashboard extends CI_Model
     var $where = array('');
     var $order = array('id_slider' => 'asc'); // default order
 
+    var $table_1          = 'table_kegiatan';
+    var $column_order_1   = array('tanggal_kegiatan','judul_kegiatan','uraian_kegiatan','foto_skegiatan'); //set column field database for datatable orderable
+    var $column_search_1  = array('tanggal_kegiatan','judul_kegiatan','uraian_kegiatan','foto_kegiatan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $where_1 = array('');
+    var $order_1 = array('id_kegiatan' => 'asc'); // default order
+
     public function __construct()
     {
         parent::__construct();
@@ -64,6 +70,7 @@ class M_Dashboard extends CI_Model
         return $result;
     }
 
+    //Slider
     private function _get_datatables_query()
     {
         $this->db->from($this->table);
@@ -123,6 +130,70 @@ class M_Dashboard extends CI_Model
     public function count_all()
     {
         $this->db->from('table_slider');
+                 // ->where('username', $username);
+        $this->db->count_all_results();
+    }
+
+    // Kegiatantable_kegiatan
+    private function _get_datatables_query_kegiatan()
+    {
+        $this->db->from($this->table_1);
+        // $this->db->where('table_nabung.username=', $username);
+        $this->db->order_by('id_kegiatan', 'DESC');
+
+        $i = 0;
+    
+        foreach ($this->column_search_1 as $item) // loop column 
+        {
+            if($_POST['search']['value']) // if datatable send POST for search
+            {
+                
+                if($i===0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                }
+                else
+                {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if(count($this->column_search_1) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+        
+        if(isset($_POST['order_1'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_1[$_POST['order_1']['0']['column']], $_POST['order_1']['0']['dir']);
+        } 
+        else if(isset($this->order_1))
+        {
+            $order_1 = $this->order_1;
+            $this->db->order_by(key($order_1), $order_1[key($order_1)]);
+        }
+    }
+
+    public function get_datatables_kegiatan()
+    {
+        $this->_get_datatables_query_kegiatan();
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function count_filtered_kegiatan()
+    {
+        $this->db->from('table_kegiatan');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_kegiatan()
+    {
+        $this->db->from('table_kegiatan');
                  // ->where('username', $username);
         $this->db->count_all_results();
     }

@@ -77,9 +77,9 @@
               </div>
               <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
             </div>
-            <form class="form-horizontal" action="<?php echo base_url();?>Home/edit_Tabungan" method="post" enctype="multipart/form-data" role="form"> 
+            <form class="form-horizontal" method="post" enctype="multipart/form-data" id="editForm" role="form"> 
                 <div class="modal-body">
-                    <input type="hidden" name="id" id="id">
+                    <input type="hidden" name="id_slider" id="id">
                     <div class="form-group">
                         <label>Tanggal</label>
                         <div class='input-group date' id='datepicker-action'>
@@ -95,8 +95,10 @@
                     </div>
                     <div class="form-group">
                         <label>Foto</label>
-                        <input type="file" name="file" class="form-control foto" placeholder="Foto">
-                        <a href="<?php echo base_url('assets/upload/image/');?>" id="foto" class="text-danger"> File : </a>
+                        <input type="file" name="file" class="form-control foto" placeholder="Foto"><br>
+                        <div class="portfolio-item">
+                            <img id="foto" alt="gallery-img">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -164,9 +166,8 @@ $(document).ready(function() {
     $('#btn-filter').click(function(){ //button filter event click
         table.ajax.reload();  //just reload table
     });
-    $('#btn-reset').click(function(){ //button reset event click
-        $('#form-filter')[0].reset();
-        table.ajax.reload();  //just reload table
+    $('#btn-reset').click(function(){
+        table.ajax.reload();
     });
 });
 </script>
@@ -181,7 +182,10 @@ $(document).ready(function() {
         modal.find('#id').attr("value", div.data('id'));
         modal.find('#tanggal').attr("value", div.data('tanggal'));
         modal.find('#judul').attr("value", div.data('judul'));
-        modal.find('#foto').attr("value", div.data('foto'));
+        modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/" + div.data('foto'));
+        modal.find('#roomNumber').text(div.data('foto'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
     });
 
     $('#example').on('click','.hapus-menabung', function () {
@@ -189,17 +193,41 @@ $(document).ready(function() {
         var celengan =  $(this).data('celengan');
         var jumlah =  $(this).data('jumlah');
         swal({
-            title: "Are you sure?",
-            text: "Once deleted, you will not be able to recover this savings!",
+            title: "Anda yakin?",
+            text: "Saat dihapus, Anda tidak dapat mengembalikan data!",
             icon: "warning",
             buttons: true,
             dangerMode: true,
         }).then((result) => {
             if (result) {
-                window.location.href = "<?php echo base_url();?>Home/hapus_Tabungan/" + id + "/" + celengan + "/" + jumlah;
+                $.ajax({
+                    url: "<?php echo base_url();?>dashboardBkk/hapusSlider/" + id,  
+                    method: "GET",
+                    beforeSend :function() {
+                    swal({
+                            title: 'Menunggu',
+                            html: 'Memproses data',
+                            onOpen: () => {
+                              swal.showLoading()
+                            }
+                        })      
+                    },
+                    success:function(data){
+                        swal({
+                            title: "Deleted!",
+                            icon: "success",
+                            text: data.msg,
+                            buttons: true,
+                        });
+                    }
+                });
+                table.ajax.reload();
+                setTimeout(function(){
+                    location.reload();
+                }, 600);
             } else {
                 swal({
-                    title: "Saved savings!",
+                    title: "Slider tersimpan!",
                     icon: "info",
                     timer: 10000
                 });
@@ -210,7 +238,7 @@ $(document).ready(function() {
 </script>
 <script type="text/javascript">
 $(".foto").change(function() {
-    if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png)$/) ) {
+    if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png|jpeg|PNG)$/) ) {
         if(this.files[0].size>10485760) {
             $('.foto').val('');
             alert('Batas Maximal Ukuran File 8MB !');
@@ -246,6 +274,45 @@ $(document).ready(function(){
                         title: "Berhasil!",
                         text: res.msg,
                         icon: "success",
+                    });
+                }
+                else if(res.success == false){
+                    swal({
+                        title: "Gagal!",
+                        text: res.msg,
+                        icon: "error",
+                    });
+                }
+                table.ajax.reload();
+                // setTimeout(function(){
+                //     location.reload(); 
+                // }, 1000);
+            }  
+        });  
+    });  
+});  
+</script>
+<script type="text/javascript">
+$(document).ready(function(){  
+    $('#editForm').on('submit', function(e){  
+        e.preventDefault();  
+       
+        $.ajax({  
+            url:"<?php echo base_url(); ?>dashboardBkk/editSlider",   
+            method:"POST",  
+            data:new FormData(this),  
+            contentType: false,  
+            cache: false,  
+            processData:false,  
+            dataType: "json",
+            success:function(res)  
+            {  
+                console.log(res.success);
+                if(res.success == true){  
+                    swal({
+                        title: "Berhasil!",
+                        text: res.msg,
+                        icon: "success",
                     });  
                 }
                 else if(res.success == false){
@@ -256,8 +323,9 @@ $(document).ready(function(){
                     });
                 }
                 setTimeout(function(){
-                    location.reload(); 
-                }, 1000);
+                    $('#edit-data').modal('close');
+                    table.ajax.reload();
+                }, 500);
             }  
         });  
     });  
