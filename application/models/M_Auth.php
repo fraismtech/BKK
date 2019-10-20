@@ -11,7 +11,7 @@ class M_Auth extends CI_Model{
     public function login($username, $password)
     {
     	try {
-    		$query = $this->db->query("SELECT * FROM table_login WHERE username = '$username' AND password = '$password'");
+    		$query = $this->db->query("SELECT * FROM table_login JOIN table_sekolah WHERE username = '$username' AND password = '$password'");
     		return $query->row();
     	} catch (Exception $e) {
     		return null;

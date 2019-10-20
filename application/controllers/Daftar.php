@@ -55,12 +55,10 @@ class Daftar extends CI_Controller {
     public function registrasi_user()
     {
     	try {
-    		$output = array('error' => false);
     		date_default_timezone_set('Asia/Jakarta');
 
     		$npsn 			= $this->input->post('npsn');
     		$nama_sekolah 	= $this->input->post('nama_sekolah');
-    		$jurusan 		= $this->input->post('jurusan');
     		$alamat  		= $this->input->post('alamat_sekolah');
     		$kecamatan  	= $this->input->post('kecamatan');
             $kelurahan  	= $this->input->post('kelurahan');
@@ -69,37 +67,65 @@ class Daftar extends CI_Controller {
             $no_hp   		= $this->input->post('no_hp');
             $username 		= $this->input->post('username');
             $password   	= $this->input->post('password');
-            $level   		= $this->input->post('level');
+            $ijin_bkk 		= $this->input->post("ijin");
+            $tanggal 		= date('Y-m-d', strtotime($this->input->post("tanggal_ijin")));
+            $no_ijin 		= $this->input->post("no_ijin");
+            // $level   		= $this->input->post('level');
             $date_created  	= date("Y-m-d H:i:s");
 
-            $data = array(
+            if(isset($_FILES["file"]["name"])) {  
+              	$config['upload_path'] = './assets/upload/file';  
+              	$config['allowed_types'] = 'pdf|docx|doc'; 
 
-                'username' 		=> $username,
-                'password'      => md5($password),
-                'nama'        	=> $nama_operator,
-                'jurusan' 		=> $jurusan,
-                'npsn' 			=> $npsn,
-                'nama_sekolah' 	=> $nama_sekolah,
-                'email' 		=> $email,
-                'no_hp' 		=> $no_hp,
-                'alamat' 		=> $alamat,
-                'kecamatan' 	=> $kecamatan,
-                'kelurahan' 	=> $kelurahan,
-                'level' 		=> '1',
-                'date_created' 	=> $date_created,
-                
-            );
+              	$this->load->library('upload', $config); 
 
-            $registrasi = $this->dashboard->registrasi($data);
-            
-            if($registrasi == true){
-                
+              	if(!$this->upload->do_upload('file')) {  
+                  	$error =  $this->upload->display_errors(); 
+                  	echo json_encode(array('msg' => $error, 'success' => false));
+              	} else { 
+              		$data = $this->upload->data();
+			        $data = array(
+			            'ijin_bkk' 		=> $ijin_bkk,
+			            'no_ijin' 		=> $no_ijin,
+			            'tgl_perijinan' => $tanggal,
+			            'dokumen' 		=> $data['file_name'],
+			        );
+			        $this->db->insert('table_perijinan', $data);
+			        $id_perijinan = $this->db->insert_id();
+
+                   	$data1 = array(
+			            'npsn'        	=> $npsn,
+			            'nama_sekolah' 	=> $nama_sekolah,
+			            'alamat_sekolah'=> $alamat,
+			            'kecamatan' 	=> $kecamatan,
+			            'kelurahan' 	=> $kelurahan,
+			        );
+			        $this->db->insert('table_sekolah', $data1);
+			        $id_sekolah = $this->db->insert_id();
+
+                   	$data2 = array(
+			            'username' 		=> $username,
+			            'password'      => md5($password),
+			            'nama_operator'	=> $nama_operator,
+			            'email' 		=> $email,
+			            'no_hp' 		=> $no_hp,
+			            'id_sekolah' 	=> $id_sekolah,
+			            'id_perijinan' 	=> $id_perijinan,
+			            'level' 		=> '1',
+			            'date_created' 	=> $date_created,
+			        );  
+			        
+			        $this->db->insert('table_login', $data2); 
+                   	$getId = $this->db->insert_id();
+ 
+                   	$arr = array('msg' => 'Silahkan isi data dengan benar!', 'success' => false);
+ 
+                   	if($getId){
+                    	$arr = array('msg' => 'Silahkan cek email untuk verifikasi data!', 'success' => true);
+                   	}
+                  	echo json_encode($arr);
+             	}
             }
-            else{
-                $output['error'] = true;
-            }
-
-            echo json_encode($output);
     	} catch (Exception $e) {
     		redirect('daftar');
     	}

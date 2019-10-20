@@ -8,6 +8,9 @@
                 <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#modalAdd">Tambah</button>
             </div>
             <div class="card-body">
+                <div class="form-group">
+                    <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button>
+                </div>
                 <div class="datatable-wrapper table-responsive">
                     <table id="example" class="display compact table table-striped" width="100%">
                         <thead>
@@ -77,7 +80,7 @@
               </div>
               <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
             </div>
-            <form class="form-horizontal" method="post" enctype="multipart/form-data" id="editForm" role="form"> 
+            <form class="form-horizontal" method="post" enctype="multipart/form-data" id="editForm" role="form" autocomplete="false"> 
                 <div class="modal-body">
                     <input type="hidden" name="id_slider" id="id">
                     <div class="form-group">

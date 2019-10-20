@@ -261,7 +261,7 @@
 												<h4 class="text-white mb-0">Alice Williams</h4>
 												<small class="text-white">Henry@example.com</small>
 											</div>
-											<a href="logout" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"> <i
+											<a href="<?php echo base_url(); ?>logout" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"> <i
 												class="zmdi zmdi-power"></i></a>
 											</div>
 										</div>
@@ -316,6 +316,7 @@
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/kegiatan" aria-expanded="false"><i class="nav-icon ti ti-package"></i><span class="nav-title">Kegiatan</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/loker" aria-expanded="false"><i class="nav-icon ti ti-pulse"></i><span class="nav-title">Loker</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/alumni" aria-expanded="false"><i class="nav-icon ti ti-clipboard"></i><span class="nav-title">Alumni</span></a> </li>
+								<li><a href="<?php echo base_url(); ?>dashboardBkk/mitra" aria-expanded="false"><i class="nav-icon ti ti-user"></i><span class="nav-title">Mitra BKK</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/user" aria-expanded="false"><i class="nav-icon ti ti-briefcase"></i><span class="nav-title">User</span></a> </li>
 								<?php }else{ ?>
 								<li class="nav-static-title">Dashboard</li>

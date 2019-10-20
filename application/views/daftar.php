@@ -48,7 +48,7 @@
                                 <div class="login p-50">
                                     <h1 class="mb-2 text-center">Registrasi</h1>
                                     <p class="text-center">Selamat Datang Di Website Bursa Kerja Khusus Kota Depok, Silahkan Registrasi</p>
-                                    <form action="<?php echo base_url(); ?>Registrasi" class="mt-2 mt-sm-4" method="POST" id="regForm" >
+                                    <form action="<?php echo base_url(); ?>Registrasi" class="mt-2 mt-sm-4" method="POST" id="regForm" autocomplete="off" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-12">
                                                 <div class="form-group">
@@ -60,16 +60,6 @@
                                                 <div class="form-group">
                                                     <label class="control-label">Nama Sekolah*</label>
                                                     <input type="text" class="form-control" placeholder="Nama Sekolah" name="nama_sekolah" />
-                                                </div>
-                                            </div>
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label class="control-label">Jurusan*</label>
-                                                    <select class="form-control" name="jurusan" id="jurusan">
-                                                        <option value="Jurusan 1">Jurusan 1</option>
-                                                        <option value="Jurusan 2">Jurusan 2</option>
-                                                        <option value="Jurusan 3">Jurusan 3</option>
-                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="col-12">
@@ -126,6 +116,47 @@
                                                     <input type="password" class="form-control" placeholder="*********" name="password" />
                                                 </div>
                                             </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Ijin BKK*</label><br>
+                                                    <div class="col-3"></div>
+                                                    <div class="row">
+                                                        <div class="col-3">
+                                                            <input type="radio" name="ijin" value="Ya">
+                                                            <label> Ya</label>
+                                                        </div>
+                                                        <div class="col-3">
+                                                            <input type="radio" name="ijin" value="Tidak">
+                                                            <label> Tidak</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">No Ijin*</label>
+                                                    <input type="text" class="form-control" placeholder="Nomor Ijin" name="no_ijin" />
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Tanggal Perijinan*</label>
+                                                    <div class='input-group date' id='datepicker-bottom-left'>
+                                                        <input class="form-control" type='text' name="tanggal_ijin" placeholder="Tanggal Perijinan" />
+                                                        <span class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label class="control-label">Upload Dokumen*</label>
+                                                    <input type="file" class="form-control dokumen" placeholder="No Handphone" name="file" />
+                                                    <p>Dokumen PDF Max. 10Mb</p>
+                                                </div>
+                                            </div>
+
                                             <div class="col-12 mt-3 text-center">
                                                 <button type="submit" name="daftar" id="daftar" class="btn btn-primary text-uppercase"><span id="regText"></span></a>
                                             </div>
@@ -154,6 +185,23 @@
     <!-- custom app -->
     <script src="<?php echo base_url(); ?>assets/dashboard/js/app.js"></script>
     <script type="text/javascript">
+    $(".dokumen").change(function() {
+        if (this.files && this.files[0] && this.files[0].name.match(/\.(pdf|doc|docx)$/) ) {
+            if(this.files[0].size>10485760) {
+                $('.dokumen').val('');
+                alert('Batas Maximal Ukuran File 10MB !');
+            }
+            else {
+                var reader = new FileReader();
+                reader.readAsDataURL(this.files[0]);
+            }
+        } else{
+            $('.dokumen').val('');
+            alert('Hanya File pdf/doc Yang Diizinkan !');
+        }
+    });
+    </script>
+    <script type="text/javascript">
     $(document).ready(function() {
         $('#jurusan').select2();
     });
@@ -181,47 +229,116 @@
     $(document).ready(function(){
         $('#regText').html('Daftar');
         $('#daftar').attr('disabled', false);
-        $('#regForm').submit(function(e){
-            e.preventDefault();
+        $('#regForm').on('submit', function(e){  
+            e.preventDefault();  
             $('#regText').html('Mendaftar ...');
             $('#daftar').attr('disabled', true);
-            var url = '<?php echo base_url(); ?>';
-            var user = $('#regForm').serialize();
-            var save = function(){
-                $.ajax({
-                    type: 'POST',
-                    url: url + 'Daftar/registrasi_user',
-                    dataType: 'json',
-                    data: user,
-                    success:function(response){
-                        $('#message').html(response.message);
-                        $('#regText').html('Daftar');
-                        $('#daftar').attr('disabled', false);
-                        if(response.error){
-                            swal({
-                                title: "Gagal Mendaftar!",
-                                text: "Silahkan isi data dengan benar!",
-                                icon: "error",
-                            });
-                        }
-                        else{
-                            swal({
-                                title: "Berhasil Mendaftar!",
-                                text: "Silahkan cek email untuk verifikasi data!",
-                                icon: "success",
-                            });
-                            $('#regForm')[0].reset();
-                        }
+            $.ajax({  
+                url:"<?php echo base_url(); ?>Daftar/registrasi_user",   
+                method:"POST",  
+                data:new FormData(this),  
+                contentType: false,  
+                cache: false,  
+                processData:false,  
+                dataType: "json",
+                success:function(res) {
+                    $('#regText').html('Daftar');
+                    $('#daftar').attr('disabled', false);  
+                    console.log(res.success);
+                    if(res.success == true){  
+                        swal({
+                            title: "Berhasil!",
+                            text: res.msg,
+                            icon: "success",
+                        });
                     }
-                });
-                $('#regForm')[0].reset();
-            };
-            setTimeout(save, 1000);
+                    else if(res.success == false){
+                        swal({
+                            title: "Gagal!",
+                            text: res.msg,
+                            icon: "error",
+                        });
+                    }
+                    // setTimeout(function(){
+                    //     location.reload(); 
+                    // }, 1000);
+                }  
+            });  
         });
+        // $('#regForm').submit(function(e){
+        //     e.preventDefault();
+        //     $('#regText').html('Mendaftar ...');
+        //     $('#daftar').attr('disabled', true);
+        //     var url = '<?php echo base_url(); ?>';
+        //     var user = $('#regForm').serialize();
+        //     var save = function(){
+        //         $.ajax({  
+        //             url:"<?php echo base_url(); ?>Daftar/registrasi_user",   
+        //             method:"POST",  
+        //             data:new FormData(this),  
+        //             contentType: false,  
+        //             cache: false,  
+        //             processData:false,  
+        //             dataType: "json",
+        //             success:function(res)  
+        //             {  
+        //                 $('#message').html(response.message);
+        //                 $('#regText').html('Daftar');
+        //                 $('#daftar').attr('disabled', false);
+        //                 console.log(res.success);
+        //                 if(res.success == true){  
+        //                     swal({
+        //                         title: "Berhasil!",
+        //                         text: res.msg,
+        //                         icon: "success",
+        //                     });
+        //                 }
+        //                 else if(res.success == false){
+        //                     swal({
+        //                         title: "Gagal!",
+        //                         text: res.msg,
+        //                         icon: "error",
+        //                     });
+        //                 }
+        //                 table.ajax.reload();
+        //                 // setTimeout(function(){
+        //                 //     location.reload(); 
+        //                 // }, 1000);
+        //             }  
+        //         });
+        //         $.ajax({
+        //             type: 'POST',
+        //             url: url + 'Daftar/registrasi_user',
+        //             dataType: 'json',
+        //             data: user,
+        //             success:function(response){
+        //                 $('#message').html(response.message);
+        //                 $('#regText').html('Daftar');
+        //                 $('#daftar').attr('disabled', false);
+        //                 if(response.error){
+        //                     swal({
+        //                         title: "Gagal Mendaftar!",
+        //                         text: "Silahkan isi data dengan benar!",
+        //                         icon: "error",
+        //                     });
+        //                 }
+        //                 else{
+        //                     swal({
+        //                         title: "Berhasil Mendaftar!",
+        //                         text: "Silahkan cek email untuk verifikasi data!",
+        //                         icon: "success",
+        //                     });
+        //                     $('#regForm')[0].reset();
+        //                 }
+        //             }
+        //         });
+        //         $('#regForm')[0].reset();
+        //     }
+        // });
 
-        $(document).on('click', '#clearMsg', function(){
-            $('#responseDiv').hide();
-        });
+        // $(document).on('click', '#clearMsg', function(){
+        //     $('#responseDiv').hide();
+        // });
     });
     </script>
 </body>

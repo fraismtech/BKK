@@ -10,9 +10,6 @@ class Dashboard extends CI_Controller {
 
 		if ($this->session->has_userdata('logged_in') == TRUE) {
 			if ($this->session->userdata('level_user') == '1') {
-				redirect('Bkk');
-			}
-			if ($this->session->userdata('level_user') == '3') {
 				redirect('DashboardBkk');
 			}
 		} else {

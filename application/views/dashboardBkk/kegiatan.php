@@ -8,8 +8,11 @@
                 <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#modalAdd">Tambah</button>
             </div>
             <div class="card-body">
+                <div class="form-group">
+                    <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button>
+                </div>
                 <div class="datatable-wrapper table-responsive">
-                    <table id="example" class="display compact table table-striped">
+                    <table id="example" class="display compact table table-striped" width="100%">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -35,7 +38,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="panel-title">
-                    <h4>Tambah Slider</h4>
+                    <h4>Tambah Kegiatan</h4>
                 </div>
                 <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
             </div>
@@ -79,7 +82,7 @@
         <div class="modal-content">
             <div class="modal-header">
               <div class="panel-title">
-                <h4>Edit Slider</h4>
+                <h4>Edit Kegiatan</h4>
               </div>
               <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
             </div>
@@ -223,7 +226,7 @@ $(document).ready(function() {
                     },
                     success:function(data){
                         swal({
-                            title: "Deleted!",
+                            title: "Terhapus!",
                             icon: "success",
                             text: data.msg,
                             buttons: true,
@@ -236,7 +239,7 @@ $(document).ready(function() {
                 }, 600);
             } else {
                 swal({
-                    title: "Slider tersimpan!",
+                    title: "Kegiatan tersimpan!",
                     icon: "info",
                     timer: 10000
                 });
