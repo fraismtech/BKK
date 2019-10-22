@@ -74,6 +74,15 @@ class M_Dashboard_Pusat extends CI_Model
     var $where_8 = array('');
     var $order_8 = array('id_keahlian' => 'asc'); // default order
 
+    // BKK
+    var $table_9          = 'table_sekolah';
+    var $table_9_2        = 'table_login';
+    var $table_9_3        = 'table_perijinan';
+    var $column_order_9   = array('npsn','nama_sekolah','alamat_sekolah','no_ijin','tgl_perijinan'); //set column field database for datatable orderable
+    var $column_search_9  = array('npsn','nama_sekolah','alamat_sekolah','kelurahan','kecamatan','no_ijin','DATE_FORMAT(tgl_perijinan, "%d %b %Y")','struktur','dokumen'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $where_9 = array('');
+    var $order_9 = array('nama_sekolah' => 'asc'); // default order
+
     public function __construct()
     {
         parent::__construct();
@@ -867,6 +876,84 @@ class M_Dashboard_Pusat extends CI_Model
     {
         $this->db->from('table_lowongan');
         // $this->db->where('id_sekolah', $id_sekolah);
+        $this->db->count_all_results();
+    }
+
+    // Lowongan Kerja
+    private function _get_datatables_query_bkk()
+    {
+        $this->db->from($this->table_9);
+        $this->db->join($this->table_9_2, $this->table_9_2.'.id_sekolah ='.$this->table_9.'.id_sekolah');
+        $this->db->join($this->table_9_3, $this->table_9_3.'.id_perijinan ='.$this->table_9_2.'.id_perijinan');
+        // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
+        // $this->db->where('table_nabung.username=', $username);
+        $this->db->order_by('nama_sekolah', 'DESC');
+        $this->db->group_by($this->table_9_2.'.id_sekolah');
+
+        $i = 0;
+    
+        foreach ($this->column_search_9 as $item) // loop column 
+        {
+            if($_POST['search']['value']) // if datatable send POST for search
+            {
+                
+                if($i===0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                }
+                else
+                {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if(count($this->column_search_9) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+        
+        if(isset($_POST['order_9'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_9[$_POST['order_9']['0']['column']], $_POST['order_9']['0']['dir']);
+        } 
+        else if(isset($this->order_9))
+        {
+            $order_9 = $this->order_9;
+            $this->db->order_by(key($order_9), $order_9[key($order_9)]);
+        }
+    }
+
+    public function get_datatables_bkk()
+    {
+        $this->_get_datatables_query_bkk();
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function count_filtered_bkk()
+    {
+        $this->db->from($this->table_9);
+        $this->db->join($this->table_9_2, $this->table_9_2.'.id_sekolah ='.$this->table_9.'.id_sekolah');
+        $this->db->join($this->table_9_3, $this->table_9_3.'.id_perijinan ='.$this->table_9_2.'.id_perijinan');
+        // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
+        // $this->db->where('table_nabung.username=', $username);
+        $this->db->group_by($this->table_9_2.'.id_sekolah');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_bkk()
+    {
+        $this->db->select($this->table_9.'.id_sekolah');
+        $this->db->from($this->table_9);
+        $this->db->join($this->table_9_2, $this->table_9_2.'.id_sekolah ='.$this->table_9.'.id_sekolah');
+        $this->db->join($this->table_9_3, $this->table_9_3.'.id_perijinan ='.$this->table_9_2.'.id_perijinan');
+        // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
+        // $this->db->where('table_nabung.username=', $username);
+        $this->db->group_by($this->table_9_2.'.id_sekolah');
         $this->db->count_all_results();
     }
 

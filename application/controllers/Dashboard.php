@@ -783,6 +783,76 @@ class Dashboard extends CI_Controller {
 		echo json_encode($output);
 	}
 
+	// BKK
+	public function ajax_list_bkk()
+	{
+		date_default_timezone_set('Asia/Jakarta');
+
+		$id_user = $this->session->userdata('id');
+
+		$list = $this->dashboard->get_datatables_bkk();
+		$data = array();
+		$no = 1;
+		foreach ($list as $bkk) {
+			$row = array();
+			$row[] = $no.'.';
+			$row[] = $bkk->npsn;
+			$row[] = $bkk->nama_sekolah;
+			$row[] = $bkk->alamat_sekolah.', '.$bkk->kelurahan.', '.$bkk->kecamatan;
+			$row[] = $bkk->no_ijin;
+			$row[] = date('d M Y', strtotime($bkk->tgl_perijinan));
+			$row[] = '<a class="view popup portfolio-img" href="'.base_url().'assets/upload/struktur_bkk/'.$bkk->struktur.'">'.$bkk->struktur.'</a>';
+			$row[] = '<a class="view popup portfolio-img" href="'.base_url().'assets/upload/file/'.$bkk->dokumen.'">'.$bkk->dokumen.'</a>';
+			// $row[] = '
+	  //             	<a href="'.base_url().'dashboardBkk/lokerEdit/'.$loker->id_lowongan.'" title="Edit Data">
+	  //           		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+	  //           	</a>
+		 //            <button class="btn btn-sm btn-danger hapus-loker" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$loker->id_lowongan.'" title="Hapus Data">
+		 //            	<i class="fa fa-trash"></i>
+		 //            </button>';
+
+			$data[] = $row;
+			$no++;
+		}
+		// <a
+		//             href="javascript:void(0)"
+		//             data-id_lowongan="'.$loker->id_lowongan.'"
+		//             data-id_sekolah="'.$loker->id_sekolah.'"
+		//             data-id_mitra="'.$loker->id_mitra.'"
+		//             data-id_posisi_jabatan="'.$loker->id_posisi_jabatan.'"
+		//             data-id_keahlian="'.$loker->id_keahlian.'"
+		//             data-id_status_pendidikan="'.$loker->id_status_pendidikan.'"
+		//             data-id_jenis_pengupahan="'.$loker->id_jenis_pengupahan.'"
+		//             data-id_status_hub_kerja="'.$loker->id_status_hub_kerja.'"
+		//             data-tanggal_berlaku="'.$loker->tanggal_berlaku.'"
+		//             data-tanggal_berakhir="'.$loker->tanggal_berakhir.'"
+		//             data-nama_lowongan="'.$loker->nama_lowongan.'"
+		//             data-uraian_pekerjaan="'.$loker->uraian_pekerjaan.'"
+		//             data-uraian_tugas="'.$loker->uraian_tugas.'"
+		//             data-penempatan="'.$loker->penempatan.'"
+		//             data-batas_umur="'.$loker->batas_umur.'"
+		//             data-jml_pria="'.$loker->jml_pria.'"
+		//             data-jml_wanita="'.$loker->jml_wanita.'"
+		//             data-jurusan="'.$loker->jurusan.'"
+		//             data-pengalaman="'.$loker->pengalaman.'"
+		//             data-syarat_khusus="'.$loker->syarat_khusus.'"
+		//             data-gaji_per_bulan="'.$loker->gaji_per_bulan.'"
+		//             data-jam_kerja="'.$loker->jam_kerja.'"
+		//             data-toggle="modal" data-target="#edit-data"
+		//             title="Edit Data">
+		//             	<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+		//             </a>
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->dashboard->count_all_bkk(),
+						"recordsFiltered" => $this->dashboard->count_filtered_bkk(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+	}
+
 	// End of Ajax Serverside
 	
 }

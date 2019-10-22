@@ -318,9 +318,7 @@
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/alumni" aria-expanded="false"><i class="nav-icon ti ti-clipboard"></i><span class="nav-title">Alumni</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/mitra" aria-expanded="false"><i class="nav-icon ti ti-user"></i><span class="nav-title">Mitra BKK</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/user" aria-expanded="false"><i class="nav-icon ti ti-briefcase"></i><span class="nav-title">User</span></a> </li>
-								<?php }else if ($this->uri->segment(1) == "dashboard" || $this->uri->segment(1) == "Dashboard") {
-									# code...
-								}{ ?>
+								<?php }else{ ?>
 								<li class="nav-static-title">Dashboard</li>
 								<li class="active"><a href="<?php echo base_url(); ?>dashboard" aria-expanded="false"><i class="nav-icon ti ti-dashboard"></i><span class="nav-title">Dashboard</span></a> </li>
 								<li class="nav-static-title">Menu</li>
