@@ -3,23 +3,26 @@
         <div class="card card-statistics">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-heading">
-                    <h4 class="card-title">Data Posisi Lowongan Kerja</h4>
+                    <h4 class="card-title">Data Slider</h4>
                 </div>
                 <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#modalAdd">Tambah</button>
             </div>
             <div class="card-body">
+                <!-- <div class="form-group">
+                    <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button>
+                </div> -->
                 <div class="datatable-wrapper table-responsive">
                     <table id="example" class="display compact table table-striped" width="100%">
                         <thead>
                             <tr>
                                 <th>No.</th>
-                                <th>ID Posisi Lowongan Kerja</th>
-                                <th>Nama Posisi Lowongan Kerja</th>
+                                <th>tanggal</th>
+                                <th>Judul</th>
+                                <th>Foto</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
-                            
                         </tbody>
                     </table>
                 </div>
@@ -33,7 +36,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <div class="panel-title">
-                    <h4>Tambah Posisi Lowongan Kerja</h4>
+                    <h4>Tambah Slider</h4>
                 </div>
                 <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
             </div>
@@ -41,12 +44,21 @@
                 <form method="post" id="sliderForm" autocomplete="off" enctype="multipart/form-data">
                     <div class="pl-lg-1">
                         <div class="form-group">
-                            <label>ID Posisi Lowongan</label>
-                            <input type="text" name="id_jenis_lowongan" class="form-control" placeholder="ID Posisi Lowongan">
+                            <label>Tanggal</label>
+                            <div class='input-group date' id='datepicker-bottom-left'>
+                                <input class="form-control" type='text' name="tanggal" placeholder="Tanggal Slider" />
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                            </div>
                         </div>
                         <div class="form-group">
-                            <label>Nama Posisi Lowongan</label>
-                            <input type="text" name="nama_jenis_lowongan" class="form-control" placeholder="Nama Posisi Lowongan">
+                            <label>Judul</label>
+                            <input type="text" name="judul" class="form-control" placeholder="Judul">
+                        </div>
+                        <div class="form-group">
+                            <label>Foto</label>
+                            <input type="file" name="file" class="form-control foto" placeholder="Foto">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="textSlider">Simpan</span></button>
@@ -64,19 +76,32 @@
         <div class="modal-content">
             <div class="modal-header">
               <div class="panel-title">
-                <h4>Edit Posisi Lowongan Kerja</h4>
+                <h4>Edit Slider</h4>
               </div>
               <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
             </div>
             <form class="form-horizontal" method="post" enctype="multipart/form-data" id="editForm" role="form" autocomplete="false"> 
                 <div class="modal-body">
+                    <input type="hidden" name="id_slider" id="id">
                     <div class="form-group">
-                            <label>ID Posisi Lowongan</label>
-                            <input type="text" name="id_jenis_lowongan" id="id" class="form-control" placeholder="ID Posisi Lowongan" readonly="">
+                        <label>Tanggal</label>
+                        <div class='input-group date' id='datepicker-action'>
+                            <input class="form-control" type='text' name="tanggal" placeholder="Tanggal Slider" id="tanggal" />
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
                         </div>
+                    </div>
                     <div class="form-group">
-                        <label>Nama Posisi Lowongan</label>
-                        <input type="text" name="nama_jenis_lowongan" id="posisi_lowongan" class="form-control" placeholder="Nama Jurusan">
+                        <label>Judul</label>
+                        <input type="text" name="judul" class="form-control" placeholder="Judul" id="judul">
+                    </div>
+                    <div class="form-group">
+                        <label>Foto</label>
+                        <input type="file" name="file" class="form-control foto" placeholder="Foto"><br>
+                        <div class="portfolio-item">
+                            <img id="foto" alt="gallery-img">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -87,6 +112,24 @@
         </div>
     </div>
 </div>
+
+<div id="myModal" class="modal fade" style="margin-top: 150px ">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h4 class="modal-title">Ooopss..</h4>
+              <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
+          </div>
+          <div class="modal-body">
+              <h4>You dont have any available moneybox,<br>create a new one by clicking button below</h4>
+          </div>
+          <div class="modal-footer">
+            <a class="btn btn-info" href="<?= base_url('Home/celengan'); ?>">Create</a>
+          </div>
+      </div>
+  </div>
+</div>
+
 <script type="text/javascript">
 $(document).ready(function() {
     var table = $('#example').DataTable({ 
@@ -97,7 +140,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('dashboard/ajax_list_posisi_loker')?>",
+            "url": "<?php echo site_url('dashboard/ajax_list')?>",
             "type": "POST"
         },
 
@@ -111,10 +154,10 @@ $(document).ready(function() {
             "targets": [ 3 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
-        // { 
-        //     "targets": [ 4 ], //first column / numbering column
-        //     "orderable": false, //set not orderable
-        // },
+        { 
+            "targets": [ 4 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
         ],
             "language": {         
               "info": "",
@@ -137,16 +180,21 @@ $(document).ready(function() {
     $('#edit-data').on('show.bs.modal', function(event) {
         var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
         var modal = $(this)
-        var id_sekolah = div.data('id_sekolah');
 
         // Isi nilai pada field
         modal.find('#id').attr("value", div.data('id'));
-        // $('.select2_single option[value="'+id_sekolah+'"]').attr('selected','selected');
-        modal.find('#posisi_lowongan').attr("value", div.data('posisi_lowongan'));
+        modal.find('#tanggal').attr("value", div.data('tanggal'));
+        modal.find('#judul').attr("value", div.data('judul'));
+        modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/" + div.data('foto'));
+        modal.find('#roomNumber').text(div.data('foto'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
     });
 
     $('#example').on('click','.hapus-menabung', function () {
         var id =  $(this).data('id');
+        var celengan =  $(this).data('celengan');
+        var jumlah =  $(this).data('jumlah');
         swal({
             title: "Anda yakin?",
             text: "Saat dihapus, Anda tidak dapat mengembalikan data!",
@@ -156,7 +204,7 @@ $(document).ready(function() {
         }).then((result) => {
             if (result) {
                 $.ajax({
-                    url: "<?php echo base_url();?>dashboard/hapusPosisiLowongan/" + id,  
+                    url: "<?php echo base_url();?>dashboard/hapusSlider/" + id,  
                     method: "GET",
                     beforeSend :function() {
                     swal({
@@ -183,7 +231,7 @@ $(document).ready(function() {
                 }, 600);
             } else {
                 swal({
-                    title: "Posisi Lowongan Kerja tersimpan!",
+                    title: "Slider tersimpan!",
                     icon: "info",
                     timer: 10000
                 });
@@ -215,7 +263,7 @@ $(document).ready(function(){
         e.preventDefault();  
        
         $.ajax({  
-            url:"<?php echo base_url(); ?>dashboard/tambahPosisiLowongan",   
+            url:"<?php echo base_url(); ?>dashboard/tambahSlider",   
             method:"POST",  
             data:new FormData(this),  
             contentType: false,  
@@ -255,7 +303,7 @@ $(document).ready(function(){
         e.preventDefault();  
        
         $.ajax({  
-            url:"<?php echo base_url(); ?>dashboard/editPosisiLowongan",   
+            url:"<?php echo base_url(); ?>dashboard/editSlider",   
             method:"POST",  
             data:new FormData(this),  
             contentType: false,  

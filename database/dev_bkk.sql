@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 18, 2019 at 05:13 AM
+-- Generation Time: Oct 22, 2019 at 06:25 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -7845,6 +7845,233 @@ INSERT INTO `regencies` (`id`, `province_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `table_alamat`
+--
+
+CREATE TABLE `table_alamat` (
+  `id_alamat` int(11) NOT NULL,
+  `alamat_lengkap` text NOT NULL,
+  `provinsi` varchar(64) NOT NULL,
+  `kota` varchar(64) NOT NULL,
+  `kecamatan` varchar(64) NOT NULL,
+  `kelurahan` varchar(64) NOT NULL,
+  `kode_pos` varchar(12) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_alamat`
+--
+
+INSERT INTO `table_alamat` (`id_alamat`, `alamat_lengkap`, `provinsi`, `kota`, `kecamatan`, `kelurahan`, `kode_pos`) VALUES
+(1, 'aaa', 'JAWA BARAT', 'KOTA DEPOK', 'CIMANGGIS', 'CURUG', '12345'),
+(3, 'sadad', 'LAMPUNG', 'KABUPATEN PRINGSEWU', 'AMBARAWA', 'TANJUNG ANOM', '234132');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_alumni`
+--
+
+CREATE TABLE `table_alumni` (
+  `id_alumni` int(11) NOT NULL,
+  `nisn` varchar(24) NOT NULL,
+  `nik` varchar(24) NOT NULL,
+  `nama` varchar(128) NOT NULL,
+  `jenis_kelamin` varchar(5) NOT NULL,
+  `tempat_lahir` varchar(128) NOT NULL,
+  `tanggal_lahir` date NOT NULL,
+  `alamat_alumni` text NOT NULL,
+  `no_telp` varchar(24) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `jurusan` varchar(128) NOT NULL,
+  `tahun_lulus` year(4) NOT NULL,
+  `status` enum('Bekerja','Kuliah','Wiraswasta','Belum Bekerja') NOT NULL,
+  `nama_perusahaan` varchar(128) DEFAULT NULL,
+  `alamat_perusahaan` text,
+  `no_telp_perusahaan` varchar(20) DEFAULT NULL,
+  `id_sekolah` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_alumni`
+--
+
+INSERT INTO `table_alumni` (`id_alumni`, `nisn`, `nik`, `nama`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat_alumni`, `no_telp`, `email`, `jurusan`, `tahun_lulus`, `status`, `nama_perusahaan`, `alamat_perusahaan`, `no_telp_perusahaan`, `id_sekolah`) VALUES
+(1, '12314', '231412', '124', 'L', 'KOTA DEPOK', '2019-10-16', 'aaa', '214124', 'aaa@gmail.com', '1', 2015, 'Kuliah', NULL, NULL, NULL, '1'),
+(2, '41512141', '354631321415', 'aaada', 'P', 'KABUPATEN PRINGSEWU', '2019-10-22', 'sadad', '3423521', 'asda@gmail.com', '1', 2019, 'Belum Bekerja', NULL, NULL, NULL, '1');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_cp_mitra`
+--
+
+CREATE TABLE `table_cp_mitra` (
+  `id_cp_mitra` int(11) NOT NULL,
+  `nama_cp` varchar(128) NOT NULL,
+  `jabatan_cp` varchar(64) NOT NULL,
+  `no_telp_cp` varchar(24) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_cp_mitra`
+--
+
+INSERT INTO `table_cp_mitra` (`id_cp_mitra`, `nama_cp`, `jabatan_cp`, `no_telp_cp`) VALUES
+(1, 'aaaa', 'aaaaa', '129389121824'),
+(3, 'sadasd', 'adsdasd', '134451231');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_jenis_lowongan`
+--
+
+CREATE TABLE `table_jenis_lowongan` (
+  `id_jenis_lowongan` char(6) NOT NULL,
+  `nama_jenis_lowongan` varchar(45) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_jenis_lowongan`
+--
+
+INSERT INTO `table_jenis_lowongan` (`id_jenis_lowongan`, `nama_jenis_lowongan`) VALUES
+('000001', 'Computer / IT'),
+('000002', 'Accounting / Finance'),
+('000003', 'Sales / Marketing'),
+('000004', 'Admin / HR'),
+('000005', 'Engineering'),
+('000006', 'Manufacturing'),
+('000007', 'Building / Construction'),
+('000008', 'Hotel / Restaurant'),
+('000009', 'Education / Trainer'),
+('000010', 'Arts / Media / Comm'),
+('000011', 'Services'),
+('000012', 'Sciences'),
+('000013', 'Caddy'),
+('000014', 'Management Trainee'),
+('000015', 'Driver'),
+('000016', 'MARKETING EXPORT'),
+('000017', 'SUPERVISOR'),
+('000018', 'STAFF PENGAJAR'),
+('000019', 'Produksi'),
+('000020', 'Manajer'),
+('000021', 'PERTAMBANGAN'),
+('000022', 'TEKNISI'),
+('000023', 'Kepala Unit Produksi'),
+('000024', 'Security'),
+('000025', 'STAFF ADMINISTRASI'),
+('000026', 'STAFF PEMASARAN'),
+('000027', 'STAFF ACCOUNTING'),
+('000028', 'STAFF IT'),
+('000029', 'Programer'),
+('000030', 'Koordinator'),
+('000032', 'KESEHATAN'),
+('000033', 'Purchasing'),
+('000034', 'Safety'),
+('000035', 'Project'),
+('000036', 'Staf Gudang'),
+('000037', 'Waitress'),
+('999999', 'Lainnya');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_jenis_pengupahan`
+--
+
+CREATE TABLE `table_jenis_pengupahan` (
+  `id_jenis_pengupahan` char(6) NOT NULL,
+  `nama_jenis_pengupahan` varchar(45) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_jenis_pengupahan`
+--
+
+INSERT INTO `table_jenis_pengupahan` (`id_jenis_pengupahan`, `nama_jenis_pengupahan`) VALUES
+('000001', 'Borongan'),
+('000002', 'Harian'),
+('000003', 'Mingguan'),
+('000004', 'Bulanan');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_jurusan`
+--
+
+CREATE TABLE `table_jurusan` (
+  `id_jurusan` int(11) NOT NULL,
+  `id_sekolah` varchar(10) NOT NULL,
+  `nama_jurusan` varchar(128) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_jurusan`
+--
+
+INSERT INTO `table_jurusan` (`id_jurusan`, `id_sekolah`, `nama_jurusan`) VALUES
+(1, '1', 'Rekayasa Perangkat Lunak'),
+(2, '1', 'Multimedia');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_keahlian`
+--
+
+CREATE TABLE `table_keahlian` (
+  `id_keahlian` char(6) NOT NULL,
+  `id_jenis_lowongan` char(6) NOT NULL,
+  `nama_keahlian` varchar(45) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_keahlian`
+--
+
+INSERT INTO `table_keahlian` (`id_keahlian`, `id_jenis_lowongan`, `nama_keahlian`) VALUES
+('000001', '000001', 'ANALISIS DATA'),
+('000002', '000001', 'Database Administrator'),
+('000003', '000001', 'Helpdesk'),
+('000004', '000001', 'IT Dekstop Programmer ( IDP )'),
+('000005', '000001', 'IT Programmer'),
+('000006', '000001', 'IT Technical Support'),
+('000007', '000001', 'Programmer PHP'),
+('000008', '000001', 'Senior IT'),
+('000009', '000001', 'Staff IT'),
+('000010', '000001', 'System Analist'),
+('000011', '000001', 'Web Designer'),
+('000012', '000001', 'Yunior IT'),
+('000013', '000002', 'Auditor'),
+('000014', '000002', 'Cashier'),
+('000015', '000002', 'Funding Officer'),
+('000016', '000002', 'INTERNAL AUDIT'),
+('000017', '000002', 'Internal Audit'),
+('000018', '000002', 'JUNIOR ACCOUNTING STAFF'),
+('000019', '000002', 'PROSHOP'),
+('000020', '000002', 'SENIOR ACCOUNTING'),
+('000021', '000002', 'STAFF ACCOUNT RECEIVEABLE'),
+('000022', '000002', 'Staff Accounting'),
+('000023', '000002', 'STAFF DATA ANALYST'),
+('000024', '000002', 'Staff Finance'),
+('000025', '000002', 'STAFF FRONT END AUDIT'),
+('000026', '000002', 'Tax Staff'),
+('000027', '000002', 'Teller'),
+('000028', '000036', 'Distribusi Center'),
+('999999', '999999', 'Lainnya'),
+('100000', '000004', 'Administrasi HR'),
+('100001', '000001', 'Android Developer'),
+('100002', '000003', 'Sales dan Marketing'),
+('100003', '000032', 'Apoteker'),
+('100004', '000032', 'Rehab Medik'),
+('100005', '000032', 'Perawat');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `table_kegiatan`
 --
 
@@ -7853,15 +8080,17 @@ CREATE TABLE `table_kegiatan` (
   `tanggal_kegiatan` date NOT NULL,
   `judul_kegiatan` text NOT NULL,
   `uraian_kegiatan` text NOT NULL,
-  `foto_kegiatan` varchar(255) NOT NULL
+  `foto_kegiatan` varchar(255) NOT NULL,
+  `id_sekolah` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `table_kegiatan`
 --
 
-INSERT INTO `table_kegiatan` (`id_kegiatan`, `tanggal_kegiatan`, `judul_kegiatan`, `uraian_kegiatan`, `foto_kegiatan`) VALUES
-(2, '2019-10-22', 'sadasd', 'sadasda', 'kepala_keluarga.PNG');
+INSERT INTO `table_kegiatan` (`id_kegiatan`, `tanggal_kegiatan`, `judul_kegiatan`, `uraian_kegiatan`, `foto_kegiatan`, `id_sekolah`) VALUES
+(2, '2019-10-22', 'sadasd', 'sadasda', 'kepala_keluarga.PNG', '1'),
+(3, '2019-10-23', 'gdgs', 'asdasda', '0.jpg', '2');
 
 -- --------------------------------------------------------
 
@@ -7871,28 +8100,198 @@ INSERT INTO `table_kegiatan` (`id_kegiatan`, `tanggal_kegiatan`, `judul_kegiatan
 
 CREATE TABLE `table_login` (
   `id_user` int(11) NOT NULL,
-  `username` varchar(128) NOT NULL,
-  `password` varchar(128) NOT NULL,
-  `nama` varchar(128) NOT NULL,
-  `jurusan` varchar(64) NOT NULL,
-  `npsn` varchar(64) NOT NULL,
-  `nama_sekolah` varchar(128) NOT NULL,
+  `username` varchar(64) NOT NULL,
+  `password` varchar(64) NOT NULL,
+  `nama_operator` varchar(128) NOT NULL,
   `email` varchar(64) NOT NULL,
   `no_hp` varchar(15) NOT NULL,
-  `alamat` text NOT NULL,
-  `kecamatan` varchar(32) NOT NULL,
-  `kelurahan` varchar(32) NOT NULL,
-  `level` enum('1','2','3') NOT NULL,
+  `id_sekolah` varchar(32) NOT NULL,
+  `id_perijinan` varchar(32) NOT NULL,
+  `level` enum('1','2') NOT NULL,
   `status` enum('0','1') NOT NULL,
-  `date_created` datetime DEFAULT NULL
+  `date_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `table_login`
 --
 
-INSERT INTO `table_login` (`id_user`, `username`, `password`, `nama`, `jurusan`, `npsn`, `nama_sekolah`, `email`, `no_hp`, `alamat`, `kecamatan`, `kelurahan`, `level`, `status`, `date_created`) VALUES
-(1, '0042170158', 'e10adc3949ba59abbe56e057f20f883e', 'Ari', 'Jurusan 3', '12345', 'SMK Negeri 1 Depok', 'calenger747@gmail.com', '081389061742', 'Jl. Bakti Suci', 'TAPOS', 'TAPOS', '3', '1', '2019-10-15 22:10:06');
+INSERT INTO `table_login` (`id_user`, `username`, `password`, `nama_operator`, `email`, `no_hp`, `id_sekolah`, `id_perijinan`, `level`, `status`, `date_created`) VALUES
+(1, '0042170158', 'e10adc3949ba59abbe56e057f20f883e', 'Busrek', 'admin@gmail.com', '081231713822', '1', '1', '1', '1', '2019-10-18 15:45:39'),
+(2, 'ari', '827ccb0eea8a706c4c34a16891f84e7b', 'ari', 'aaa@gmail.com', '8128314121', '1', '1', '1', '1', '2019-10-20 14:46:24'),
+(3, '123456', 'e10adc3949ba59abbe56e057f20f883e', 'Handi', 'aaa@gmail.com', '8128314121', '', '', '2', '1', '2019-10-21 09:25:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_lowongan`
+--
+
+CREATE TABLE `table_lowongan` (
+  `id_lowongan` int(11) NOT NULL,
+  `id_sekolah` varchar(10) NOT NULL,
+  `id_mitra` varchar(10) NOT NULL,
+  `id_posisi_jabatan` varchar(10) NOT NULL,
+  `id_keahlian` varchar(10) NOT NULL,
+  `id_status_pendidikan` varchar(10) NOT NULL,
+  `id_jenis_pengupahan` varchar(10) NOT NULL,
+  `id_status_hub_kerja` varchar(10) NOT NULL,
+  `tanggal_berlaku` date NOT NULL,
+  `tanggal_berakhir` date NOT NULL,
+  `nama_lowongan` varchar(128) NOT NULL,
+  `uraian_pekerjaan` text NOT NULL,
+  `uraian_tugas` text NOT NULL,
+  `penempatan` varchar(128) NOT NULL,
+  `batas_umur` int(11) NOT NULL,
+  `jml_pria` int(11) NOT NULL,
+  `jml_wanita` int(11) NOT NULL,
+  `jurusan` varchar(10) NOT NULL,
+  `pengalaman` text NOT NULL,
+  `syarat_khusus` text NOT NULL,
+  `gaji_per_bulan` decimal(18,0) NOT NULL,
+  `jam_kerja` decimal(18,0) NOT NULL,
+  `register_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_lowongan`
+--
+
+INSERT INTO `table_lowongan` (`id_lowongan`, `id_sekolah`, `id_mitra`, `id_posisi_jabatan`, `id_keahlian`, `id_status_pendidikan`, `id_jenis_pengupahan`, `id_status_hub_kerja`, `tanggal_berlaku`, `tanggal_berakhir`, `nama_lowongan`, `uraian_pekerjaan`, `uraian_tugas`, `penempatan`, `batas_umur`, `jml_pria`, `jml_wanita`, `jurusan`, `pengalaman`, `syarat_khusus`, `gaji_per_bulan`, `jam_kerja`, `register_date`) VALUES
+(1, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
+(2, '1', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_mitra`
+--
+
+CREATE TABLE `table_mitra` (
+  `id_mitra` int(11) NOT NULL,
+  `nama_perusahaan` varchar(255) NOT NULL,
+  `bidang_usaha` varchar(255) NOT NULL,
+  `no_telp` varchar(24) NOT NULL,
+  `email` varchar(128) NOT NULL,
+  `jenis_kemitraan` varchar(128) NOT NULL,
+  `id_alamat` int(11) NOT NULL,
+  `id_cp_mitra` int(11) NOT NULL,
+  `id_periode` int(11) NOT NULL,
+  `id_sekolah` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_mitra`
+--
+
+INSERT INTO `table_mitra` (`id_mitra`, `nama_perusahaan`, `bidang_usaha`, `no_telp`, `email`, `jenis_kemitraan`, `id_alamat`, `id_cp_mitra`, `id_periode`, `id_sekolah`) VALUES
+(1, 'aaa', 'aaa', '12398102102', 'aaa@gmail.com', 'aaa', 1, 1, 1, 1),
+(3, 'addd', 'adasda', '13414123', 'asda@gmail.com', 'asdajd', 3, 3, 3, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_perijinan`
+--
+
+CREATE TABLE `table_perijinan` (
+  `id_perijinan` int(11) NOT NULL,
+  `ijin_bkk` varchar(32) NOT NULL,
+  `no_ijin` varchar(128) NOT NULL,
+  `tgl_perijinan` date NOT NULL,
+  `dokumen` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_perijinan`
+--
+
+INSERT INTO `table_perijinan` (`id_perijinan`, `ijin_bkk`, `no_ijin`, `tgl_perijinan`, `dokumen`) VALUES
+(1, 'Ya', '1341351', '2019-10-18', 'CV_FRAIS_MEDIATECH1.docx'),
+(2, 'Ya', '123456', '2019-10-20', 'Gmail_-_Undangan_Tes_Online_Rekrutmen_Pertamina_Group.pdf');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_periode`
+--
+
+CREATE TABLE `table_periode` (
+  `id_periode` int(11) NOT NULL,
+  `dari` date NOT NULL,
+  `sampai` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_periode`
+--
+
+INSERT INTO `table_periode` (`id_periode`, `dari`, `sampai`) VALUES
+(1, '2019-10-25', '2019-10-31'),
+(3, '2019-10-20', '2019-11-01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_posisi_jabatan`
+--
+
+CREATE TABLE `table_posisi_jabatan` (
+  `id_posisi_jabatan` char(6) NOT NULL,
+  `nama_posisi_jabatan` varchar(64) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_posisi_jabatan`
+--
+
+INSERT INTO `table_posisi_jabatan` (`id_posisi_jabatan`, `nama_posisi_jabatan`) VALUES
+('000021', 'Distribution'),
+('000020', 'Transportation'),
+('000019', 'Warehousing'),
+('000018', 'I T'),
+('000017', 'EXIM'),
+('000016', 'SECURITY'),
+('000015', 'PPIC'),
+('000014', 'KASIR'),
+('000013', 'MAINTENANCE'),
+('000012', 'ENGINERING'),
+('000011', 'WAITRESS'),
+('000010', 'DEBT COLLECTOR'),
+('000009', 'DRIVER'),
+('000008', 'Q A'),
+('000007', 'Quality Control'),
+('000006', 'Operator Produksi'),
+('000005', 'Staff'),
+('000004', 'Manajer'),
+('000003', 'Sekertaris'),
+('999999', 'Lainnya');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_sekolah`
+--
+
+CREATE TABLE `table_sekolah` (
+  `id_sekolah` int(11) NOT NULL,
+  `npsn` varchar(64) NOT NULL,
+  `nama_sekolah` varchar(128) NOT NULL,
+  `alamat_sekolah` text NOT NULL,
+  `kecamatan` varchar(64) NOT NULL,
+  `kelurahan` varchar(64) NOT NULL,
+  `visi` text NOT NULL,
+  `misi` text NOT NULL,
+  `struktur` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_sekolah`
+--
+
+INSERT INTO `table_sekolah` (`id_sekolah`, `npsn`, `nama_sekolah`, `alamat_sekolah`, `kecamatan`, `kelurahan`, `visi`, `misi`, `struktur`) VALUES
+(1, '324812', 'SMK Negeri 1 Depok', 'Jl. Bhakti Suci No. 100', 'TAPOS', 'TAPOS', 'sadas', 'sadas', 'Grades_for_Ari_Ariyanto__SRI_DIANING_ASRI(1).pdf'),
+(2, '12345', 'SMK Negeri 2 Depok', 'bbb', 'SAWANGAN', 'SAWANGAN BARU', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -7904,15 +8303,66 @@ CREATE TABLE `table_slider` (
   `id_slider` int(11) NOT NULL,
   `tanggal_slider` date NOT NULL,
   `judul_slider` text NOT NULL,
-  `foto_slider` varchar(255) NOT NULL
+  `foto_slider` varchar(255) NOT NULL,
+  `id_sekolah` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `table_slider`
 --
 
-INSERT INTO `table_slider` (`id_slider`, `tanggal_slider`, `judul_slider`, `foto_slider`) VALUES
-(6, '2019-10-25', 'sdasda', 'halaman_unit.PNG');
+INSERT INTO `table_slider` (`id_slider`, `tanggal_slider`, `judul_slider`, `foto_slider`, `id_sekolah`) VALUES
+(6, '2019-10-17', 'sdasda', 'pixel_google.jpg', '1'),
+(7, '2019-10-22', 'abc', 'chart1.png', '2'),
+(8, '2019-10-15', 'aisjda', '0.png', '1'),
+(9, '2019-10-10', '131', 'Screenshot_(10).png', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_status_hub_kerja`
+--
+
+CREATE TABLE `table_status_hub_kerja` (
+  `id_status_hub_kerja` char(6) NOT NULL,
+  `nama_status_hub_kerja` varchar(45) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_status_hub_kerja`
+--
+
+INSERT INTO `table_status_hub_kerja` (`id_status_hub_kerja`, `nama_status_hub_kerja`) VALUES
+('000001', 'Waktu tertentu'),
+('000002', 'Waktu tidak tertentu');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_status_pendidikan`
+--
+
+CREATE TABLE `table_status_pendidikan` (
+  `id_status_pendidikan` char(6) NOT NULL,
+  `nama_status_pendidikan` varchar(50) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_status_pendidikan`
+--
+
+INSERT INTO `table_status_pendidikan` (`id_status_pendidikan`, `nama_status_pendidikan`) VALUES
+('000001', 'Tidak Tamat SD'),
+('000002', 'SD'),
+('000003', 'SMP / MTS'),
+('000004', 'SMK / MAK'),
+('000005', 'SMA / MA'),
+('000006', 'D1'),
+('000007', 'D2'),
+('000008', 'D3'),
+('000009', 'S1 / D4'),
+('000010', 'S2'),
+('000011', 'S3');
 
 -- --------------------------------------------------------
 
@@ -39305,6 +39755,7 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3276040009', '3276040', 'HARJAMUKTI'),
 ('3276040010', '3276040', 'CISALAK PASAR'),
 ('3276040011', '3276040', 'MEKARSARI'),
+('3276040012', '3276040', 'CURUG'),
 ('3276040013', '3276040', 'PASIR GUNUNG SELATAN'),
 ('3276041001', '3276041', 'CILANGKAP'),
 ('3276041002', '3276041', 'CIMPAEUN'),
@@ -40431,9 +40882,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3304130006', '3304130', 'AMBAL'),
 ('3304130007', '3304130', 'PAGERPELAH'),
 ('3304130008', '3304130', 'PASURUHAN'),
-('3304130009', '3304130', 'KARANGGONDANG'),
-('3304130010', '3304130', 'JLEGONG');
+('3304130009', '3304130', 'KARANGGONDANG');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3304130010', '3304130', 'JLEGONG'),
 ('3304130011', '3304130', 'BINANGUN'),
 ('3304130012', '3304130', 'KARANGKOBAR'),
 ('3304130013', '3304130', 'LEKSANA'),
@@ -41745,9 +42196,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3308050014', '3308050', 'POLENGAN'),
 ('3308050015', '3308050', 'PUCANGANOM'),
 ('3308050016', '3308050', 'PANDANRETNO'),
-('3308050017', '3308050', 'TEGALRANDU'),
-('3308060002', '3308060', 'NGADIPURO');
+('3308050017', '3308050', 'TEGALRANDU');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3308060002', '3308060', 'NGADIPURO'),
 ('3308060003', '3308060', 'WATES'),
 ('3308060004', '3308060', 'KALIBENING'),
 ('3308060005', '3308060', 'NGARGOMULYO'),
@@ -43094,9 +43545,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3313060005', '3313060', 'BLUMBANG'),
 ('3313060006', '3313060', 'GONDOSULI'),
 ('3313060007', '3313060', 'TENGKLIK'),
-('3313060008', '3313060', 'NGLEBAK'),
-('3313060009', '3313060', 'KARANGLO');
+('3313060008', '3313060', 'NGLEBAK');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3313060009', '3313060', 'KARANGLO'),
 ('3313060010', '3313060', 'PLUMBON'),
 ('3313070001', '3313070', 'PUNTUKREJO'),
 ('3313070002', '3313070', 'BERJO'),
@@ -44432,9 +44883,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3318120001', '3318120', 'JAMBEAN KIDUL'),
 ('3318120002', '3318120', 'WANGUNREJO'),
 ('3318120003', '3318120', 'BUMIREJO'),
-('3318120004', '3318120', 'SOKOKULON'),
-('3318120005', '3318120', 'JIMBARAN');
+('3318120004', '3318120', 'SOKOKULON');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3318120005', '3318120', 'JIMBARAN'),
 ('3318120006', '3318120', 'NGAWEN'),
 ('3318120007', '3318120', 'MARGOREJO'),
 ('3318120008', '3318120', 'PENAMBUHAN'),
@@ -45765,9 +46216,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3324110028', '3324110', 'PUCANGREJO'),
 ('3324111001', '3324111', 'NGERJO'),
 ('3324111002', '3324111', 'KEDUNGASRI'),
-('3324111003', '3324111', 'KEDUNGGADING'),
-('3324111004', '3324111', 'RINGINARUM');
+('3324111003', '3324111', 'KEDUNGGADING');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3324111004', '3324111', 'RINGINARUM'),
 ('3324111005', '3324111', 'TEJOREJO'),
 ('3324111006', '3324111', 'NGAWENSARI'),
 ('3324111007', '3324111', 'WUNGUREJO'),
@@ -47079,9 +47530,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3329140013', '3329140', 'KLAMPOK'),
 ('3329140014', '3329140', 'PEBATAN'),
 ('3329140015', '3329140', 'PESANTUNAN'),
-('3329140016', '3329140', 'KEBOLEDAN'),
-('3329140018', '3329140', 'DUMELING');
+('3329140016', '3329140', 'KEBOLEDAN');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3329140018', '3329140', 'DUMELING'),
 ('3329140019', '3329140', 'KERTABESUKI'),
 ('3329140020', '3329140', 'SAWOJAJAR'),
 ('3329150001', '3329150', 'SONGGOM'),
@@ -48400,9 +48851,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3503100008', '3503100', 'NGULANWETAN'),
 ('3503100009', '3503100', 'NGULANKULON'),
 ('3503100010', '3503100', 'POGALAN'),
-('3503110001', '3503110', 'KARANGSOKO'),
-('3503110002', '3503110', 'SAMBIREJO');
+('3503110001', '3503110', 'KARANGSOKO');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3503110002', '3503110', 'SAMBIREJO'),
 ('3503110003', '3503110', 'KELUTAN'),
 ('3503110004', '3503110', 'TAMANAN'),
 ('3503110005', '3503110', 'NGANTRU'),
@@ -49732,9 +50183,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3508170006', '3508170', 'KERTOWONO'),
 ('3508170009', '3508170', 'SOMBO'),
 ('3508180001', '3508180', 'PANDANSARI'),
-('3508180002', '3508180', 'KRASAK'),
-('3508180003', '3508180', 'KEDUNGJAJANG');
+('3508180002', '3508180', 'KRASAK');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3508180003', '3508180', 'KEDUNGJAJANG'),
 ('3508180004', '3508180', 'WONOREJO'),
 ('3508180006', '3508180', 'CURAHPETUNG'),
 ('3508180007', '3508180', 'GROBOGAN'),
@@ -51041,10 +51492,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3514150002', '3514150', 'KIDUL DALEM'),
 ('3514150003', '3514150', 'POGAR'),
 ('3514150004', '3514150', 'KAUMAN'),
-('3514150005', '3514150', 'BENDO MUNGAL'),
-('3514150006', '3514150', 'KERSIKAN'),
-('3514150008', '3514150', 'DERMO');
+('3514150005', '3514150', 'BENDO MUNGAL');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3514150006', '3514150', 'KERSIKAN'),
+('3514150008', '3514150', 'DERMO'),
 ('3514150009', '3514150', 'LATEK'),
 ('3514150010', '3514150', 'MASANGAN'),
 ('3514150011', '3514150', 'RACI'),
@@ -52354,10 +52805,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3519010012', '3519010', 'BALEREJO'),
 ('3519010013', '3519010', 'BACEM'),
 ('3519010014', '3519010', 'KEDONDONG'),
-('3519020001', '3519020', 'BANARAN'),
-('3519020002', '3519020', 'KLOROGAN'),
-('3519020003', '3519020', 'SLAMBUR');
+('3519020001', '3519020', 'BANARAN');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3519020002', '3519020', 'KLOROGAN'),
+('3519020003', '3519020', 'SLAMBUR'),
 ('3519020005', '3519020', 'SARENG'),
 ('3519020006', '3519020', 'PURWOREJO'),
 ('3519020007', '3519020', 'SUMBEREJO'),
@@ -53694,10 +54145,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3524060005', '3524060', 'PELANG'),
 ('3524060007', '3524060', 'MAOR'),
 ('3524060008', '3524060', 'RANDUBENER'),
-('3524060009', '3524060', 'KALIWATES'),
-('3524060010', '3524060', 'TLOGOAGUNG'),
-('3524060011', '3524060', 'KEDUNGMEGARIH');
+('3524060009', '3524060', 'KALIWATES');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3524060010', '3524060', 'TLOGOAGUNG'),
+('3524060011', '3524060', 'KEDUNGMEGARIH'),
 ('3524060012', '3524060', 'KEMBANGBAHU'),
 ('3524060013', '3524060', 'LOPANG'),
 ('3524060014', '3524060', 'MANGKUJAJAR'),
@@ -55008,10 +55459,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3528130008', '3528130', 'TAGANGSER DAJA'),
 ('3528130009', '3528130', 'SOTABAR'),
 ('3529010001', '3529010', 'KADUARA TIMUR'),
-('3529010002', '3529010', 'SENDANG'),
-('3529010003', '3529010', 'ROMBASAN'),
-('3529010004', '3529010', 'SENTOL LAOK');
+('3529010002', '3529010', 'SENDANG');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3529010003', '3529010', 'ROMBASAN'),
+('3529010004', '3529010', 'SENTOL LAOK'),
 ('3529010005', '3529010', 'LARANGAN PERENG'),
 ('3529010006', '3529010', 'SENTOL DAYA'),
 ('3529010007', '3529010', 'PAKAMBAN DAYA'),
@@ -56306,10 +56757,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3602140017', '3602140', 'MEKARMULYA'),
 ('3602150001', '3602150', 'ANGGALAN'),
 ('3602150002', '3602150', 'MUARADUA'),
-('3602150003', '3602150', 'MUNCANGKOPONG'),
-('3602150004', '3602150', 'TAMAN JAYA'),
-('3602150005', '3602150', 'CURUGPANJANG');
+('3602150003', '3602150', 'MUNCANGKOPONG');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3602150004', '3602150', 'TAMAN JAYA'),
+('3602150005', '3602150', 'CURUGPANJANG'),
 ('3602150006', '3602150', 'CIKULUR'),
 ('3602150007', '3602150', 'CIGOONG SELATAN'),
 ('3602150008', '3602150', 'CIGOONG UTARA'),
@@ -57613,10 +58064,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('5106040034', '5106040', 'BELANGA'),
 ('5106040035', '5106040', 'BATUKAANG'),
 ('5106040036', '5106040', 'CATUR'),
-('5106040037', '5106040', 'PENGEJARAN'),
-('5106040038', '5106040', 'SATRA'),
-('5106040040', '5106040', 'DAUSA');
+('5106040037', '5106040', 'PENGEJARAN');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('5106040038', '5106040', 'SATRA'),
+('5106040040', '5106040', 'DAUSA'),
 ('5106040041', '5106040', 'DAUP'),
 ('5106040042', '5106040', 'BANTANG'),
 ('5106040044', '5106040', 'SUKAWANA'),
@@ -58933,10 +59384,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('5272021006', '5272021', 'RABADOMPU BARAT'),
 ('5272021007', '5272021', 'RABADOMPU TIMUR'),
 ('5272021008', '5272021', 'KENDO'),
-('5272021009', '5272021', 'PENANAE'),
-('5272021010', '5272021', 'RITE'),
-('5272021011', '5272021', 'NTOBO');
+('5272021009', '5272021', 'PENANAE');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('5272021010', '5272021', 'RITE'),
+('5272021011', '5272021', 'NTOBO'),
 ('5272030001', '5272030', 'MELAYU'),
 ('5272030002', '5272030', 'JATIWANGI'),
 ('5272030003', '5272030', 'JATIBARU'),
@@ -60283,10 +60734,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('5309041006', '5309041', 'LEWOGRARAN'),
 ('5309041007', '5309041', 'BUBU ATAGAMU'),
 ('5309050003', '5309050', 'WATANHURA II'),
-('5309050004', '5309050', 'WATANHURA'),
-('5309050005', '5309050', 'LEBAO'),
-('5309050006', '5309050', 'LIWO');
+('5309050004', '5309050', 'WATANHURA');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('5309050005', '5309050', 'LEBAO'),
+('5309050006', '5309050', 'LIWO'),
 ('5309050007', '5309050', 'LAMAWAI'),
 ('5309050008', '5309050', 'WATOHARI'),
 ('5309050009', '5309050', 'TANAH WERANG'),
@@ -61611,10 +62062,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('5317070006', '5317070', 'MALI MADA'),
 ('5317070007', '5317070', 'MAWO MALITI'),
 ('5317070008', '5317070', 'JELA MANU'),
-('5317070009', '5317070', 'BODO PONDA'),
-('5317070010', '5317070', 'PANDUA TANA'),
-('5317070011', '5317070', 'ODI PAURATA');
+('5317070009', '5317070', 'BODO PONDA');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('5317070010', '5317070', 'PANDUA TANA'),
+('5317070011', '5317070', 'ODI PAURATA'),
 ('5317070012', '5317070', 'REDA WANO'),
 ('5317080007', '5317080', 'RAMMA DANA'),
 ('5317080008', '5317080', 'KARUNI'),
@@ -62920,10 +63371,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6106050003', '6106050', 'KALIMAS BARU'),
 ('6106050004', '6106050', 'BELABAN TUJUH'),
 ('6106050005', '6106050', 'MAHAWA'),
-('6106050006', '6106050', 'SERENGKAH'),
-('6106050007', '6106050', 'NATAI PANJANG'),
-('6106050008', '6106050', 'TUMBANG TITI');
+('6106050006', '6106050', 'SERENGKAH');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6106050007', '6106050', 'NATAI PANJANG'),
+('6106050008', '6106050', 'TUMBANG TITI'),
 ('6106050009', '6106050', 'BATU TAJAM'),
 ('6106050010', '6106050', 'SENGKAHARAK'),
 ('6106050022', '6106050', 'SEGAR WANGI'),
@@ -64169,10 +64620,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6171010004', '6171010', 'PARIT TOKAYA'),
 ('6171010005', '6171010', 'AKCAYA'),
 ('6171010006', '6171010', 'KOTA BARU'),
-('6171011001', '6171011', 'BANGKA BELITUNG LAUT'),
-('6171011002', '6171011', 'BANGKA BELITUNG DARAT'),
-('6171011003', '6171011', 'BANSIR LAUT');
+('6171011001', '6171011', 'BANGKA BELITUNG LAUT');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6171011002', '6171011', 'BANGKA BELITUNG DARAT'),
+('6171011003', '6171011', 'BANSIR LAUT'),
 ('6171011004', '6171011', 'BANSIR DARAT'),
 ('6171020001', '6171020', 'PARIT MAYOR'),
 ('6171020002', '6171020', 'BANJAR SERASAN'),
@@ -65422,10 +65873,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6211021007', '6211021', 'TUMBANG RAHUYAN'),
 ('6211021008', '6211021', 'HANTAPANG'),
 ('6211021009', '6211021', 'TUMBANG MUJAI'),
-('6211021010', '6211021', 'SEI ANTAI'),
-('6211021011', '6211021', 'TUMBANG TUWE'),
-('6211022001', '6211022', 'HUJUNG PATA');
+('6211021010', '6211021', 'SEI ANTAI');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6211021011', '6211021', 'TUMBANG TUWE'),
+('6211022001', '6211022', 'HUJUNG PATA'),
 ('6211022002', '6211022', 'TUMBANG JALEMU KAJUEI'),
 ('6211022003', '6211022', 'JALEMU  RAYA'),
 ('6211022004', '6211022', 'JALEMU MASULAN'),
@@ -66665,10 +67116,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6305070010', '6305070', 'KERAMAT'),
 ('6305070011', '6305070', 'BANUA HALAT KANAN'),
 ('6305070012', '6305070', 'JINGAH BABARIS'),
-('6305070013', '6305070', 'KAKARAN'),
-('6305070014', '6305070', 'BADAUN'),
-('6305070015', '6305070', 'BANUA HANYAR HULU');
+('6305070013', '6305070', 'KAKARAN');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6305070014', '6305070', 'BADAUN'),
+('6305070015', '6305070', 'BANUA HANYAR HULU'),
 ('6305070016', '6305070', 'BANUA HANYAR'),
 ('6305080001', '6305080', 'PARIGI KACIL'),
 ('6305080002', '6305080', 'PARIGI'),
@@ -67935,10 +68386,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6402050016', '6402050', 'LAMBING'),
 ('6402050017', '6402050', 'BENGGERIS'),
 ('6402051002', '6402051', 'RANDA EMPAS'),
-('6402051004', '6402051', 'SAMBUNG'),
-('6402051005', '6402051', 'JELMU SIBAK'),
-('6402051006', '6402051', 'ANAN JAYA');
+('6402051004', '6402051', 'SAMBUNG');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6402051005', '6402051', 'JELMU SIBAK'),
+('6402051006', '6402051', 'ANAN JAYA'),
 ('6402051007', '6402051', 'SUAKONG'),
 ('6402051008', '6402051', 'DILANG PUTI'),
 ('6402051009', '6402051', 'PENARUNG'),
@@ -69205,10 +69656,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('7101021004', '7101021', 'IKHWAN'),
 ('7101021005', '7101021', 'DOLODUO'),
 ('7101021006', '7101021', 'MEKARUO'),
-('7101021007', '7101021', 'WANGGA BARU'),
-('7101021008', '7101021', 'TORAUT UTARA'),
-('7101021009', '7101021', 'DOLODUO I');
+('7101021007', '7101021', 'WANGGA BARU');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('7101021008', '7101021', 'TORAUT UTARA'),
+('7101021009', '7101021', 'DOLODUO I'),
 ('7101021010', '7101021', 'DOLODUO II'),
 ('7101021011', '7101021', 'DOLODUO III'),
 ('7101021012', '7101021', 'TORAUT TENGAH'),
@@ -70511,10 +70962,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('7109040008', '7109040', 'LOWU SATU'),
 ('7109040009', '7109040', 'LOWU DUA'),
 ('7109040010', '7109040', 'WAWALI'),
-('7109040016', '7109040', 'RASI SATU'),
-('7109040017', '7109040', 'TOSURAYA BARAT'),
-('7109040018', '7109040', 'TOSURAYA SELATAN');
+('7109040016', '7109040', 'RASI SATU');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('7109040017', '7109040', 'TOSURAYA BARAT'),
+('7109040018', '7109040', 'TOSURAYA SELATAN'),
 ('7109040019', '7109040', 'LOWU UTARA'),
 ('7109040020', '7109040', 'NATAAN'),
 ('7109040021', '7109040', 'WAWALI PASAN'),
@@ -71824,11 +72275,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('7205091010', '7205091', 'WANI LUMBUMPETIGO'),
 ('7205100001', '7205100', 'DALAKA'),
 ('7205100002', '7205100', 'LERO'),
-('7205100003', '7205100', 'TOAYA'),
+('7205100003', '7205100', 'TOAYA');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('7205100004', '7205100', 'SUMARI'),
 ('7205100005', '7205100', 'TARIPA'),
-('7205100006', '7205100', 'MASAINGI');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('7205100006', '7205100', 'MASAINGI'),
 ('7205100007', '7205100', 'MARANA'),
 ('7205100016', '7205100', 'LERO TATARI'),
 ('7205100017', '7205100', 'TOAYA VUNTA'),
@@ -73159,10 +73610,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('7302090005', '7302090', 'ANRIHUA'),
 ('7302090006', '7302090', 'BORONG RAPPOA'),
 ('7302090007', '7302090', 'TAMAONA'),
-('7302090008', '7302090', 'KINDANG'),
-('7302090009', '7302090', 'ORO GADING'),
-('7302090010', '7302090', 'SOPA');
+('7302090008', '7302090', 'KINDANG');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('7302090009', '7302090', 'ORO GADING'),
+('7302090010', '7302090', 'SOPA'),
 ('7302090011', '7302090', 'SOMBA PALIOI'),
 ('7302090012', '7302090', 'SIPAENRE'),
 ('7302090013', '7302090', 'KAHAYA'),
@@ -74468,10 +74919,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('7313080005', '7313080', 'NEPO'),
 ('7313080006', '7313080', 'PAJALELE'),
 ('7313080008', '7313080', 'MARIO'),
-('7313080009', '7313080', 'WAETUWO'),
-('7313080010', '7313080', 'WEWANGREWU'),
-('7313080011', '7313080', 'PALIPPU');
+('7313080009', '7313080', 'WAETUWO');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('7313080010', '7313080', 'WEWANGREWU'),
+('7313080011', '7313080', 'PALIPPU'),
 ('7313080012', '7313080', 'TANCUNG'),
 ('7313080013', '7313080', 'BARU TANCUNG'),
 ('7313080014', '7313080', 'PINCENGPUTE'),
@@ -75714,10 +76165,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('7371010005', '7371010', 'MARISO'),
 ('7371010007', '7371010', 'MARIO'),
 ('7371010008', '7371010', 'PANAMBUNGAN'),
-('7371010009', '7371010', 'KUNJUNG MAE'),
-('7371020001', '7371020', 'TAMPARANG KEKE'),
-('7371020002', '7371020', 'SAMBUNG JAWA');
+('7371010009', '7371010', 'KUNJUNG MAE');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('7371020001', '7371020', 'TAMPARANG KEKE'),
+('7371020002', '7371020', 'SAMBUNG JAWA'),
 ('7371020003', '7371020', 'KARANG ANYAR'),
 ('7371020004', '7371020', 'BAJI MAPPAKASUNGGU'),
 ('7371020005', '7371020', 'PA\'BATANG'),
@@ -77035,10 +77486,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('7405112005', '7405112', 'EPEESI'),
 ('7405112006', '7405112', 'BASALA'),
 ('7405112007', '7405112', 'LIPU MASAGENA'),
-('7405112008', '7405112', 'POLO-POLOLI'),
-('7405112010', '7405112', 'TEPOROMBUA'),
-('7406010001', '7406010', 'TIRONGKOTUA');
+('7405112008', '7405112', 'POLO-POLOLI');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('7405112010', '7405112', 'TEPOROMBUA'),
+('7406010001', '7406010', 'TIRONGKOTUA'),
 ('7406010002', '7406010', 'RAHADOPI'),
 ('7406010003', '7406010', 'TEOMOKOLE'),
 ('7406010004', '7406010', 'RAHAMPUU'),
@@ -78366,10 +78817,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('7502023009', '7502023', 'BONGOMEME'),
 ('7502023010', '7502023', 'DUWANGA'),
 ('7502030004', '7502030', 'ILOMATA'),
-('7502030005', '7502030', 'MOLOWAHU'),
-('7502030006', '7502030', 'DUNGGALA'),
-('7502030007', '7502030', 'REKSONEGORO');
+('7502030005', '7502030', 'MOLOWAHU');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('7502030006', '7502030', 'DUNGGALA'),
+('7502030007', '7502030', 'REKSONEGORO'),
 ('7502030008', '7502030', 'TOLOTIO'),
 ('7502030009', '7502030', 'ISIMU SELATAN'),
 ('7502030010', '7502030', 'DATAHU'),
@@ -79692,10 +80143,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('8102012008', '8102012', 'WARBAL'),
 ('8102012009', '8102012', 'OHOIDERTOM'),
 ('8102012010', '8102012', 'YATWAV'),
-('8102013007', '8102013', 'MASTUR'),
-('8102013008', '8102013', 'OHOINOL'),
-('8102013009', '8102013', 'WAIN');
+('8102013007', '8102013', 'MASTUR');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('8102013008', '8102013', 'OHOINOL'),
+('8102013009', '8102013', 'WAIN'),
 ('8102013010', '8102013', 'ABEAN'),
 ('8102013011', '8102013', 'RAAT'),
 ('8102013012', '8102013', 'RUMAT'),
@@ -81050,10 +81501,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('8203032001', '8203032', 'KAWATA'),
 ('8203032002', '8203032', 'PELITA JAYA'),
 ('8203032003', '8203032', 'WAISAKAI'),
-('8203032004', '8203032', 'WAISUM'),
-('8203040001', '8203040', 'PAS IPA'),
-('8203040002', '8203040', 'DOFA');
+('8203032004', '8203032', 'WAISUM');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('8203040001', '8203040', 'PAS IPA'),
+('8203040002', '8203040', 'DOFA'),
 ('8203040003', '8203040', 'LEKO KADAI'),
 ('8203040004', '8203040', 'LEKOSULA'),
 ('8203040015', '8203040', 'PELITA'),
@@ -82409,10 +82860,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('9104090022', '9104090', 'MEYOKUS'),
 ('9104090023', '9104090', 'BOMER'),
 ('9104090024', '9104090', 'MOJUI'),
-('9104090025', '9104090', 'KEWISINI'),
-('9104090026', '9104090', 'MERIRAOG'),
-('9104090027', '9104090', 'MEYEWAH');
+('9104090025', '9104090', 'KEWISINI');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('9104090026', '9104090', 'MERIRAOG'),
+('9104090027', '9104090', 'MEYEWAH'),
 ('9104090028', '9104090', 'TAUGO'),
 ('9104090029', '9104090', 'MOSOIMA'),
 ('9104090030', '9104090', 'ENEYINEFA'),
@@ -83015,6 +83466,49 @@ ALTER TABLE `regencies`
   ADD KEY `regencies_province_id_index` (`province_id`);
 
 --
+-- Indexes for table `table_alamat`
+--
+ALTER TABLE `table_alamat`
+  ADD PRIMARY KEY (`id_alamat`);
+
+--
+-- Indexes for table `table_alumni`
+--
+ALTER TABLE `table_alumni`
+  ADD PRIMARY KEY (`id_alumni`);
+
+--
+-- Indexes for table `table_cp_mitra`
+--
+ALTER TABLE `table_cp_mitra`
+  ADD PRIMARY KEY (`id_cp_mitra`);
+
+--
+-- Indexes for table `table_jenis_lowongan`
+--
+ALTER TABLE `table_jenis_lowongan`
+  ADD PRIMARY KEY (`id_jenis_lowongan`);
+
+--
+-- Indexes for table `table_jenis_pengupahan`
+--
+ALTER TABLE `table_jenis_pengupahan`
+  ADD PRIMARY KEY (`id_jenis_pengupahan`);
+
+--
+-- Indexes for table `table_jurusan`
+--
+ALTER TABLE `table_jurusan`
+  ADD PRIMARY KEY (`id_jurusan`);
+
+--
+-- Indexes for table `table_keahlian`
+--
+ALTER TABLE `table_keahlian`
+  ADD PRIMARY KEY (`id_keahlian`),
+  ADD KEY `FK_MsKeahlian_MsJenisLowongan` (`id_jenis_lowongan`) USING BTREE;
+
+--
 -- Indexes for table `table_kegiatan`
 --
 ALTER TABLE `table_kegiatan`
@@ -83027,10 +83521,58 @@ ALTER TABLE `table_login`
   ADD PRIMARY KEY (`id_user`);
 
 --
+-- Indexes for table `table_lowongan`
+--
+ALTER TABLE `table_lowongan`
+  ADD PRIMARY KEY (`id_lowongan`);
+
+--
+-- Indexes for table `table_mitra`
+--
+ALTER TABLE `table_mitra`
+  ADD PRIMARY KEY (`id_mitra`);
+
+--
+-- Indexes for table `table_perijinan`
+--
+ALTER TABLE `table_perijinan`
+  ADD PRIMARY KEY (`id_perijinan`);
+
+--
+-- Indexes for table `table_periode`
+--
+ALTER TABLE `table_periode`
+  ADD PRIMARY KEY (`id_periode`);
+
+--
+-- Indexes for table `table_posisi_jabatan`
+--
+ALTER TABLE `table_posisi_jabatan`
+  ADD PRIMARY KEY (`id_posisi_jabatan`);
+
+--
+-- Indexes for table `table_sekolah`
+--
+ALTER TABLE `table_sekolah`
+  ADD PRIMARY KEY (`id_sekolah`);
+
+--
 -- Indexes for table `table_slider`
 --
 ALTER TABLE `table_slider`
   ADD PRIMARY KEY (`id_slider`);
+
+--
+-- Indexes for table `table_status_hub_kerja`
+--
+ALTER TABLE `table_status_hub_kerja`
+  ADD PRIMARY KEY (`id_status_hub_kerja`);
+
+--
+-- Indexes for table `table_status_pendidikan`
+--
+ALTER TABLE `table_status_pendidikan`
+  ADD PRIMARY KEY (`id_status_pendidikan`);
 
 --
 -- Indexes for table `villages`
@@ -83044,22 +83586,76 @@ ALTER TABLE `villages`
 --
 
 --
+-- AUTO_INCREMENT for table `table_alamat`
+--
+ALTER TABLE `table_alamat`
+  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `table_alumni`
+--
+ALTER TABLE `table_alumni`
+  MODIFY `id_alumni` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `table_cp_mitra`
+--
+ALTER TABLE `table_cp_mitra`
+  MODIFY `id_cp_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `table_jurusan`
+--
+ALTER TABLE `table_jurusan`
+  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `table_kegiatan`
 --
 ALTER TABLE `table_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `table_login`
 --
 ALTER TABLE `table_login`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `table_lowongan`
+--
+ALTER TABLE `table_lowongan`
+  MODIFY `id_lowongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- AUTO_INCREMENT for table `table_mitra`
+--
+ALTER TABLE `table_mitra`
+  MODIFY `id_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `table_perijinan`
+--
+ALTER TABLE `table_perijinan`
+  MODIFY `id_perijinan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `table_periode`
+--
+ALTER TABLE `table_periode`
+  MODIFY `id_periode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `table_sekolah`
+--
+ALTER TABLE `table_sekolah`
+  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `table_slider`
 --
 ALTER TABLE `table_slider`
-  MODIFY `id_slider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_slider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Constraints for dumped tables

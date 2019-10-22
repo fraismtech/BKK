@@ -378,7 +378,6 @@ $(document).ready(function(){
                 data: mitra,
                 success:function(res){
                     $('#mitraText').html('Simpan');
-                    table.ajax.reload();
                     console.log(res.success);
                     if(res.success == true){  
                         swal({
@@ -417,7 +416,6 @@ $(document).ready(function(){
         setTimeout(save, 1000);
         table.ajax.reload();
     });
-    table.ajax.reload();
     $(document).on('click', '#clearMsg', function(){
         $('#responseDiv').hide();
     });

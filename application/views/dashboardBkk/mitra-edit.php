@@ -140,7 +140,7 @@
                             <div class="form-group">
                                 <label>Dari</label>
                                 <div class='input-group date' id='datepicker-top-left'>
-                                    <input class="form-control" type='text' name="dari" placeholder="Dari" value="<?= $mitra->dari ?>" />
+                                    <input class="form-control" type='text' name="dari" placeholder="Dari" value="<?= date('m/d/Y', strtotime($mitra->dari)) ?>" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -151,7 +151,7 @@
                             <div class="form-group">
                                 <label>Sampai</label>
                                 <div class='input-group date' id='datepicker-top-right'>
-                                    <input class="form-control" type='text' name="sampai" placeholder="Sampai" value="<?= $mitra->sampai ?>" />
+                                    <input class="form-control" type='text' name="sampai" placeholder="Sampai" value="<?= date('m/d/Y', strtotime($mitra->sampai)) ?>" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>

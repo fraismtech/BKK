@@ -120,6 +120,7 @@
                                     <option value="Bekerja">Bekerja</option>
                                     <option value="Kuliah">Kuliah</option>
                                     <option value="Wiraswasta">Wiraswasta</option>
+                                    <option value="Belum Bekerja">Belum/Tidak Bekerja</option>
                                 </select>
                             </div>
                         </div>

@@ -222,6 +222,7 @@ $(document).ready(function() {
                             text: data.msg,
                             buttons: true,
                         });
+                        location.reload();
                     }
                 });
                 table.ajax.reload();
@@ -278,6 +279,7 @@ $(document).ready(function(){
                         text: res.msg,
                         icon: "success",
                     });
+                    location.reload();
                 }
                 else if(res.success == false){
                     swal({
@@ -316,7 +318,9 @@ $(document).ready(function(){
                         title: "Berhasil!",
                         text: res.msg,
                         icon: "success",
+                        button: false
                     });  
+                    location.reload();
                 }
                 else if(res.success == false){
                     swal({

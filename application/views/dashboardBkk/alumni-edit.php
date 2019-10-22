@@ -4,7 +4,7 @@
         <div class="card card-statistics">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-heading">
-                    <h4 class="card-title">Tambah Alumni</h4>
+                    <h4 class="card-title">Edit Alumni</h4>
                 </div>
             </div>
             <div class="card-body">
@@ -63,7 +63,7 @@
                             <div class="form-group">
                                 <label>Tanggal Lahir</label>
                                 <div class='input-group date' id='datepicker-bottom-left'>
-                                    <input class="form-control" type='text' name="tanggal_lahir" placeholder="Tanggal Lahir" value="<?= $alumni->tanggal_lahir ?>" />
+                                    <input class="form-control" type='text' name="tanggal_lahir" placeholder="Tanggal Lahir" value="<?= date('m/d/Y', strtotime($alumni->tanggal_lahir)) ?>" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -126,6 +126,7 @@
                                     <option value="Bekerja"<?= $alumni->status == 'Bekerja' ? ' selected="selected"' : '';?>>Bekerja</option>
                                     <option value="Kuliah"<?= $alumni->status == 'Kuliah' ? ' selected="selected"' : '';?>>Kuliah</option>
                                     <option value="Wiraswasta"<?= $alumni->status == 'Wiraswasta' ? ' selected="selected"' : '';?>>Wiraswasta</option>
+                                    <option value="Belum Bekerja"<?= $alumni->status == 'Belum Bekerja' ? ' selected="selected"' : '';?>>Belum/Tidak Bekerja</option>
                                 </select>
                             </div>
                         </div>
@@ -148,7 +149,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Alamat Perusahaan</label>
-                                <textarea class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" placeholder="Alamat Perusahaan" value="<?= $alumni->alamat_perusahaan ?>"></textarea>
+                                <textarea class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" placeholder="Alamat Perusahaan"><?= $alumni->alamat_perusahaan ?></textarea>
                             </div>
                         </div>
                     </div>

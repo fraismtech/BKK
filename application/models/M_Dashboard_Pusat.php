@@ -1,6 +1,6 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-class M_Dashboard extends CI_Model
+class M_Dashboard_Pusat extends CI_Model
 { 
     // Slider
     var $table          = 'table_slider';
@@ -51,6 +51,29 @@ class M_Dashboard extends CI_Model
     var $where_5 = array('');
     var $order_5 = array('id_lowongan' => 'asc'); // default order
 
+    // Jurusan
+    var $table_6          = 'table_jurusan';
+    var $table_6_2         = 'table_sekolah';
+    var $column_order_6   = array('nama_sekolah','nama_jurusan'); //set column field database for datatable orderable
+    var $column_search_6  = array('nama_sekolah','nama_jurusan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $where_6 = array('');
+    var $order_6 = array('id_jurusan' => 'asc'); // default order
+
+    // Posisi Loker
+    var $table_7          = 'table_jenis_lowongan';
+    var $column_order_7   = array('id_jenis_lowongan','nama_jenis_lowongan'); //set column field database for datatable orderable
+    var $column_search_7  = array('id_jenis_lowongan','nama_jenis_lowongan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $where_7 = array('');
+    var $order_7 = array('id_jenis_lowongan' => 'asc'); // default order
+
+    // Keterampilan
+    var $table_8          = 'table_keahlian';
+    var $table_8_2        = 'table_jenis_lowongan';
+    var $column_order_8   = array('id_keahlian','nama_jenis_lowongan','nama_keahlian'); //set column field database for datatable orderable
+    var $column_search_8  = array('id_keahlian','nama_jenis_lowongan','nama_keahlian'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $where_8 = array('');
+    var $order_8 = array('id_keahlian' => 'asc'); // default order
+
     public function __construct()
     {
         parent::__construct();
@@ -60,6 +83,18 @@ class M_Dashboard extends CI_Model
     public function jurusan($id_sekolah)
     {
         $query = $this->db->query("SELECT * FROM table_jurusan WHERE id_sekolah = '$id_sekolah' ORDER BY nama_jurusan ASC");
+        return $query->result();
+    }
+
+    public function sekolah()
+    {
+        $query = $this->db->query("SELECT * FROM table_sekolah ORDER BY nama_sekolah ASC");
+        return $query->result();
+    }
+
+    public function posisi_loker()
+    {
+        $query = $this->db->query("SELECT * FROM table_jenis_lowongan ORDER BY id_jenis_lowongan ASC");
         return $query->result();
     }
 
@@ -288,11 +323,11 @@ class M_Dashboard extends CI_Model
     }
 
     //Slider
-    private function _get_datatables_query($id_sekolah)
+    private function _get_datatables_query()
     {
         $this->db->from($this->table);
-        $this->db->join($this->table2, $this->table2.'.id_sekolah ='.$this->table.'.id_sekolah');
-        $this->db->where($this->table2.'.id_sekolah=', $id_sekolah);
+        // $this->db->join($this->table2, $this->table2.'.id_sekolah ='.$this->table.'.id_sekolah');
+        // $this->db->where($this->table2.'.id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
         $this->db->order_by('id_slider', 'DESC');
 
@@ -330,41 +365,41 @@ class M_Dashboard extends CI_Model
         }
     }
 
-    public function get_datatables($id_sekolah)
+    public function get_datatables()
     {
-        $this->_get_datatables_query($id_sekolah);
+        $this->_get_datatables_query();
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    public function count_filtered($id_sekolah)
+    public function count_filtered()
     {
         $this->db->from('table_slider');
-        $this->db->where('id_sekolah=', $id_sekolah);
+        // $this->db->where('id_sekolah=', $id_sekolah);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all($id_sekolah)
+    public function count_all()
     {
         $this->db->from('table_slider');
-        $this->db->where('id_sekolah=', $id_sekolah);
+        // $this->db->where('id_sekolah=', $id_sekolah);
         $this->db->count_all_results();
     }
 
-    // Kegiatan
-    private function _get_datatables_query_kegiatan($id_sekolah)
+    // Jurusan
+    private function _get_datatables_query_jurusan()
     {
-        $this->db->from($this->table_1);
-        $this->db->where('id_sekolah=', $id_sekolah);
+        $this->db->from($this->table_6);
+        $this->db->join($this->table_6_2, $this->table_6_2.'.id_sekolah ='.$this->table_6.'.id_sekolah');
         // $this->db->where('table_nabung.username=', $username);
-        $this->db->order_by('id_kegiatan', 'DESC');
+        $this->db->order_by('id_jurusan', 'DESC');
 
         $i = 0;
     
-        foreach ($this->column_search_1 as $item) // loop column 
+        foreach ($this->column_search_6 as $item) // loop column 
         {
             if($_POST['search']['value']) // if datatable send POST for search
             {
@@ -379,44 +414,182 @@ class M_Dashboard extends CI_Model
                     $this->db->or_like($item, $_POST['search']['value']);
                 }
 
-                if(count($this->column_search_1) - 1 == $i) //last loop
+                if(count($this->column_search_6) - 1 == $i) //last loop
                     $this->db->group_end(); //close bracket
             }
             $i++;
         }
         
-        if(isset($_POST['order_1'])) // here order processing
+        if(isset($_POST['order_6'])) // here order processing
         {
-            $this->db->order_by($this->column_order_1[$_POST['order_1']['0']['column']], $_POST['order_1']['0']['dir']);
+            $this->db->order_by($this->column_order_6[$_POST['order_6']['0']['column']], $_POST['order_6']['0']['dir']);
         } 
-        else if(isset($this->order_1))
+        else if(isset($this->order_6))
         {
-            $order_1 = $this->order_1;
-            $this->db->order_by(key($order_1), $order_1[key($order_1)]);
+            $order_6 = $this->order_6;
+            $this->db->order_by(key($order_6), $order_6[key($order_6)]);
         }
     }
 
-    public function get_datatables_kegiatan($id_sekolah)
+    public function get_datatables_jurusan()
     {
-        $this->_get_datatables_query_kegiatan($id_sekolah);
+        $this->_get_datatables_query_jurusan();
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    public function count_filtered_kegiatan($id_sekolah)
+    public function count_filtered_jurusan()
     {
-        $this->db->from('table_kegiatan');
-        $this->db->where('id_sekolah', $id_sekolah);
+        $this->db->from($this->table_6);
+        $this->db->join($this->table_6_2, $this->table_6_2.'.id_sekolah ='.$this->table_6.'.id_sekolah');
+        // $this->db->where('id_sekolah', $id_sekolah);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all_kegiatan($id_sekolah)
+    public function count_all_jurusan()
     {
-        $this->db->from('table_kegiatan');
-        $this->db->where('id_sekolah', $id_sekolah);
+        $this->db->from($this->table_6);
+        $this->db->join($this->table_6_2, $this->table_6_2.'.id_sekolah ='.$this->table_6.'.id_sekolah');
+        // $this->db->where('id_sekolah', $id_sekolah);
+        $this->db->count_all_results();
+    }
+
+    // Posisi Loker
+    private function _get_datatables_query_posisi_loker()
+    {
+        $this->db->from($this->table_7);
+        // $this->db->join($this->table_6_2, $this->table_6_2.'.id_sekolah ='.$this->table_6.'.id_sekolah');
+        // $this->db->where('table_nabung.username=', $username);
+        $this->db->order_by('id_jenis_lowongan', 'DESC');
+
+        $i = 0;
+    
+        foreach ($this->column_search_7 as $item) // loop column 
+        {
+            if($_POST['search']['value']) // if datatable send POST for search
+            {
+                
+                if($i===0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                }
+                else
+                {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if(count($this->column_search_7) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+        
+        if(isset($_POST['order_7'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_7[$_POST['order_7']['0']['column']], $_POST['order_7']['0']['dir']);
+        } 
+        else if(isset($this->order_7))
+        {
+            $order_7 = $this->order_7;
+            $this->db->order_by(key($order_7), $order_7[key($order_7)]);
+        }
+    }
+
+    public function get_datatables_posisi_loker()
+    {
+        $this->_get_datatables_query_posisi_loker();
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function count_filtered_posisi_loker()
+    {
+        $this->db->from($this->table_7);
+        // $this->db->join($this->table_6_2, $this->table_6_2.'.id_sekolah ='.$this->table_6.'.id_sekolah');
+        // $this->db->where('id_sekolah', $id_sekolah);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_posisi_loker()
+    {
+        $this->db->from($this->table_7);
+        // $this->db->join($this->table_6_2, $this->table_6_2.'.id_sekolah ='.$this->table_6.'.id_sekolah');
+        // $this->db->where('id_sekolah', $id_sekolah);
+        $this->db->count_all_results();
+    }
+
+    // Jurusan
+    private function _get_datatables_query_keterampilan()
+    {
+        $this->db->from($this->table_8);
+        $this->db->join($this->table_8_2, $this->table_8_2.'.id_jenis_lowongan ='.$this->table_8.'.id_jenis_lowongan');
+        // $this->db->where('table_nabung.username=', $username);
+        $this->db->order_by('id_keahlian', 'DESC');
+
+        $i = 0;
+    
+        foreach ($this->column_search_8 as $item) // loop column 
+        {
+            if($_POST['search']['value']) // if datatable send POST for search
+            {
+                
+                if($i===0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                }
+                else
+                {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if(count($this->column_search_8) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+        
+        if(isset($_POST['order_8'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_8[$_POST['order_8']['0']['column']], $_POST['order_8']['0']['dir']);
+        } 
+        else if(isset($this->order_8))
+        {
+            $order_8 = $this->order_8;
+            $this->db->order_by(key($order_8), $order_8[key($order_8)]);
+        }
+    }
+
+    public function get_datatables_keterampilan()
+    {
+        $this->_get_datatables_query_keterampilan();
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function count_filtered_keterampilan()
+    {
+        $this->db->from($this->table_8);
+        $this->db->join($this->table_8_2, $this->table_8_2.'.id_jenis_lowongan ='.$this->table_8.'.id_jenis_lowongan');
+        // $this->db->where('id_sekolah', $id_sekolah);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_keterampilan()
+    {
+        $this->db->from($this->table_8);
+        $this->db->join($this->table_8_2, $this->table_8_2.'.id_jenis_lowongan ='.$this->table_8.'.id_jenis_lowongan');
+        // $this->db->where('id_sekolah', $id_sekolah);
         $this->db->count_all_results();
     }
 
@@ -565,10 +738,10 @@ class M_Dashboard extends CI_Model
     }
 
     // Alumni
-    private function _get_datatables_query_alumni($id_sekolah)
+    private function _get_datatables_query_alumni()
     {
         $this->db->from($this->table_4);
-        $this->db->where('id_sekolah=', $id_sekolah);
+        // $this->db->where('id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
         $this->db->order_by('id_alumni', 'DESC');
 
@@ -606,36 +779,36 @@ class M_Dashboard extends CI_Model
         }
     }
 
-    public function get_datatables_alumni($id_sekolah)
+    public function get_datatables_alumni()
     {
-        $this->_get_datatables_query_alumni($id_sekolah);
+        $this->_get_datatables_query_alumni();
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    public function count_filtered_alumni($id_sekolah)
+    public function count_filtered_alumni()
     {
         $this->db->from('table_alumni');
-        $this->db->where('id_sekolah', $id_sekolah);
+        // $this->db->where('id_sekolah', $id_sekolah);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all_alumni($id_sekolah)
+    public function count_all_alumni()
     {
         $this->db->from('table_slider');
-        $this->db->where('id_sekolah', $id_sekolah);
+        // $this->db->where('id_sekolah', $id_sekolah);
         $this->db->count_all_results();
     }
 
-    // Loker
-    private function _get_datatables_query_loker($id_sekolah)
+    // Lowongan Kerja
+    private function _get_datatables_query_loker()
     {
         $this->db->from($this->table_5);
         $this->db->join($this->table_5_1, $this->table_5_1.'.id_mitra ='.$this->table_5.'.id_mitra');
-        $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
+        // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
         $this->db->order_by('id_lowongan', 'DESC');
 
@@ -673,27 +846,27 @@ class M_Dashboard extends CI_Model
         }
     }
 
-    public function get_datatables_loker($id_sekolah)
+    public function get_datatables_loker()
     {
-        $this->_get_datatables_query_loker($id_sekolah);
+        $this->_get_datatables_query_loker();
         if($_POST['length'] != -1)
         $this->db->limit($_POST['length'], $_POST['start']);
         $query = $this->db->get();
         return $query->result();
     }
 
-    public function count_filtered_loker($id_sekolah)
+    public function count_filtered_loker()
     {
         $this->db->from('table_lowongan');
-        $this->db->where('id_sekolah', $id_sekolah);
+        // $this->db->where('id_sekolah', $id_sekolah);
         $query = $this->db->get();
         return $query->num_rows();
     }
 
-    public function count_all_loker($id_sekolah)
+    public function count_all_loker()
     {
         $this->db->from('table_lowongan');
-        $this->db->where('id_sekolah', $id_sekolah);
+        // $this->db->where('id_sekolah', $id_sekolah);
         $this->db->count_all_results();
     }
 

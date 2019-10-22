@@ -11,6 +11,7 @@
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <!-- plugin stylesheets -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/dashboard/css/vendors.css" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/vendor/select2/dist/select2.min.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/vendor/datatables/datatables.min.css"/>
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css"/>
@@ -20,6 +21,7 @@
      <!-- plugins -->
     <script src="<?php echo base_url(); ?>assets/dashboard/js/vendors.js"></script>
     <script src="<?php echo base_url(); ?>assets/dashboard/js/app.js"></script>
+    <script src="<?php echo base_url(); ?>assets/vendor/select2/dist/select2.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/vendor/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/vendor/datatables/datatables.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url(); ?>assets/vendor/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>

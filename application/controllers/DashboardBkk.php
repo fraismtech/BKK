@@ -53,8 +53,11 @@ class DashboardBkk extends CI_Controller {
               	$config['upload_path'] = './assets/upload/image';  
               	$config['allowed_types'] = 'jpg|jpeg|png';  
               	$this->load->library('upload', $config); 
+
               	$tanggal = date('Y-m-d', strtotime($this->input->post("tanggal")));
               	$judul = $this->input->post("judul");
+              	$id_sekolah = $this->session->userdata('id_sekolah');
+
               	if(!$this->upload->do_upload('file')) {  
                   	$error =  $this->upload->display_errors(); 
                   	echo json_encode(array('msg' => $error, 'success' => false));
@@ -63,7 +66,8 @@ class DashboardBkk extends CI_Controller {
                    	$data = array(
 			            'tanggal_slider' => $tanggal,
 			            'judul_slider' => $judul,
-			            'foto_slider' => $data['file_name']
+			            'foto_slider' => $data['file_name'],
+			            'id_sekolah' => $id_sekolah,
 			        );  
 			        $this->db->insert('table_slider', $data); 
                    	// $insert['name'] = $data['file_name'];
@@ -93,9 +97,8 @@ class DashboardBkk extends CI_Controller {
     public function ajax_list()
 	{
 		$id_user = $this->session->userdata('id');
-		$id_s = $this->dashboard->get_id_sekolah($id_user);
 
-		$id_sekolah = $id_s->id_sekolah;
+		$id_sekolah = $this->session->userdata('id_sekolah');
 		$list = $this->dashboard->get_datatables($id_sekolah);
 		$data = array();
 		$no = 1;
@@ -109,7 +112,7 @@ class DashboardBkk extends CI_Controller {
 	              <a
 	            href="javascript:void(0)"
 	            data-id="'.$slider->id_slider.'"
-	            data-tanggal="'.$slider->tanggal_slider.'"
+	            data-tanggal="'.date('m/d/Y', strtotime($slider->tanggal_slider)).'"
 	            data-judul="'.$slider->judul_slider.'"
 	            data-foto="'.$slider->foto_slider.'"
 	            data-foto1="'.$slider->foto_slider.'"
@@ -148,9 +151,8 @@ class DashboardBkk extends CI_Controller {
 	public function ajax_list_kegiatan()
 	{
 		$id_user = $this->session->userdata('id');
-		$id_s = $this->dashboard->get_id_sekolah($id_user);
 
-		$id_sekolah = $id_s->id_sekolah;
+		$id_sekolah = $this->session->userdata('id_sekolah');
 		$list = $this->dashboard->get_datatables_kegiatan($id_sekolah);
 		$data = array();
 		$no = 1;
@@ -165,7 +167,7 @@ class DashboardBkk extends CI_Controller {
 	              <a
 	            href="javascript:void(0)"
 	            data-id="'.$kegiatan->id_kegiatan.'"
-	            data-tanggal="'.$kegiatan->tanggal_kegiatan.'"
+	            data-tanggal="'.date('m/d/Y', strtotime($kegiatan->tanggal_kegiatan)).'"
 	            data-judul="'.$kegiatan->judul_kegiatan.'"
 	            data-uraian="'.$kegiatan->uraian_kegiatan.'"
 	            data-foto="'.$kegiatan->foto_kegiatan.'"
@@ -205,9 +207,7 @@ class DashboardBkk extends CI_Controller {
 	public function ajax_list_mitra()
 	{
 		$id_user = $this->session->userdata('id');
-		$id_s = $this->dashboard->get_id_sekolah($id_user);
-
-		$id_sekolah = $id_s->id_sekolah;
+		$id_sekolah = $this->session->userdata('id_sekolah');
 
 		$list = $this->dashboard->get_datatables_mitra($id_sekolah);
 		$data = array();
@@ -246,9 +246,8 @@ class DashboardBkk extends CI_Controller {
 	public function ajax_list_user()
 	{
 		$id_user = $this->session->userdata('id');
-		$id_s = $this->dashboard->get_id_sekolah($id_user);
+		$id_sekolah = $this->session->userdata('id_sekolah');
 
-		$id_sekolah = $id_s->id_sekolah;
 		$list = $this->dashboard->get_datatables_user($id_sekolah);
 		$data = array();
 		$no = 1;
@@ -307,9 +306,7 @@ class DashboardBkk extends CI_Controller {
 	public function ajax_list_alumni()
 	{
 		$id_user = $this->session->userdata('id');
-		$id_s = $this->dashboard->get_id_sekolah($id_user);
-
-		$id_sekolah = $id_s->id_sekolah;
+		$id_sekolah = $this->session->userdata('id_sekolah');
 
 		$list = $this->dashboard->get_datatables_alumni($id_sekolah);
 		$data = array();
@@ -343,6 +340,82 @@ class DashboardBkk extends CI_Controller {
 		//output to json format
 		echo json_encode($output);
 	}
+
+	// Lowongan Kerja
+	public function ajax_list_loker()
+	{
+		date_default_timezone_set('Asia/Jakarta');
+
+		$id_user = $this->session->userdata('id');
+		$id_sekolah = $this->session->userdata('id_sekolah');
+
+		$list = $this->dashboard->get_datatables_loker($id_sekolah);
+		$data = array();
+		$no = 1;
+		foreach ($list as $loker) {
+			$row = array();
+			if(strtotime($loker->tanggal_berlaku) >= strtotime(date('Y-m-d')) AND strtotime($loker->tanggal_berakhir) <= strtotime(date('Y-m-d'))){
+				$status = 'Aktif';
+			}else{
+				$status = 'Tidak Aktif';
+			}
+			$row[] = $no.'.';
+			$row[] = $loker->nama_lowongan;
+			$row[] = $loker->nama_perusahaan;
+			$row[] = date('d M Y', strtotime($loker->tanggal_berlaku));
+			$row[] = date('d M Y', strtotime($loker->tanggal_berakhir));
+			$row[] = $status;
+			$row[] = $loker->jml_pria;
+			$row[] = $loker->jml_wanita;
+			$row[] = '
+	              	<a href="'.base_url().'dashboardBkk/lokerEdit/'.$loker->id_lowongan.'" title="Edit Data">
+	            		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+	            	</a>
+		            <button class="btn btn-sm btn-danger hapus-loker" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$loker->id_lowongan.'" title="Hapus Data">
+		            	<i class="fa fa-trash"></i>
+		            </button>';
+
+			$data[] = $row;
+			$no++;
+		}
+		// <a
+		//             href="javascript:void(0)"
+		//             data-id_lowongan="'.$loker->id_lowongan.'"
+		//             data-id_sekolah="'.$loker->id_sekolah.'"
+		//             data-id_mitra="'.$loker->id_mitra.'"
+		//             data-id_posisi_jabatan="'.$loker->id_posisi_jabatan.'"
+		//             data-id_keahlian="'.$loker->id_keahlian.'"
+		//             data-id_status_pendidikan="'.$loker->id_status_pendidikan.'"
+		//             data-id_jenis_pengupahan="'.$loker->id_jenis_pengupahan.'"
+		//             data-id_status_hub_kerja="'.$loker->id_status_hub_kerja.'"
+		//             data-tanggal_berlaku="'.$loker->tanggal_berlaku.'"
+		//             data-tanggal_berakhir="'.$loker->tanggal_berakhir.'"
+		//             data-nama_lowongan="'.$loker->nama_lowongan.'"
+		//             data-uraian_pekerjaan="'.$loker->uraian_pekerjaan.'"
+		//             data-uraian_tugas="'.$loker->uraian_tugas.'"
+		//             data-penempatan="'.$loker->penempatan.'"
+		//             data-batas_umur="'.$loker->batas_umur.'"
+		//             data-jml_pria="'.$loker->jml_pria.'"
+		//             data-jml_wanita="'.$loker->jml_wanita.'"
+		//             data-jurusan="'.$loker->jurusan.'"
+		//             data-pengalaman="'.$loker->pengalaman.'"
+		//             data-syarat_khusus="'.$loker->syarat_khusus.'"
+		//             data-gaji_per_bulan="'.$loker->gaji_per_bulan.'"
+		//             data-jam_kerja="'.$loker->jam_kerja.'"
+		//             data-toggle="modal" data-target="#edit-data"
+		//             title="Edit Data">
+		//             	<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+		//             </a>
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->dashboard->count_all_loker($id_sekolah),
+						"recordsFiltered" => $this->dashboard->count_filtered_loker($id_sekolah),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+	}
     // End Of Ajax Serverside
 
     // Edit Slider
@@ -354,6 +427,7 @@ class DashboardBkk extends CI_Controller {
               	$config['allowed_types'] = 'jpg|jpeg|png';  
               	$this->load->library('upload', $config); 
               	$id_slider = $this->input->post("id_slider");
+              	$id_sekolah = $this->session->userdata('id_sekolah');
 
               	$_id = $this->db->get_where('table_slider',['id_slider' => $id_slider])->row();
               	unlink("./assets/upload/image/".$_id->foto_slider);
@@ -368,7 +442,8 @@ class DashboardBkk extends CI_Controller {
                    	$data = array(
 			            'tanggal_slider' => $tanggal,
 			            'judul_slider' => $judul,
-			            'foto_slider' => $data['file_name']
+			            'foto_slider' => $data['file_name'],
+			            'id_sekolah' => $id_sekolah,
 			        );  
 			        $update = $this->db->where('id_slider', $id_slider);
 			        $this->db->update('table_slider', $data); 
@@ -531,9 +606,12 @@ class DashboardBkk extends CI_Controller {
               	$config['upload_path'] = './assets/upload/image';  
               	$config['allowed_types'] = 'jpg|jpeg|png';  
               	$this->load->library('upload', $config); 
+
               	$tanggal = date('Y-m-d', strtotime($this->input->post("tanggal")));
               	$judul = $this->input->post("judul");
               	$uraian = $this->input->post("uraian");
+              	$id_sekolah = $this->session->userdata('id_sekolah');
+
               	if(!$this->upload->do_upload('file')) {  
                   	$error =  $this->upload->display_errors(); 
                   	echo json_encode(array('msg' => $error, 'success' => false));
@@ -543,7 +621,8 @@ class DashboardBkk extends CI_Controller {
 			            'tanggal_kegiatan' => $tanggal,
 			            'judul_kegiatan' => $judul,
 			            'uraian_kegiatan' => $uraian,
-			            'foto_kegiatan' => $data['file_name']
+			            'foto_kegiatan' => $data['file_name'],
+			            'id_sekolah' => $id_sekolah,
 			        );  
 			        $this->db->insert('table_kegiatan', $data); 
                    	// $insert['name'] = $data['file_name'];
@@ -573,6 +652,7 @@ class DashboardBkk extends CI_Controller {
               	$config['allowed_types'] = 'jpg|jpeg|png';  
               	$this->load->library('upload', $config); 
               	$id_kegiatan = $this->input->post("id_kegiatan");
+              	$id_sekolah = $this->session->userdata('id_sekolah');
 
               	$_id_kegiatan = $this->db->get_where('table_kegiatan',['id_kegiatan' => $id_kegiatan])->row();
               	unlink("./assets/upload/image/".$_id_kegiatan->foto_kegiatan);
@@ -589,7 +669,8 @@ class DashboardBkk extends CI_Controller {
 			            'tanggal_kegiatan' => $tanggal,
 			            'judul_kegiatan' => $judul,
 			            'uraian_kegiatan' => $uraian,
-			            'foto_kegiatan' => $data['file_name']
+			            'foto_kegiatan' => $data['file_name'],
+			            'id_sekolah' => $id_sekolah,
 			        );  
 			        $update = $this->db->where('id_kegiatan', $id_kegiatan);
 			        $this->db->update('table_kegiatan', $data); 
@@ -626,14 +707,217 @@ class DashboardBkk extends CI_Controller {
 
 	public function loker()
 	{
+		$id_sekolah = $this->session->userdata('id_sekolah');
 		$path = "";
+		$get = array(
+			"mitra_bkk" => $this->dashboard->mitra_bkk($id_sekolah),
+			"posisi_jabatan" => $this->dashboard->posisi_jabatan(),
+			"jenis_lowongan" => $this->dashboard->jenis_lowongan(),
+			"status_pendidikan" => $this->dashboard->status_pendidikan(),
+			"jenis_pengupahan" => $this->dashboard->jenis_pengupahan(),
+			"hubungan_kerja" => $this->dashboard->hubungan_kerja(),
+			"jurusan" => $this->dashboard->jurusan($id_sekolah),
+		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Lowongan Kerja", $path),
-			"content" => $this->load->view('dashboardBkk/loker', false, true),
+			"content" => $this->load->view('dashboardBkk/loker', $get, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
 	}
 
+	// Tambah Loker
+	public function simpanLoker()
+	{
+		error_reporting(0);
+		try {
+			date_default_timezone_set('Asia/Jakarta');
+
+			$id_sekolah 			= $this->session->userdata('id_sekolah');
+			$id_mitra 				= $this->input->post("mitra");
+			$id_posisi_jabatan 		= $this->input->post("posisi_jabatan");
+			$id_keahlian 			= $this->input->post("keahlian");
+			$id_status_pendidikan 	= $this->input->post("pendidikan");
+			$id_jenis_pengupahan 	= $this->input->post("jenis_pengupahan");
+			$id_status_hub_kerja 	= $this->input->post("hubungan_kerja");
+
+			$nama_lowongan 		= $this->input->post("nama_lowongan");
+          	$tanggal_berlaku 	= date('Y-m-d', strtotime($this->input->post("tanggal_berlaku")));
+          	$tanggal_berakhir 	= date('Y-m-d', strtotime($this->input->post("tanggal_berakhir")));
+          	$uraian_pekerjaan 	= $this->input->post("uraian_pekerjaan");
+          	$uraian_tugas 		= $this->input->post("uraian_tugas");
+          	$penempatan 		= $this->input->post("penempatan");
+          	$jml_pria 			= $this->input->post("jml_pria");
+          	$jml_wanita 		= $this->input->post("jml_wanita");
+
+          	$batas_umur 		= $this->input->post("batas_umur");
+          	$jurusan 	 		= $this->input->post("jurusan");
+          	$pengalaman 		= $this->input->post("pengalaman");
+          	$syarat_khusus 		= $this->input->post("syarat_khusus");
+
+          	$gaji_per_bulan 	= $this->input->post("gaji_per_bulan");
+          	$jam_kerja 			= $this->input->post("jam_kerja");
+
+          	$date_created  		= date("Y-m-d H:i:s");
+
+          	$data = array(
+          		'id_sekolah' 			=> $id_sekolah,
+          		'id_mitra' 				=> $id_mitra,
+          		'id_posisi_jabatan' 	=> $id_posisi_jabatan,
+          		'id_keahlian' 			=> $id_keahlian, 
+          		'id_status_pendidikan' 	=> $id_status_pendidikan,
+          		'id_jenis_pengupahan' 	=> $id_jenis_pengupahan,
+          		'id_status_hub_kerja' 	=> $id_status_hub_kerja,
+          		'tanggal_berlaku' 		=> $tanggal_berlaku,
+          		'tanggal_berakhir' 		=> $tanggal_berakhir,
+          		'nama_lowongan' 		=> $nama_lowongan,
+          		'uraian_pekerjaan' 		=> $uraian_pekerjaan,
+          		'uraian_tugas' 			=> $uraian_tugas,
+          		'penempatan' 			=> $penempatan,
+          		'batas_umur' 			=> $batas_umur,
+          		'jml_pria' 				=> $jml_pria,
+          		'jml_wanita' 			=> $jml_wanita,
+          		'jurusan' 				=> $jurusan,
+          		'pengalaman' 			=> $pengalaman,
+          		'syarat_khusus' 		=> $syarat_khusus,
+          		'gaji_per_bulan'		=> $gaji_per_bulan,
+          		'jam_kerja' 			=> $jam_kerja,
+          		'register_date' 		=> $date_created,
+          	);
+
+          	$simpan = $this->db->insert('table_lowongan', $data);
+
+           	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+
+           	if($simpan){
+            	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+           	}
+          	echo json_encode($arr);
+
+		} catch (Exception $e) {
+			
+		}
+	}
+
+	// Edit Loker
+	public function lokerEdit()
+	{
+		$id_sekolah = $this->session->userdata('id_sekolah');
+		$id_lowongan  = $this->uri->segment(3);
+
+		$path = "";
+		$get = array(
+			"get_lowongan" => $this->dashboard->data_loker($id_lowongan),
+			"mitra_bkk" => $this->dashboard->mitra_bkk($id_sekolah),
+			"posisi_jabatan" => $this->dashboard->posisi_jabatan(),
+			"jenis_lowongan" => $this->dashboard->jenis_lowongan(),
+			"data_keahlian" => $this->dashboard->keahlian(),
+			"status_pendidikan" => $this->dashboard->status_pendidikan(),
+			"jenis_pengupahan" => $this->dashboard->jenis_pengupahan(),
+			"hubungan_kerja" => $this->dashboard->hubungan_kerja(),
+			"jurusan" => $this->dashboard->jurusan($id_sekolah),
+		);
+		$data = array(
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Lowongan Kerja", $path),
+			"content" => $this->load->view('dashboardBkk/loker-edit', $get, true),
+		);
+		$this->load->view('dashboard/template/default_template', $data);
+	}
+
+	public function editLoker()
+	{
+		error_reporting(0);
+		try {
+			date_default_timezone_set('Asia/Jakarta');
+			$id_lowongan 			= $this->input->post("id_lowongan");
+
+			$id_sekolah 			= $this->session->userdata('id_sekolah');
+			$id_mitra 				= $this->input->post("mitra");
+			$id_posisi_jabatan 		= $this->input->post("posisi_jabatan");
+			$id_keahlian 			= $this->input->post("keahlian");
+			$id_status_pendidikan 	= $this->input->post("pendidikan");
+			$id_jenis_pengupahan 	= $this->input->post("jenis_pengupahan");
+			$id_status_hub_kerja 	= $this->input->post("hubungan_kerja");
+
+			$nama_lowongan 		= $this->input->post("nama_lowongan");
+          	$tanggal_berlaku 	= date('Y-m-d', strtotime($this->input->post("tanggal_berlaku")));
+          	$tanggal_berakhir 	= date('Y-m-d', strtotime($this->input->post("tanggal_berakhir")));
+          	$uraian_pekerjaan 	= $this->input->post("uraian_pekerjaan");
+          	$uraian_tugas 		= $this->input->post("uraian_tugas");
+          	$penempatan 		= $this->input->post("penempatan");
+          	$jml_pria 			= $this->input->post("jml_pria");
+          	$jml_wanita 		= $this->input->post("jml_wanita");
+
+          	$batas_umur 		= $this->input->post("batas_umur");
+          	$jurusan 	 		= $this->input->post("jurusan");
+          	$pengalaman 		= $this->input->post("pengalaman");
+          	$syarat_khusus 		= $this->input->post("syarat_khusus");
+
+          	$gaji_per_bulan 	= $this->input->post("gaji_per_bulan");
+          	$jam_kerja 			= $this->input->post("jam_kerja");
+
+          	$date_created  		= date("Y-m-d H:i:s");
+
+          	$data = array(
+          		'id_sekolah' 			=> $id_sekolah,
+          		'id_mitra' 				=> $id_mitra,
+          		'id_posisi_jabatan' 	=> $id_posisi_jabatan,
+          		'id_keahlian' 			=> $id_keahlian, 
+          		'id_status_pendidikan' 	=> $id_status_pendidikan,
+          		'id_jenis_pengupahan' 	=> $id_jenis_pengupahan,
+          		'id_status_hub_kerja' 	=> $id_status_hub_kerja,
+          		'tanggal_berlaku' 		=> $tanggal_berlaku,
+          		'tanggal_berakhir' 		=> $tanggal_berakhir,
+          		'nama_lowongan' 		=> $nama_lowongan,
+          		'uraian_pekerjaan' 		=> $uraian_pekerjaan,
+          		'uraian_tugas' 			=> $uraian_tugas,
+          		'penempatan' 			=> $penempatan,
+          		'batas_umur' 			=> $batas_umur,
+          		'jml_pria' 				=> $jml_pria,
+          		'jml_wanita' 			=> $jml_wanita,
+          		'jurusan' 				=> $jurusan,
+          		'pengalaman' 			=> $pengalaman,
+          		'syarat_khusus' 		=> $syarat_khusus,
+          		'gaji_per_bulan'		=> $gaji_per_bulan,
+          		'jam_kerja' 			=> $jam_kerja,
+          		'register_date' 		=> $date_created,
+          	);
+
+          	$update = $this->db->where('id_lowongan', $id_lowongan);
+			$this->db->update('table_lowongan', $data);
+
+          	if($update) {
+            	$this->session->set_flashdata("notif1", "Data Berhasil Disimpan");
+                redirect('dashboardBkk/loker');
+           	} else {
+           		$this->session->set_flashdata("notif2", "Data Gagal Disimpan");
+                redirect('dashboardBkk/loker');
+           	}
+
+		} catch (Exception $e) {
+			
+		}
+	}
+
+	// Hapus Loker
+	public function hapusLoker()
+	{
+		try {
+			$id  = $this->uri->segment(3);
+			$_id = $this->db->get_where('table_lowongan',['id_lowongan' => $id])->row();
+	        $query = $this->db->delete('table_lowongan',['id_lowongan'=>$id]);
+
+	        $arr = array('msg' => 'Data gagal dihapus', 'success' => false);
+
+	       	if($query){
+	        	$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
+	       	}
+	        echo json_encode($arr);
+		} catch (Exception $e) {
+			redirect('dashboardBkk/user');
+		}
+	}
+
+	//Alumni
 	public function alumni()
 	{
 		$path = "";
@@ -831,9 +1115,7 @@ class DashboardBkk extends CI_Controller {
 		try {
 
 			$id_user = $this->session->userdata('id');
-			$id_s = $this->dashboard->get_id_sekolah($id_user);
-
-			$id_sekolah = $id_s->id_sekolah;
+			$id_sekolah = $this->session->userdata('id_sekolah');
 
 			$nama_perusahaan 	= $this->input->post("nama_perusahaan");
           	$bidang_usaha 	 	= $this->input->post("bidang_usaha");
@@ -1055,6 +1337,8 @@ class DashboardBkk extends CI_Controller {
 	public function tambahUser()
 	{
 		try {
+			date_default_timezone_set('Asia/Jakarta');
+
             $nama_operator 	= $this->input->post('nama_operator');
             $email   		= $this->input->post('email');
             $no_hp   		= $this->input->post('no_hp');
@@ -1202,6 +1486,24 @@ class DashboardBkk extends CI_Controller {
         $kel = $this->input->post('kel');
 
         echo $this->dashboard->get_nama_kel($kel);
+
+    }
+
+    // Get Keahlian
+    public function get_keahlian()
+    {
+        $keahlian = $this->input->post('keahlian');
+
+        echo $this->dashboard->get_keahlian($keahlian);
+
+    }
+
+    // Get Kategori
+    public function get_kategori()
+    {
+        $kategori = $this->input->post('kategori');
+
+        echo $this->dashboard->get_kategori($kategori);
 
     }
 

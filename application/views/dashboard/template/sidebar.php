@@ -261,7 +261,7 @@
 												<h4 class="text-white mb-0">Alice Williams</h4>
 												<small class="text-white">Henry@example.com</small>
 											</div>
-											<a href="<?php echo base_url(); ?>logout" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" data-original-title="Logout"> <i
+											<a href="javascript:void(0)" class="text-white font-20 tooltip-wrapper" data-toggle="tooltip" data-placement="top" title="" id="logout" data-original-title="Logout"> <i
 												class="zmdi zmdi-power"></i></a>
 											</div>
 										</div>
@@ -318,11 +318,13 @@
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/alumni" aria-expanded="false"><i class="nav-icon ti ti-clipboard"></i><span class="nav-title">Alumni</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/mitra" aria-expanded="false"><i class="nav-icon ti ti-user"></i><span class="nav-title">Mitra BKK</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboardBkk/user" aria-expanded="false"><i class="nav-icon ti ti-briefcase"></i><span class="nav-title">User</span></a> </li>
-								<?php }else{ ?>
+								<?php }else if ($this->uri->segment(1) == "dashboard" || $this->uri->segment(1) == "Dashboard") {
+									# code...
+								}{ ?>
 								<li class="nav-static-title">Dashboard</li>
 								<li class="active"><a href="<?php echo base_url(); ?>dashboard" aria-expanded="false"><i class="nav-icon ti ti-dashboard"></i><span class="nav-title">Dashboard</span></a> </li>
 								<li class="nav-static-title">Menu</li>
-								<!-- <li><a href="<?php //echo base_url(); ?>dashboard/slider" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Slider</span></a> </li> -->
+								<li><a href="<?php echo base_url(); ?>dashboard/slider" aria-expanded="false"><i class="nav-icon ti ti-comment"></i><span class="nav-title">Slide Show</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboard/databkk" aria-expanded="false"><i class="nav-icon ti ti-package"></i><span class="nav-title">Data BKK</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboard/dataloker" aria-expanded="false"><i class="nav-icon ti ti-pulse"></i><span class="nav-title">Data Loker</span></a> </li>
 								<li><a href="<?php echo base_url(); ?>dashboard/dataalumni" aria-expanded="false"><i class="nav-icon ti ti-clipboard"></i><span class="nav-title">Data Alumni</span></a> </li>
@@ -347,3 +349,25 @@
 						<!-- end sidebar-nav -->
 					</aside>
                 <!-- end app-navbar -->
+
+<script type="text/javascript">
+$(document).ready(function() {
+    $('#logout').on('click', function () {
+        var id =  $(this).data('id');
+        swal({
+            title: "Logout!",
+            text: "Apakah anda yakin ingin logout?",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+            	window.location = "<?php echo base_url();?>logout";
+                // $.ajax({
+                //     url: "",  
+                // });
+            }
+        })
+    });
+});
+</script>
