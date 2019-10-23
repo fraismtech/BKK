@@ -9,7 +9,9 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button>
+                    <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button>   
+                    <a href="<?php echo base_url("assets/excel/format.xlsx"); ?>"><button class="btn btn-sm btn-secondary">Download Format</button></a>
+                    <button class="btn btn-sm btn-dark" data-toggle="modal" data-target="#modalAdd">Import Format</button>
                 </div>
                 <div class="datatable-wrapper table-responsive">
                     <table id="example" class="display compact table table-striped" width="100%">
@@ -18,6 +20,8 @@
                                 <th>No. </th>
                                 <th>NISN</th>
                                 <th>Nama Lengkap</th>
+                                <th>Tempat, Tanggal Lahir</th>
+                                <th>Jurusan</th>
                                 <th>No. Telp</th>
                                 <th>Tahun Lulus</th>
                                 <th>Status</th>    
@@ -33,6 +37,32 @@
         </div>
     </div>
 </div>
+<!-- Modal Import -->
+<div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="panel-title">
+                    <h4>Import Format Alumni</h4>
+                </div>
+                <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="sliderForm" action="<?php echo base_url(); ?>/dashboardBkk/importAlumni" autocomplete="off" enctype="multipart/form-data">
+                    <div class="pl-lg-1">
+                        <div class="form-group">
+                            <label>File Format</label>
+                            <input type="file" name="file" class="form-control foto" placeholder="Foto">
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="textSlider">Import</span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
 $(document).ready(function() {
     var table = $('#example').DataTable({ 
@@ -40,6 +70,18 @@ $(document).ready(function() {
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [], //Initial no order.
+        "paging"         : true,
+        "lengthMenu"     : [10,25,50,100],
+        "scrollY"        : "300px",
+        "scrollCollapse" : true,
+        "searching"      : true,
+        "ordering"       : true,
+        "info"           : true,
+        "scrollX"        : true,
+        "scrollCollapse" : true,
+        "searching"      : true,
+        "ordering"       : true,
+        "info"           : true, //Initial no order.
 
         // Load data for the table's content from an Ajax source
         "ajax": {
@@ -54,7 +96,7 @@ $(document).ready(function() {
             "orderable": false, //set not orderable
         },
         { 
-            "targets": [ 6 ], //first column / numbering column
+            "targets": [ 8 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
         // { 
@@ -146,3 +188,20 @@ $(document).ready(function() {
       });
     </script>
 <?php endif; ?>
+<script type="text/javascript">
+$(".foto").change(function() {
+    if (this.files && this.files[0] && this.files[0].name.match(/\.(xlsx)$/) ) {
+        if(this.files[0].size>10485760) {
+            $('.foto').val('');
+            alert('Batas Maximal Ukuran File 10MB !');
+        }
+        else {
+            var reader = new FileReader();
+            reader.readAsDataURL(this.files[0]);
+        }
+    } else{
+        $('.foto').val('');
+        alert('Hanya File Xlsx Yang Diizinkan !');
+    }
+});
+</script>

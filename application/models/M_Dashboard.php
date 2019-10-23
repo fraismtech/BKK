@@ -714,8 +714,30 @@ class M_Dashboard extends CI_Model
     // Data Alumni
     public function data_alumni($id_alumni)
     {
-        $query = $this->db->query("SELECT * FROM table_alumni AS ta JOIN table_sekolah AS ts ON ta.id_sekolah = ts.id_sekolah JOIN table_jurusan AS tj ON ta.jurusan = tj.id_jurusan WHERE ta.id_alumni = '$id_alumni'");
+        $query = $this->db->query("SELECT * FROM table_alumni AS ta JOIN table_sekolah AS ts ON ta.id_sekolah = ts.id_sekolah WHERE ta.id_alumni = '$id_alumni'");
         return $query->result();
+    }
+
+    // Upload Format
+    public function upload_file($filename){
+        $this->load->library('upload'); // Load librari upload
+        
+        $config['upload_path'] = './assets/excel/';
+        $config['allowed_types'] = 'xlsx';
+        $config['max_size'] = '10485760';
+        $config['overwrite'] = true;
+        $config['file_name'] = $filename;
+    
+        $this->upload->initialize($config); // Load konfigurasi uploadnya
+        if($this->upload->do_upload('file')){ // Lakukan upload dan Cek jika proses upload berhasil
+            // Jika berhasil :
+            $return = array('result' => 'success', 'file' => $this->upload->data(), 'error' => '');
+            return $return;
+        }else{
+            // Jika gagal :
+            $return = array('result' => 'failed', 'file' => '', 'error' => $this->upload->display_errors());
+            return $return;
+        }
     }
 
     // Data Loker

@@ -96,7 +96,7 @@
                                 <select class="form-control" id="jurusan" name="jurusan">
                                     <option value="" selected="">Pilih Jurusan</option>
                                     <?php foreach ($jurusan as $jrs) { ?>
-                                        <option value="<?= $jrs->id_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
+                                        <option value="<?= $jrs->nama_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
                                     <?php } ?>
                                 </select>
                             </div>

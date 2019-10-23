@@ -98,10 +98,10 @@
                                 <select class="form-control" id="jurusan" name="jurusan">
                                     <option value="" selected="">Pilih Jurusan</option>
                                     <?php foreach ($jurusan as $jrs) { 
-                                        if ($alumni->jurusan == $jrs->id_jurusan) { ?>
-                                            <option value="<?= $jrs->id_jurusan ?>" selected><?= $jrs->nama_jurusan ?></option>
+                                        if ($alumni->jurusan == $jrs->nama_jurusan) { ?>
+                                            <option value="<?= $jrs->nama_jurusan ?>" selected><?= $jrs->nama_jurusan ?></option>
                                     <?php } else { ?>
-                                            <option value="<?= $jrs->id_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
+                                            <option value="<?= $jrs->nama_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
                                     <?php }
                                         } ?>
                                 </select>
