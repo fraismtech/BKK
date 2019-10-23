@@ -38,10 +38,11 @@ class M_Dashboard_Pusat extends CI_Model
 
     // Alumni
     var $table_4          = 'table_alumni';
-    var $column_order_4   = array('nisn','nama','no_telp','tahun_lulus','status'); //set column field database for datatable orderable
-    var $column_search_4  = array('nisn','nama','no_telp','tahun_lulus','status'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $table_4_1        = 'table_sekolah';
+    var $column_order_4   = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','tempat_lahir','jurusan','nama_sekolah'); //set column field database for datatable orderable
+    var $column_search_4  = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','tempat_lahir','jurusan','nama_sekolah'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $where_4 = array('');
-    var $order_4 = array('id_alumni' => 'asc'); // default order
+    var $order_4 = array('tahun_lulus' => 'asc'); // default order
 
     // Loker
     var $table_5          = 'table_lowongan';
@@ -337,7 +338,7 @@ class M_Dashboard_Pusat extends CI_Model
         $this->db->from($this->table);
         // $this->db->join($this->table2, $this->table2.'.id_sekolah ='.$this->table.'.id_sekolah');
         // $this->db->where($this->table2.'.id_sekolah=', $id_sekolah);
-        // $this->db->where('table_nabung.username=', $username);
+        $this->db->where('id_sekolah=', '');
         $this->db->order_by('id_slider', 'DESC');
 
         $i = 0;
@@ -750,9 +751,10 @@ class M_Dashboard_Pusat extends CI_Model
     private function _get_datatables_query_alumni()
     {
         $this->db->from($this->table_4);
+        $this->db->join($this->table_4_1, $this->table_4_1.'.id_sekolah ='.$this->table_4.'.id_sekolah');
         // $this->db->where('id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
-        $this->db->order_by('id_alumni', 'DESC');
+        $this->db->order_by('tahun_lulus', 'DESC');
 
         $i = 0;
     

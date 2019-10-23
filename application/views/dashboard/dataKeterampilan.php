@@ -82,11 +82,11 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>ID Keterampilan</label>
-                        <input type="text" name="id_keahlian" id="id" class="form-control" placeholder="ID Keterampilan" readonly="">
+                        <input type="text" name="id_keahlian" id="id" class="form-control" placeholder="ID Keterampilan" readonly="" required="">
                     </div>
                     <div class="form-group">
                         <label>Nama Sekolah</label>
-                        <select class="form-control select2_single" id="id_posisi" name="id_jenis_lowongan">
+                        <select class="form-control select2_single" id="id_posisi" name="id_jenis_lowongan" required="">
                             <option value="" selected="">Pilih Posisi Lowongan Kerja</option>
                             <?php foreach ($p_loker as $posisi) { ?>
                                 <option value="<?= $posisi->id_jenis_lowongan ?>"><?= $posisi->nama_jenis_lowongan ?></option>
@@ -95,7 +95,7 @@
                     </div>
                     <div class="form-group">
                         <label>Nama Keterampilan</label>
-                        <input type="text" name="nama_keahlian" id="nama_keahlian" class="form-control" placeholder="Nama Keterampilan">
+                        <input type="text" name="nama_keahlian" id="nama_keahlian" class="form-control" placeholder="Nama Keterampilan" required="">
                     </div>
                 </div>
                 <div class="modal-footer">

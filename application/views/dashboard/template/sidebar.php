@@ -328,9 +328,10 @@
 								<li><a href="<?php echo base_url(); ?>dashboard/dataalumni" aria-expanded="false"><i class="nav-icon ti ti-clipboard"></i><span class="nav-title">Data Alumni</span></a> </li>
 								<li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-notepad"></i><span class="nav-title">Laporan</span></a>
 									<ul aria-expanded="false">
-										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkPerkecamatan'>Laporan BKK Perkecamatan</a> </li>
-										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkPerjurusan'>Laporan BKK Perjurusan</a> </li>
-										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkLoker'>Laporan BKK Loker</a> </li>
+										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkPerkecamatan'>Laporan BKK</a> </li>
+										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkPerjurusan'>Laporan Alumni</a> </li>
+										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkLoker'>Laporan Mitra Kerja</a> </li>
+										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkLoker'>Laporan Keterserapan</a> </li>
 									</ul>
 								</li>
 								<li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-gift"></i><span class="nav-title">Data Master</span></a>

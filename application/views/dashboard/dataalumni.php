@@ -18,10 +18,12 @@
                                 <th>No. </th>
                                 <th>NISN</th>
                                 <th>Nama Lengkap</th>
+                                <th>Tempat, Tanggal Lahir</th>
+                                <th>Jurusan</th>
                                 <th>No. Telp</th>
                                 <th>Tahun Lulus</th>
-                                <th>Status</th>    
-                                <!-- <th></th> -->
+                                <th>Nama Sekolah</th>
+                                <th>Status</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -40,6 +42,18 @@ $(document).ready(function() {
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [], //Initial no order.
+        "paging"         : true,
+        "lengthMenu"     : [10,25,50,100],
+        "scrollY"        : "300px",
+        "scrollCollapse" : true,
+        "searching"      : true,
+        "ordering"       : true,
+        "info"           : true,
+        "scrollX"        : true,
+        "scrollCollapse" : true,
+        "searching"      : true,
+        "ordering"       : true,
+        "info"           : true, //Initial no order.
 
         // Load data for the table's content from an Ajax source
         "ajax": {

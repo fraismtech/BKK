@@ -5,6 +5,7 @@ class Home extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model("M_Home", "home");
 		if ($this->session->has_userdata('logged_in') == TRUE) {
 			if ($this->session->userdata('level_user') == '2') {
 				redirect('Dashboard');
@@ -28,9 +29,17 @@ class Home extends CI_Controller {
 	public function index()
 	{
 		$path = "";
+		$get = array(
+			'slider' => $this->home->slider(),
+			'total_bkk' => $this->home->total_bkk(),
+			'total_alumni' => $this->home->total_alumni(),
+			'total_mitra' => $this->home->total_mitra(),
+			'total_loker' => $this->home->total_loker(),
+			'lowongan' => $this->home->data_lowongan(), 
+		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok", $path),
-			"content" => $this->load->view('home/index', false, true),
+			"content" => $this->load->view('home/index', $get, true),
 		);
 		$this->load->view('home/template/default_template', $data);
 	}
@@ -38,9 +47,10 @@ class Home extends CI_Controller {
 	public function lowongan()
 	{
 		$path = "";
+		$data1['model'] = $this->home->data_lowongan_all();
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Lowongan", $path),
-			"content" => $this->load->view('home/lowongan', false, true),
+			"content" => $this->load->view('home/lowongan', $data1, true),
 		);
 		$this->load->view('home/template/default_template', $data);
 	}

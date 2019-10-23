@@ -42,7 +42,7 @@
                     <div class="pl-lg-1">
                         <div class="form-group">
                             <label>Nama Sekolah</label>
-                            <select class="form-control" id="sekolah" name="sekolah">
+                            <select class="form-control" id="sekolah" name="sekolah" required="">
                                 <option value="" selected="">Pilih Sekolah</option>
                                 <?php foreach ($sekolah as $bkk) { ?>
                                     <option value="<?= $bkk->id_sekolah ?>"><?= $bkk->nama_sekolah ?></option>
@@ -51,7 +51,7 @@
                         </div>
                         <div class="form-group">
                             <label>Nama Jurusan</label>
-                            <input type="text" name="nama_jurusan" class="form-control" placeholder="Nama Jurusan">
+                            <input type="text" name="nama_jurusan" class="form-control" placeholder="Nama Jurusan" required="">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="textSlider">Simpan</span></button>
@@ -78,7 +78,7 @@
                     <input type="hidden" name="id_jurusan" id="id">
                     <div class="form-group">
                         <label>Nama Sekolah</label>
-                        <select class="form-control select2_single" id="id_sekolah" name="sekolah">
+                        <select class="form-control select2_single" id="id_sekolah" name="sekolah" required="">
                             <option value="" selected="">Pilih Sekolah</option>
                             <?php foreach ($sekolah as $bkk) { ?>
                                 <option value="<?= $bkk->id_sekolah ?>"><?= $bkk->nama_sekolah ?></option>
@@ -87,7 +87,7 @@
                     </div>
                     <div class="form-group">
                         <label>Nama Jurusan</label>
-                        <input type="text" name="nama_jurusan" id="jurusan" class="form-control" placeholder="Nama Jurusan">
+                        <input type="text" name="nama_jurusan" id="jurusan" class="form-control" placeholder="Nama Jurusan" required="">
                     </div>
                 </div>
                 <div class="modal-footer">

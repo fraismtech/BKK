@@ -616,8 +616,11 @@ class Dashboard extends CI_Controller {
 			$row[] = $no.'.';
 			$row[] = $alumni->nisn;
 			$row[] = $alumni->nama;
+			$row[] = $alumni->tempat_lahir.', '.date('Y-m-d', strtotime($alumni->tanggal_lahir));
+			$row[] = $alumni->jurusan;
 			$row[] = $alumni->no_telp;
 			$row[] = $alumni->tahun_lulus;
+			$row[] = $alumni->nama_sekolah;
 			$row[] = $alumni->status;
 			// $row[] = '
 	  //             	<a href="'.base_url().'dashboardBkk/alumniEdit/'.$alumni->id_alumni.'" title="Edit Data">

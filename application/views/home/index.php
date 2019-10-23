@@ -2,8 +2,11 @@
   <div id="demo" class="carousel slide" data-ride="carousel">
     <!-- The slideshow -->
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="<?php echo base_url(); ?>assets/home/images/bg_1.jpg" alt="Slider1" class="carousel-obj">
+      <?php 
+      $no = 1;
+      foreach ($slider as $slide) { ?>
+      <div class="carousel-item <?php if($no <= 1){echo 'active';}?>">
+        <img src="<?php echo base_url(); ?>assets/upload/image/<?= $slide->foto_slider; ?>" alt="Slider1" class="carousel-obj">
         <div class="carousel-caption">
           <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -14,8 +17,12 @@
           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           <button class="btn btn-info" type="button">Selengkapnya</button>
         </div>
-      </div>
-      <div class="carousel-item">
+      </div> 
+      <?php 
+      $no++;
+    } ?>
+      
+      <!-- <div class="carousel-item">
         <img src="<?php echo base_url(); ?>assets/home/images/bg_2.jpg" alt="Slider2" class="carousel-obj">
         <div class="carousel-caption">
           <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
@@ -40,7 +47,7 @@
           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           <button class="btn btn-info" type="button">Selengkapnya</button>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <!-- Left and right controls -->
@@ -66,7 +73,7 @@
                   <div class="icon d-flex justify-content-center align-items-center">
                     <h1 class="text-white"><i class="fas fa-home"></i></h1>
                   </div>
-                  <strong class="number" data-number="450">450</strong>
+                  <strong class="number" data-number="<?= $total_bkk; ?>"><?= $total_bkk; ?></strong>
                   <span>BKK</span>
                 </div>
               </div>
@@ -77,7 +84,7 @@
                   <div class="icon d-flex justify-content-center align-items-center">
                     <h1><i class="fas fa-cubes"></i></h1>
                   </div>
-                  <strong class="number" data-number="100">100</strong>
+                  <strong class="number" data-number="<?= $total_alumni; ?>"><?= $total_alumni; ?></strong>
                   <span>Alumni</span>
                 </div>
               </div>
@@ -88,7 +95,7 @@
                   <div class="icon d-flex justify-content-center align-items-center">
                     <h1 class="text-white"><i class="fas fa-heart"></i></h1>
                   </div>
-                  <strong class="number" data-number="564">564</strong>
+                  <strong class="number" data-number="<?= $total_mitra; ?>"><?= $total_mitra; ?></strong>
                   <span>Mitra Kerja</span>
                 </div>
               </div>
@@ -99,7 +106,7 @@
                   <div class="icon d-flex justify-content-center align-items-center">
                     <h1><i class="fas fa-user"></i></h1>
                   </div>
-                  <strong class="number" data-number="300">300</strong>
+                  <strong class="number" data-number="<?= $total_loker; ?>"><?= $total_loker; ?></strong>
                   <span>Lowongan Kerja</span>
                 </div>
               </div>
@@ -270,61 +277,18 @@
       <div class="col-md-12">
         <h2 class="text-center text-light ftco-animate"><b>Info Lowongan Kerja</b></h2>
         <div class="row justify-content-center">
+          <?php foreach ($lowongan as $loker) { ?>
           <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
             <div class="card">
               <div class="card-body">
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail"><h5 class="text-info">Programmer</h5></a>
-                <span class="badge badge-success">CV. Frais Mediatech</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail" class="btn btn-info float-right">Selengkapnya</a>
+                <a href="<?php echo base_url(); ?>Home/lowonganDetail/<?= $loker->id_lowongan ?>"><h5 class="text-info"><?= $loker->nama_lowongan ?></h5></a>
+                <span class="badge badge-success"><?= $loker->nama_perusahaan ?></span>
+                <p><?= $loker->uraian_pekerjaan ?></p>
+                <a href="<?php echo base_url(); ?>Home/lowonganDetail/<?= $loker->id_lowongan ?>" class="btn btn-info float-right">Selengkapnya</a>
               </div>
             </div>
           </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail"><h5 class="text-info">Programmer</h5></a>
-                <span class="badge badge-success">CV. Frais Mediatech</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail" class="btn btn-info float-right">Selengkapnya</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail"><h5 class="text-info">Programmer</h5></a>
-                <span class="badge badge-success">CV. Frais Mediatech</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail" class="btn btn-info float-right">Selengkapnya</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail"><h5 class="text-info">Programmer</h5></a>
-                <span class="badge badge-success">CV. Frais Mediatech</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail" class="btn btn-info float-right">Selengkapnya</a>
-              </div>
-            </div>
-          </div>
-          <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail"><h5 class="text-info">Programmer</h5></a>
-                <span class="badge badge-success">CV. Frais Mediatech</span>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                tempor incididunt ut labore et dolore magna aliqua.</p>
-                <a href="<?php echo base_url(); ?>Home/lowonganDetail" class="btn btn-info float-right">Selengkapnya</a>
-              </div>
-            </div>
-          </div>
+          <?php } ?>
         </div>
         <br>
         <div class="row justify-content-center">

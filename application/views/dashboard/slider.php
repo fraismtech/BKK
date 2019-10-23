@@ -54,11 +54,11 @@
                         </div>
                         <div class="form-group">
                             <label>Judul</label>
-                            <input type="text" name="judul" class="form-control" placeholder="Judul">
+                            <input type="text" name="judul" class="form-control" placeholder="Judul" required="">
                         </div>
                         <div class="form-group">
                             <label>Foto</label>
-                            <input type="file" name="file" class="form-control foto" placeholder="Foto">
+                            <input type="file" name="file" class="form-control foto" placeholder="Foto" required="">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="textSlider">Simpan</span></button>

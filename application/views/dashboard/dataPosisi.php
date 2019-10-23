@@ -42,11 +42,11 @@
                     <div class="pl-lg-1">
                         <div class="form-group">
                             <label>ID Posisi Lowongan</label>
-                            <input type="text" name="id_jenis_lowongan" class="form-control" placeholder="ID Posisi Lowongan">
+                            <input type="text" name="id_jenis_lowongan" class="form-control" placeholder="ID Posisi Lowongan" required="">
                         </div>
                         <div class="form-group">
                             <label>Nama Posisi Lowongan</label>
-                            <input type="text" name="nama_jenis_lowongan" class="form-control" placeholder="Nama Posisi Lowongan">
+                            <input type="text" name="nama_jenis_lowongan" class="form-control" placeholder="Nama Posisi Lowongan" required="">
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="textSlider">Simpan</span></button>
