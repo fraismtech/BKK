@@ -2,10 +2,13 @@
   <div id="demo" class="carousel slide" data-ride="carousel">
     <!-- The slideshow -->
     <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img src="<?php echo base_url(); ?>assets/home/images/bg_1.jpg" alt="Slider1" class="carousel-obj">
+      <?php 
+      $no = 1;
+      foreach ($slider as $slide) { ?>
+      <div class="carousel-item <?php if($no <= 1){echo 'active';}?>">
+        <img src="<?php echo base_url(); ?>assets/upload/image/<?= $slide->foto_slider; ?>" alt="Slider1" class="carousel-obj">
         <div class="carousel-caption">
-          <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
+          <h3 class="text-white"><?= $slide->judul_slider; ?></h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
             quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -14,34 +17,10 @@
           proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           <button class="btn btn-info" type="button">Selengkapnya</button>
         </div>
-      </div>
-      <div class="carousel-item">
-        <img src="<?php echo base_url(); ?>assets/home/images/bg_2.jpg" alt="Slider2" class="carousel-obj">
-        <div class="carousel-caption">
-          <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <button class="btn btn-info" type="button">Selengkapnya</button>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="<?php echo base_url(); ?>assets/home/images/bg_3.jpg" alt="Slider3" class="carousel-obj">
-        <div class="carousel-caption">
-          <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <button class="btn btn-info" type="button">Selengkapnya</button>
-        </div>
-      </div>
-    </div>
+      </div> 
+      <?php 
+        $no++;
+      } ?>
 
     <!-- Left and right controls -->
     <a class="carousel-control-prev" href="#demo" data-slide="prev">
@@ -247,7 +226,7 @@
   </div>
 </section>
 
-<section class="ftco-section">
+<!-- <section class="ftco-section">
   <div class="container">
     <div class="row d-block">
       <div class="col-md-12">
@@ -352,4 +331,4 @@
       </div>
     </div>
   </div>
-</section>
+</section> -->

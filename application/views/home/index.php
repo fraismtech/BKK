@@ -8,7 +8,7 @@
       <div class="carousel-item <?php if($no <= 1){echo 'active';}?>">
         <img src="<?php echo base_url(); ?>assets/upload/image/<?= $slide->foto_slider; ?>" alt="Slider1" class="carousel-obj">
         <div class="carousel-caption">
-          <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
+          <h3 class="text-white"><?= $slide->judul_slider; ?></h3>
           <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
             quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -19,8 +19,8 @@
         </div>
       </div> 
       <?php 
-      $no++;
-    } ?>
+        $no++;
+      } ?>
       
       <!-- <div class="carousel-item">
         <img src="<?php echo base_url(); ?>assets/home/images/bg_2.jpg" alt="Slider2" class="carousel-obj">

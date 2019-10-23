@@ -5,6 +5,7 @@ class Bkk extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		$this->load->model("M_Bkk", "bkk");
 		if ($this->session->userdata('level_user') == '1') {
 			redirect('DashboardBkk');
 		}
@@ -26,9 +27,13 @@ class Bkk extends CI_Controller {
 	public function index()
 	{
 		$path = "";
+		$get = array(
+			'slider' => $this->bkk->slider(),
+			// 'lowongan' => $this->bkk->data_lowongan(), 
+		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok", $path),
-			"content" => $this->load->view('bkk/index', false, true),
+			"content" => $this->load->view('bkk/index', $get, true),
 		);
 		$this->load->view('bkk/template/default_template', $data);
 	}
