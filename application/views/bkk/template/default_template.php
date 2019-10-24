@@ -10,22 +10,22 @@
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light site-navbar-target" id="ftco-navbar">
 		<div class="container">
-			<a class="navbar-brand" href="<?php echo base_url();?>">BKK Kota Depok</a>
+			<a class="navbar-brand" href="<?php echo base_url();?>">BKK <?php echo $detailSekolah[0]['nama_sekolah']; ?></a>
 			<button class="navbar-toggler js-fh5co-nav-toggle fh5co-nav-toggle" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="fas fa-bars"></span> Menu
 			</button>
-
+			<?php $nameurl = $this->uri->segment(1); ?>
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav nav ml-auto menusBar">
-						<li class="nav-item"><a href="<?php echo base_url();?>Bkk" <?php if ($this->uri->segment(1) == 'Bkk' && $this->uri->segment(2) == '') { ?>
+						<li class="nav-item"><a href="<?php echo base_url();?><?php echo $nameurl; ?>" <?php if ($this->uri->segment(1) == $nameurl && $this->uri->segment(2) == '') { ?>
 							class="nav-link nav-active" <?php }else{ ?> class="nav-link" <?php } ?>><span>Beranda</span></a></li>
-							<li class="nav-item"><a href="<?php echo base_url();?>Bkk/profil" <?php if ($this->uri->segment(1) == 'Bkk' && $this->uri->segment(2) == 'profil') { ?>
+							<li class="nav-item"><a href="<?php echo base_url();?><?php echo $nameurl; ?>/profil" <?php if ($this->uri->segment(1) == $nameurl && $this->uri->segment(2) == 'profil') { ?>
 							class="nav-link nav-active" <?php }else{ ?> class="nav-link" <?php } ?>><span>Profil</span></a></li>
-							<li class="nav-item"><a href="<?php echo base_url();?>Bkk/kegiatan" <?php if ($this->uri->segment(1) == 'Bkk' && $this->uri->segment(2) == 'kegiatan' || $this->uri->segment(1) == 'Bkk' && $this->uri->segment(2) == 'kegiatanDetail') { ?>
+							<li class="nav-item"><a href="<?php echo base_url();?><?php echo $nameurl; ?>/kegiatan" <?php if ($this->uri->segment(1) == $nameurl && $this->uri->segment(2) == 'kegiatan' || $this->uri->segment(1) == $nameurl && $this->uri->segment(2) == 'kegiatandetail') { ?>
 							class="nav-link nav-active" <?php }else{ ?> class="nav-link" <?php } ?>><span>Kegiatan</span></a></li>
-							<li class="nav-item"><a href="<?php echo base_url();?>Bkk/kontak" <?php if ($this->uri->segment(1) == 'Bkk' && $this->uri->segment(2) == 'kontak') { ?>
+							<li class="nav-item"><a href="<?php echo base_url();?><?php echo $nameurl; ?>/kontak" <?php if ($this->uri->segment(1) == $nameurl && $this->uri->segment(2) == 'kontak') { ?>
 							class="nav-link nav-active" <?php }else{ ?> class="nav-link" <?php } ?>><span>Kontak</span></a></li>
-							<li class="nav-item"><a href="<?php echo base_url();?>Bkk/alumni" <?php if ($this->uri->segment(1) == 'Bkk' && $this->uri->segment(2) == 'alumni') { ?>
+							<li class="nav-item"><a href="<?php echo base_url();?><?php echo $nameurl; ?>/alumni" <?php if ($this->uri->segment(1) == $nameurl && $this->uri->segment(2) == 'alumni') { ?>
 							class="nav-link nav-active" <?php }else{ ?> class="nav-link" <?php } ?>><span>Alumni</span></a></li>
 						<li class="nav-item"><a href="<?php echo base_url();?>login" <?php if ($this->uri->segment(1) == 'login') { ?>
 							class="nav-link nav-active" <?php }else{ ?> class="nav-link" <?php } ?>><span>Login</span></a></li>
