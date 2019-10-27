@@ -3,27 +3,59 @@
         <div class="card card-statistics">
             <div class="card-header d-flex align-items-center justify-content-between">
                 <div class="card-heading">
-                    <h4 class="card-title">Data Alumni</h4>
+                    <h4 class="card-title">Laporan Keterserapan SMK</h4>
                 </div>
                 <!-- <a href="<?php echo base_url(); ?>dashboardBkk/tambahAlumni"><button class="btn btn-sm btn-primary pull-right">Tambah</button></a> -->
             </div>
             <div class="card-body">
-                <!-- <div class="form-group">
-                    <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button>
-                </div> -->
+                <form id="searchForm" class="form-horizontal">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Nama Sekolah</label>
+                                <select class="form-control" id="sekolah" name="sekolah">
+                                    <option value="" selected="">Pilih Sekolah</option>
+                                    <?php foreach ($sekolah as $bkk) { ?>
+                                        <option value="<?= $bkk->id_sekolah ?>"><?= $bkk->nama_sekolah ?></option>
+                                    <?php } ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Nama Jurusan</label>
+                                <select class="form-control" id="jurusan" name="jurusan">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label>Tahun Lulus</label>
+                                <div class="input-group date form_year" data-date-format="yyyy" data-link-field="dtp_input4">
+                                    <input class="form-control" type="text" value="" placeholder="Tahun Lulus" name="tahun_lulus" id="tahun_lulus">
+                                    <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
                 <div class="datatable-wrapper table-responsive">
                     <table id="example" class="display compact table table-striped" width="100%">
                         <thead>
                             <tr>
                                 <th>No. </th>
                                 <th>NISN</th>
+                                <th>NIK</th>
                                 <th>Nama Lengkap</th>
-                                <th>Tempat, Tanggal Lahir</th>
-                                <th>Jurusan</th>
+                                <th>Jenis Kelamin</th>
+                                <th>Alamat</th>
                                 <th>No. Telp</th>
+                                <th>Email</th>
+                                <th>Jurusan</th>
                                 <th>Tahun Lulus</th>
-                                <th>Nama Sekolah</th>
                                 <th>Status</th>
+                                <th>Nama Perusahaan</th>
+                                <th>Alamat Perusahaan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,12 +68,36 @@
     </div>
 </div>
 <script type="text/javascript">
+$(document).ready(function(){
+    $('.form_year').datetimepicker({
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 4,
+        minView: 4,
+        forceParse: 0
+    });
+    $("#sekolah").change(function(){
+        var skl = $(this).val();
+        $.ajax({
+            url:"<?php echo base_url(); ?>dashboard/get_jurusan",
+            method:"POST",
+            data:{skl:skl},
+            success:function(data) {
+                $('#jurusan').html(data);
+            }
+        });
+    });
+});
+</script>
+<script type="text/javascript">
 $(document).ready(function() {
     var table = $('#example').DataTable({ 
-        // "dom": 'Bfrtip',
-        // "buttons": [
-        //     'excel', 'pdf'
-        // ],
+        "dom": 'Bfrtip',
+        "buttons": [
+            'excel', 'pdf'
+        ],
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [], //Initial no order.
@@ -59,8 +115,13 @@ $(document).ready(function() {
         "info"           : true, //Initial no order.
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('dashboard/ajax_list_alumni')?>",
-            "type": "POST"
+            "url": "<?php echo site_url('dashboard/ajax_list_laporan_keterserapan')?>",
+            "type": "POST",
+            "data": function (data) {
+                data.sekolah = $('#sekolah').val();
+                data.jurusan = $('#jurusan').val();
+                data.tahun_lulus = $('#tahun_lulus').val();
+            }
         },
 
         //Set column definition initialisation properties.
@@ -86,10 +147,13 @@ $(document).ready(function() {
 
     });
 
-    $('#btn-filter').click(function(){ //button filter event click
+    $('#sekolah').change(function(){ //button filter event click
         table.ajax.reload();  //just reload table
     });
-    $('#btn-reset').click(function(){
+    $('#jurusan').change(function(){ //button filter event click
+        table.ajax.reload();  //just reload table
+    });
+    $('#tahun_lulus').on("change keyup", function(){
         table.ajax.reload();
     });
 });

@@ -1,7 +1,7 @@
 <!-- Notification -->
 <div class="row">
     <div class="col-md-12">
-        <?=$this->session->flashdata('notif')?>
+        <?=$this->session->userdata('notif')?>
     </div>
 </div>
 <!-- end row -->

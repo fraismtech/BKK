@@ -12,6 +12,7 @@
                     <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button>
                 </div>
                 <div class="datatable-wrapper table-responsive">
+                    <?= $this->session->userdata('id_sekolah');?>
                     <table id="example" class="display compact table table-striped" width="100%">
                         <thead>
                             <tr>

@@ -8,7 +8,7 @@ class DashboardBkk extends CI_Controller {
 		$this->load->model("M_Dashboard","dashboard");
 		if ($this->session->has_userdata('logged_in') == TRUE) {
 			if ($this->session->userdata('level_user') == '2') {
-				redirect('Dashboard');
+				redirect('dashboard/index');
 			}
 		} else {
 			redirect('Home');
@@ -35,7 +35,7 @@ class DashboardBkk extends CI_Controller {
 		$this->load->view('dashboard/template/default_template', $data);
 	}
 
-	public function slider()
+	public function slider_bkk()
 	{
 		$path = "";
 		$data = array(
@@ -480,7 +480,7 @@ class DashboardBkk extends CI_Controller {
         echo json_encode($arr);
 	}
 
-	public function profil()
+	public function profil_bkk()
 	{
 		$id_user = $this->session->userdata('id');
 		$id_kecamatan = '3276';
@@ -590,7 +590,7 @@ class DashboardBkk extends CI_Controller {
 	}
 
 	// Kegiatan
-	public function kegiatan()
+	public function kegiatan_bkk()
 	{
 		$path = "";
 		$data = array(
@@ -707,7 +707,7 @@ class DashboardBkk extends CI_Controller {
         echo json_encode($arr);
 	}
 
-	public function loker()
+	public function loker_bkk()
 	{
 		$id_sekolah = $this->session->userdata('id_sekolah');
 		$path = "";
@@ -920,7 +920,7 @@ class DashboardBkk extends CI_Controller {
 	}
 
 	//Alumni
-	public function alumni()
+	public function alumni_bkk()
 	{
 		$path = "";
 		$data = array(
@@ -1158,7 +1158,7 @@ class DashboardBkk extends CI_Controller {
 	}
 
 	// Mitra BKK
-	public function mitra()
+	public function mitra_bkk()
 	{
 		$path = "";
 		$get = array(
@@ -1385,7 +1385,7 @@ class DashboardBkk extends CI_Controller {
         echo json_encode($arr);
 	}
 
-	public function user()
+	public function user_bkk()
 	{
 		$path = "";
 		$data = array(

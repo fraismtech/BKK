@@ -309,15 +309,15 @@
 							<ul class="metismenu " id="sidebarNav">
 								<?php if ($this->uri->segment(1) == "dashboardBkk" || $this->uri->segment(1) == "DashboardBkk") { ?>
 								<li class="nav-static-title">Dashboard</li>
-								<li class="active"><a href="<?php echo base_url(); ?>dashboardBkk" aria-expanded="false"><i class="nav-icon ti ti-dashboard"></i><span class="nav-title">Dashboard</span></a> </li>
+								<li class="active"><a href="<?php echo base_url(); ?>dashboardBkk/index" aria-expanded="false"><i class="nav-icon ti ti-dashboard"></i><span class="nav-title">Dashboard</span></a> </li>
 								<li class="nav-static-title">Menu</li>
-								<li><a href="<?php echo base_url(); ?>dashboardBkk/slider" aria-expanded="false"><i class="nav-icon ti ti-desktop"></i><span class="nav-title">Slider Header</span></a> </li>
-								<li><a href="<?php echo base_url(); ?>dashboardBkk/profil" aria-expanded="false"><i class="nav-icon ti ti-id-badge"></i><span class="nav-title">Profil</span></a> </li>
-								<li><a href="<?php echo base_url(); ?>dashboardBkk/kegiatan" aria-expanded="false"><i class="nav-icon ti ti-package"></i><span class="nav-title">Kegiatan</span></a> </li>
-								<li><a href="<?php echo base_url(); ?>dashboardBkk/loker" aria-expanded="false"><i class="nav-icon ti ti-pulse"></i><span class="nav-title">Loker</span></a> </li>
-								<li><a href="<?php echo base_url(); ?>dashboardBkk/alumni" aria-expanded="false"><i class="nav-icon ti ti-clipboard"></i><span class="nav-title">Alumni</span></a> </li>
-								<li><a href="<?php echo base_url(); ?>dashboardBkk/mitra" aria-expanded="false"><i class="nav-icon ti ti-user"></i><span class="nav-title">Mitra BKK</span></a> </li>
-								<li><a href="<?php echo base_url(); ?>dashboardBkk/user" aria-expanded="false"><i class="nav-icon ti ti-briefcase"></i><span class="nav-title">User</span></a> </li>
+								<li><a href="<?php echo base_url(); ?>dashboardBkk/slider_bkk" aria-expanded="false"><i class="nav-icon ti ti-desktop"></i><span class="nav-title">Slider Header</span></a> </li>
+								<li><a href="<?php echo base_url(); ?>dashboardBkk/profil_bkk" aria-expanded="false"><i class="nav-icon ti ti-id-badge"></i><span class="nav-title">Profil</span></a> </li>
+								<li><a href="<?php echo base_url(); ?>dashboardBkk/kegiatan_bkk" aria-expanded="false"><i class="nav-icon ti ti-package"></i><span class="nav-title">Kegiatan</span></a> </li>
+								<li><a href="<?php echo base_url(); ?>dashboardBkk/loker_bkk" aria-expanded="false"><i class="nav-icon ti ti-pulse"></i><span class="nav-title">Loker</span></a> </li>
+								<li><a href="<?php echo base_url(); ?>dashboardBkk/alumni_bkk" aria-expanded="false"><i class="nav-icon ti ti-clipboard"></i><span class="nav-title">Alumni</span></a> </li>
+								<li><a href="<?php echo base_url(); ?>dashboardBkk/mitra_bkk" aria-expanded="false"><i class="nav-icon ti ti-user"></i><span class="nav-title">Mitra BKK</span></a> </li>
+								<li><a href="<?php echo base_url(); ?>dashboardBkk/user_bkk" aria-expanded="false"><i class="nav-icon ti ti-briefcase"></i><span class="nav-title">User</span></a> </li>
 								<?php }else{ ?>
 								<li class="nav-static-title">Dashboard</li>
 								<li class="active"><a href="<?php echo base_url(); ?>dashboard" aria-expanded="false"><i class="nav-icon ti ti-dashboard"></i><span class="nav-title">Dashboard</span></a> </li>
@@ -328,10 +328,10 @@
 								<li><a href="<?php echo base_url(); ?>dashboard/dataalumni" aria-expanded="false"><i class="nav-icon ti ti-clipboard"></i><span class="nav-title">Data Alumni</span></a> </li>
 								<li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-notepad"></i><span class="nav-title">Laporan</span></a>
 									<ul aria-expanded="false">
-										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkPerkecamatan'>Laporan BKK</a> </li>
-										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkPerjurusan'>Laporan Alumni</a> </li>
-										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkLoker'>Laporan Mitra Kerja</a> </li>
-										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkkLoker'>Laporan Keterserapan</a> </li>
+										<li> <a href='<?php echo base_url(); ?>dashboard/laporanBkk'>Laporan BKK</a> </li>
+										<li> <a href='<?php echo base_url(); ?>dashboard/laporanAlumni'>Laporan Alumni</a> </li>
+										<li> <a href='<?php echo base_url(); ?>dashboard/laporanMitraKerja'>Laporan Mitra Kerja</a> </li>
+										<li> <a href='<?php echo base_url(); ?>dashboard/laporanKeterserapan'>Laporan Keterserapan</a> </li>
 									</ul>
 								</li>
 								<li><a class="has-arrow" href="javascript:void(0)" aria-expanded="false"><i class="nav-icon ti ti-gift"></i><span class="nav-title">Data Master</span></a>

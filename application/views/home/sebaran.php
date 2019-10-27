@@ -2,132 +2,146 @@
   <div class="container">
     <h4 class="ftco-animate mb-3"><b>Data Sebaran Lulusan</b></h4>
     <div class="row d-flex justify- ftco-animate">
-      <div class="col-lg-4 mt-3">
+      <div class="col-md-4">
         <div class="form-group">
-          <label>Jurusan</label>
-          <select class="form-control">
-            <option>Semua Jurusan</option>
-            <option>RPL</option>
-            <option>MM</option>
+          <label>Nama Sekolah</label>
+          <select class="form-control" id="sekolah" name="sekolah">
+            <option value="" selected="">Pilih Sekolah</option>
+            <?php foreach ($sekolah as $bkk) { ?>
+                <option value="<?= $bkk->id_sekolah ?>"><?= $bkk->nama_sekolah ?></option>
+            <?php } ?>
           </select>
         </div>
       </div>
-      <div class="col-lg-4 mt-3">
+      <div class="col-md-4">
         <div class="form-group">
-          <label>Kecamatan</label>
-          <select class="form-control">
-            <option>Semua Kecamatan</option>
-            <option>Cilodong</option>
-            <option>Sukmajaya</option>
+          <label>Nama Jurusan</label>
+          <select class="form-control" id="jurusan" name="jurusan">
           </select>
         </div>
       </div>
-      <div class="col-lg-4 mt-3">
+      <div class="col-md-4">
         <div class="form-group">
-          <label>Kelurahan</label>
-          <select class="form-control">
-            <option>Semua Kelurahan</option>
-            <option>Cilodong</option>
-            <option>Sukmajaya</option>
-          </select>
+          <label>Tahun Lulus</label>
+          <div class="input-group date form_year" data-date-format="yyyy" data-link-field="dtp_input4">
+            <input class="form-control" type="text" value="" placeholder="Tahun Lulus" name="tahun_lulus" id="tahun_lulus">
+            <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+          </div>
         </div>
       </div>
       <div class="col-lg-12">
-      	<table class="table table-striped table-hover">
-         <thead class="bg-info text-white">
-           <tr>
-             <th>No</th>
-             <th>Sekolah</th>
-             <th>Kecamatan</th>
-             <th>Kelurahan</th>
-             <th>Jurusan</th>
-             <th>Jumlah Lulusan</th>
-           </tr>
-         </thead> 
-         <tbody>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>SMK NEGERI 1 DEPOK</td>
-             <td>Tapos</td>
-             <td>Tapos</td>
-             <td>RPL</td>
-             <td>102</td>
-           </tr>
-         </tbody>
-       </table>
-     </div>
-   </div>
- </div>
+      	<div class="datatable-wrapper table-responsive">
+          <table id="example" class="display compact table table-striped" width="100%">
+              <thead>
+                <tr>
+                  <th>No. </th>
+                  <th>NISN</th>
+                  <th>Nama Lengkap</th>
+                  <th>Tempat, Tanggal Lahir</th>
+                  <th>Jurusan</th>
+                  <th>No. Telp</th>
+                  <th>Tahun Lulus</th>
+                  <th>Nama Sekolah</th>
+                  <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+<script type="text/javascript">
+$(document).ready(function(){
+    $('.form_year').datetimepicker({
+        weekStart: 1,
+        todayBtn: 1,
+        autoclose: 1,
+        todayHighlight: 1,
+        startView: 4,
+        minView: 4,
+        forceParse: 0
+    });
+    $("#sekolah").change(function(){
+        var skl = $(this).val();
+        $.ajax({
+            url:"<?php echo base_url(); ?>dashboard/get_jurusan",
+            method:"POST",
+            data:{skl:skl},
+            success:function(data) {
+                $('#jurusan').html(data);
+            }
+        });
+    });
+});
+</script>
+<!-- <script type="text/javascript">
+$(document).ready(function() {
+  var table = $('#example').DataTable({ 
+    // "dom": 'Bfrtip',
+    // "buttons": [
+    //     'excel', 'pdf'
+    // ],
+    "processing": true, //Feature control the processing indicator.
+    "serverSide": true, //Feature control DataTables' server-side processing mode.
+    "order": [], //Initial no order.
+    "paging"         : true,
+    "lengthMenu"     : [10,25,50,100],
+    "scrollY"        : "300px",
+    "scrollCollapse" : true,
+    "searching"      : true,
+    "ordering"       : true,
+    "info"           : true,
+    "scrollX"        : true,
+    "scrollCollapse" : true,
+    "searching"      : true,
+    "ordering"       : true,
+    "info"           : true, //Initial no order.
+    // Load data for the table's content from an Ajax source
+    "ajax": {
+        "url": "<?php echo site_url('dashboard/ajax_list_alumni')?>",
+        "type": "POST",
+        "data": function (data) {
+            data.sekolah = $('#sekolah').val();
+            data.jurusan = $('#jurusan').val();
+            data.tahun_lulus = $('#tahun_lulus').val();
+        }
+    },
+
+    //Set column definition initialisation properties.
+    "columnDefs": [
+    { 
+        "targets": [ 0 ], //first column / numbering column
+        "orderable": false, //set not orderable
+    },
+    // { 
+    //     "targets": [ 6 ], //first column / numbering column
+    //     "orderable": false, //set not orderable
+    // },
+    // { 
+    //     "targets": [ 4 ], //first column / numbering column
+    //     "orderable": false, //set not orderable
+    // },
+    ],
+    "language": {         
+      "info": "",
+      "infoEmpty": "",       
+      "infoFiltered": ""
+    },
+
+  });
+
+  $('#sekolah').change(function(){ //button filter event click
+      table.ajax.reload();  //just reload table
+  });
+  $('#jurusan').change(function(){ //button filter event click
+      table.ajax.reload();  //just reload table
+  });
+  $('#tahun_lulus').on("change keyup", function(){
+      table.ajax.reload();
+  });
+});
+</script> -->

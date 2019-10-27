@@ -1,3 +1,4 @@
+<?php $nameurl = $this->uri->segment(1); ?>
 <section class="ftco-section">
  <div class="container">
   <br>
@@ -103,104 +104,253 @@
     <div class="row d-block">
       <div class="col-md-12">
         <h2 class="text-center text-info ftco-animate"><b>Form Alumni</b></h2>
-        <div class="row justify-content-center">
-          <div class="col-lg-6">
+        <form method="post" action="<?php echo base_url(); ?>
+        <input type="hidden" name="id_sekolah" value="<?= $id_sekolah ?>">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>NISN</label>
+              <input type="text" name="nisn" class="form-control" placeholder="NISN" required="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>NIK</label>
+              <input type="text" name="nik" class="form-control" placeholder="Nomor Induk Kependudukan" required="">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
             <div class="form-group">
               <label>Nama Lengkap</label>
-              <input type="text" name="" class="form-control" placeholder="Nama Lengkap Anda">
+              <input type="text" name="nama" class="form-control" placeholder="Nama" required="">
             </div>
           </div>
-          <div class="col-lg-6">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Jenis Kelamin</label>
+              <div class="row col-lg-12">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios1" value="L" required="">
+                  <label class="form-check-label" for="gridRadios1">&nbsp;&nbsp;&nbsp;&nbsp;Laki-Laki &nbsp; </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios2" value="P" required="">
+                  <label class="form-check-label" for="gridRadios2">&nbsp;&nbsp;&nbsp;&nbsp;Perempuan</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Tempat Lahir</label>
+              <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="">
+            </div>
+          </div>
+          <div class="col-md-6">
             <div class="form-group">
               <label>Tanggal Lahir</label>
-              <input type="date" name="" class="form-control">
+              <div class='input-group date' id='datepicker-bottom-left'>
+                <input class="form-control" type='text' name="tanggal_lahir" placeholder="Tanggal Lahir" required="" />
+                <span class="input-group-addon">
+                  <i class="fa fa-calendar"></i>
+                </span>
+              </div>
             </div>
           </div>
-          <div class="col-lg-12">
+        </div>
+        <div class="row">
+          <div class="col-md-6">
             <div class="form-group">
               <label>Alamat</label>
-              <textarea class="form-control"></textarea>
+              <textarea class="form-control" name="alamat" placeholder="Alamat" required=""></textarea>
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-md-6">
             <div class="form-group">
-              <label>Kecamatan</label>
-              <select class="form-control">
-                <option>Kecamatan 1</option>
-                <option>Kecamatan 2</option>
-                <option>Kecamatan 3</option>
+              <label>No. telp</label>
+              <input type="number" name="no_telp" class="form-control" placeholder="No. Telp" required="">
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Email</label>
+              <input type="email" name="email" class="form-control" placeholder="Email" required="">
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-group">
+              <label>Jurusan</label>
+              <select class="form-control" id="jurusan" name="jurusan" required="">
+                <option value="" selected="">Pilih Jurusan</option>
+                <?php foreach ($jurusan as $jrs) { ?>
+                  <option value="<?= $jrs->nama_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
+                <?php } ?>
               </select>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <label>Kelurahan</label>
-              <select class="form-control">
-                <option>Kelurahan 1</option>
-                <option>Kelurahan 2</option>
-                <option>Kelurahan 3</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <label>No Handphone</label>
-              <input type="number" name="" class="form-control" placeholder="No Handphone ">
-            </div>
-          </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <label>Tahun Masuk</label>
-              <select class="form-control">
-                <option>2019</option>
-                <option>2018</option>
-                <option>2017</option>
-              </select>
-            </div>
-          </div>
-          <div class="col-lg-4">
+        </div>
+        <div class="row">
+          <div class="col-md-6">
             <div class="form-group">
               <label>Tahun Lulus</label>
-              <select class="form-control">
-                <option>2019</option>
-                <option>2018</option>
-                <option>2017</option>
-              </select>
+              <div class="input-group date form_year" data-date-format="yyyy" data-link-field="dtp_input4">
+                <input class="form-control" type="text" value="" placeholder="Tahun Lulus" name="tahun_lulus" required="">
+                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+              </div>
             </div>
           </div>
-          <div class="col-lg-4">
-            <div class="form-group">
-              <label>Alamat Email</label>
-              <input type="email" name="" class="form-control" placeholder="example@mail.com">
-            </div>
-          </div>
-          <div class="col-lg-4">
+          <div class="col-md-6">
             <div class="form-group">
               <label>Status</label>
-              <select class="form-control">
-                <option>Wirausaha</option>
-                <option>Bekerja</option>
-                <option>Belum</option>
+              <select class="form-control" id="status" name="status" required="">
+                <option value="" selected="">Pilih Status</option>
+                <option value="Bekerja">Bekerja</option>
+                <option value="Kuliah">Kuliah</option>
+                <option value="Wiraswasta">Wiraswasta</option>
+                <option value="Belum Bekerja">Belum/Tidak Bekerja</option>
               </select>
             </div>
           </div>
-          <div class="col-lg-4">
+        </div>
+        <div class="row" id="perusahaan">
+          <div class="col-md-6">
             <div class="form-group">
-              <label>Pengalaman Kerja</label>
-               <input type="text" name="" class="form-control" placeholder="Pengalaman Kerja Anda">
+              <label>Nama Perusahaan</label>
+              <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan" required="">
             </div>
           </div>
-          <div class="col-lg-4">
+          <div class="col-md-6">
             <div class="form-group">
-              <label>Keterampilan</label>
-               <input type="text" name="" class="form-control" placeholder="Keterampilan Anda">
+              <label>No. Telp Perusahaan</label>
+              <input type="number" name="no_telp_perusahaan" id="no_telp_perusahaan" class="form-control" placeholder="No Telp Perusahaan" required="">
+            </div>
+          </div>
+        </div>
+        <div class="row" id="perusahaan2">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label>Alamat Perusahaan</label>
+              <textarea class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" placeholder="Alamat Perusahaan" required=""></textarea>
             </div>
           </div>
         </div>
         <div class="text-center">
-        <button class="btn btn-success">Simpan</button>
+          <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="mitraText">Simpan</span></button>
         </div>
-      </div>
+      </form>
     </div>
   </div>
+</div>
 </section>
+<script type="text/javascript">
+  $(document).ready(function () {            
+    $('#perusahaan').hide();
+    $('#perusahaan2').hide();
+
+    $('#nama_perusahaan').prop("disabled", false);
+    $('#no_telp_perusahaan').prop("disabled", false);
+    $('#alamat_perusahaan').prop("disabled", false);
+    $('#status').change(function(){
+      var stat = $(this).val();
+      if (stat == 'Bekerja') {
+        $('#perusahaan').show();
+        $('#perusahaan2').show();
+        $('#nama_perusahaan').prop("disabled", false);
+        $('#no_telp_perusahaan').prop("disabled", false);
+        $('#alamat_perusahaan').prop("disabled", false);
+      } else {
+        $('#perusahaan').hide();
+        $('#perusahaan2').hide();
+        $('#nama_perusahaan').prop("disabled", true);
+        $('#no_telp_perusahaan').prop("disabled", true);
+        $('#alamat_perusahaan').prop("disabled", true);
+      }
+    });
+
+    $('.form_year').datetimepicker({
+      weekStart: 1,
+      todayBtn: 1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 4,
+      minView: 4,
+      forceParse: 0
+    });
+  });
+</script>
+<!-- <script type="text/javascript">
+$(document).ready(function(){
+  $('#mitraText').html('Simpan');
+  $('#simpan').attr('disabled', false);
+  $('#mitraForm').submit(function(e){
+    e.preventDefault();
+    $('#mitraText').html('Menyimpan ...');
+    $('#simpan').attr('disabled', true);
+    var url = '<?php echo base_url(); ?>/<?= $nameurl ?>/';
+    var user = $('#mitraForm').serialize();
+    var save = function(){
+      $.ajax({
+        type: 'POST',
+        url: url + 'addAlumni',
+        dataType: 'json',
+        data: user,
+        success:function(response){
+          $('#message').html(response.message);
+          $('#mitraText').html('Simpan');
+          $('#simpan').attr('disabled', false);
+          if(response.error){
+            swal({
+              title: "Gagal Menyimpan!",
+              text: "Silahkan isi data dengan benar!",
+              icon: "error",
+            });
+          }
+          else{
+            swal({
+              title: "Berhasil!",
+              text: "Data Berhasil Disimpan!",
+              icon: "success",
+            });
+            $('#mitraForm')[0].reset();
+          }
+        }
+      });
+      $('#mitraForm')[0].reset();
+    }
+  });
+
+  $(document).on('click', '#clearMsg', function(){
+      $('#responseDiv').hide();
+  });
+});
+</script> -->
+<?php if ($this->session->flashdata('notif1')): ?>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      swal({
+        title: "Berhasil !",
+        text: "<?php echo $this->session->flashdata('notif1'); ?>",
+        icon: "success",
+        timer: 10000
+      });
+    });
+  </script>
+<?php endif; ?>
+<?php if ($this->session->flashdata('notif2')): ?>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      swal({
+        title: "Maaf !",
+        text: "<?php echo $this->session->flashdata('notif2'); ?>",
+        icon: "error",
+        timer: 10000
+      });
+    });
+  </script>
+  <?php endif; ?>

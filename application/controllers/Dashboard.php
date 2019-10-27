@@ -10,7 +10,7 @@ class Dashboard extends CI_Controller {
 
 		if ($this->session->has_userdata('logged_in') == TRUE) {
 			if ($this->session->userdata('level_user') == '1') {
-				redirect('DashboardBkk');
+				redirect('dashboardBkk/index');
 			}
 		} else {
 			redirect('Home');
@@ -180,32 +180,64 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/template/default_template', $data);
 	}
 
-	public function laporanBkkPerkecamatan()
+	public function laporanBkk()
 	{
+		$id_kecamatan = '3276';
 		$path = "";
+		$get = array(
+			"kecamatan" => $this->dashboard->kecamatan($id_kecamatan),
+		);
 		$data = array(
-			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan BKK Perkecamatan", $path),
-			"content" => $this->load->view('dashboard/laporanBkkPerkecamatan', false, true),
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan BKK", $path),
+			"content" => $this->load->view('dashboard/laporanBkk', $get, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
 	}
 
-	public function laporanBkkPerjurusan()
+	public function laporanAlumni()
 	{
 		$path = "";
+		$get = array(
+			"sekolah" => $this->dashboard->sekolah(),
+		);
 		$data = array(
-			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan BKK Perjurusan", $path),
-			"content" => $this->load->view('dashboard/laporanBkkPerjurusan', false, true),
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan Alumni", $path),
+			"content" => $this->load->view('dashboard/laporanAlumni', $get, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
 	}
 
-	public function laporanBkkLoker()
+	// Get Jurusan
+	public function get_jurusan()
+    {
+        $skl = $this->input->post('skl');
+
+        echo $this->dashboard->get_jurusan($skl);
+
+    }
+
+	public function laporanMitraKerja()
 	{
 		$path = "";
+		$get = array(
+			"sekolah" => $this->dashboard->sekolah(),
+		);
 		$data = array(
-			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan BKk Loker", $path),
-			"content" => $this->load->view('dashboard/laporanBkkLoker', false, true),
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan Mitra Kerja", $path),
+			"content" => $this->load->view('dashboard/laporanMitra', $get, true),
+		);
+		$this->load->view('dashboard/template/default_template', $data);
+	}
+
+	public function laporanKeterserapan()
+	{
+		$path = "";
+		$get = array(
+			"sekolah" => $this->dashboard->sekolah(),
+		);
+		$data = array(
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan Keterserapan", $path),
+			"content" => $this->load->view('dashboard/laporanKeterserapan', $get, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
 	}
@@ -855,6 +887,119 @@ class Dashboard extends CI_Controller {
 		//output to json format
 		echo json_encode($output);
 	}
+
+	// Laporan BKK
+	public function ajax_list_laporan_bkk()
+	{
+		date_default_timezone_set('Asia/Jakarta');
+
+		$id_user = $this->session->userdata('id');
+
+		$list = $this->dashboard->get_datatables_bkk();
+		$data = array();
+		$no = 1;
+		foreach ($list as $bkk) {
+			$row = array();
+			$row[] = $no.'.';
+			$row[] = $bkk->npsn;
+			$row[] = $bkk->nama_sekolah;
+			$row[] = $bkk->alamat_sekolah;
+			$row[] = $bkk->kecamatan;
+			$row[] = $bkk->kelurahan;
+			$row[] = $bkk->no_ijin;
+			$row[] = date('d M Y', strtotime($bkk->tgl_perijinan));
+			$data[] = $row;
+			$no++;
+		}
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->dashboard->count_all_bkk(),
+						"recordsFiltered" => $this->dashboard->count_filtered_bkk(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+	}
+
+	// Laporan Mitra Kerja
+	public function ajax_list_laporan_mitra()
+	{
+		date_default_timezone_set('Asia/Jakarta');
+
+		$id_user = $this->session->userdata('id');
+
+		$list = $this->dashboard->get_datatables_laporan_mitra();
+		$data = array();
+		$no = 1;
+		foreach ($list as $mitra) {
+			$row = array();
+			$row[] = $no.'.';
+			$row[] = $mitra->nama_perusahaan;
+			$row[] = $mitra->alamat_lengkap.', '.$mitra->kelurahan.', '.$mitra->kecamatan.', '.$mitra->kota.', '.$mitra->provinsi.', '.$mitra->kode_pos;
+			$row[] = $mitra->no_telp;
+			$row[] = $mitra->email;
+			$row[] = $mitra->bidang_usaha;
+			$row[] = $mitra->nama_cp;
+			$row[] = $mitra->jabatan_cp;
+			$row[] = $mitra->no_telp_cp;
+			$row[] = $mitra->jenis_kemitraan;
+			$row[] = date('d M Y', strtotime($mitra->dari)).' - '.date('d M Y', strtotime($mitra->sampai));
+			$data[] = $row;
+			$no++;
+		}
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->dashboard->count_all_laporan_mitra(),
+						"recordsFiltered" => $this->dashboard->count_filtered_laporan_mitra(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+	}
+
+	// Alumni
+	public function ajax_list_laporan_keterserapan()
+	{
+		$id_user = $this->session->userdata('id');
+
+		$list = $this->dashboard->get_datatables_alumni();
+		$data = array();
+		$no = 1;
+		foreach ($list as $serapan) {
+			$row = array();
+			if ($serapan->jenis_kelamin == 'L') {
+				$jenis = 'Laki-Laki';
+			} else if ($serapan->jenis_kelamin == 'P'){
+				$jenis = 'Perempuan';
+			}
+			$row[] = $no.'.';
+			$row[] = $serapan->nisn;
+			$row[] = $serapan->nik;
+			$row[] = $serapan->nama;
+			$row[] = $jenis;
+			$row[] = $serapan->alamat_alumni;
+			$row[] = $serapan->no_telp;
+			$row[] = $serapan->email;
+			$row[] = $serapan->jurusan;
+			$row[] = $serapan->tahun_lulus;
+			$row[] = $serapan->status;
+			$row[] = $serapan->nama_perusahaan;
+			$row[] = $serapan->alamat_perusahaan;
+
+			$data[] = $row;
+			$no++;
+		}
+
+		$output = array(
+						"draw" => $_POST['draw'],
+						"recordsTotal" => $this->dashboard->count_all_alumni(),
+						"recordsFiltered" => $this->dashboard->count_filtered_alumni(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
+	}
+
 
 	// End of Ajax Serverside
 	

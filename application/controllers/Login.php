@@ -22,10 +22,10 @@ class Login extends CI_Controller {
 	{
 		if ($this->session->has_userdata('logged_in') == TRUE) {
 			if ($this->session->userdata('level_user') == '2') {
-				redirect('Dashboard');
+				redirect('dashboard/index');
 			}
 			if ($this->session->userdata('level_user') == '1') {
-				redirect('DashboardBkk');
+				redirect('dashboardBkk/index');
 			}
 		} else {
 			$path = "";
@@ -64,11 +64,11 @@ class Login extends CI_Controller {
                     if ($data->level == '2' && $data->id_sekolah == NULL && $data->id_perijinan == NULL) {
 		            	$this->session->set_userdata($newdata);
 		            	$this->session->set_flashdata('notif','<div class="alert border-0 alert-success bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert"><strong>Selamat Datang '.$data->nama_operator.' !</strong> Bursa Kerja Khusus Kota Depok <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti ti-close"></i></button></div>');
-		            	redirect("Dashboard");
+		            	redirect("Dashboard/index");
 		            } elseif ($data->level == '1') {
 		            	$this->session->set_userdata($newdata);
 		            	$this->session->set_flashdata('notif','<div class="alert border-0 alert-success bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert"><strong>Selamat Datang '.$data->nama_operator.' !</strong> Bursa Kerja Khusus Kota Depok <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti ti-close"></i></button></div>');
-		            	redirect("DashboardBkk");
+		            	redirect("DashboardBkk/index");
 		            }
             	}
                 

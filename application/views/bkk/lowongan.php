@@ -1,71 +1,34 @@
 <?php $nameurl = $this->uri->segment(1); ?>
-<section class="ftco-section bg-light mt-5 mt-5-nomedia padding-ftco">
+<section class="ftco-section mt-4">
  <div class="container">
-   <div class="row mt-3">
-     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ftco-animate">
-      <?php foreach($detailKegiatan as $kegiatan) { ?>
-      <img src="<?php echo base_url(); ?>assets/upload/image/<?= $kegiatan->foto_kegiatan ?>" class="img-fluid mb-3 w-100">
-      <?php } ?>
-    </div>
-  </div>
-</div>
-</section>
-
-<section class="ftco-section">
-  <div class="container">
-    <!-- Tab panes -->
-    <div class="row mt-4">
-      <?php foreach($detailKegiatan as $kegiatan) { ?>
-      <div class="col-lg-8 col-md-7 col-sm-12 col-12">
-        <h3><b><?= $kegiatan->judul_kegiatan ?></b></h3>
-        <p class="text-justify"><?= $kegiatan->uraian_kegiatan ?></p>
-      </div>
-      <?php } ?>
-      <div class="col-lg-4 col-md-5 col-sm-12 col-12">
-        <ul class="nav nav-tabs nav-justified">
-          <li class="nav-item">
-            <a class="nav-link active" data-toggle="tab" href="#kegiatan">Kegiatan</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" data-toggle="tab" href="#lowongan">Lowongan</a>
-          </li>
-        </ul>
-        <div class="tab-content">
-          <div class="tab-pane container active" id="kegiatan">
-            <?php foreach($listKegiatan as $list) { ?>
-            <div class="row mt-4">
-              <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                <img src="<?php echo base_url(); ?>assets/upload/image/<?= $list->foto_kegiatan ?>" class="img-donatur2">
-              </div>
-              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                <h6 class="mb-0"><b><a href="<?php echo base_url(); ?><?php echo $nameurl; ?>/kegiatandetail/<?= $list->id_kegiatan ?>"><?= $list->judul_kegiatan ?></a></b></h6>
-                <small><?= date('d M Y', strtotime($list->tanggal_kegiatan)) ?></small>
-              </div>
-            </div>
-            <?php } ?>
-          </div>
-          <div class="tab-pane container fade" id="lowongan">
-            <?php foreach($listLowongan as $list) { ?>
-            <div class="row mt-4">
-              <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                <img src="<?php echo base_url(); ?>assets/home/images/bg_3.jpg" class="img-donatur2">
-              </div> -->
-              <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                <h5 class="mb-0"><b><a href="#" data-toggle="modal" data-target="#myModal<?= $list->id_lowongan ?>"><?= $list->nama_lowongan ?></a></b></h5>
-                <h6 class="mb-0"><b><?= $list->nama_perusahaan ?></b></h6>
-                <small><?= date('d M Y', strtotime($list->register_date)) ?></small>
-              </div>
-            </div>
-            <?php } ?>
-          </div>
+  <br>
+  <div class="row d-flex ftco-animate justify-content-center">
+    <?php foreach ($lowongan['lowongan'] as $loker) { ?>
+    <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="text-info"><?= $loker->nama_lowongan ?></h5> 
+          <span class="badge badge-success"><?= $loker->nama_perusahaan ?></span>
+          <p><?= $loker->uraian_pekerjaan ?></p>
+          <a href="#" data-toggle="modal" data-target="#myModal<?= $loker->id_lowongan ?>" class="btn btn-info float-right">Selengkapnya</a>
         </div>
       </div>
     </div>
+    <?php } ?>
   </div>
+  <?php echo $lowongan['pagination'] ?>
+  <!-- <ul class="pagination text-center justify-content-center">
+    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item active"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+  </ul> -->
+</div>
 </section>
-<?php foreach($listLowongan as $loker){ ?> 
+<?php foreach($lowongan['lowongan'] as $loker){ ?> 
 <!-- The Modal -->
-<div class="modal fade" id="myModal<?= $loker->id_lowongan ?>">
+<div class="modal" id="myModal<?= $loker->id_lowongan ?>">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 

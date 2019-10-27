@@ -6,15 +6,15 @@ class Home extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model("M_Home", "home");
+		$this->load->model("M_Dashboard_Pusat", "dashboard");
 		if ($this->session->has_userdata('logged_in') == TRUE) {
 			if ($this->session->userdata('level_user') == '2') {
-				redirect('Dashboard');
+				redirect('dashboard/index');
 			}
 			if ($this->session->userdata('level_user') == '1') {
-				redirect('DashboardBkk');
+				redirect('dashboardBkk/index');
 			}
 		}
-
 	}
 
 	private function load($title = '', $datapath = '')
@@ -36,10 +36,38 @@ class Home extends CI_Controller {
 			'total_mitra' => $this->home->total_mitra(),
 			'total_loker' => $this->home->total_loker(),
 			'lowongan' => $this->home->data_lowongan(), 
+			'berita' => $this->home->data_kegiatan(),
 		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok", $path),
 			"content" => $this->load->view('home/index', $get, true),
+		);
+		$this->load->view('home/template/default_template', $data);
+	}
+
+	public function berita()
+	{
+		$path = "";
+		$data1['keg'] = $this->home->data_kegiatan_all();
+		$data = array(
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Kegiatan", $path),
+			"content" => $this->load->view('home/kegiatan', $data1, true),
+		);
+		$this->load->view('home/template/default_template', $data);
+	}
+
+	public function beritaDetail()
+	{
+		$path = "";
+		$id_kegiatan = $this->uri->segment(3);
+		$get = array(
+				'detailKegiatan' => $this->home->detailKegiatan($id_kegiatan),
+				'listKegiatan' => $this->home->listKegiatan($id_kegiatan),
+				'listLowongan' => $this->home->listLowongan(),
+			);
+		$data = array(
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Kegiatan", $path),
+			"content" => $this->load->view('home/kegiatanDetail', $get, true),
 		);
 		$this->load->view('home/template/default_template', $data);
 	}
@@ -68,9 +96,12 @@ class Home extends CI_Controller {
 	public function sebaran()
 	{
 		$path = "";
+		$get = array(
+			"sekolah" => $this->dashboard->sekolah(),
+		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Sebaran", $path),
-			"content" => $this->load->view('home/sebaran', false, true),
+			"content" => $this->load->view('home/sebaran', $get, true),
 		);
 		$this->load->view('home/template/default_template', $data);
 	}

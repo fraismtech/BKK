@@ -119,7 +119,7 @@
 <?php } ?>
 <script type="text/javascript">
 $(".foto").change(function() {
-    if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png|jpeg|PNG|doc|docx|pdf)$/) ) {
+    if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png|jpeg|PNG)$/) ) {
         if(this.files[0].size>10485760) {
             $('.foto').val('');
             alert('Batas Maximal Ukuran File 10MB !');
@@ -130,7 +130,7 @@ $(".foto").change(function() {
         }
     } else{
         $('.foto').val('');
-        alert('Hanya File jpg, png, doc, pdf Yang Diizinkan !');
+        alert('Hanya File jpg, png Yang Diizinkan !');
     }
 });
 </script>
