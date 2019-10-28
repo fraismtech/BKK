@@ -2,7 +2,45 @@
 <section class="ftco-section">
  <div class="container">
   <br>
-  <div class="row mt-4 ftco-animate justify-content-center">
+  <h4 class="ftco-animate mb-3"><b>Data Alumni</b></h4>
+  <div class="row d-flex justify- ftco-animate">
+    <!-- <div class="col-md-4">
+      <div class="form-group">
+        <label>Nama Jurusan</label>
+        <select class="form-control" id="jurusan" name="jurusan">
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="form-group">
+        <label>Tahun Lulus</label>
+        <div class="input-group date form_year" data-date-format="yyyy" data-link-field="dtp_input4">
+          <input class="form-control" type="text" value="" placeholder="Tahun Lulus" name="tahun_lulus" id="tahun_lulus">
+          <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
+        </div>
+      </div>
+    </div> -->
+    <div class="col-lg-12">
+      <div class="datatable-wrapper table-responsive">
+        <table id="example" class="display compact table table-striped" width="100%">
+            <thead>
+              <tr>
+                <th>No. </th>
+                <th>NISN</th>
+                <th>Nama Lengkap</th>
+                <th>Jurusan</th>
+                <th>Tahun Lulus</th>
+                <th>Status</th>
+              </tr>
+          </thead>
+          <tbody>
+              
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <!-- <div class="row mt-4 ftco-animate justify-content-center">
     <div class="col-md-6 col-lg-3 ftco-animate">
       <div class="staff card pt-3">
         <div class="img-wrap d-flex align-items-stretch">
@@ -95,7 +133,7 @@
     <li class="page-item active"><a class="page-link" href="#">2</a></li>
     <li class="page-item"><a class="page-link" href="#">3</a></li>
     <li class="page-item"><a class="page-link" href="#">Next</a></li>
-  </ul>
+  </ul> -->
 </div>
 </section>
 
@@ -104,7 +142,7 @@
     <div class="row d-block">
       <div class="col-md-12">
         <h2 class="text-center text-info ftco-animate"><b>Form Alumni</b></h2>
-        <form method="post" action="<?php echo base_url(); ?>
+        <form method="post" action="<?php echo base_url(); ?>/<?= $nameurl?>/addAlumni">
         <input type="hidden" name="id_sekolah" value="<?= $id_sekolah ?>">
         <div class="row">
           <div class="col-md-6">
@@ -354,3 +392,83 @@ $(document).ready(function(){
     });
   </script>
   <?php endif; ?>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  var table = $('#example').DataTable({ 
+    // "dom": 'Bfrtip',
+    // "buttons": [
+    //     'excel', 'pdf'
+    // ],
+    "processing": true, //Feature control the processing indicator.
+    "serverSide": true, //Feature control DataTables' server-side processing mode.
+    "order": [], //Initial no order.
+    "paging"         : true,
+    "lengthMenu"     : [10,25,50,100],
+    "scrollY"        : "300px",
+    "scrollCollapse" : true,
+    "searching"      : true,
+    "ordering"       : true,
+    "info"           : true,
+    "scrollX"        : true,
+    "scrollCollapse" : true,
+    "searching"      : true,
+    "ordering"       : true,
+    "info"           : true, //Initial no order.
+    // Load data for the table's content from an Ajax source
+    "ajax": {
+        "url": "<?php echo site_url($nameurl.'/ajax_list_alumni')?>",
+        "type": "POST",
+        "data": function (data) {
+            data.sekolah = $('#sekolah').val();
+            data.jurusan = $('#jurusan').val();
+            data.tahun_lulus = $('#tahun_lulus').val();
+        }
+    },
+
+    //Set column definition initialisation properties.
+    "columnDefs": [
+    { 
+        "targets": [ 0 ], //first column / numbering column
+        "orderable": false, //set not orderable
+    },
+    { 
+        "targets": [ 1 ], //first column / numbering column
+        "orderable": false, //set not orderable
+    },
+    { 
+        "targets": [ 2 ], //first column / numbering column
+        "orderable": false, //set not orderable
+    },
+    { 
+        "targets": [ 3 ], //first column / numbering column
+        "orderable": false, //set not orderable
+    },
+    { 
+        "targets": [ 4 ], //first column / numbering column
+        "orderable": false, //set not orderable
+    },
+    { 
+        "targets": [ 5 ], //first column / numbering column
+        "orderable": false, //set not orderable
+    },
+    ],
+    "language": {         
+      "info": "",
+      "infoEmpty": "",       
+      "infoFiltered": ""
+    },
+
+  });
+
+  $('#sekolah').change(function(){ //button filter event click
+      table.ajax.reload();  //just reload table
+  });
+  $('#jurusan').change(function(){ //button filter event click
+      table.ajax.reload();  //just reload table
+  });
+  $('#tahun_lulus').on("change keyup", function(){
+      table.ajax.reload();
+  });
+});
+</script>

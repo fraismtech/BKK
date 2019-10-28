@@ -262,4 +262,46 @@ class Bkk extends CI_Controller {
 			$this->load->view('bkk/template/default_template', $data);
 		}
 	}
+
+	// Alumni
+	public function ajax_list_alumni($npsn)
+	{
+		$ceknpsn = $this->db->query("SELECT COUNT(npsn) as total FROM table_sekolah WHERE npsn='$npsn'")->result_array();
+		if ($ceknpsn[0]['total'] == NULL || $ceknpsn[0]['total'] == 0) {
+			redirect(base_url(), "refresh");
+		}else{
+			$bkk = $this->bkk->detailSekolah($npsn);
+			$list = $this->bkk->get_datatables_alumni($bkk[0]['id_sekolah']);
+			$data = array();
+			$no = 1;
+			foreach ($list as $alumni) {
+				$row = array();
+				$row[] = $no.'.';
+				$row[] = $alumni->nisn;
+				$row[] = $alumni->nama;
+				$row[] = $alumni->jurusan;
+				$row[] = $alumni->tahun_lulus;
+				$row[] = $alumni->status;
+				// $row[] = '
+		  //             	<a href="'.base_url().'dashboardBkk/alumniEdit/'.$alumni->id_alumni.'" title="Edit Data">
+		  //           		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+		  //           	</a>
+			 //            <button class="btn btn-sm btn-danger hapus-alumni" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$alumni->id_alumni.'" title="Hapus Data">
+			 //            	<i class="fa fa-trash"></i>
+			 //            </button>';
+
+				$data[] = $row;
+				$no++;
+			}
+
+			$output = array(
+							"draw" => $_POST['draw'],
+							"recordsTotal" => $this->bkk->count_all_alumni($bkk[0]['id_sekolah']),
+							"recordsFiltered" => $this->bkk->count_filtered_alumni($bkk[0]['id_sekolah']),
+							"data" => $data,
+					);
+			//output to json format
+			echo json_encode($output);
+		}
+	}
 }

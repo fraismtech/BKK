@@ -703,7 +703,7 @@ class M_Dashboard_Pusat extends CI_Model
 
     public function count_all_alumni()
     {
-        $this->db->from('table_slider');
+        $this->db->from('table_alumni');
         // $this->db->where('id_sekolah', $id_sekolah);
         $this->db->count_all_results();
     }

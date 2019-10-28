@@ -68,3 +68,4 @@ $route['(:any)/mitra'] = 'Bkk/mitra/$1';
 $route['(:any)/mitra/(:any)'] = 'Bkk/mitra/$1/$2';
 $route['(:any)/alumni'] = 'Bkk/alumni/$1';
 $route['(:any)/addAlumni'] = 'Bkk/addAlumni/$1';
+$route['(:any)/ajax_list_alumni'] = 'Bkk/ajax_list_alumni/$1';
