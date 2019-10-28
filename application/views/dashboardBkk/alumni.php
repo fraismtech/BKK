@@ -9,7 +9,7 @@
             </div>
             <div class="card-body">
                 <div class="form-group">
-                    <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button>   
+                    <!-- <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button> -->   
                     <a href="<?php echo base_url("assets/excel/format.xlsx"); ?>"><button class="btn btn-sm btn-secondary">Download Format</button></a>
                     <button class="btn btn-sm btn-dark" data-toggle="modal" data-target="#modalAdd">Import Format</button>
                 </div>
@@ -85,7 +85,7 @@ $(document).ready(function() {
 
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('dashboardBkk/ajax_list_alumni')?>",
+            "url": "<?php echo site_url('dashboardBkk/ajax_list_alumni_bkk')?>",
             "type": "POST"
         },
 

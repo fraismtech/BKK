@@ -111,7 +111,7 @@ $(document).ready(function() {
         "info"           : true, //Initial no order.
         // Load data for the table's content from an Ajax source
         "ajax": {
-            "url": "<?php echo site_url('dashboard/ajax_list_alumni')?>",
+            "url": "<?php echo site_url('dashboard/ajax_list_alumni_pusat')?>",
             "type": "POST",
             "data": function (data) {
                 data.sekolah = $('#sekolah').val();

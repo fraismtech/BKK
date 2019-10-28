@@ -636,7 +636,7 @@ class Dashboard extends CI_Controller {
 	}
 
 	// Alumni
-	public function ajax_list_alumni()
+	public function ajax_list_alumni_pusat()
 	{
 		$id_user = $this->session->userdata('id');
 

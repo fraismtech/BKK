@@ -8,9 +8,9 @@
                 <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#modalAdd">Tambah</button>
             </div>
             <div class="card-body">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <button id="btn-reset" class="btn btn-sm btn-info">Refresh Table</button>
-                </div>
+                </div> -->
                 <div class="datatable-wrapper table-responsive">
                     <table id="example" class="display compact table table-striped" width="100%">
                         <thead>
@@ -202,6 +202,18 @@ $(document).ready(function() {
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [], //Initial no order.
+        "paging"         : true,
+        "lengthMenu"     : [10,25,50,100],
+        "scrollY"        : "300px",
+        "scrollCollapse" : true,
+        "searching"      : true,
+        "ordering"       : true,
+        "info"           : true,
+        "scrollX"        : true,
+        "scrollCollapse" : true,
+        "searching"      : true,
+        "ordering"       : true,
+        "info"           : true, //Initial no order.
 
         // Load data for the table's content from an Ajax source
         "ajax": {

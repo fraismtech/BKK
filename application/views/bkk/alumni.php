@@ -142,7 +142,7 @@
     <div class="row d-block">
       <div class="col-md-12">
         <h2 class="text-center text-info ftco-animate"><b>Form Alumni</b></h2>
-        <form method="post" action="<?php echo base_url(); ?>/<?= $nameurl?>/addAlumni">
+        <form method="post" action="<?php echo base_url(); ?>/<?= $nameurl?>/addAlumni1">
         <input type="hidden" name="id_sekolah" value="<?= $id_sekolah ?>">
         <div class="row">
           <div class="col-md-6">

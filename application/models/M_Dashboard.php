@@ -10,6 +10,13 @@ class M_Dashboard extends CI_Model
     var $where = array('');
     var $order = array('id_slider' => 'asc'); // default order
 
+    // Kegiatan
+    var $table_1          = 'table_kegiatan';
+    var $column_order_1   = array('tanggal_kegiatan','judul_kegiatan','uraian_kegiatan','foto_kegiatan'); //set column field database for datatable orderable
+    var $column_search_1  = array('DATE_FORMAT(tanggal_kegiatan, "%d %b %Y")','judul_kegiatan','uraian_kegiatan','foto_kegiatan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $where_1 = array('');
+    var $order_1 = array('id_kegiatan' => 'asc'); // default order
+
     // Mitra
     var $table_2          = 'table_mitra';
     var $table_2_1        = 'table_cp_mitra';
@@ -19,6 +26,15 @@ class M_Dashboard extends CI_Model
     var $column_search_2  = array('table_mitra.nama_perusahaan','table_mitra.bidang_usaha','table_mitra.no_telp','table_mitra.email','DATE_FORMAT(table_periode.dari, "%d %b %Y")','DATE_FORMAT(table_periode.sampai, "%d %b %Y")'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $where_2 = array('');
     var $order_2 = array('id_mitra' => 'asc'); // default order
+
+    // User
+    var $table_3          = 'table_login';
+    var $table_3_1        = 'table_sekolah';
+    var $table_3_2        = 'table_perijinan';
+    var $column_order_3   = array('table_login.username','table_login.nama_operator','table_login.email','table_login.no_hp'); //set column field database for datatable orderable
+    var $column_search_3  = array('table_login.username','table_login.nama_operator','table_login.email','table_login.no_hp'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $where_3 = array('');
+    var $order_3 = array('id_user' => 'asc'); // default order
 
     // Alumni
     var $table_4          = 'table_alumni';

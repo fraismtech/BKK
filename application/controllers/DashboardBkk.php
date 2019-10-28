@@ -161,7 +161,7 @@ class DashboardBkk extends CI_Controller {
 			$row[] = $no.'.';
 			$row[] = date('d M Y', strtotime($kegiatan->tanggal_kegiatan));
 			$row[] = $kegiatan->judul_kegiatan;
-			$row[] = $kegiatan->uraian_kegiatan;
+			$row[] = word_limiter($kegiatan->uraian_kegiatan, 15);
 			$row[] = '<a class="view popup portfolio-img" href="'.base_url().'assets/upload/image/'.$kegiatan->foto_kegiatan.'">'.$kegiatan->foto_kegiatan.'</a>';
 			$row[] = '
 	              <a
@@ -303,7 +303,7 @@ class DashboardBkk extends CI_Controller {
 	}
 
 	// Alumni
-	public function ajax_list_alumni()
+	public function ajax_list_alumni_bkk()
 	{
 		$id_user = $this->session->userdata('id');
 		$id_sekolah = $this->session->userdata('id_sekolah');

@@ -179,7 +179,7 @@ class Bkk extends CI_Controller {
 		}
 	}
 
-	public function addAlumni($npsn)
+	public function addAlumni1($npsn)
 	{
 		$ceknpsn = $this->db->query("SELECT COUNT(npsn) as total FROM table_sekolah WHERE npsn='$npsn'")->result_array();
 		if ($ceknpsn[0]['total'] == NULL || $ceknpsn[0]['total'] == 0) {

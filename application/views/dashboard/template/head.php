@@ -47,6 +47,6 @@
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <!-- custom app -->
     <script src="<?php echo base_url(); ?>assets/dashboard/js/app.js"></script>
-    <script> window.setTimeout(function() { $(".alert-success").fadeTo(200, 0).slideUp(200, function(){ $(this).remove(); }); }, 1000); </script>
-    <script> window.setTimeout(function() { $(".alert-danger").fadeTo(200, 0).slideUp(200, function(){ $(this).remove(); }); }, 1000); </script>
+    <script> window.setTimeout(function() { $(".alert-success").fadeTo(200, 0).slideUp(200, function(){ $(this).remove(); }); }, 2000); </script>
+    <script> window.setTimeout(function() { $(".alert-danger").fadeTo(200, 0).slideUp(200, function(){ $(this).remove(); }); }, 2000); </script>
 </head>
