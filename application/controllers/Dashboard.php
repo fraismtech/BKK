@@ -30,9 +30,14 @@ class Dashboard extends CI_Controller {
 	public function index()
 	{
 		$path = "";
+		$get = array(
+			"total_bkk" => $this->dashboard->total_bkk(),
+			"total_loker" => $this->dashboard->total_loker(),
+			"total_kegiatan" => $this->dashboard->total_kegiatan(),
+		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Dashboard", $path),
-			"content" => $this->load->view('dashboard/index', false, true),
+			"content" => $this->load->view('dashboard/index', $get, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
 	}
@@ -494,9 +499,12 @@ class Dashboard extends CI_Controller {
 	public function helpdesk()
 	{
 		$path = "";
+		$get = array(
+			"helpdesk" => $this->dashboard->data_helpdesk(),
+		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Helpdesk", $path),
-			"content" => $this->load->view('dashboard/helpdesk', false, true),
+			"content" => $this->load->view('dashboard/helpdesk', $get, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
 	}

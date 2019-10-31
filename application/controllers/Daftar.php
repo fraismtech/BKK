@@ -29,12 +29,12 @@ class Daftar extends CI_Controller {
 				redirect('dashboard/index');
 			}
 		} else {
-			$id_kecamatan = '3276';
+			$id_kota = '3276';
 			$path = "";
 			$data = array(
 				"page" => $this->load("Bursa Kerja Khusus Kota Depok - Daftar", $path),
 				"content" => $this->load->view('daftar', false, true),
-				"kecamatan" => $this->dashboard->kecamatan($id_kecamatan),
+				"kecamatan" => $this->dashboard->kecamatan($id_kota),
 			);
 			$this->load->view('daftar', $data);
 		}
@@ -70,61 +70,131 @@ class Daftar extends CI_Controller {
             // $level   		= $this->input->post('level');
             $date_created  	= date("Y-m-d H:i:s");
 
-            if(isset($_FILES["file"]["name"])) {  
-              	$config['upload_path'] = './assets/upload/file';  
-              	$config['allowed_types'] = 'pdf|docx|doc'; 
+            $this->load->library('PHPMailer');
+			$this->load->library('SMTP');
 
-              	$this->load->library('upload', $config); 
+			$email_admin = 'disnaker.depok@gmail.com';
+			$nama_admin = 'noreply-BKOL';
+			$password_admin = '2014umar';
 
-              	if(!$this->upload->do_upload('file')) {  
-                  	$error =  $this->upload->display_errors(); 
-                  	echo json_encode(array('msg' => $error, 'success' => false));
-              	} else { 
-              		$data = $this->upload->data();
-			        $data = array(
-			            'ijin_bkk' 		=> $ijin_bkk,
-			            'no_ijin' 		=> $no_ijin,
-			            'tgl_perijinan' => $tanggal,
-			            'dokumen' 		=> $data['file_name'],
-			        );
-			        $this->db->insert('table_perijinan', $data);
-			        $id_perijinan = $this->db->insert_id();
+			$mail = new PHPMailer();
+			$mail->isSMTP();  
+			$mail->SMTPKeepAlive = true;
+			$mail->Charset  = 'UTF-8';
+			$mail->IsHTML(true);
+			// $mail->SMTPDebug = 1;
+			$mail->SMTPAuth = true;
+			$mail->Host = 'smtp.gmail.com'; 
+			$mail->Port = 587;
+			$mail->SMTPSecure = 'ssl';
+			$mail->Username = $email_admin;
+			$mail->Password = $password_admin;
+			$mail->Mailer   = 'smtp';
+			$mail->WordWrap = 100;       
 
-                   	$data1 = array(
-			            'npsn'        	=> $npsn,
-			            'nama_sekolah' 	=> $nama_sekolah,
-			            'alamat_sekolah'=> $alamat,
-			            'kecamatan' 	=> $kecamatan,
-			            'kelurahan' 	=> $kelurahan,
-			        );
-			        $this->db->insert('table_sekolah', $data1);
-			        $id_sekolah = $this->db->insert_id();
+			$mail->setFrom($email_admin);
+			$mail->FromName = $nama_admin;
+			$mail->addAddress($email);
+			$mail->AddEmbeddedImage('img-lowongan.png', 'lowongan');
+			$mail->Subject          = 'CV Berhasil Dikirim Ke ';
+			$mail_data['subject']   = 'CV Berhasil Dikirim Ke ';
+		  
+		  	$message = 'Test';
 
-                   	$data2 = array(
-			            'username' 		=> $username,
-			            'password'      => md5($password),
-			            'nama_operator'	=> $nama_operator,
-			            'email' 		=> $email,
-			            'no_hp' 		=> $no_hp,
-			            'id_sekolah' 	=> $id_sekolah,
-			            'id_perijinan' 	=> $id_perijinan,
-			            'level' 		=> '1',
-			            'date_created' 	=> $date_created,
-			        );  
-			        
-			        $this->db->insert('table_login', $data2); 
-                   	$getId = $this->db->insert_id();
- 
-                   	$arr = array('msg' => 'Silahkan isi data dengan benar!', 'success' => false);
- 
-                   	if($getId){
-                    	$arr = array('msg' => 'Silahkan cek email untuk verifikasi data!', 'success' => true);
-                   	}
-                  	echo json_encode($arr);
-             	}
-            }
+			// $message = $this->load->view('email_cv', $mail_data, TRUE);
+			$mail->Body = $message;
+
+			if ($mail->send()) {
+		 		if(isset($_FILES["file"]["name"])) {  
+	              	$config['upload_path'] = './assets/upload/file';  
+	              	$config['allowed_types'] = 'pdf|docx|doc'; 
+
+	              	$this->load->library('upload', $config); 
+
+	              	if(!$this->upload->do_upload('file')) {  
+	                  	$error =  $this->upload->display_errors(); 
+	                  	echo json_encode(array('msg' => $error, 'success' => false));
+	              	} else { 
+	              		$data = $this->upload->data();
+				        $data = array(
+				            'ijin_bkk' 		=> $ijin_bkk,
+				            'no_ijin' 		=> $no_ijin,
+				            'tgl_perijinan' => $tanggal,
+				            'dokumen' 		=> $data['file_name'],
+				        );
+				        $this->db->insert('table_perijinan', $data);
+				        $id_perijinan = $this->db->insert_id();
+
+	                   	$data1 = array(
+				            'npsn'        	=> $npsn,
+				            'nama_sekolah' 	=> $nama_sekolah,
+				            'alamat_sekolah'=> $alamat,
+				            'kecamatan' 	=> $kecamatan,
+				            'kelurahan' 	=> $kelurahan,
+				        );
+				        $this->db->insert('table_sekolah', $data1);
+				        $id_sekolah = $this->db->insert_id();
+
+	                   	$data2 = array(
+				            'username' 		=> $username,
+				            'password'      => md5($password),
+				            'nama_operator'	=> $nama_operator,
+				            'email' 		=> $email,
+				            'no_hp' 		=> $no_hp,
+				            'id_sekolah' 	=> $id_sekolah,
+				            'id_perijinan' 	=> $id_perijinan,
+				            'level' 		=> '1',
+				            'date_created' 	=> $date_created,
+				        );  
+				        
+				        $this->db->insert('table_login', $data2); 
+	                   	$getId = $this->db->insert_id();
+	 
+	                   	$arr = array('msg' => 'Silahkan isi data dengan benar!', 'error' => false);
+	 
+	                   	if($getId){
+	                    	$arr = array('msg' => 'Silahkan cek email untuk verifikasi data!', 'success' => true);
+	                   	}
+	             	}
+	            }
+			} else {
+				$arr = array('msg' => 'Mailer Error: ' . $mail->ErrorInfo, 'error' => true);
+			}
+			echo json_encode($arr);
+            
     	} catch (Exception $e) {
     		redirect('daftar');
+    	}
+    }
+
+    public function tanggapan()
+    {
+    	try {
+    		$output = array('error' => false);
+
+    		date_default_timezone_set('Asia/Jakarta');
+
+    		$email 			= $this->input->post('email');
+    		$masukan 		= $this->input->post('masukan');
+    		$date_created  	= date("Y-m-d H:i:s");
+
+    		$data = array(
+		            'email' 		=> $email,
+		            'pesan' 		=> $masukan,
+		            'tanggal_pesan' => $date_created,
+		        );
+			$simpanHelp = $this->db->insert('table_helpdesk', $data);
+
+			if($simpanHelp) {
+            	$this->session->set_flashdata("notif1", "Tanggapan Anda Berhasil Dikirim");
+                redirect('');
+           	} else {
+           		$this->session->set_flashdata("notif2", "Data Gagal Dikirim");
+                redirect('');
+           	}
+
+    	} catch (Exception $e) {
+    		
     	}
     }
 	

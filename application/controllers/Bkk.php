@@ -304,4 +304,39 @@ class Bkk extends CI_Controller {
 			echo json_encode($output);
 		}
 	}
+
+	public function masukan($npsn)
+	{
+		$ceknpsn = $this->db->query("SELECT COUNT(npsn) as total FROM table_sekolah WHERE npsn='$npsn'")->result_array();
+		if ($ceknpsn[0]['total'] == NULL || $ceknpsn[0]['total'] == 0) {
+			redirect(base_url(), "refresh");
+		}else{
+			try{
+
+				date_default_timezone_set('Asia/Jakarta');
+
+	    		$email 			= $this->input->post('email');
+	    		$masukan 		= $this->input->post('masukan');
+	    		$date_created  	= date("Y-m-d H:i:s");
+
+	    		$data = array(
+			            'email' 		=> $email,
+			            'pesan' 		=> $masukan,
+			            'tanggal_pesan' => $date_created,
+			        );
+				$simpanHelp = $this->db->insert('table_helpdesk', $data);
+
+	          	if($simpanHelp) {
+	            	$this->session->set_flashdata("notif1", "Tanggapan Anda Berhasil Dikirim");
+	                redirect($npsn);
+	           	} else {
+	           		$this->session->set_flashdata("notif2", "Data Gagal Dikirim");
+	                redirect($npsn);
+	           	}
+
+			} catch (Exception $e) {
+				
+			}
+		}
+	}
 }

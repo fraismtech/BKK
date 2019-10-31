@@ -57,6 +57,28 @@ class M_Dashboard extends CI_Model
         $this->load->database();
     }
 
+    // Data Statistik
+    public function total_alumni($id_sekolah){
+        $query = $this->db->query("SELECT * FROM table_alumni WHERE id_sekolah = '$id_sekolah'");
+        return $query->num_rows();
+    }
+
+    public function total_loker($id_sekolah){
+        $query = $this->db->query("SELECT * FROM table_lowongan WHERE id_sekolah = '$id_sekolah'");
+        return $query->num_rows();
+    }
+
+    public function total_mitra($id_sekolah){
+        $query = $this->db->query("SELECT * FROM table_mitra WHERE id_sekolah = '$id_sekolah'");
+        return $query->num_rows();
+    }
+
+    public function total_kegiatan($id_sekolah){
+        $query = $this->db->query("SELECT * FROM table_kegiatan WHERE id_sekolah = '$id_sekolah'");
+        return $query->num_rows();
+    }
+    //
+
     public function jurusan($id_sekolah)
     {
         $query = $this->db->query("SELECT * FROM table_jurusan WHERE id_sekolah = '$id_sekolah' ORDER BY nama_jurusan ASC");
@@ -170,9 +192,9 @@ class M_Dashboard extends CI_Model
         return $output;
     }
 
-    public function kecamatan($id_kec)
+    public function kecamatan($id_kota)
     {
-    	$query = $this->db->query("SELECT * FROM districts WHERE regency_id = '$id_kec' ORDER by name ASC");
+    	$query = $this->db->query("SELECT * FROM districts WHERE regency_id = '$id_kota' ORDER by name ASC");
     	return $query->result();
     }
 
@@ -181,6 +203,7 @@ class M_Dashboard extends CI_Model
         $this->db->select('*');
         $this->db->from('districts');
         $this->db->where('name', $district_id);
+        $this->db->where('regency_id', '3276');
         $query = $this->db->get()->row();
 
         $this->db->select('*');

@@ -22,13 +22,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Perusahaan</label>
-                                <input type="text" name="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan" value="<?= $mitra->nama_perusahaan ?>">
+                                <input type="text" name="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan" value="<?= $mitra->nama_perusahaan ?>" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Bidang Usaha</label>
-                                <input type="text" name="bidang_usaha" class="form-control" placeholder="Bidang Usaha" value="<?= $mitra->bidang_usaha ?>">
+                                <input type="text" name="bidang_usaha" class="form-control" placeholder="Bidang Usaha" value="<?= $mitra->bidang_usaha ?>" required="">
                             </div>
                         </div>
                     </div>
@@ -36,13 +36,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Alamat Perusahaan</label>
-                                <textarea class="form-control" name="alamat" placeholder="Alamat Perusahaan"><?= $mitra->alamat_lengkap ?></textarea>
+                                <textarea class="form-control" name="alamat" placeholder="Alamat Perusahaan" required=""><?= $mitra->alamat_lengkap ?></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Provinsi</label>
-                                <select class="form-control" id="provinsi" name="provinsi">
+                                <select class="form-control" id="provinsi" name="provinsi" required="">
                                     <option value="<?= $mitra->id_prov ?>" selected><?= $mitra->provinsi ?></option>
                                     <?php foreach ($provinsi as $prov) { ?>
                                         <option value="<?= $prov->id ?>"><?= $prov->name ?></option>
@@ -56,7 +56,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kota/Kabupaten</label>
-                                <select class="form-control" id="kota" name="kota">
+                                <select class="form-control" id="kota" name="kota" required="">
                                     <option value="<?= $mitra->id_kota ?>" selected><?= $mitra->kota ?></option>
                                 </select>
                                 <input type="hidden" name="kab" id="kab">
@@ -65,7 +65,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kecamatan</label>
-                                <select class="form-control" id="kecamatan" name="kecamatan">
+                                <select class="form-control" id="kecamatan" name="kecamatan" required="">
                                     <option value="<?= $mitra->id_kec ?>" selected><?= $mitra->kecamatan ?></option>
                                 </select>
                                 <input type="hidden" name="kec" id="kec">
@@ -76,7 +76,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kelurahan</label>
-                                <select class="form-control" id="kelurahan" name="kelurahan">
+                                <select class="form-control" id="kelurahan" name="kelurahan" required="">
                                     <option value="<?= $mitra->id_kel ?>" selected><?= $mitra->kelurahan ?></option>
                                 </select>
                                 <input type="hidden" name="kel" id="kel">
@@ -85,7 +85,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kode Pos</label>
-                                <input type="number" name="kode_pos" class="form-control" placeholder="Kode Pos" value="<?= $mitra->kode_pos ?>">
+                                <input type="number" name="kode_pos" class="form-control" placeholder="Kode Pos" value="<?= $mitra->kode_pos ?>" required="">
                             </div>
                         </div>
                     </div>
@@ -93,13 +93,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jenis Kemitraan</label>
-                                <input type="text" name="jenis_kemitraan" class="form-control" placeholder="Jenis Kemitraan" value="<?= $mitra->jenis_kemitraan ?>">
+                                <input type="text" name="jenis_kemitraan" class="form-control" placeholder="Jenis Kemitraan" value="<?= $mitra->jenis_kemitraan ?>" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>No. Telp Perusahaan</label>
-                                <input type="number" name="no_telp" class="form-control" placeholder="No. Telp Perusahaan" value="<?= $mitra->no_telp ?>">
+                                <input type="number" name="no_telp" class="form-control" placeholder="No. Telp Perusahaan" value="<?= $mitra->no_telp ?>" required="">
                             </div>
                         </div>
                     </div>
@@ -107,13 +107,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Email Perusahaan</label>
-                                <input type="email" name="email" class="form-control" placeholder="Email Perusahaan" value="<?= $mitra->email ?>">
+                                <input type="email" name="email" class="form-control" placeholder="Email Perusahaan" value="<?= $mitra->email ?>" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama CP</label>
-                                <input type="text" name="nama_cp" class="form-control" placeholder="Nama Contact Person" value="<?= $mitra->nama_cp ?>">
+                                <input type="text" name="nama_cp" class="form-control" placeholder="Nama Contact Person" value="<?= $mitra->nama_cp ?>" required="">
                             </div>
                         </div>
                     </div>
@@ -121,13 +121,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jabatan</label>
-                                <input type="text" name="jabatan_cp" class="form-control" placeholder="Jabatan" value="<?= $mitra->jabatan_cp ?>">
+                                <input type="text" name="jabatan_cp" class="form-control" placeholder="Jabatan" value="<?= $mitra->jabatan_cp ?>" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>No. Telp CP</label>
-                                <input type="number" name="no_telp_cp" class="form-control" placeholder="No Telp" value="<?= $mitra->no_telp_cp ?>">
+                                <input type="number" name="no_telp_cp" class="form-control" placeholder="No Telp" value="<?= $mitra->no_telp_cp ?>" required="">
                             </div>
                         </div>
                     </div><hr>
@@ -140,7 +140,7 @@
                             <div class="form-group">
                                 <label>Dari</label>
                                 <div class='input-group date' id='datepicker-top-left'>
-                                    <input class="form-control" type='text' name="dari" placeholder="Dari" value="<?= date('m/d/Y', strtotime($mitra->dari)) ?>" />
+                                    <input class="form-control" type='text' name="dari" placeholder="Dari" value="<?= date('m/d/Y', strtotime($mitra->dari)) ?>" required="" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -151,7 +151,7 @@
                             <div class="form-group">
                                 <label>Sampai</label>
                                 <div class='input-group date' id='datepicker-top-right'>
-                                    <input class="form-control" type='text' name="sampai" placeholder="Sampai" value="<?= date('m/d/Y', strtotime($mitra->sampai)) ?>" />
+                                    <input class="form-control" type='text' name="sampai" placeholder="Sampai" value="<?= date('m/d/Y', strtotime($mitra->sampai)) ?>" required="" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -200,6 +200,8 @@ $("#provinsi").change(function(){
         data:{prov:prov},
         success:function(data) {
             $('#kota').html(data);
+            $('#kecamatan').html('<option></option>');
+            $('#kelurahan').html('<option></option>');
         }
     });
 
@@ -242,6 +244,7 @@ $("#kota").change(function(){
         data:{kota:kota},
         success:function(data) {
             $('#kecamatan').html(data);
+            $('#kelurahan').html('<option></option>');
         }
     });
 

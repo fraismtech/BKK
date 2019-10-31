@@ -57,6 +57,7 @@ $route['login'] = 'Login';
 $route['auth_login'] = 'Login/auth_login';
 $route['logout'] = 'Login/logout';
 $route['(:any)'] = 'Bkk/index/$1';
+$route['(:any)/masukan'] = 'Bkk/masukan/$1';
 $route['(:any)/profil'] = 'Bkk/profil/$1';
 $route['(:any)/kegiatan'] = 'Bkk/kegiatan/$1';
 $route['(:any)/kegiatan/(:any)'] = 'Bkk/kegiatan/$1/$2';

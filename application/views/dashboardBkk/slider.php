@@ -232,15 +232,14 @@ $(document).ready(function() {
                             title: "Deleted!",
                             icon: "success",
                             text: data.msg,
-                            buttons: true,
+                            timer: 1000,
+                            buttons: false,
                         });
-                        location.reload();
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                 });
-                table.ajax.reload();
-                setTimeout(function(){
-                    location.reload();
-                }, 600);
             } else {
                 swal({
                     title: "Slider tersimpan!",
@@ -290,8 +289,9 @@ $(document).ready(function(){
                         title: "Berhasil!",
                         text: res.msg,
                         icon: "success",
+                        timer: 1000,
+                        buttons: false,
                     });
-                    location.reload();
                 }
                 else if(res.success == false){
                     swal({
@@ -300,10 +300,9 @@ $(document).ready(function(){
                         icon: "error",
                     });
                 }
-                table.ajax.reload();
-                // setTimeout(function(){
-                //     location.reload(); 
-                // }, 1000);
+                setTimeout(function(){
+                    location.reload();
+                }, 1100);
             }  
         });  
     });  
@@ -330,9 +329,9 @@ $(document).ready(function(){
                         title: "Berhasil!",
                         text: res.msg,
                         icon: "success",
-                        button: false
+                        timer: 1000,
+                        buttons: false,
                     });  
-                    location.reload();
                 }
                 else if(res.success == false){
                     swal({
@@ -342,9 +341,8 @@ $(document).ready(function(){
                     });
                 }
                 setTimeout(function(){
-                    $('#edit-data').modal('close');
-                    table.ajax.reload();
-                }, 500);
+                    location.reload();
+                }, 1100);
             }  
         });  
     });  

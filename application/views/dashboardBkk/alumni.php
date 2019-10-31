@@ -148,8 +148,12 @@ $(document).ready(function() {
                             title: "Terhapus!",
                             icon: "success",
                             text: data.msg,
-                            buttons: true,
+                            timer: 1000,
+                            buttons: false,
                         });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                 });
             } else {

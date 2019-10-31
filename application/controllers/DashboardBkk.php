@@ -27,10 +27,17 @@ class DashboardBkk extends CI_Controller {
 
 	public function index()
 	{
+		$id_sekolah = $this->session->userdata('id_sekolah');
 		$path = "";
+		$get = array(
+			"total_alumni" => $this->dashboard->total_alumni($id_sekolah),
+			"total_loker" => $this->dashboard->total_loker($id_sekolah),
+			"total_mitra" => $this->dashboard->total_mitra($id_sekolah),
+			"total_kegiatan" => $this->dashboard->total_kegiatan($id_sekolah),
+		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Dashboard", $path),
-			"content" => $this->load->view('dashboardBkk/index', false, true),
+			"content" => $this->load->view('dashboardBkk/index', $get, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
 	}

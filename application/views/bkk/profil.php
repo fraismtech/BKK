@@ -74,7 +74,7 @@
 	</section>
 	<?php foreach($mitra_bkk as $mitra){ ?>	
 		<!-- The Modal -->
-		<div class="modal" id="myModal<?= $mitra->id_mitra ?>">
+		<div class="modal fade" id="myModal<?= $mitra->id_mitra ?>">
 			<div class="modal-dialog">
 				<div class="modal-content">
 

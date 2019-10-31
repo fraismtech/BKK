@@ -101,6 +101,23 @@ class M_Dashboard_Pusat extends CI_Model
         $this->load->database();
     }
 
+    // Data Statistik
+    public function total_bkk(){
+        $query = $this->db->query("SELECT * FROM table_sekolah");
+        return $query->num_rows();
+    }
+
+    public function total_loker(){
+        $query = $this->db->query("SELECT * FROM table_lowongan");
+        return $query->num_rows();
+    }
+
+    public function total_kegiatan(){
+        $query = $this->db->query("SELECT * FROM table_kegiatan");
+        return $query->num_rows();
+    }
+    //
+
     public function get_jurusan($id_sekolah)
     {
         $this->db->select('*');
@@ -252,6 +269,7 @@ class M_Dashboard_Pusat extends CI_Model
         $this->db->select('*');
         $this->db->from('districts');
         $this->db->where('name', $district_id);
+        $this->db->where('regency_id', '3276');
         $query = $this->db->get()->row();
 
         $this->db->select('*');
@@ -972,6 +990,13 @@ class M_Dashboard_Pusat extends CI_Model
     public function data_loker($id_lowongan)
     {
         $query = $this->db->query("SELECT * FROM table_lowongan AS tl JOIN table_sekolah AS ts ON tl.id_sekolah = ts.id_sekolah JOIN table_mitra AS tm ON tl.id_mitra = tm.id_mitra JOIN table_posisi_jabatan AS tpj ON tl.id_posisi_jabatan = tpj.id_posisi_jabatan JOIN table_keahlian AS tk ON tl.id_keahlian = tk.id_keahlian JOIN table_status_pendidikan AS tsp ON tl.id_status_pendidikan = tsp.id_status_pendidikan JOIN table_jenis_pengupahan AS tjp ON tl.id_jenis_pengupahan = tjp.id_jenis_pengupahan JOIN table_status_hub_kerja AS tshp ON tl.id_status_hub_kerja = tshp.id_status_hub_kerja JOIN table_jurusan AS tj ON tl.jurusan = tj.id_jurusan JOIN table_jenis_lowongan AS tjl ON tk.id_jenis_lowongan = tjl.id_jenis_lowongan WHERE tl.id_lowongan = '$id_lowongan'");
+        return $query->result();
+    }
+
+    // Data Helpdesk
+    public function data_helpdesk()
+    {
+        $query = $this->db->query("SELECT * FROM table_helpdesk ORDER BY tanggal_pesan DESC");
         return $query->result();
     }
 

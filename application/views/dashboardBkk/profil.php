@@ -90,7 +90,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control" name="password" value="" required="" placeholder="******">
+                                        <input type="password" class="form-control" name="password" value="" required="" placeholder="******" id="password">
                                     </div>
                                     <div class="form-group">
                                         <label class="control-label">Nama Operator*</label>
@@ -236,6 +236,7 @@ $(document).ready(function(){
                         icon: "error",
                     });
                 }
+                $('#password').val('');
                 // setTimeout(function(){
                 //     $('#edit-data').modal('close');
                 //     table.ajax.reload();

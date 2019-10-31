@@ -28,7 +28,7 @@
 
 <?php foreach($model['lowongan'] as $loker){ ?> 
 <!-- The Modal -->
-<div class="modal" id="myModal<?= $loker->id_lowongan ?>">
+<div class="modal fade" id="myModal<?= $loker->id_lowongan ?>">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
 
@@ -102,7 +102,7 @@
             <div class="form-group row">
               <label class="col-md-4" style="color: #000;"><b>Gaji Perbulan</b></label>
               <div class="col-md-8">
-                <p style="color: #000;"><?= $loker->nama_posisi_jabatan?></p>
+                <p style="color: #000;"><?= number_format($loker->gaji_per_bulan,0,',','.') ?></p>
               </div>
             </div>
             <div class="form-group row">

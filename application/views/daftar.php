@@ -186,7 +186,7 @@
     <script src="<?php echo base_url(); ?>assets/dashboard/js/app.js"></script>
     <script type="text/javascript">
     $(".dokumen").change(function() {
-        if (this.files && this.files[0] && this.files[0].name.match(/\.(pdf|doc|docx)$/) ) {
+        if (this.files && this.files[0] && this.files[0].name.match(/\.(pdf)$/) ) {
             if(this.files[0].size>10485760) {
                 $('.dokumen').val('');
                 alert('Batas Maximal Ukuran File 10MB !');
@@ -197,7 +197,7 @@
             }
         } else{
             $('.dokumen').val('');
-            alert('Hanya File pdf/doc Yang Diizinkan !');
+            alert('Hanya File pdf Yang Diizinkan !');
         }
     });
     </script>

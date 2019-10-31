@@ -245,8 +245,12 @@ $(document).ready(function() {
                             title: "Terhapus!",
                             icon: "success",
                             text: data.msg,
-                            buttons: true,
+                            timer: 1000,
+                            buttons: false,
                         });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                 });
                 table.ajax.reload();
@@ -287,10 +291,12 @@ $(document).ready(function(){
                             title: "Berhasil!",
                             text: res.msg,
                             icon: "success",
+                            timer: 1000,
+                            buttons: false,
                         }); 
-                        $('#userForm')[0].reset();
-                        $('#modalAdd').modal('hide'); 
-                        refresh();
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                     else {
                         swal({
@@ -347,10 +353,12 @@ $(document).ready(function(){
                             title: "Berhasil!",
                             text: res.msg,
                             icon: "success",
+                            timer: 1000,
+                            buttons: false,
                         }); 
-                        $('#editForm')[0].reset();
-                        $('#edit-data').modal('hide'); 
-                        refresh();
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                     else {
                         swal({

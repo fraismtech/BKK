@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 27, 2019 at 04:11 PM
+-- Generation Time: Oct 31, 2019 at 02:55 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -2622,7 +2622,7 @@ INSERT INTO `districts` (`id`, `regency_id`, `name`) VALUES
 ('3276011', '3276', 'BOJONGSARI'),
 ('3276020', '3276', 'PANCORAN MAS'),
 ('3276021', '3276', 'CIPAYUNG'),
-('3276030', '3276', 'SUKMA JAYA'),
+('3276030', '3276', 'SUKMAJAYA'),
 ('3276031', '3276', 'CILODONG'),
 ('3276040', '3276', 'CIMANGGIS'),
 ('3276041', '3276', 'TAPOS'),
@@ -7909,8 +7909,8 @@ INSERT INTO `table_alumni` (`id_alumni`, `nisn`, `nik`, `nama`, `jenis_kelamin`,
 (10, '2317', '127', 'aad', 'L', 'dasd', '2019-10-14', 'asdas', '2135', 'ee@gmail.com', 'Rekayasa Perangkat Lunak', 2023, 'Bekerja', 'AS', 'sad', '217', '2'),
 (11, '123124', '65534535', 'Test', 'P', 'KOTA DEPOK', '2019-10-01', 'aaa', '2151353', 'aaa@gmail.com', 'Multimedia', 2019, 'Bekerja', 'abc', 'asdafaga', '1432152', '1'),
 (12, '785764', '124366473', 'test', 'P', 'KOTA DEPOK', '2019-10-22', 'sadad', '324134', 'asda@gmail.com', 'Multimedia', 2019, 'Wiraswasta', NULL, NULL, NULL, '1'),
-(13, '51251242', '241251341', 'asdas', 'L', 'KOTA DEPOK', '2019-10-01', 'aaa', '65462452', 'aaa@gmail.com', 'Rekayasa Perangkat Lunak', 2011, 'Bekerja', 'sadasd', 'sadasd\r\n', '4564645', '1'),
-(14, '9802401', '21391823012', 'aaaadada', 'P', 'KOTA DEPOK', '2019-10-01', 'aaa', '7567564', 'aaa@gmail.com', 'Rekayasa Perangkat Lunak', 2012, 'Kuliah', NULL, NULL, NULL, '1');
+(15, '6546345', '34324341', 'USER', 'L', 'KOTA DEPOK', '2019-10-01', 'aaa', '5435435', 'aaa@gmail.com', 'Rekayasa Perangkat Lunak', 2018, 'Bekerja', 'jkdsfs', 'ksjdkasd', '253453', '1'),
+(16, '54634535', '6754353490', 'sadas', 'L', 'KOTA DEPOK', '2019-10-28', 'aaa', '0812312947819', 'aaa@gmail.com', 'Rekayasa Perangkat Lunak', 2018, 'Bekerja', 'sadjaksd', 'asdjkaskd', '324982304', '1');
 
 -- --------------------------------------------------------
 
@@ -7932,6 +7932,38 @@ CREATE TABLE `table_cp_mitra` (
 INSERT INTO `table_cp_mitra` (`id_cp_mitra`, `nama_cp`, `jabatan_cp`, `no_telp_cp`) VALUES
 (1, 'aaaa', 'aaaaa', '129389121824'),
 (3, 'sadasd', 'adsdasd', '134451231');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `table_helpdesk`
+--
+
+CREATE TABLE `table_helpdesk` (
+  `id_helpdesk` int(11) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `pesan` text NOT NULL,
+  `tanggal_pesan` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `table_helpdesk`
+--
+
+INSERT INTO `table_helpdesk` (`id_helpdesk`, `email`, `pesan`, `tanggal_pesan`) VALUES
+(1, 'calenger747@gmail.com', 'Test', '2019-10-31 00:00:00'),
+(2, 'admin@gmail.com', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '2019-10-31 08:12:10'),
+(3, 'calenger747@digitalent2019.id', 'sadadasda', '2019-10-31 08:13:40'),
+(4, 'admin@gmail.com', 'asdasd', '2019-10-31 08:17:29'),
+(5, 'user@lrcom.co.id', 'asdasdasd', '2019-10-31 08:18:11'),
+(6, 'admin@gmail.com', 'sadasdasa', '2019-10-31 08:20:23'),
+(7, 'calenger747@gmail.com', 'sadadasd', '2019-10-31 08:26:42'),
+(8, 'calenger747@gmail.com', 'asdadada', '2019-10-31 08:28:19'),
+(9, 'admin@gmail.com', 'asdadasda', '2019-10-31 08:28:54'),
+(10, 'admin@gmail.com', 'sadsadas', '2019-10-31 08:30:31'),
+(11, 'admin@gmail.com', 'sadasda', '2019-10-31 08:31:32'),
+(12, 'calenger747@gmail.com', 'sadasd', '2019-10-31 08:32:02'),
+(14, 'admin@gmail.com', 'sadasd', '2019-10-31 08:38:27');
 
 -- --------------------------------------------------------
 
@@ -8109,16 +8141,16 @@ INSERT INTO `table_kegiatan` (`id_kegiatan`, `tanggal_kegiatan`, `judul_kegiatan
 (5, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '0.jpg', '1'),
 (6, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'kepala_keluarga.PNG', '1'),
 (7, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '0.jpg', '1'),
-(8, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'kepala_keluarga.PNG', '1'),
-(9, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '0.jpg', '1'),
+(8, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '01.png', '1'),
+(9, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Preview_Image.png', '1'),
 (10, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'kepala_keluarga.PNG', '1'),
-(11, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '0.jpg', '1'),
-(12, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'kepala_keluarga.PNG', '1'),
+(11, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Preview1.png', '1'),
+(12, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'OBLIQ_DARK_ORB.png', '1'),
 (13, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '0.jpg', '1'),
-(14, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'kepala_keluarga.PNG', '1'),
-(15, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '0.jpg', '1'),
-(16, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'kepala_keluarga.PNG', '1'),
-(17, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '0.jpg', '1');
+(14, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'preview.png', '1'),
+(15, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Check_Version.png', '1'),
+(16, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'OBLIQ_WALL.png', '1'),
+(17, '2019-10-30', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'chart.png', '1');
 
 -- --------------------------------------------------------
 
@@ -8145,10 +8177,10 @@ CREATE TABLE `table_login` (
 --
 
 INSERT INTO `table_login` (`id_user`, `username`, `password`, `nama_operator`, `email`, `no_hp`, `id_sekolah`, `id_perijinan`, `level`, `status`, `date_created`) VALUES
-(1, '0042170158', 'e10adc3949ba59abbe56e057f20f883e', 'Busrek', 'admin@gmail.com', '081231713822', '1', '1', '1', '1', '2019-10-18 15:45:39'),
+(1, '0042170158', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', '081231713822', '1', '1', '1', '1', '2019-10-18 15:45:39'),
 (2, 'ari', '827ccb0eea8a706c4c34a16891f84e7b', 'ari', 'aaa@gmail.com', '8128314121', '1', '1', '1', '1', '2019-10-20 14:46:24'),
 (3, '123456', 'e10adc3949ba59abbe56e057f20f883e', 'Handi', 'aaa@gmail.com', '8128314121', '', '', '2', '1', '2019-10-21 09:25:14'),
-(4, '123', '202cb962ac59075b964b07152d234b70', '123', 'aaa@gmail.com', '8128314121', '2', '2', '1', '1', '2019-10-23 00:05:56');
+(4, '123', '202cb962ac59075b964b07152d234b70', 'Daman', 'aaa@gmail.com', '8128314121', '2', '2', '1', '1', '2019-10-23 00:05:56');
 
 -- --------------------------------------------------------
 
@@ -8212,7 +8244,8 @@ INSERT INTO `table_lowongan` (`id_lowongan`, `id_sekolah`, `id_mitra`, `id_posis
 (23, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
 (24, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
 (25, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(26, '1', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38');
+(26, '1', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
+(27, '1', '1', '000018', '000005', '000009', '000004', '000001', '2019-10-01', '2019-10-31', 'Programmer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 26, 1, 1, '1', 'Minimal 1 Tahun', 'NO', '4500000', '40', '2019-10-31 16:18:36');
 
 -- --------------------------------------------------------
 
@@ -8369,7 +8402,8 @@ INSERT INTO `table_slider` (`id_slider`, `tanggal_slider`, `judul_slider`, `foto
 (6, '2019-10-17', 'sdasda', 'pixel_google.jpg', '1', '1'),
 (7, '2019-10-22', 'abc', 'chart1.png', '2', '1'),
 (8, '2019-10-15', 'aisjda', '0.png', '2', '1'),
-(9, '2019-10-10', '131', 'Screenshot_(10).png', '', '1');
+(10, '2019-10-03', 'abc', 'OBLIQ_WALL1.png', '1', '1'),
+(11, '2019-10-30', 'adad', 'Preview_Image1.png', '1', '1');
 
 -- --------------------------------------------------------
 
@@ -39782,6 +39816,7 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3276011002', '3276011', 'DUREN MEKAR'),
 ('3276011003', '3276011', 'BOJONGSARI LAMA'),
 ('3276011004', '3276011', 'BOJONGSARI BARU'),
+('3276011005', '3276011', 'CURUG'),
 ('3276011006', '3276011', 'PONDOK PETIR'),
 ('3276011007', '3276011', 'SERUA'),
 ('3276020006', '3276020', 'RANGKAPAN JAYA BARU'),
@@ -39806,11 +39841,12 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3276031003', '3276031', 'KALIBARU'),
 ('3276031004', '3276031', 'CILODONG'),
 ('3276031005', '3276031', 'SUKAMAJU'),
-('3276040009', '3276040', 'HARJAMUKTI'),
-('3276040010', '3276040', 'CISALAK PASAR'),
-('3276040011', '3276040', 'MEKARSARI'),
-('3276040012', '3276040', 'CURUG'),
-('3276040013', '3276040', 'PASIR GUNUNG SELATAN'),
+('3276040007', '3276040', 'HARJAMUKTI'),
+('3276040008', '3276040', 'CURUG'),
+('3276040009', '3276040', 'TUGU'),
+('3276040010', '3276040', 'MEKARSARI'),
+('3276040011', '3276040', 'PASIR GUNUNG SELATAN'),
+('3276040012', '3276040', 'CISALAK PASAR'),
 ('3276041001', '3276041', 'CILANGKAP'),
 ('3276041002', '3276041', 'CIMPAEUN'),
 ('3276041003', '3276041', 'TAPOS'),
@@ -39824,7 +39860,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3276050004', '3276050', 'PONDOK CINA'),
 ('3276050005', '3276050', 'KUKUSAN'),
 ('3276050006', '3276050', 'TANAH BARU'),
+('3276060001', '3276060', 'MERUYUNG'),
 ('3276060002', '3276060', 'GROGOL'),
+('3276060003', '3276060', 'KRUKUT'),
 ('3276060004', '3276060', 'LIMO'),
 ('3276061001', '3276061', 'CINERE'),
 ('3276061002', '3276061', 'GANDUL'),
@@ -40933,11 +40971,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3304130003', '3304130', 'GUMELAR'),
 ('3304130004', '3304130', 'PURWODADI'),
 ('3304130005', '3304130', 'SAMPANG'),
-('3304130006', '3304130', 'AMBAL'),
+('3304130006', '3304130', 'AMBAL');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3304130007', '3304130', 'PAGERPELAH'),
 ('3304130008', '3304130', 'PASURUHAN'),
-('3304130009', '3304130', 'KARANGGONDANG');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3304130009', '3304130', 'KARANGGONDANG'),
 ('3304130010', '3304130', 'JLEGONG'),
 ('3304130011', '3304130', 'BINANGUN'),
 ('3304130012', '3304130', 'KARANGKOBAR'),
@@ -42247,11 +42285,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3308050011', '3308050', 'BRINGIN'),
 ('3308050012', '3308050', 'MRANGGEN'),
 ('3308050013', '3308050', 'NGARGOSOKO'),
-('3308050014', '3308050', 'POLENGAN'),
+('3308050014', '3308050', 'POLENGAN');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3308050015', '3308050', 'PUCANGANOM'),
 ('3308050016', '3308050', 'PANDANRETNO'),
-('3308050017', '3308050', 'TEGALRANDU');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3308050017', '3308050', 'TEGALRANDU'),
 ('3308060002', '3308060', 'NGADIPURO'),
 ('3308060003', '3308060', 'WATES'),
 ('3308060004', '3308060', 'KALIBENING'),
@@ -43596,11 +43634,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3313060002', '3313060', 'SEPANJANG'),
 ('3313060003', '3313060', 'TAWANGMANGU'),
 ('3313060004', '3313060', 'KALISORO'),
-('3313060005', '3313060', 'BLUMBANG'),
+('3313060005', '3313060', 'BLUMBANG');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3313060006', '3313060', 'GONDOSULI'),
 ('3313060007', '3313060', 'TENGKLIK'),
-('3313060008', '3313060', 'NGLEBAK');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3313060008', '3313060', 'NGLEBAK'),
 ('3313060009', '3313060', 'KARANGLO'),
 ('3313060010', '3313060', 'PLUMBON'),
 ('3313070001', '3313070', 'PUNTUKREJO'),
@@ -44934,11 +44972,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3318110022', '3318110', 'BANJARSARI'),
 ('3318110023', '3318110', 'MINTOBASUKI'),
 ('3318110024', '3318110', 'KOSEKAN'),
-('3318120001', '3318120', 'JAMBEAN KIDUL'),
+('3318120001', '3318120', 'JAMBEAN KIDUL');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3318120002', '3318120', 'WANGUNREJO'),
 ('3318120003', '3318120', 'BUMIREJO'),
-('3318120004', '3318120', 'SOKOKULON');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3318120004', '3318120', 'SOKOKULON'),
 ('3318120005', '3318120', 'JIMBARAN'),
 ('3318120006', '3318120', 'NGAWEN'),
 ('3318120007', '3318120', 'MARGOREJO'),
@@ -46267,11 +46305,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3324110025', '3324110', 'LUMANSARI'),
 ('3324110026', '3324110', 'JOHOREJO'),
 ('3324110027', '3324110', 'TLAHAB'),
-('3324110028', '3324110', 'PUCANGREJO'),
+('3324110028', '3324110', 'PUCANGREJO');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3324111001', '3324111', 'NGERJO'),
 ('3324111002', '3324111', 'KEDUNGASRI'),
-('3324111003', '3324111', 'KEDUNGGADING');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3324111003', '3324111', 'KEDUNGGADING'),
 ('3324111004', '3324111', 'RINGINARUM'),
 ('3324111005', '3324111', 'TEJOREJO'),
 ('3324111006', '3324111', 'NGAWENSARI'),
@@ -47581,11 +47619,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3329140010', '3329140', 'SIDAMULYA'),
 ('3329140011', '3329140', 'WANASARI'),
 ('3329140012', '3329140', 'SIASEM'),
-('3329140013', '3329140', 'KLAMPOK'),
+('3329140013', '3329140', 'KLAMPOK');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3329140014', '3329140', 'PEBATAN'),
 ('3329140015', '3329140', 'PESANTUNAN'),
-('3329140016', '3329140', 'KEBOLEDAN');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3329140016', '3329140', 'KEBOLEDAN'),
 ('3329140018', '3329140', 'DUMELING'),
 ('3329140019', '3329140', 'KERTABESUKI'),
 ('3329140020', '3329140', 'SAWOJAJAR'),
@@ -48902,11 +48940,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3503100004', '3503100', 'WONOCOYO'),
 ('3503100005', '3503100', 'NGETAL'),
 ('3503100006', '3503100', 'NGADIRENGGO'),
-('3503100008', '3503100', 'NGULANWETAN'),
+('3503100008', '3503100', 'NGULANWETAN');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3503100009', '3503100', 'NGULANKULON'),
 ('3503100010', '3503100', 'POGALAN'),
-('3503110001', '3503110', 'KARANGSOKO');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3503110001', '3503110', 'KARANGSOKO'),
 ('3503110002', '3503110', 'SAMBIREJO'),
 ('3503110003', '3503110', 'KELUTAN'),
 ('3503110004', '3503110', 'TAMANAN'),
@@ -50234,11 +50272,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3508170003', '3508170', 'KENONGO'),
 ('3508170004', '3508170', 'GUCIALIT'),
 ('3508170005', '3508170', 'DADAPAN'),
-('3508170006', '3508170', 'KERTOWONO'),
+('3508170006', '3508170', 'KERTOWONO');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3508170009', '3508170', 'SOMBO'),
 ('3508180001', '3508180', 'PANDANSARI'),
-('3508180002', '3508180', 'KRASAK');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3508180002', '3508180', 'KRASAK'),
 ('3508180003', '3508180', 'KEDUNGJAJANG'),
 ('3508180004', '3508180', 'WONOREJO'),
 ('3508180006', '3508180', 'CURAHPETUNG'),
@@ -51543,11 +51581,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3514140013', '3514140', 'KEDUNG BOTO'),
 ('3514140014', '3514140', 'GLANGGANG'),
 ('3514150001', '3514150', 'KOLURSARI'),
-('3514150002', '3514150', 'KIDUL DALEM'),
+('3514150002', '3514150', 'KIDUL DALEM');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3514150003', '3514150', 'POGAR'),
 ('3514150004', '3514150', 'KAUMAN'),
-('3514150005', '3514150', 'BENDO MUNGAL');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3514150005', '3514150', 'BENDO MUNGAL'),
 ('3514150006', '3514150', 'KERSIKAN'),
 ('3514150008', '3514150', 'DERMO'),
 ('3514150009', '3514150', 'LATEK'),
@@ -52856,11 +52894,11 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3519010009', '3519010', 'MOJOREJO'),
 ('3519010010', '3519010', 'KEBONSARI'),
 ('3519010011', '3519010', 'REJOSARI'),
-('3519010012', '3519010', 'BALEREJO'),
+('3519010012', '3519010', 'BALEREJO');
+INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3519010013', '3519010', 'BACEM'),
 ('3519010014', '3519010', 'KEDONDONG'),
-('3519020001', '3519020', 'BANARAN');
-INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3519020001', '3519020', 'BANARAN'),
 ('3519020002', '3519020', 'KLOROGAN'),
 ('3519020003', '3519020', 'SLAMBUR'),
 ('3519020005', '3519020', 'SARENG'),
@@ -54197,10 +54235,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3524060003', '3524060', 'KATEMAS'),
 ('3524060004', '3524060', 'GINTUNGAN'),
 ('3524060005', '3524060', 'PELANG'),
-('3524060007', '3524060', 'MAOR'),
-('3524060008', '3524060', 'RANDUBENER'),
-('3524060009', '3524060', 'KALIWATES');
+('3524060007', '3524060', 'MAOR');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3524060008', '3524060', 'RANDUBENER'),
+('3524060009', '3524060', 'KALIWATES'),
 ('3524060010', '3524060', 'TLOGOAGUNG'),
 ('3524060011', '3524060', 'KEDUNGMEGARIH'),
 ('3524060012', '3524060', 'KEMBANGBAHU'),
@@ -55511,10 +55549,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3528130006', '3528130', 'BATUKERBUY'),
 ('3528130007', '3528130', 'TLONTORAJA'),
 ('3528130008', '3528130', 'TAGANGSER DAJA'),
-('3528130009', '3528130', 'SOTABAR'),
-('3529010001', '3529010', 'KADUARA TIMUR'),
-('3529010002', '3529010', 'SENDANG');
+('3528130009', '3528130', 'SOTABAR');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3529010001', '3529010', 'KADUARA TIMUR'),
+('3529010002', '3529010', 'SENDANG'),
 ('3529010003', '3529010', 'ROMBASAN'),
 ('3529010004', '3529010', 'SENTOL LAOK'),
 ('3529010005', '3529010', 'LARANGAN PERENG'),
@@ -56809,10 +56847,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('3602140015', '3602140', 'INTEN JAYA'),
 ('3602140016', '3602140', 'KARYA JAYA'),
 ('3602140017', '3602140', 'MEKARMULYA'),
-('3602150001', '3602150', 'ANGGALAN'),
-('3602150002', '3602150', 'MUARADUA'),
-('3602150003', '3602150', 'MUNCANGKOPONG');
+('3602150001', '3602150', 'ANGGALAN');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('3602150002', '3602150', 'MUARADUA'),
+('3602150003', '3602150', 'MUNCANGKOPONG'),
 ('3602150004', '3602150', 'TAMAN JAYA'),
 ('3602150005', '3602150', 'CURUGPANJANG'),
 ('3602150006', '3602150', 'CIKULUR'),
@@ -58116,10 +58154,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('5106040032', '5106040', 'BELANTIH'),
 ('5106040033', '5106040', 'GUNUNGBAU'),
 ('5106040034', '5106040', 'BELANGA'),
-('5106040035', '5106040', 'BATUKAANG'),
-('5106040036', '5106040', 'CATUR'),
-('5106040037', '5106040', 'PENGEJARAN');
+('5106040035', '5106040', 'BATUKAANG');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('5106040036', '5106040', 'CATUR'),
+('5106040037', '5106040', 'PENGEJARAN'),
 ('5106040038', '5106040', 'SATRA'),
 ('5106040040', '5106040', 'DAUSA'),
 ('5106040041', '5106040', 'DAUP'),
@@ -59436,10 +59474,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('5272021004', '5272021', 'RABANGODU UTARA'),
 ('5272021005', '5272021', 'PENARAGA'),
 ('5272021006', '5272021', 'RABADOMPU BARAT'),
-('5272021007', '5272021', 'RABADOMPU TIMUR'),
-('5272021008', '5272021', 'KENDO'),
-('5272021009', '5272021', 'PENANAE');
+('5272021007', '5272021', 'RABADOMPU TIMUR');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('5272021008', '5272021', 'KENDO'),
+('5272021009', '5272021', 'PENANAE'),
 ('5272021010', '5272021', 'RITE'),
 ('5272021011', '5272021', 'NTOBO'),
 ('5272030001', '5272030', 'MELAYU'),
@@ -60786,10 +60824,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('5309041004', '5309041', 'KALIKE'),
 ('5309041005', '5309041', 'KALIKE AIMATAN'),
 ('5309041006', '5309041', 'LEWOGRARAN'),
-('5309041007', '5309041', 'BUBU ATAGAMU'),
-('5309050003', '5309050', 'WATANHURA II'),
-('5309050004', '5309050', 'WATANHURA');
+('5309041007', '5309041', 'BUBU ATAGAMU');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('5309050003', '5309050', 'WATANHURA II'),
+('5309050004', '5309050', 'WATANHURA'),
 ('5309050005', '5309050', 'LEBAO'),
 ('5309050006', '5309050', 'LIWO'),
 ('5309050007', '5309050', 'LAMAWAI'),
@@ -62114,10 +62152,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('5317070004', '5317070', 'PUU POTTO'),
 ('5317070005', '5317070', 'WEE NAMBA'),
 ('5317070006', '5317070', 'MALI MADA'),
-('5317070007', '5317070', 'MAWO MALITI'),
-('5317070008', '5317070', 'JELA MANU'),
-('5317070009', '5317070', 'BODO PONDA');
+('5317070007', '5317070', 'MAWO MALITI');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('5317070008', '5317070', 'JELA MANU'),
+('5317070009', '5317070', 'BODO PONDA'),
 ('5317070010', '5317070', 'PANDUA TANA'),
 ('5317070011', '5317070', 'ODI PAURATA'),
 ('5317070012', '5317070', 'REDA WANO'),
@@ -63423,10 +63461,10 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6106050001', '6106050', 'NANGA KELAMPAI'),
 ('6106050002', '6106050', 'PEMUATAN JAYA'),
 ('6106050003', '6106050', 'KALIMAS BARU'),
-('6106050004', '6106050', 'BELABAN TUJUH'),
-('6106050005', '6106050', 'MAHAWA'),
-('6106050006', '6106050', 'SERENGKAH');
+('6106050004', '6106050', 'BELABAN TUJUH');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6106050005', '6106050', 'MAHAWA'),
+('6106050006', '6106050', 'SERENGKAH'),
 ('6106050007', '6106050', 'NATAI PANJANG'),
 ('6106050008', '6106050', 'TUMBANG TITI'),
 ('6106050009', '6106050', 'BATU TAJAM'),
@@ -64673,9 +64711,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6171010003', '6171010', 'BENUA MELAYU DARAT'),
 ('6171010004', '6171010', 'PARIT TOKAYA'),
 ('6171010005', '6171010', 'AKCAYA'),
-('6171010006', '6171010', 'KOTA BARU'),
-('6171011001', '6171011', 'BANGKA BELITUNG LAUT');
+('6171010006', '6171010', 'KOTA BARU');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6171011001', '6171011', 'BANGKA BELITUNG LAUT'),
 ('6171011002', '6171011', 'BANGKA BELITUNG DARAT'),
 ('6171011003', '6171011', 'BANSIR LAUT'),
 ('6171011004', '6171011', 'BANSIR DARAT'),
@@ -65926,9 +65964,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6211021006', '6211021', 'BATU PUTER'),
 ('6211021007', '6211021', 'TUMBANG RAHUYAN'),
 ('6211021008', '6211021', 'HANTAPANG'),
-('6211021009', '6211021', 'TUMBANG MUJAI'),
-('6211021010', '6211021', 'SEI ANTAI');
+('6211021009', '6211021', 'TUMBANG MUJAI');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6211021010', '6211021', 'SEI ANTAI'),
 ('6211021011', '6211021', 'TUMBANG TUWE'),
 ('6211022001', '6211022', 'HUJUNG PATA'),
 ('6211022002', '6211022', 'TUMBANG JALEMU KAJUEI'),
@@ -67169,9 +67207,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6305070009', '6305070', 'LUMBU RAYA'),
 ('6305070010', '6305070', 'KERAMAT'),
 ('6305070011', '6305070', 'BANUA HALAT KANAN'),
-('6305070012', '6305070', 'JINGAH BABARIS'),
-('6305070013', '6305070', 'KAKARAN');
+('6305070012', '6305070', 'JINGAH BABARIS');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6305070013', '6305070', 'KAKARAN'),
 ('6305070014', '6305070', 'BADAUN'),
 ('6305070015', '6305070', 'BANUA HANYAR HULU'),
 ('6305070016', '6305070', 'BANUA HANYAR'),
@@ -68439,9 +68477,9 @@ INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
 ('6402050015', '6402050', 'MUARA LAWA'),
 ('6402050016', '6402050', 'LAMBING'),
 ('6402050017', '6402050', 'BENGGERIS'),
-('6402051002', '6402051', 'RANDA EMPAS'),
-('6402051004', '6402051', 'SAMBUNG');
+('6402051002', '6402051', 'RANDA EMPAS');
 INSERT INTO `villages` (`id`, `district_id`, `name`) VALUES
+('6402051004', '6402051', 'SAMBUNG'),
 ('6402051005', '6402051', 'JELMU SIBAK'),
 ('6402051006', '6402051', 'ANAN JAYA'),
 ('6402051007', '6402051', 'SUAKONG'),
@@ -83538,6 +83576,12 @@ ALTER TABLE `table_cp_mitra`
   ADD PRIMARY KEY (`id_cp_mitra`);
 
 --
+-- Indexes for table `table_helpdesk`
+--
+ALTER TABLE `table_helpdesk`
+  ADD PRIMARY KEY (`id_helpdesk`);
+
+--
 -- Indexes for table `table_jenis_lowongan`
 --
 ALTER TABLE `table_jenis_lowongan`
@@ -83649,13 +83693,19 @@ ALTER TABLE `table_alamat`
 -- AUTO_INCREMENT for table `table_alumni`
 --
 ALTER TABLE `table_alumni`
-  MODIFY `id_alumni` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_alumni` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `table_cp_mitra`
 --
 ALTER TABLE `table_cp_mitra`
   MODIFY `id_cp_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `table_helpdesk`
+--
+ALTER TABLE `table_helpdesk`
+  MODIFY `id_helpdesk` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `table_jurusan`
@@ -83679,7 +83729,7 @@ ALTER TABLE `table_login`
 -- AUTO_INCREMENT for table `table_lowongan`
 --
 ALTER TABLE `table_lowongan`
-  MODIFY `id_lowongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id_lowongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT for table `table_mitra`
@@ -83709,7 +83759,7 @@ ALTER TABLE `table_sekolah`
 -- AUTO_INCREMENT for table `table_slider`
 --
 ALTER TABLE `table_slider`
-  MODIFY `id_slider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id_slider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- Constraints for dumped tables

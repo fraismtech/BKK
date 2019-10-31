@@ -53,13 +53,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Perusahaan</label>
-                                <input type="text" name="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan">
+                                <input type="text" name="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Bidang Usaha</label>
-                                <input type="text" name="bidang_usaha" class="form-control" placeholder="Bidang Usaha">
+                                <input type="text" name="bidang_usaha" class="form-control" placeholder="Bidang Usaha" required="">
                             </div>
                         </div>
                     </div>
@@ -67,13 +67,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Alamat Perusahaan</label>
-                                <textarea class="form-control" name="alamat" placeholder="Alamat Perusahaan"></textarea>
+                                <textarea class="form-control" name="alamat" placeholder="Alamat Perusahaan" required=""></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Provinsi</label>
-                                <select class="form-control" id="provinsi" name="provinsi">
+                                <select class="form-control" id="provinsi" name="provinsi" required="">
                                     <option value="">Pilih Provinsi</option>
                                     <?php foreach ($provinsi as $prov) { ?>
                                         <option value="<?= $prov->id ?>"><?= $prov->name ?></option>
@@ -87,7 +87,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kota/Kabupaten</label>
-                                <select class="form-control" id="kota" name="kota">
+                                <select class="form-control" id="kota" name="kota" required="">
                                 </select>
                                 <input type="hidden" name="kab" id="kab">
                             </div>
@@ -95,7 +95,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kecamatan</label>
-                                <select class="form-control" id="kecamatan" name="kecamatan">
+                                <select class="form-control" id="kecamatan" name="kecamatan" required="">
                                 </select>
                                 <input type="hidden" name="kec" id="kec">
                             </div>
@@ -105,7 +105,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kelurahan</label>
-                                <select class="form-control" id="kelurahan" name="kelurahan">
+                                <select class="form-control" id="kelurahan" name="kelurahan" required="">
                                 </select>
                                 <input type="hidden" name="kel" id="kel">
                             </div>
@@ -113,7 +113,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kode Pos</label>
-                                <input type="number" name="kode_pos" class="form-control" placeholder="Kode Pos">
+                                <input type="number" name="kode_pos" class="form-control" placeholder="Kode Pos" required="">
                             </div>
                         </div>
                     </div>
@@ -121,13 +121,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jenis Kemitraan</label>
-                                <input type="text" name="jenis_kemitraan" class="form-control" placeholder="Jenis Kemitraan">
+                                <input type="text" name="jenis_kemitraan" class="form-control" placeholder="Jenis Kemitraan" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>No. Telp Perusahaan</label>
-                                <input type="number" name="no_telp" class="form-control" placeholder="No. Telp Perusahaan">
+                                <input type="number" name="no_telp" class="form-control" placeholder="No. Telp Perusahaan" required="">
                             </div>
                         </div>
                     </div>
@@ -135,13 +135,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Email Perusahaan</label>
-                                <input type="email" name="email" class="form-control" placeholder="Email Perusahaan">
+                                <input type="email" name="email" class="form-control" placeholder="Email Perusahaan" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama CP</label>
-                                <input type="text" name="nama_cp" class="form-control" placeholder="Nama Contact Person">
+                                <input type="text" name="nama_cp" class="form-control" placeholder="Nama Contact Person" required="">
                             </div>
                         </div>
                     </div>
@@ -149,13 +149,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jabatan</label>
-                                <input type="text" name="jabatan_cp" class="form-control" placeholder="Jabatan">
+                                <input type="text" name="jabatan_cp" class="form-control" placeholder="Jabatan" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>No. Telp CP</label>
-                                <input type="number" name="no_telp_cp" class="form-control" placeholder="No Telp">
+                                <input type="number" name="no_telp_cp" class="form-control" placeholder="No Telp" required="">
                             </div>
                         </div>
                     </div><hr>
@@ -168,7 +168,7 @@
                             <div class="form-group">
                                 <label>Dari</label>
                                 <div class='input-group date' id='datepicker-top-left'>
-                                    <input class="form-control" type='text' name="dari" placeholder="Dari" />
+                                    <input class="form-control" type='text' name="dari" placeholder="Dari" required="" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -179,7 +179,7 @@
                             <div class="form-group">
                                 <label>Sampai</label>
                                 <div class='input-group date' id='datepicker-top-right'>
-                                    <input class="form-control" type='text' name="sampai" placeholder="Sampai" />
+                                    <input class="form-control" type='text' name="sampai" placeholder="Sampai" required="" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -280,8 +280,12 @@ $(document).ready(function() {
                             title: "Terhapus!",
                             icon: "success",
                             text: data.msg,
-                            buttons: true,
+                            timer: 1000,
+                            buttons: false,
                         });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                 });
             } else {
@@ -291,7 +295,6 @@ $(document).ready(function() {
                     timer: 10000
                 });
             }
-            table.ajax.reload();
         })
     });
 });
@@ -305,6 +308,8 @@ $("#provinsi").change(function(){
         data:{prov:prov},
         success:function(data) {
             $('#kota').html(data);
+            $('#kecamatan').html('<option></option>');
+            $('#kelurahan').html('<option></option>');
         }
     });
 
@@ -326,6 +331,7 @@ $("#kota").change(function(){
         data:{kota:kota},
         success:function(data) {
             $('#kecamatan').html(data);
+            $('#kelurahan').html('<option></option>');
         }
     });
 
@@ -346,6 +352,7 @@ $("#kecamatan").change(function(){
         method:"POST",
         data:{kec:kec},
         success:function(data) {
+            $('#kelurahan').html('<option></option>');
             $('#kelurahan').html(data);
         }
     });
@@ -396,9 +403,12 @@ $(document).ready(function(){
                             title: "Berhasil!",
                             text: res.msg,
                             icon: "success",
+                            timer: 1000,
+                            buttons: false,
                         }); 
-                        $('#mitraForm')[0].reset();
-                        $('#modalAdd').modal('hide'); 
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                     else {
                         swal({
@@ -426,7 +436,6 @@ $(document).ready(function(){
             });
         };
         setTimeout(save, 1000);
-        table.ajax.reload();
     });
     $(document).on('click', '#clearMsg', function(){
         $('#responseDiv').hide();

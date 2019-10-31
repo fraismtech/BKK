@@ -49,7 +49,7 @@
 		<footer class="ftco-footer ftco-section">
 			<div class="container">
 				<div class="row mb-5">
-					<div class="col-lg-3 col-md-3 col-sm-6 col-12">
+					<div class="col-lg-3 col-md-6 col-sm-6 col-12">
 						<div class="ftco-footer-widget mb-4">
 							<h2 class="ftco-heading-2">Disnaker <span class="text-info">Kota Depok</span></h2>
 							<p class="text-justify">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -67,7 +67,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-3 col-sm-6 col-12">
+					<div class="col-lg-3 col-md-6 col-sm-6 col-12">
 						<div class="ftco-footer-widget mb-4">
 							<h2 class="ftco-heading-2">Hubungi Kami</h2>
 							<ul class="" style="list-style: none;">
@@ -78,7 +78,7 @@
 							
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-3 col-sm-6 col-12">
+					<div class="col-lg-3 col-md-6 col-sm-6 col-12">
 						<div class="ftco-footer-widget mb-4">
 							<h2 class="ftco-heading-2">Link Site</h2>
 							<ul class=""style="list-style: none;">
@@ -90,20 +90,20 @@
 							</ul>
 						</div>
 					</div>
-					<div class="col-lg-3 col-md-3 col-sm-6 col-12">
+					<div class="col-lg-3 col-md-6 col-sm-6 col-12">
 						<div class="ftco-footer-widget mb-4">
 							<h2 class="ftco-heading-2">Helpdesk</h2>
-							<form class="text-center justify-content-center">
+							<form class="text-center justify-content-center" id="formHelp" method="POST" action="<?php echo base_url(); ?><?php echo $nameurl; ?>/masukan">
 								<div class="form-group">
 									<label>Email</label>
-									<input type="email" name="" class="form-control" placeholder="example@mail.com">
+									<input type="email" name="email" class="form-control" placeholder="example@mail.com" required="">
 								</div>
 								<div class="form-group">
 									<label>Masukan</label>
-									<textarea class="form-control">Isi Masukan Anda Disini</textarea>									
+									<textarea class="form-control" placeholder="Isi masukan anda disini" name="masukan"></textarea>									
 								</div>
-								<button type="button" class="btn btn-success float-right">Kirim</button>
-								<button type="button" class="btn btn-info float-right mr-1"><i class="fab fa-whatsapp"></i> Hubungi Kami Melalui Whatsapp</button>
+								<button type="submit" class="btn btn-success float-right"><span id="heplText">Kirim</span></button>
+								<!-- <button type="button" class="btn btn-info float-right mr-1"><i class="fab fa-whatsapp"></i> Hubungi Kami Melalui Whatsapp</button> -->
 							</form>
 						</div>
 					</div>
@@ -125,3 +125,28 @@
 	<script src="<?php echo base_url();?>assets/home/js/main.js"></script>
 
 	</html>
+
+<?php if ($this->session->flashdata('notif1')): ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        swal({
+          title: "Berhasil !",
+          text: "<?php echo $this->session->flashdata('notif1'); ?>",
+          icon: "success",
+          timer: 10000
+        });
+      });
+    </script>
+<?php endif; ?>
+<?php if ($this->session->flashdata('notif2')): ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        swal({
+          title: "Maaf !",
+          text: "<?php echo $this->session->flashdata('notif2'); ?>",
+          icon: "error",
+          timer: 10000
+        });
+      });
+    </script>
+<?php endif; ?>

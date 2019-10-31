@@ -598,11 +598,15 @@ $(document).ready(function() {
                     },
                     success:function(data){
                         swal({
-                            title: "Deleted!",
+                            title: "Terhapus!",
                             icon: "success",
                             text: data.msg,
+                            timer: 1000,
                             buttons: false,
                         });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                 });
             } else {
@@ -652,9 +656,12 @@ $(document).ready(function(){
                             title: "Berhasil!",
                             text: res.msg,
                             icon: "success",
+                            timer: 1000,
+                            buttons: false,
                         }); 
-                        $('#lokerForm')[0].reset();
-                        $('#modalAdd').modal('hide'); 
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                     else {
                         swal({

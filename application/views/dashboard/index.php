@@ -16,13 +16,13 @@
                             <p class="mb-0 font-regular text-muted font-weight-bold">Total BKK</p>
                             <a class="mb-0 ml-auto font-weight-bold" href="#"><i class="ti ti-more-alt"></i> </a>
                         </div>
-                        <div class="d-block d-sm-flex h-100 align-items-center">
-                            <div class="apexchart-wrapper">
-                                <div id="analytics7"></div>
-                            </div>
-                            <div class="statistics mt-3 mt-sm-0 ml-sm-auto text-center text-sm-right">
-                                <h3 class="mb-0"><i class="icon-arrow-up-circle"></i> 15,640</h3>
-                                <p>Monthly visitor</p>
+                        <div class="d-block h-100 align-items-center">
+                            <!-- div class="apexchart-wrapper">
+                                <div id="analytics4"></div>
+                            </div> -->
+                            <div class="statistics mt-3 mt-sm-0 ml-sm-auto text-left text-sm-left">
+                                <h3 class="mb-0"><i class="icon-arrow-up-circle"></i> <?= $total_bkk ?></h3>
+                                <!-- <p>BKK</p> -->
                             </div>
                         </div>
                     </div>
@@ -33,13 +33,13 @@
                             <p class="mb-0 font-regular text-muted font-weight-bold">Total Loker</p>
                             <a class="mb-0 ml-auto font-weight-bold" href="#"><i class="ti ti-more-alt"></i> </a>
                         </div>
-                        <div class="d-block d-sm-flex h-100 align-items-center">
-                            <div class="apexchart-wrapper">
+                        <div class="d-block h-100 align-items-center">
+                            <!-- <div class="apexchart-wrapper">
                                 <div id="analytics8"></div>
-                            </div>
-                            <div class="statistics mt-3 mt-sm-0 ml-sm-auto text-center text-sm-right">
-                                <h3 class="mb-0"><i class="icon-arrow-up-circle"></i> 16,656</h3>
-                                <p>This month</p>
+                            </div> -->
+                            <div class="statistics mt-3 mt-sm-0 ml-sm-auto text-left text-sm-left">
+                                <h3 class="mb-0"><i class="icon-arrow-up-circle"></i> <?= $total_loker ?></h3>
+                                <!-- <p>Lowongan Kerja</p> -->
                             </div>
                         </div>
                     </div>
@@ -50,13 +50,13 @@
                             <p class="mb-0 font-regular text-muted font-weight-bold">Total Kegiatan</p>
                             <a class="mb-0 ml-auto font-weight-bold" href="#"><i class="ti ti-more-alt"></i> </a>
                         </div>
-                        <div class="d-block d-sm-flex h-100 align-items-center">
-                            <div class="apexchart-wrapper">
-                                <div id="analytics9"></div>
-                            </div>
-                            <div class="statistics mt-3 mt-sm-0 ml-sm-auto text-center text-sm-right">
-                                <h3 class="mb-0"><i class="icon-arrow-up-circle"></i>569</h3>
-                                <p>Avg. Sales per day</p>
+                        <div class="d-block h-100 align-items-center">
+                            <!-- <div class="apexchart-wrapper">
+                                <div id="analytics8"></div>
+                            </div> -->
+                            <div class="statistics mt-3 mt-sm-0 ml-sm-auto text-left text-sm-left">
+                                <h3 class="mb-0"><i class="icon-arrow-up-circle"></i> <?= $total_kegiatan ?></h3>
+                                <!-- <p>Kegiatan</p> -->
                             </div>
                         </div>
                     </div>
