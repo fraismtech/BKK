@@ -2,6 +2,9 @@
   <div class="container">
     <h2 class="text-center ftco-animate">Hasil pencarian:  <?= $this->input->GET('cari', TRUE); ?></h2>
     <br>
+    <?php if (empty($lowongan) && empty($berita)) {
+      echo'<br> <h2 class="text-center text-danger ftco-animate"> Pencarian Tidak Ditemukan </h2>'; 
+    }?>
     <div class="row d-flex ftco-animate justify-content-center">
       <?php foreach ($lowongan as $loker) { ?>
         <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3">
