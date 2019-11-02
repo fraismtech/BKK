@@ -49,7 +49,8 @@ class Daftar extends CI_Controller {
     }
 
     // Registrasi User
-    public function registrasi_user()
+    
+public function registrasi_user()
     {
     	try {
     		date_default_timezone_set('Asia/Jakarta');
@@ -70,40 +71,36 @@ class Daftar extends CI_Controller {
             // $level   		= $this->input->post('level');
             $date_created  	= date("Y-m-d H:i:s");
 
-            $this->load->library('PHPMailer');
-			$this->load->library('SMTP');
 
-			$email_admin = 'disnaker.depok@gmail.com';
-			$nama_admin = 'noreply-BKOL';
-			$password_admin = '2014umar';
+			$this->load->library('PHPMailer');
+	        $this->load->library('SMTP');
+	        $email_admin = 'disnaker.depok@gmail.com';
+	        $nama_admin = 'noreply-BKK';
+	        $password_admin = '2014umar';
+	        $email = 'gilangpermana1407@gmail.com';
 
-			$mail = new PHPMailer();
+			$mail = new PHPMailer;
 			$mail->isSMTP();  
-			$mail->SMTPKeepAlive = true;
 			$mail->Charset  = 'UTF-8';
 			$mail->IsHTML(true);
 			// $mail->SMTPDebug = 1;
 			$mail->SMTPAuth = true;
 			$mail->Host = 'smtp.gmail.com'; 
 			$mail->Port = 587;
-			$mail->SMTPSecure = 'ssl';
+			// $mail->SMTPSecure = 'ssl';
 			$mail->Username = $email_admin;
 			$mail->Password = $password_admin;
-			$mail->Mailer   = 'smtp';
+			// $mail->Mailer   = 'smtp';
 			$mail->WordWrap = 100;       
 
-			$mail->setFrom($email_admin);
+			$mail->From = $email_admin;
 			$mail->FromName = $nama_admin;
 			$mail->addAddress($email);
-			$mail->AddEmbeddedImage('img-lowongan.png', 'lowongan');
-			$mail->Subject          = 'CV Berhasil Dikirim Ke ';
-			$mail_data['subject']   = 'CV Berhasil Dikirim Ke ';
-		  
-		  	$message = 'Test';
-
-			// $message = $this->load->view('email_cv', $mail_data, TRUE);
+			$mail->Subject          = 'Email Verifikasi Akun BKK';
+			$mail_data['subject']   = 'Email Verifikasi Akun BKK';
+		  	$message = $this->load->view('email_temp', $mail_data, TRUE);
 			$mail->Body = $message;
-
+		
 			if ($mail->send()) {
 		 		if(isset($_FILES["file"]["name"])) {  
 	              	$config['upload_path'] = './assets/upload/file';  
@@ -196,6 +193,43 @@ class Daftar extends CI_Controller {
     	} catch (Exception $e) {
     		
     	}
+    }
+
+    public function sendmail(){
+		$this->load->library('PHPMailer');
+        $this->load->library('SMTP');
+        $email_admin = 'disnaker.depok@gmail.com';
+        $nama_admin = 'noreply-BKOL';
+        $password_admin = '2014umar';
+
+        $mail = new PHPMailer;
+		$mail->isSMTP();
+		$mail->Host = 'smtp.gmail.com';
+		$mail->Port = 587;
+		$mail->SMTPAuth = true;
+		$mail->Username = $email_admin;
+		$mail->Password = $password_admin;
+		/*$mail->SMTPSecure = 'tls';*/
+		$mail->From = $email_admin;
+		$mail->FromName = $nama_admin;
+		$mail->addAddress('gilangpermana1407@gmail.com');
+		/*$mail->addCC('cc@example.com');*/
+		/*$mail->addBCC('bcc@example.com');*/
+		$mail->WordWrap = 100;
+		/*$mail->addAttachment('/tmp/image.jpg', 'new.jpg');*/
+		/*$mail->addAttachment('/tmp/image.jpg', 'new.jpg');*/
+		$mail->isHTML(true);
+		$mail->Subject = "asd";
+		$mail->Body    = "asdw";
+		$mail->AltBody = "asdw";
+		if(!$mail->send()) {
+		    echo 'Message could not be sent.';
+		    echo 'Mailer Error: ' . $mail->ErrorInfo;
+		} else {
+		    // header("Location: ../docs/confirmSubmit.html");
+		    echo "success";
+		}
+
     }
 	
 }
