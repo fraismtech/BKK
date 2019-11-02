@@ -83,12 +83,18 @@ class Home extends CI_Controller {
 		$this->load->view('home/template/default_template', $data);
 	}
 
-	public function lowongandetail()
+	public function pencarian()
 	{
+		$cari = $this->input->GET('cari', TRUE);
 		$path = "";
+		$get = array(
+				'lowongan' => $this->home->data_lowongan_cari($cari),
+				'berita' => $this->home->data_kegiatan_cari($cari),
+
+			);
 		$data = array(
-			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Lowongan Detail", $path),
-			"content" => $this->load->view('home/lowonganDetail', false, true),
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Pencarian", $path),
+			"content" => $this->load->view('home/pencarian', $get, true),
 		);
 		$this->load->view('home/template/default_template', $data);
 	}

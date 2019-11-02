@@ -305,7 +305,7 @@
                                     <h1>Aktivasi Akun BKK Kota Depok</h1>
                                     <p>Selamat pendaftar akun anda berhasil. Silahkan klik link dibawah ini untuk memverifikasi </p>
 
-                                    <center><a href="<?php echo base_url();?>" class="btn" target="_blank" style="text-align:center;color: #fff;">Verifikasi</a></center>
+                                    <center><a href="<?php echo base_url();?>Daftar/Verifikasi/<?= $npsn ?>" class="btn" target="_blank" style="text-align:center;color: #fff;">Verifikasi</a></center>
                                     <p class="caption" style="text-align: center;">*Simpan kerahasiaan email ini</p>
                                 </td>
                             </tr>
