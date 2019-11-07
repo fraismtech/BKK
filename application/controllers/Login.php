@@ -58,6 +58,7 @@ class Login extends CI_Controller {
                         'level_user' => $data->level,
                         'id_sekolah' => $data->id_sekolah,
                         'id_perijinan' => $data->id_perijinan,
+                        'foto' => $data->foto,
                         'logged_in' => TRUE,
                         'id'  => $data->id_user,
                     );
@@ -69,6 +70,9 @@ class Login extends CI_Controller {
 		            	$this->session->set_userdata($newdata);
 		            	$this->session->set_flashdata('notif','<div class="alert border-0 alert-success bg-gradient m-b-30 alert-dismissible fade show border-radius-none" role="alert"><strong>Selamat Datang '.$data->nama_operator.' !</strong> Bursa Kerja Khusus Kota Depok <button type="button" class="close" data-dismiss="alert" aria-label="Close"><i class="ti ti-close"></i></button></div>');
 		            	redirect("DashboardBkk/index");
+		            } else {
+		            	$this->session->set_flashdata("notif", "Anda Tidak Memiliki Akses Untuk Halaman Ini!");
+                		redirect('login');
 		            }
             	}
                 

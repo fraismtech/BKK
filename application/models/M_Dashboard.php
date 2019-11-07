@@ -19,11 +19,8 @@ class M_Dashboard extends CI_Model
 
     // Mitra
     var $table_2          = 'table_mitra';
-    var $table_2_1        = 'table_cp_mitra';
-    var $table_2_2        = 'table_periode';
-    var $table_2_3        = 'table_sekolah';
-    var $column_order_2   = array('table_mitra.nama_perusahaan','table_mitra.bidang_usaha','table_mitra.no_telp','table_mitra.email','table_periode.dari','table_periode.sampai'); //set column field database for datatable orderable
-    var $column_search_2  = array('table_mitra.nama_perusahaan','table_mitra.bidang_usaha','table_mitra.no_telp','table_mitra.email','DATE_FORMAT(table_periode.dari, "%d %b %Y")','DATE_FORMAT(table_periode.sampai, "%d %b %Y")'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_order_2   = array('table_mitra.nama_perusahaan','table_mitra.bidang_usaha','table_mitra.no_telp','table_mitra.email','table_mitra.periode_dari','table_mitra.periode_sampai'); //set column field database for datatable orderable
+    var $column_search_2  = array('table_mitra.nama_perusahaan','table_mitra.bidang_usaha','table_mitra.no_telp','table_mitra.email','DATE_FORMAT(table_mitra.periode_dari, "%d %b %Y")','DATE_FORMAT(table_mitra.periode_sampai, "%d %b %Y")'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $where_2 = array('');
     var $order_2 = array('id_mitra' => 'asc'); // default order
 
@@ -38,8 +35,8 @@ class M_Dashboard extends CI_Model
 
     // Alumni
     var $table_4          = 'table_alumni';
-    var $column_order_4   = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','$tempat_lahir','jurusan'); //set column field database for datatable orderable
-    var $column_search_4  = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','$tempat_lahir','jurusan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_order_4   = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','tempat_lahir','jurusan'); //set column field database for datatable orderable
+    var $column_search_4  = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','tempat_lahir','jurusan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $where_4 = array('');
     var $order_4 = array('tahun_lulus' => 'asc'); // default order
 
@@ -55,6 +52,12 @@ class M_Dashboard extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+    }
+
+    // Data Alumni Baru
+    public function alumni_baru(){
+        $query = $this->db->query("SELECT * FROM table_alumni WHERE notif = '1'");
+        return $query->num_rows();
     }
 
     // Data Statistik
@@ -79,9 +82,9 @@ class M_Dashboard extends CI_Model
     }
     //
 
-    public function jurusan($id_sekolah)
+    public function jurusan()
     {
-        $query = $this->db->query("SELECT * FROM table_jurusan WHERE id_sekolah = '$id_sekolah' ORDER BY nama_jurusan ASC");
+        $query = $this->db->query("SELECT * FROM table_jurusan ORDER BY nama_jurusan ASC");
         return $query->result();
     }
 
@@ -452,9 +455,9 @@ class M_Dashboard extends CI_Model
     private function _get_datatables_query_mitra($id_sekolah)
     {
         $this->db->from($this->table_2);
-        $this->db->join($this->table_2_1, $this->table_2_1.'.id_cp_mitra ='.$this->table_2.'.id_cp_mitra');
-        $this->db->join($this->table_2_2, $this->table_2_2.'.id_periode ='.$this->table_2.'.id_periode');
-        $this->db->join($this->table_2_3, $this->table_2_3.'.id_sekolah ='.$this->table_2.'.id_sekolah');
+        // $this->db->join($this->table_2_1, $this->table_2_1.'.id_cp_mitra ='.$this->table_2.'.id_cp_mitra');
+        // $this->db->join($this->table_2_2, $this->table_2_2.'.id_periode ='.$this->table_2.'.id_periode');
+        // $this->db->join($this->table_2_3, $this->table_2_3.'.id_sekolah ='.$this->table_2.'.id_sekolah');
         $this->db->where('table_mitra.id_sekolah=', $id_sekolah);
         $this->db->order_by('id_mitra', 'DESC');
 
@@ -511,9 +514,9 @@ class M_Dashboard extends CI_Model
     public function count_all_mitra($id_sekolah)
     {
         $this->db->from($this->table_2);
-        $this->db->join($this->table_2_1, $this->table_2_1.'.id_cp_mitra ='.$this->table_2.'.id_cp_mitra');
-        $this->db->join($this->table_2_2, $this->table_2_2.'.id_periode ='.$this->table_2.'.id_periode');
-        $this->db->join($this->table_2_3, $this->table_2_3.'.id_sekolah ='.$this->table_2.'.id_sekolah');
+        // $this->db->join($this->table_2_1, $this->table_2_1.'.id_cp_mitra ='.$this->table_2.'.id_cp_mitra');
+        // $this->db->join($this->table_2_2, $this->table_2_2.'.id_periode ='.$this->table_2.'.id_periode');
+        // $this->db->join($this->table_2_3, $this->table_2_3.'.id_sekolah ='.$this->table_2.'.id_sekolah');
         $this->db->where('table_mitra.id_sekolah=', $id_sekolah);
         $this->db->count_all_results();
     }
@@ -592,7 +595,7 @@ class M_Dashboard extends CI_Model
         $this->db->from($this->table_4);
         $this->db->where('id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
-        $this->db->order_by('tahun_lulus', 'DESC');
+        $this->db->order_by('register_date', 'DESC');
 
         $i = 0;
         
@@ -659,7 +662,7 @@ class M_Dashboard extends CI_Model
         $this->db->join($this->table_5_1, $this->table_5_1.'.id_mitra ='.$this->table_5.'.id_mitra');
         $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
-        $this->db->order_by('id_lowongan', 'DESC');
+        $this->db->order_by('register_date', 'DESC');
 
         $i = 0;
         

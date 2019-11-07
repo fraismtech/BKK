@@ -39,8 +39,8 @@ class M_Dashboard_Pusat extends CI_Model
     // Alumni
     var $table_4          = 'table_alumni';
     var $table_4_1        = 'table_sekolah';
-    var $column_order_4   = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','tempat_lahir','jurusan','nama_sekolah'); //set column field database for datatable orderable
-    var $column_search_4  = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','tempat_lahir','jurusan','nama_sekolah'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_order_4   = array('nisn','nama','no_telp','tahun_lulus','table_alumni.status','tanggal_lahir','tempat_lahir','jurusan','nama_sekolah'); //set column field database for datatable orderable
+    var $column_search_4  = array('nisn','nama','no_telp','tahun_lulus','table_alumni.status','tanggal_lahir','tempat_lahir','jurusan','nama_sekolah'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $where_4 = array('');
     var $order_4 = array('tahun_lulus' => 'asc'); // default order
 
@@ -48,15 +48,14 @@ class M_Dashboard_Pusat extends CI_Model
     var $table_5          = 'table_lowongan';
     var $table_5_1          = 'table_mitra';
     var $column_order_5   = array('nama_lowongan','nama_perusahaan','tanggal_berlaku','tanggal_berakhir'); //set column field database for datatable orderable
-    var $column_search_5  = array('nama_perusahaan','DATE_FORMAT(tanggal_berlaku, "%d %b %Y")','DATE_FORMAT(tanggal_berakhir, "%d %b %Y")','nama_lowongan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_search_5  = array('nama_perusahaan','DATE_FORMAT(tanggal_berlaku, "%d %b %Y")','DATE_FORMAT(tanggal_berakhir, "%d %b %Y")','nama_lowongan','ket'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $where_5 = array('');
     var $order_5 = array('id_lowongan' => 'asc'); // default order
 
     // Jurusan
     var $table_6          = 'table_jurusan';
-    var $table_6_2         = 'table_sekolah';
-    var $column_order_6   = array('nama_sekolah','nama_jurusan'); //set column field database for datatable orderable
-    var $column_search_6  = array('nama_sekolah','nama_jurusan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_order_6   = array('nama_jurusan'); //set column field database for datatable orderable
+    var $column_search_6  = array('nama_jurusan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $where_6 = array('');
     var $order_6 = array('id_jurusan' => 'asc'); // default order
 
@@ -84,14 +83,17 @@ class M_Dashboard_Pusat extends CI_Model
     var $where_9 = array('');
     var $order_9 = array('nama_sekolah' => 'asc'); // default order
 
+    var $table_x          = 'table_sekolah';
+    var $column_order_x   = array('kecamatan'); //set column field database for datatable orderable
+    var $column_search_x  = array('kecamatan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $where_x = array('');
+    var $order_x = array('kecamatan' => 'asc'); // default order
+
     // Laporan Mitra
     var $table_10          = 'table_mitra';
-    var $table_10_1        = 'table_cp_mitra';
-    var $table_10_2        = 'table_periode';
     var $table_10_3        = 'table_sekolah';
-    var $table_10_4        = 'table_alamat';
-    var $column_order_10   = array('table_mitra.nama_perusahaan','table_alamat.alamat_lengkap','table_mitra.no_telp','table_mitra.email','table_mitra.bidang_usaha','table_cp_mitra.nama_cp','table_cp_mitra.jabatan_cp','table_cp_mitra.no_telp_cp','table_mitra.jenis_kemitraan','table_periode.dari','table_periode.sampai'); //set column field database for datatable orderable
-    var $column_search_10  = array('table_mitra.nama_perusahaan','table_alamat.alamat_lengkap','table_alamat.provinsi','table_alamat.kota','table_alamat.kecamatan','table_alamat.kelurahan','table_alamat.kode_pos','table_mitra.no_telp','table_mitra.email','table_mitra.bidang_usaha','table_cp_mitra.nama_cp','table_cp_mitra.jabatan_cp','table_cp_mitra.no_telp_cp','table_mitra.jenis_kemitraan','DATE_FORMAT(table_periode.dari, "%d %b %Y")','DATE_FORMAT(table_periode.sampai, "%d %b %Y")'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_order_10   = array('table_mitra.nama_perusahaan','table_mitra.alamat','table_mitra.no_telp','table_mitra.email','table_mitra.bidang_usaha','table_mitra.nama_cp','table_mitra.jabatan_cp','table_mitra.no_telp_cp','table_mitra.jenis_kemitraan','table_mitra.periode_dari','table_mitra.periode_sampai'); //set column field database for datatable orderable
+    var $column_search_10  = array('table_mitra.nama_perusahaan','table_mitra.alamat','table_mitra.no_telp','table_mitra.email','table_mitra.bidang_usaha','table_mitra.nama_cp','table_mitra.jabatan_cp','table_mitra.no_telp_cp','table_mitra.jenis_kemitraan','DATE_FORMAT(table_mitra.periode_dari, "%d %b %Y")','DATE_FORMAT(table_mitra.periode_sampai, "%d %b %Y")'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $where_10 = array('');
     var $order_10 = array('id_mitra' => 'asc'); // default order
 
@@ -99,6 +101,12 @@ class M_Dashboard_Pusat extends CI_Model
     {
         parent::__construct();
         $this->load->database();
+    }
+
+    // Data BKK Baru
+    public function bkk_baru(){
+        $query = $this->db->query("SELECT * FROM table_sekolah WHERE notif = '1'");
+        return $query->num_rows();
     }
 
     // Data Statistik
@@ -133,9 +141,9 @@ class M_Dashboard_Pusat extends CI_Model
         return $output;
     }
 
-    public function jurusan($id_sekolah)
+    public function jurusan()
     {
-        $query = $this->db->query("SELECT * FROM table_jurusan WHERE id_sekolah = '$id_sekolah' ORDER BY nama_jurusan ASC");
+        $query = $this->db->query("SELECT * FROM table_jurusan ORDER BY nama_jurusan ASC");
         return $query->result();
     }
 
@@ -447,9 +455,8 @@ class M_Dashboard_Pusat extends CI_Model
     private function _get_datatables_query_jurusan()
     {
         $this->db->from($this->table_6);
-        $this->db->join($this->table_6_2, $this->table_6_2.'.id_sekolah ='.$this->table_6.'.id_sekolah');
         // $this->db->where('table_nabung.username=', $username);
-        $this->db->order_by('id_jurusan', 'DESC');
+        $this->db->order_by('nama_jurusan', 'ASC');
 
         $i = 0;
     
@@ -497,7 +504,6 @@ class M_Dashboard_Pusat extends CI_Model
     public function count_filtered_jurusan()
     {
         $this->db->from($this->table_6);
-        $this->db->join($this->table_6_2, $this->table_6_2.'.id_sekolah ='.$this->table_6.'.id_sekolah');
         // $this->db->where('id_sekolah', $id_sekolah);
         $query = $this->db->get();
         return $query->num_rows();
@@ -506,7 +512,6 @@ class M_Dashboard_Pusat extends CI_Model
     public function count_all_jurusan()
     {
         $this->db->from($this->table_6);
-        $this->db->join($this->table_6_2, $this->table_6_2.'.id_sekolah ='.$this->table_6.'.id_sekolah');
         // $this->db->where('id_sekolah', $id_sekolah);
         $this->db->count_all_results();
     }
@@ -650,6 +655,7 @@ class M_Dashboard_Pusat extends CI_Model
     // Alumni
     private function _get_datatables_query_alumni()
     {
+        $this->db->select("*, table_alumni.status AS sts");
         $this->db->from($this->table_4);
         $this->db->join($this->table_4_1, $this->table_4_1.'.id_sekolah ='.$this->table_4.'.id_sekolah');
         if($this->input->post('sekolah'))
@@ -805,7 +811,7 @@ class M_Dashboard_Pusat extends CI_Model
         }
         // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
-        $this->db->order_by('nama_sekolah', 'DESC');
+        $this->db->order_by('nama_sekolah', 'ASC');
         $this->db->group_by($this->table_9_2.'.id_sekolah');
 
         $i = 0;
@@ -875,26 +881,98 @@ class M_Dashboard_Pusat extends CI_Model
         $this->db->count_all_results();
     }
 
+    // Data BKK
+    private function _get_datatables_query_laporan_bkk()
+    {
+        $this->db->select("kecamatan, count(*) AS total, sum(case when status = '0' then 1 else 0 end) AS belum_terdaftar, sum(case when status = '1' then 1 else 0 end) AS sudah_terdaftar");
+        $this->db->from($this->table_x);
+        // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
+        if($this->input->post('kecamatan'))
+        {
+            $this->db->where('kecamatan', $this->input->post('kecamatan'));
+        }
+        $this->db->order_by('kecamatan', 'ASC');
+        $this->db->group_by($this->table_x.'.kecamatan');
+
+        $i = 0;
+    
+        foreach ($this->column_search_x as $item) // loop column 
+        {
+            if($_POST['search']['value']) // if datatable send POST for search
+            {
+                
+                if($i===0) // first loop
+                {
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                }
+                else
+                {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+
+                if(count($this->column_search_x) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+        
+        if(isset($_POST['order_x'])) // here order processing
+        {
+            $this->db->order_by($this->column_order_x[$_POST['order_x']['0']['column']], $_POST['order_x']['0']['dir']);
+        } 
+        else if(isset($this->order_x))
+        {
+            $order_x = $this->order_x;
+            $this->db->order_by(key($order_x), $order_x[key($order_x)]);
+        }
+    }
+
+    public function get_datatables_laporan_bkk()
+    {
+        $this->_get_datatables_query_laporan_bkk();
+        if($_POST['length'] != -1)
+        $this->db->limit($_POST['length'], $_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    public function count_filtered_laporan_bkk()
+    {
+        $this->db->from($this->table_x);
+        // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
+        // $this->db->where('table_nabung.username=', $username);
+        $this->db->group_by($this->table_x.'.kecamatan');
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    public function count_all_laporan_bkk()
+    {
+        $this->db->from($this->table_x);
+        // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
+        // $this->db->where('table_nabung.username=', $username);
+        $this->db->group_by($this->table_x.'.kecamatan');
+        $this->db->count_all_results();
+    }
+
     // Laporan Mitra
     private function _get_datatables_query_laporan_mitra()
     {
         $this->db->from($this->table_10);
-        $this->db->join($this->table_10_1, $this->table_10_1.'.id_cp_mitra ='.$this->table_10.'.id_cp_mitra');
-        $this->db->join($this->table_10_2, $this->table_10_2.'.id_periode ='.$this->table_10.'.id_periode');
         $this->db->join($this->table_10_3, $this->table_10_3.'.id_sekolah ='.$this->table_10.'.id_sekolah');
-        $this->db->join($this->table_10_4, $this->table_10_4.'.id_alamat ='.$this->table_10.'.id_alamat');
         if($this->input->post('sekolah'))
         {
             $this->db->where('table_mitra.id_sekolah', $this->input->post('sekolah'));
         }
         if($this->input->post('dari') && $this->input->post('sampai'))
         {
-            $this->db->where('table_periode.dari >=', date('Y-m-d', strtotime($this->input->post('dari'))));
-            $this->db->where('table_periode.sampai <=',  date('Y-m-d', strtotime($this->input->post('sampai'))));;
+            $this->db->where('table_mitra.periode_dari >=', date('Y-m-d', strtotime($this->input->post('dari'))));
+            $this->db->where('table_mitra.periode_sampai <=',  date('Y-m-d', strtotime($this->input->post('sampai'))));;
         }
         // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
-        $this->db->order_by('nama_perusahaan', 'DESC');
+        $this->db->order_by('nama_perusahaan', 'ASC');
         // $this->db->group_by($this->table_10_2.'.id_sekolah');
 
         $i = 0;
@@ -943,10 +1021,7 @@ class M_Dashboard_Pusat extends CI_Model
     public function count_filtered_laporan_mitra()
     {
         $this->db->from($this->table_10);
-        $this->db->join($this->table_10_1, $this->table_10_1.'.id_cp_mitra ='.$this->table_10.'.id_cp_mitra');
-        $this->db->join($this->table_10_2, $this->table_10_2.'.id_periode ='.$this->table_10.'.id_periode');
         $this->db->join($this->table_10_3, $this->table_10_3.'.id_sekolah ='.$this->table_10.'.id_sekolah');
-        $this->db->join($this->table_10_4, $this->table_10_4.'.id_alamat ='.$this->table_10.'.id_alamat');
         // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
         $query = $this->db->get();
@@ -956,10 +1031,7 @@ class M_Dashboard_Pusat extends CI_Model
     public function count_all_laporan_mitra()
     {
         $this->db->from($this->table_10);
-        $this->db->join($this->table_10_1, $this->table_10_1.'.id_cp_mitra ='.$this->table_10.'.id_cp_mitra');
-        $this->db->join($this->table_10_2, $this->table_10_2.'.id_periode ='.$this->table_10.'.id_periode');
         $this->db->join($this->table_10_3, $this->table_10_3.'.id_sekolah ='.$this->table_10.'.id_sekolah');
-        $this->db->join($this->table_10_4, $this->table_10_4.'.id_alamat ='.$this->table_10.'.id_alamat');
         // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
         $this->db->count_all_results();
@@ -968,7 +1040,7 @@ class M_Dashboard_Pusat extends CI_Model
     // Profil
     public function profil($id_user)
     {
-        $query = $this->db->query("SELECT * FROM table_login AS a JOIN table_sekolah AS b ON a.id_sekolah = b.id_sekolah JOIN table_perijinan AS c ON a.id_perijinan = c.id_perijinan WHERE a.id_user = '$id_user'");
+        $query = $this->db->query("SELECT * FROM table_login AS a WHERE a.id_user = '$id_user'");
         return $query->result();
     }
 
@@ -982,7 +1054,7 @@ class M_Dashboard_Pusat extends CI_Model
     // Data Alumni
     public function data_alumni($id_alumni)
     {
-        $query = $this->db->query("SELECT * FROM table_alumni AS ta JOIN table_sekolah AS ts ON ta.id_sekolah = ts.id_sekolah JOIN table_jurusan AS tj ON ta.jurusan = tj.id_jurusan WHERE ta.id_alumni = '$id_alumni'");
+        $query = $this->db->query("SELECT * FROM table_alumni AS ta JOIN table_sekolah AS ts ON ta.id_sekolah = ts.id_sekolah WHERE ta.id_alumni = '$id_alumni'");
         return $query->result();
     }
 
@@ -999,5 +1071,26 @@ class M_Dashboard_Pusat extends CI_Model
         $query = $this->db->query("SELECT * FROM table_helpdesk ORDER BY tanggal_pesan DESC");
         return $query->result();
     }
+
+    // Edit BKK
+    public function simpanBKK($data, $id_sekolah)
+    {
+        $query = $this->db->where("id_sekolah", $id_sekolah);
+        $this->db->update("table_sekolah", $data);
+
+        if ($query) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    // Data Mitra
+    public function mitra_bkk_pusat()
+    {
+        $query = $this->db->query("SELECT * FROM table_mitra ORDER by nama_perusahaan ASC");
+        return $query->result();
+    }
+
 
 }

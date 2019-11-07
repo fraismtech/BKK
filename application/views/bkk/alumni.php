@@ -1,4 +1,156 @@
 <?php $nameurl = $this->uri->segment(1); ?>
+<section class="ftco-section bg-light">
+  <div class="container">
+    <div class="row d-block">
+      <div class="col-md-12">
+        <h2 class="text-center text-info ftco-animate"><b><br>Form Alumni</b></h2>
+        <form method="post" action="<?php echo base_url(); ?>/<?= $nameurl?>/addAlumni1">
+          <input type="hidden" name="id_sekolah" value="<?= $id_sekolah ?>">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>NISN</label>
+                <input type="text" name="nisn" class="form-control" placeholder="NISN" required="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>NIK</label>
+                <input type="text" name="nik" class="form-control" placeholder="Nomor Induk Kependudukan" required="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nama Lengkap</label>
+                <input type="text" name="nama" class="form-control" placeholder="Nama" required="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Jenis Kelamin</label>
+                <div class="row col-lg-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios1" value="L" required="">
+                    <label class="form-check-label" for="gridRadios1">&nbsp;&nbsp;&nbsp;&nbsp;Laki-Laki &nbsp; </label>
+                  </div>
+                  <div class="form-check">
+                    <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios2" value="P" required="">
+                    <label class="form-check-label" for="gridRadios2">&nbsp;&nbsp;&nbsp;&nbsp;Perempuan</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Tempat Lahir</label>
+                <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Tanggal Lahir</label>
+                <div class="input-group date form_date" data-date-format="yyyy-mm-dd" data-link-field="dtp_input3">
+                  <input class="form-control" type="text" value="" placeholder="Tahun Lulus" name="tahun_lulus" required="">
+                  <div class="input-group-append">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Alamat</label>
+                <textarea class="form-control" name="alamat" placeholder="Alamat" required=""></textarea>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>No. telp</label>
+                <input type="number" name="no_telp" class="form-control" placeholder="No. Telp" required="">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" name="email" class="form-control" placeholder="Email" required="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Jurusan</label>
+                <select class="form-control" id="jurusan" name="jurusan" required="">
+                  <option value="" selected="">Pilih Jurusan</option>
+                  <?php foreach ($jurusan as $jrs) { ?>
+                    <option value="<?= $jrs->nama_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
+                  <?php } ?>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Tahun Lulus</label>
+                <div class="input-group date form_year" data-date-format="yyyy" data-link-field="dtp_input4">
+                  <input class="form-control" type="text" value="" placeholder="Tahun Lulus" name="tahun_lulus" required="">
+                  <div class="input-group-append">
+                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Status</label>
+                <select class="form-control" id="status" name="status" required="">
+                  <option value="" selected="">Pilih Status</option>
+                  <option value="Bekerja">Bekerja</option>
+                  <option value="Kuliah">Kuliah</option>
+                  <option value="Wiraswasta">Wiraswasta</option>
+                  <option value="Belum Bekerja">Belum/Tidak Bekerja</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row" id="perusahaan">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>Nama Perusahaan</label>
+                <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan" required="">
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label>No. Telp Perusahaan</label>
+                <input type="number" name="no_telp_perusahaan" id="no_telp_perusahaan" class="form-control" placeholder="No Telp Perusahaan" required="">
+              </div>
+            </div>
+          </div>
+          <div class="row" id="perusahaan2">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label>Alamat Perusahaan</label>
+                <textarea class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" placeholder="Alamat Perusahaan" required=""></textarea>
+              </div>
+            </div>
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="mitraText">Simpan</span></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="ftco-section">
  <div class="container">
   <br>
@@ -23,18 +175,18 @@
     <div class="col-lg-12">
       <div class="datatable-wrapper table-responsive">
         <table id="example" class="display compact table table-striped" width="100%">
-            <thead>
-              <tr>
-                <th>No. </th>
-                <th>NISN</th>
-                <th>Nama Lengkap</th>
-                <th>Jurusan</th>
-                <th>Tahun Lulus</th>
-                <th>Status</th>
-              </tr>
+          <thead>
+            <tr>
+              <th>No. </th>
+              <th>NISN</th>
+              <th>Nama Lengkap</th>
+              <th>Jurusan</th>
+              <th>Tahun Lulus</th>
+              <th>Status</th>
+            </tr>
           </thead>
           <tbody>
-              
+
           </tbody>
         </table>
       </div>
@@ -136,156 +288,16 @@
   </ul> -->
 </div>
 </section>
+<script>
+    /*datwpicker*/
+    jQuery('.mydatepicker').datepicker();
 
-<section class="ftco-section bg-light">
-  <div class="container">
-    <div class="row d-block">
-      <div class="col-md-12">
-        <h2 class="text-center text-info ftco-animate"><b>Form Alumni</b></h2>
-        <form method="post" action="<?php echo base_url(); ?>/<?= $nameurl?>/addAlumni1">
-        <input type="hidden" name="id_sekolah" value="<?= $id_sekolah ?>">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>NISN</label>
-              <input type="text" name="nisn" class="form-control" placeholder="NISN" required="">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>NIK</label>
-              <input type="text" name="nik" class="form-control" placeholder="Nomor Induk Kependudukan" required="">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Nama Lengkap</label>
-              <input type="text" name="nama" class="form-control" placeholder="Nama" required="">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Jenis Kelamin</label>
-              <div class="row col-lg-12">
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios1" value="L" required="">
-                  <label class="form-check-label" for="gridRadios1">&nbsp;&nbsp;&nbsp;&nbsp;Laki-Laki &nbsp; </label>
-                </div>
-                <div class="form-check">
-                  <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios2" value="P" required="">
-                  <label class="form-check-label" for="gridRadios2">&nbsp;&nbsp;&nbsp;&nbsp;Perempuan</label>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Tempat Lahir</label>
-              <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Tanggal Lahir</label>
-              <div class='input-group date' id='datepicker-bottom-left'>
-                <input class="form-control" type='text' name="tanggal_lahir" placeholder="Tanggal Lahir" required="" />
-                <span class="input-group-addon">
-                  <i class="fa fa-calendar"></i>
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Alamat</label>
-              <textarea class="form-control" name="alamat" placeholder="Alamat" required=""></textarea>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>No. telp</label>
-              <input type="number" name="no_telp" class="form-control" placeholder="No. Telp" required="">
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Email</label>
-              <input type="email" name="email" class="form-control" placeholder="Email" required="">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Jurusan</label>
-              <select class="form-control" id="jurusan" name="jurusan" required="">
-                <option value="" selected="">Pilih Jurusan</option>
-                <?php foreach ($jurusan as $jrs) { ?>
-                  <option value="<?= $jrs->nama_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
-                <?php } ?>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Tahun Lulus</label>
-              <div class="input-group date form_year" data-date-format="yyyy" data-link-field="dtp_input4">
-                <input class="form-control" type="text" value="" placeholder="Tahun Lulus" name="tahun_lulus" required="">
-                <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Status</label>
-              <select class="form-control" id="status" name="status" required="">
-                <option value="" selected="">Pilih Status</option>
-                <option value="Bekerja">Bekerja</option>
-                <option value="Kuliah">Kuliah</option>
-                <option value="Wiraswasta">Wiraswasta</option>
-                <option value="Belum Bekerja">Belum/Tidak Bekerja</option>
-              </select>
-            </div>
-          </div>
-        </div>
-        <div class="row" id="perusahaan">
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>Nama Perusahaan</label>
-              <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan" required="">
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="form-group">
-              <label>No. Telp Perusahaan</label>
-              <input type="number" name="no_telp_perusahaan" id="no_telp_perusahaan" class="form-control" placeholder="No Telp Perusahaan" required="">
-            </div>
-          </div>
-        </div>
-        <div class="row" id="perusahaan2">
-          <div class="col-md-12">
-            <div class="form-group">
-              <label>Alamat Perusahaan</label>
-              <textarea class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" placeholder="Alamat Perusahaan" required=""></textarea>
-            </div>
-          </div>
-        </div>
-        <div class="text-center">
-          <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="mitraText">Simpan</span></button>
-        </div>
-      </form>
-    </div>
-  </div>
-</div>
-</section>
+    jQuery('#datepicker-autoclose3').datepicker({
+        format: "yyyy-mm-dd",
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>  
 <script type="text/javascript">
   $(document).ready(function () {            
     $('#perusahaan').hide();
@@ -318,6 +330,15 @@
       todayHighlight: 1,
       startView: 4,
       minView: 4,
+      forceParse: 0
+    });
+    $('.form_date').datetimepicker({
+      weekStart: 1,
+      todayBtn: 1,
+      autoclose: 1,
+      todayHighlight: 1,
+      startView: 2,
+      minView: 2,
       forceParse: 0
     });
   });
@@ -391,11 +412,11 @@ $(document).ready(function(){
       });
     });
   </script>
-  <?php endif; ?>
+<?php endif; ?>
 
 <script type="text/javascript">
-$(document).ready(function() {
-  var table = $('#example').DataTable({ 
+  $(document).ready(function() {
+    var table = $('#example').DataTable({ 
     // "dom": 'Bfrtip',
     // "buttons": [
     //     'excel', 'pdf'
@@ -417,13 +438,13 @@ $(document).ready(function() {
     "info"           : true, //Initial no order.
     // Load data for the table's content from an Ajax source
     "ajax": {
-        "url": "<?php echo site_url($nameurl.'/ajax_list_alumni')?>",
-        "type": "POST",
-        "data": function (data) {
-            data.sekolah = $('#sekolah').val();
-            data.jurusan = $('#jurusan').val();
-            data.tahun_lulus = $('#tahun_lulus').val();
-        }
+      "url": "<?php echo site_url($nameurl.'/ajax_list_alumni')?>",
+      "type": "POST",
+      "data": function (data) {
+        data.sekolah = $('#sekolah').val();
+        data.jurusan = $('#jurusan').val();
+        data.tahun_lulus = $('#tahun_lulus').val();
+      }
     },
 
     //Set column definition initialisation properties.
@@ -431,44 +452,44 @@ $(document).ready(function() {
     { 
         "targets": [ 0 ], //first column / numbering column
         "orderable": false, //set not orderable
-    },
-    { 
+      },
+      { 
         "targets": [ 1 ], //first column / numbering column
         "orderable": false, //set not orderable
-    },
-    { 
+      },
+      { 
         "targets": [ 2 ], //first column / numbering column
         "orderable": false, //set not orderable
-    },
-    { 
+      },
+      { 
         "targets": [ 3 ], //first column / numbering column
         "orderable": false, //set not orderable
-    },
-    { 
+      },
+      { 
         "targets": [ 4 ], //first column / numbering column
         "orderable": false, //set not orderable
-    },
-    { 
+      },
+      { 
         "targets": [ 5 ], //first column / numbering column
         "orderable": false, //set not orderable
-    },
-    ],
-    "language": {         
-      "info": "",
-      "infoEmpty": "",       
-      "infoFiltered": ""
-    },
+      },
+      ],
+      "language": {         
+        "info": "",
+        "infoEmpty": "",       
+        "infoFiltered": ""
+      },
 
-  });
+    });
 
   $('#sekolah').change(function(){ //button filter event click
       table.ajax.reload();  //just reload table
-  });
+    });
   $('#jurusan').change(function(){ //button filter event click
       table.ajax.reload();  //just reload table
-  });
+    });
   $('#tahun_lulus').on("change keyup", function(){
-      table.ajax.reload();
+    table.ajax.reload();
   });
 });
 </script>

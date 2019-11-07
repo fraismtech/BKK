@@ -8,7 +8,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="post" action="<?php echo base_url(); ?>/dashboardBkk/editAlumni" id="mitraForm" autocomplete="off" enctype="multipart/form-data">
+                <form method="post" action="<?php echo base_url(); ?>/dashboard/editAlumniPusat" id="mitraForm" autocomplete="off" enctype="multipart/form-data">
                     <input type="hidden" name="id_sekolah" value="<?= $alumni->id_sekolah ?>">
                     <input type="hidden" name="id_alumni" value="<?= $alumni->id_alumni ?>">
                     <div class="row">

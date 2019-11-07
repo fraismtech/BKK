@@ -1,13 +1,13 @@
 <section class="hero-wrap hero-wrap-2 margin-section-top">
-  <div id="demo" class="carousel slide" data-ride="carousel">
+  <div id="demo" class="carousel slide" data-ride="carousel" data-interval="3000">
     <!-- The slideshow -->
     <div class="carousel-inner">
       <?php 
       if (empty($slider)) { ?>
         <div class="carousel-item active">
-          <img src="<?php echo base_url(); ?>assets/home/images/bg_1.jpg" alt="Slider2" class="carousel-obj">
-          <div class="carousel-caption">
-            <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
+          <img src="<?php echo base_url(); ?>assets/home/images/bg_1.jpg" alt="Slider2" class="carousel-obj" style="width: 100%; height: 100%;">
+          <!-- <div class="carousel-caption" style="bottom: 50%;">
+            <h2 class="text-white">Bursa Kerja Khusus Kota Depok</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
               tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
               quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -15,16 +15,16 @@
               cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
             proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             <button class="btn btn-info" type="button">Selengkapnya</button>
-          </div>
+          </div> -->
         </div>
       <?php } else {
         $no = 1;
         foreach ($slider as $slide) { 
           if ($slide->foto_slider == NULL) { ?>
             <div class="carousel-item active">
-              <img src="<?php echo base_url(); ?>assets/home/images/bg_1.jpg" alt="Slider2" class="carousel-obj">
-              <div class="carousel-caption">
-                <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
+              <img src="<?php echo base_url(); ?>assets/home/images/bg_1.jpg" alt="Slider2" class="carousel-obj" style="width: 100%; height: 100%;">
+              <!-- <div class="carousel-caption" style="bottom: 50%;">
+                <h2 class="text-white">Bursa Kerja Khusus Kota Depok</h2>
                 <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
                   quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
@@ -32,12 +32,12 @@
                   cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 <button class="btn btn-info" type="button">Selengkapnya</button>
-              </div>
+              </div> -->
             </div>
           <?php } else { ?>
             <div class="carousel-item <?php if($no <= 1){echo 'active';}?>">
-              <img src="<?php echo base_url(); ?>assets/upload/image/<?= $slide->foto_slider; ?>" alt="Slider1" class="carousel-obj">
-              <div class="carousel-caption">
+              <img src="<?php echo base_url(); ?>assets/upload/image/<?= $slide->foto_slider; ?>" alt="Slider1" class="carousel-obj" style="width: 100%; height: 100%;">
+              <!-- <div class="carousel-caption" style="bottom: 50%;">
                 <h3 class="text-white"><?= $slide->judul_slider; ?></h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
                   tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
@@ -46,39 +46,12 @@
                   cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 <button class="btn btn-info" type="button">Selengkapnya</button>
-              </div>
+              </div> -->
             </div> 
           <?php } 
           $no++;
         }
       } ?>
-
-      <!-- <div class="carousel-item">
-        <img src="<?php echo base_url(); ?>assets/home/images/bg_2.jpg" alt="Slider2" class="carousel-obj">
-        <div class="carousel-caption">
-          <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <button class="btn btn-info" type="button">Selengkapnya</button>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <img src="<?php echo base_url(); ?>assets/home/images/bg_3.jpg" alt="Slider3" class="carousel-obj">
-        <div class="carousel-caption">
-          <h3 class="text-white">Bursa Kerja Khusus Kota Depok</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-            quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-            consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-            cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-          proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <button class="btn btn-info" type="button">Selengkapnya</button>
-        </div>
-      </div> -->
     </div>
 
     <!-- Left and right controls -->
@@ -308,9 +281,10 @@
   <br>
   <div class="row d-flex ftco-animate">
     <?php foreach($berita as $kegiatan){ ?>
-      <div class="col-lg-4 col-md-4 col-sm-6 col-12 mb-3 d-flex ftco-animate fadeInUp ftco-animated">
+      <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-3 d-flex ftco-animate fadeInUp ftco-animated">
         <div class="blog-entry justify-content-end w-100">
-          <a href="<?php echo base_url(); ?>Home/beritaDetail/<?= $kegiatan->id_kegiatan?>" class="block-20" style="background-image: url('<?php echo base_url(); ?>assets/upload/image/<?= $kegiatan->foto_kegiatan ?>');">
+          <a href="<?php echo base_url(); ?>kegiatandetail/<?= $kegiatan->id_kegiatan?>" class="block-20">
+            <img src="<?php echo base_url(); ?>assets/upload/image/<?= $kegiatan->foto_kegiatan ?>" style="width: 100%; height: 100%;">
           </a>
           <div class="text mt-3 mb-3 float-right d-block">
             <h3 class="heading"><a href="<?php echo base_url(); ?>Home/beritaDetail/<?= $kegiatan->id_kegiatan?>"><?= $kegiatan->judul_kegiatan ?></a></h3>
@@ -338,7 +312,7 @@
               <div class="card">
                 <div class="card-body"><h5 class="text-info"><?= $loker->nama_lowongan ?></h5>
                   <span class="badge badge-success"><?= $loker->nama_perusahaan ?></span>
-                  <p><?= $loker->uraian_pekerjaan ?></p>
+                  <p style="text-align: left;"><?= $loker->uraian_pekerjaan ?></p>
                   <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal<?= $loker->id_lowongan ?>"><button type="button" class="btn btn-info float-right">Selengkapnya</button></a>
                 </div>
               </div>
@@ -391,7 +365,7 @@
               <div class="form-group row">
                 <label class="col-md-4" style="color: #000;"><b>Alamat Perusahaan</b></label>
                 <div class="col-md-8">
-                  <p style="color: #000;"><?= $loker->alamat_lengkap ?>, <?= $loker->kelurahan ?>, <?= $loker->kecamatan ?>, <?= $loker->kota ?>, <?= $loker->provinsi ?> - <?= $loker->kode_pos ?></p>
+                  <p style="color: #000;"><?= $loker->alamat ?></p>
                 </div>
               </div>
               <div class="form-group row">

@@ -20,7 +20,8 @@
                                 <th>Status</th>
                                 <th>Pria</th>
                                 <th>Wanita</th>
-                                <!-- <th></th> -->
+                                <th>Ket</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -508,6 +509,10 @@ $(document).ready(function() {
             "orderable": false, //set not orderable
         },
         { 
+            "targets": [ 3 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
+        { 
             "targets": [ 4 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
@@ -523,14 +528,14 @@ $(document).ready(function() {
             "targets": [ 7 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
-        // { 
-        //     "targets": [ 8 ], //first column / numbering column
-        //     "orderable": false, //set not orderable
-        // },
-        // { 
-        //     "targets": [ 4 ], //first column / numbering column
-        //     "orderable": false, //set not orderable
-        // },
+        { 
+            "targets": [ 8 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
+        { 
+            "targets": [ 9 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
         ],
             "language": {         
               "info": "",
@@ -575,7 +580,7 @@ $(document).ready(function() {
         }).then((result) => {
             if (result) {
                 $.ajax({
-                    url: "<?php echo base_url();?>dashboardBkk/hapusLoker/" + id,  
+                    url: "<?php echo base_url();?>dashboard/hapusLoker/" + id,  
                     method: "GET",
                     beforeSend :function() {
                     swal({
@@ -588,16 +593,110 @@ $(document).ready(function() {
                     },
                     success:function(data){
                         swal({
-                            title: "Deleted!",
+                            title: "Berhasil!",
                             icon: "success",
-                            text: data.msg,
+                            text: "Data berhasil dihapus",
                             buttons: false,
+                            timer: 1000,
                         });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                 });
             } else {
                 swal({
                     title: "Lowongan tersimpan!",
+                    icon: "info",
+                    timer: 10000
+                });
+            }
+        })
+    });
+
+    $('#example').on('click','.non-loker', function () {
+        var id =  $(this).data('id');
+        swal({
+            title: "Nonaktifkan Lowongan?",
+            text: "Anda tidak dapat melihat lowongan ini di halaman pusat!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "<?php echo base_url();?>dashboard/noaktifkanLoker/" + id,  
+                    method: "GET",
+                    beforeSend :function() {
+                    swal({
+                            title: 'Menunggu',
+                            html: 'Memproses data',
+                            onOpen: () => {
+                              swal.showLoading()
+                            }
+                        })      
+                    },
+                    success:function(data){
+                        swal({
+                            title: "Berhasil!",
+                            icon: "success",
+                            text: "Lowongan di nonaktifkan",
+                            timer: 1000,
+                            buttons: false,
+                        });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
+                    }
+                });
+            } else {
+                swal({
+                    title: "Lowongan diaktifkan!",
+                    icon: "info",
+                    timer: 10000
+                });
+            }
+        })
+    });
+
+    $('#example').on('click','.aktif-loker', function () {
+        var id =  $(this).data('id');
+        swal({
+            title: "Aktifkan Lowongan?",
+            text: "Anda dapat melihat lowongan ini di halaman pusat!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "<?php echo base_url();?>dashboard/aktifkanLoker/" + id,  
+                    method: "GET",
+                    beforeSend :function() {
+                    swal({
+                            title: 'Menunggu',
+                            html: 'Memproses data',
+                            onOpen: () => {
+                              swal.showLoading()
+                            }
+                        })      
+                    },
+                    success:function(data){
+                        swal({
+                            title: "Berhasil!",
+                            icon: "success",
+                            text: "Lowongan berhasil diaktifkan kembali",
+                            timer: 1000,
+                            buttons: false,
+                        });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
+                    }
+                });
+            } else {
+                swal({
+                    title: "Lowongan nonaktif!",
                     icon: "info",
                     timer: 10000
                 });

@@ -41,14 +41,10 @@
                     <table id="example" class="display compact table table-striped table-bordered" width="100%">
                         <thead>
                             <tr>
-                                <th>No. </th>
-                                <th>NPSN</th>
-                                <th>Nama Sekolah</th>
-                                <th>Alamat</th>
                                 <th>Kecamatan</th>
-                                <th>Kelurahan</th>
-                                <th>No. Ijin</th>
-                                <th>Tanggal Perijinan</th>
+                                <th>Jumlah BKK</th>
+                                <th>BKK Terdaftar</th>
+                                <th>BKK Belum Terdaftar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -107,14 +103,14 @@ $(document).ready(function() {
         //     "targets": [ 5 ], //first column / numbering column
         //     "orderable": false, //set not orderable
         // },
-        { 
-            "targets": [ 6 ], //first column / numbering column
-            "orderable": false, //set not orderable
-        },
-        { 
-            "targets": [ 7 ], //first column / numbering column
-            "orderable": false, //set not orderable
-        },
+        // { 
+        //     "targets": [ 6 ], //first column / numbering column
+        //     "orderable": false, //set not orderable
+        // },
+        // { 
+        //     "targets": [ 7 ], //first column / numbering column
+        //     "orderable": false, //set not orderable
+        // },
         // { 
         //     "targets": [ 8 ], //first column / numbering column
         //     "orderable": false, //set not orderable

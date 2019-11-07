@@ -1,3 +1,4 @@
+<script src="https://cdn.ckeditor.com/4.13.0/basic/ckeditor.js"></script>
 <div class="row">
     <div class="col-lg-12">
         <div class="card card-statistics">
@@ -20,6 +21,7 @@
                                 <th>Status</th>
                                 <th>Pria</th>
                                 <th>Wanita</th>
+                                <th>Ket</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -52,7 +54,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Perusahaan Mitra</label>
-                                <select class="form-control" id="mitra" name="mitra">
+                                <select class="form-control" id="mitra" name="mitra" required="">
                                     <option value="" selected="">Pilih Mitra</option>
                                     <?php foreach ($mitra_bkk as $mitra) { ?>
                                         <option value="<?= $mitra->id_mitra ?>"><?= $mitra->nama_perusahaan ?></option>
@@ -63,7 +65,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Lowongan</label>
-                                <input type="text" name="nama_lowongan" class="form-control" placeholder="Nama Lowongan">
+                                <input type="text" name="nama_lowongan" class="form-control" placeholder="Nama Lowongan" required="">
                             </div>
                         </div>
                     </div>
@@ -72,7 +74,7 @@
                             <div class="form-group">
                                 <label>Tanggal Berlaku</label>
                                 <div class='input-group date' id='datepicker-bottom-left'>
-                                    <input class="form-control" type='text' name="tanggal_berlaku" placeholder="Tanggal Berlaku" />
+                                    <input class="form-control" type='text' name="tanggal_berlaku" placeholder="Tanggal Berlaku" required="" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -83,7 +85,7 @@
                             <div class="form-group">
                                 <label>Tanggal Berakhir</label>
                                 <div class='input-group date' id='datepicker-bottom-right'>
-                                    <input class="form-control" type='text' name="tanggal_berakhir" placeholder="Tanggal Berakhir" />
+                                    <input class="form-control" type='text' name="tanggal_berakhir" placeholder="Tanggal Berakhir" required="" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -95,13 +97,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Rincian Pekerjaan</label>
-                                <textarea class="form-control" name="uraian_pekerjaan" placeholder="Rincian Pekerjaan"></textarea>
+                                <textarea class="form-control" name="uraian_pekerjaan" placeholder="Rincian Pekerjaan" required=""></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Uraian Tugas</label>
-                                <textarea class="form-control" name="uraian_tugas" placeholder="Uraian Tugas"></textarea>
+                                <textarea class="form-control" name="uraian_tugas" placeholder="Uraian Tugas" required=""></textarea>
                             </div>
                         </div>
                     </div>
@@ -109,19 +111,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Lokasi Penempatan</label>
-                                <input type="text" name="penempatan" class="form-control" placeholder="Lokasi Penempatan">
+                                <input type="text" name="penempatan" class="form-control" placeholder="Lokasi Penempatan" required="">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Jumlah Laki-Laki</label>
-                                <input type="number" name="jml_pria" class="form-control" placeholder="Jumlah Laki-Laki">
+                                <input type="number" name="jml_pria" class="form-control" placeholder="Jumlah Laki-Laki" required="">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Jumlah Perempuan</label>
-                                <input type="number" name="jml_wanita" class="form-control" placeholder="Jumlah Perempuan">
+                                <input type="number" name="jml_wanita" class="form-control" placeholder="Jumlah Perempuan" required="">
                             </div>
                         </div>
                     </div>
@@ -134,13 +136,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Batas Umur</label>
-                                <input type="number" name="batas_umur" class="form-control" placeholder="Batas Umur">
+                                <input type="number" name="batas_umur" class="form-control" placeholder="Batas Umur" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Minimal Pendidikan</label>
-                                <select class="form-control" id="pendidikan" name="pendidikan">
+                                <select class="form-control" id="pendidikan" name="pendidikan" required="">
                                     <option value="" selected="">Pilih Pendidikan</option>
                                     <?php foreach ($status_pendidikan as $status_pendidikan) { ?>
                                         <option value="<?= $status_pendidikan->id_status_pendidikan ?>"><?= $status_pendidikan->nama_status_pendidikan ?></option>
@@ -153,7 +155,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Posisi Jabatan</label>
-                                <select class="form-control" id="posisi_jabatan" name="posisi_jabatan">
+                                <select class="form-control" id="posisi_jabatan" name="posisi_jabatan" required="">
                                     <option value="" selected="">Pilih Jabatan</option>
                                     <?php foreach ($posisi_jabatan as $jabatan) { ?>
                                         <option value="<?= $jabatan->id_posisi_jabatan ?>"><?= $jabatan->nama_posisi_jabatan ?></option>
@@ -164,7 +166,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jurusan</label>
-                                <select class="form-control" id="jurusan" name="jurusan">
+                                <select class="form-control" id="jurusan" name="jurusan" required="">
                                     <option value="" selected="">Pilih Jurusan</option>
                                     <?php foreach ($jurusan as $jrs) { ?>
                                         <option value="<?= $jrs->id_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
@@ -177,7 +179,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kategori</label>
-                                <select class="form-control" id="kategori" name="kategori">
+                                <select class="form-control" id="kategori" name="kategori" required="">
                                     <option value="" selected="">Pilih Kategori</option>
                                     <?php foreach ($jenis_lowongan as $kategori) { ?>
                                         <option value="<?= $kategori->id_jenis_lowongan ?>"><?= $kategori->nama_jenis_lowongan ?></option>
@@ -188,7 +190,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Keahlian</label>
-                                <select class="form-control" id="keahlian" name="keahlian">
+                                <select class="form-control" id="keahlian" name="keahlian" required="">
                                 </select>
                             </div>
                         </div>
@@ -197,13 +199,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Pengalaman</label>
-                                <textarea class="form-control" name="pengalaman" placeholder="Pengalaman Pekerjaan"></textarea>
+                                <textarea class="form-control" name="pengalaman" placeholder="Pengalaman Pekerjaan" required=""></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Syarat Khusus</label>
-                                <textarea class="form-control" name="syarat_khusus" placeholder="Syarat Khusus"></textarea>
+                                <textarea class="form-control" name="syarat_khusus" placeholder="Syarat Khusus" required=""></textarea>
                             </div>
                         </div>
                     </div>
@@ -216,7 +218,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jenis Pengupahan</label>
-                                <select class="form-control" id="jenis_pengupahan" name="jenis_pengupahan">
+                                <select class="form-control" id="jenis_pengupahan" name="jenis_pengupahan" required="">
                                     <option value="" selected="">Pilih Jenis Pengupahan</option>
                                     <?php foreach ($jenis_pengupahan as $jenis_upah) { ?>
                                         <option value="<?= $jenis_upah->id_jenis_pengupahan ?>"><?= $jenis_upah->nama_jenis_pengupahan ?></option>
@@ -227,7 +229,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Gaji Perbulan</label>
-                                <input type="number" name="gaji_per_bulan" class="form-control" placeholder="Gaji Perbulan">
+                                <input type="number" name="gaji_per_bulan" class="form-control" placeholder="Gaji Perbulan" required="">
                             </div>
                         </div>
                     </div>
@@ -235,7 +237,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Status Hub. Kerja</label>
-                                <select class="form-control" id="hub_kerja" name="hubungan_kerja">
+                                <select class="form-control" id="hub_kerja" name="hubungan_kerja" required="">
                                     <option value="" selected="">Pilih Status Hubungan Kerja</option>
                                     <?php foreach ($hubungan_kerja as $hub_kerja) { ?>
                                         <option value="<?= $hub_kerja->id_status_hub_kerja ?>"><?= $hub_kerja->nama_status_hub_kerja ?></option>
@@ -246,7 +248,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jam Kerja/Minggu</label>
-                                <input type="number" name="jam_kerja" class="form-control" placeholder="Jam Kerja Per Minggu">
+                                <input type="number" name="jam_kerja" class="form-control" placeholder="Jam Kerja Per Minggu" required="">
                             </div>
                         </div>
                     </div>
@@ -279,7 +281,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Perusahaan Mitra</label>
-                                <select class="form-control" id="mitra" name="mitra">
+                                <select class="form-control" id="mitra" name="mitra" required="">
                                     <option value="" selected="">Pilih Mitra</option>
                                     <?php foreach ($mitra_bkk as $mitra) { ?>
                                         <option value="<?= $mitra->id_mitra ?>"><?= $mitra->nama_perusahaan ?></option>
@@ -290,7 +292,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Lowongan</label>
-                                <input type="text" name="nama_lowongan" class="form-control" placeholder="Nama Lowongan">
+                                <input type="text" name="nama_lowongan" class="form-control" placeholder="Nama Lowongan" required="">
                             </div>
                         </div>
                     </div>
@@ -299,7 +301,7 @@
                             <div class="form-group">
                                 <label>Tanggal Berlaku</label>
                                 <div class='input-group date' id='datepicker-bottom-left'>
-                                    <input class="form-control" type='text' name="tanggal_berlaku" placeholder="Tanggal Berlaku" />
+                                    <input class="form-control" type='text' name="tanggal_berlaku" placeholder="Tanggal Berlaku" required="" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -310,7 +312,7 @@
                             <div class="form-group">
                                 <label>Tanggal Berakhir</label>
                                 <div class='input-group date' id='datepicker-bottom-right'>
-                                    <input class="form-control" type='text' name="tanggal_berakhir" placeholder="Tanggal Berakhir" />
+                                    <input class="form-control" type='text' name="tanggal_berakhir" placeholder="Tanggal Berakhir" required="" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -322,13 +324,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Rincian Pekerjaan</label>
-                                <textarea class="form-control" name="uraian_pekerjaan" placeholder="Rincian Pekerjaan"></textarea>
+                                <textarea class="form-control" name="uraian_pekerjaan" placeholder="Rincian Pekerjaan" required=""></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Uraian Tugas</label>
-                                <textarea class="form-control" name="uraian_tugas" placeholder="Uraian Tugas"></textarea>
+                                <textarea class="form-control" name="uraian_tugas" placeholder="Uraian Tugas" required=""></textarea>
                             </div>
                         </div>
                     </div>
@@ -336,19 +338,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Lokasi Penempatan</label>
-                                <input type="text" name="penempatan" class="form-control" placeholder="Lokasi Penempatan">
+                                <input type="text" name="penempatan" class="form-control" placeholder="Lokasi Penempatan" required="">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Jumlah Laki-Laki</label>
-                                <input type="number" name="jml_pria" class="form-control" placeholder="Jumlah Laki-Laki">
+                                <input type="number" name="jml_pria" class="form-control" placeholder="Jumlah Laki-Laki" required="">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Jumlah Perempuan</label>
-                                <input type="number" name="jml_wanita" class="form-control" placeholder="Jumlah Perempuan">
+                                <input type="number" name="jml_wanita" class="form-control" placeholder="Jumlah Perempuan" required="">
                             </div>
                         </div>
                     </div>
@@ -361,13 +363,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Batas Umur</label>
-                                <input type="number" name="batas_umur" class="form-control" placeholder="Batas Umur">
+                                <input type="number" name="batas_umur" class="form-control" placeholder="Batas Umur" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Minimal Pendidikan</label>
-                                <select class="form-control" id="pendidikan" name="pendidikan">
+                                <select class="form-control" id="pendidikan" name="pendidikan" required="">
                                     <option value="" selected="">Pilih Pendidikan</option>
                                     <?php foreach ($status_pendidikan as $status_pendidikan) { ?>
                                         <option value="<?= $status_pendidikan->id_status_pendidikan ?>"><?= $status_pendidikan->nama_status_pendidikan ?></option>
@@ -380,7 +382,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Posisi Jabatan</label>
-                                <select class="form-control" id="posisi_jabatan" name="posisi_jabatan">
+                                <select class="form-control" id="posisi_jabatan" name="posisi_jabatan" required="">
                                     <option value="" selected="">Pilih Jabatan</option>
                                     <?php foreach ($posisi_jabatan as $jabatan) { ?>
                                         <option value="<?= $jabatan->id_posisi_jabatan ?>"><?= $jabatan->nama_posisi_jabatan ?></option>
@@ -391,7 +393,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jurusan</label>
-                                <select class="form-control" id="jurusan" name="jurusan">
+                                <select class="form-control" id="jurusan" name="jurusan" required="">
                                     <option value="" selected="">Pilih Jurusan</option>
                                     <?php foreach ($jurusan as $jrs) { ?>
                                         <option value="<?= $jrs->id_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
@@ -404,7 +406,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Kategori</label>
-                                <select class="form-control" id="kategori" name="kategori">
+                                <select class="form-control" id="kategori" name="kategori" required="">
                                     <option value="" selected="">Pilih Kategori</option>
                                     <?php foreach ($jenis_lowongan as $kategori) { ?>
                                         <option value="<?= $kategori->id_jenis_lowongan ?>"><?= $kategori->nama_jenis_lowongan ?></option>
@@ -415,7 +417,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Keahlian</label>
-                                <select class="form-control" id="keahlian" name="keahlian">
+                                <select class="form-control" id="keahlian" name="keahlian" required="">
                                 </select>
                             </div>
                         </div>
@@ -424,13 +426,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Pengalaman</label>
-                                <textarea class="form-control" name="pengalaman" placeholder="Pengalaman Pekerjaan"></textarea>
+                                <textarea class="form-control" name="pengalaman" placeholder="Pengalaman Pekerjaan" required=""></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Syarat Khusus</label>
-                                <textarea class="form-control" name="syarat_khusus" placeholder="Syarat Khusus"></textarea>
+                                <textarea class="form-control" name="syarat_khusus" placeholder="Syarat Khusus" required=""></textarea>
                             </div>
                         </div>
                     </div>
@@ -443,7 +445,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jenis Pengupahan</label>
-                                <select class="form-control" id="jenis_pengupahan" name="jenis_pengupahan">
+                                <select class="form-control" id="jenis_pengupahan" name="jenis_pengupahan" required="">
                                     <option value="" selected="">Pilih Jenis Pengupahan</option>
                                     <?php foreach ($jenis_pengupahan as $jenis_upah) { ?>
                                         <option value="<?= $jenis_upah->id_jenis_pengupahan ?>"><?= $jenis_upah->nama_jenis_pengupahan ?></option>
@@ -454,7 +456,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Gaji Perbulan</label>
-                                <input type="number" name="gaji_per_bulan" class="form-control" placeholder="Gaji Perbulan">
+                                <input type="number" name="gaji_per_bulan" class="form-control" placeholder="Gaji Perbulan" required="">
                             </div>
                         </div>
                     </div>
@@ -462,7 +464,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Status Hub. Kerja</label>
-                                <select class="form-control" id="hub_kerja" name="hubungan_kerja">
+                                <select class="form-control" id="hub_kerja" name="hubungan_kerja" required="">
                                     <option value="" selected="">Pilih Status Hubungan Kerja</option>
                                     <?php foreach ($hubungan_kerja as $hub_kerja) { ?>
                                         <option value="<?= $hub_kerja->id_status_hub_kerja ?>"><?= $hub_kerja->nama_status_hub_kerja ?></option>
@@ -473,7 +475,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jam Kerja/Minggu</label>
-                                <input type="number" name="jam_kerja" class="form-control" placeholder="Gaji Perbulan">
+                                <input type="number" name="jam_kerja" class="form-control" placeholder="Gaji Perbulan" required="">
                             </div>
                         </div>
                     </div>
@@ -485,7 +487,26 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript">
+    CKEDITOR.replace('uraian_pekerjaan', {
+      height: 150,
+    });
+</script>
+<script type="text/javascript">
+    CKEDITOR.replace('uraian_tugas', {
+      height: 150,
+    });
+</script>
+<script type="text/javascript">
+    CKEDITOR.replace('pengalaman', {
+      height: 150,
+    });
+</script>
+<script type="text/javascript">
+    CKEDITOR.replace('syarat_khusus', {
+      height: 150,
+    });
+</script>
 <script type="text/javascript">
 $(document).ready(function() {
     var table = $('#example').DataTable({ 
@@ -531,10 +552,15 @@ $(document).ready(function() {
             "orderable": false, //set not orderable
         },
         { 
-            "targets": [ 7 ], //first column / numbering column
+            "targets": [ 9 ], //first column / numbering column
             "orderable": false, //set not orderable
-        },{ 
+        },
+        { 
             "targets": [ 8 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
+        { 
+            "targets": [ 9 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
         // { 
@@ -612,6 +638,96 @@ $(document).ready(function() {
             } else {
                 swal({
                     title: "Lowongan tersimpan!",
+                    icon: "info",
+                    timer: 10000
+                });
+            }
+        })
+    });
+
+    $('#example').on('click','.non-loker', function () {
+        var id =  $(this).data('id');
+        swal({
+            title: "Nonaktifkan Lowongan?",
+            text: "Anda tidak dapat melihat lowongan ini di halaman pusat!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "<?php echo base_url();?>dashboardBkk/noaktifkanLoker/" + id,  
+                    method: "GET",
+                    beforeSend :function() {
+                    swal({
+                            title: 'Menunggu',
+                            html: 'Memproses data',
+                            onOpen: () => {
+                              swal.showLoading()
+                            }
+                        })      
+                    },
+                    success:function(data){
+                        swal({
+                            title: "Berhasil!",
+                            icon: "success",
+                            text: "Lowongan di nonaktifkan",
+                            timer: 1000,
+                            buttons: false,
+                        });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
+                    }
+                });
+            } else {
+                swal({
+                    title: "Lowongan diaktifkan!",
+                    icon: "info",
+                    timer: 10000
+                });
+            }
+        })
+    });
+
+    $('#example').on('click','.aktif-loker', function () {
+        var id =  $(this).data('id');
+        swal({
+            title: "Aktifkan Lowongan?",
+            text: "Anda dapat melihat lowongan ini di halaman pusat!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "<?php echo base_url();?>dashboardBkk/aktifkanLoker/" + id,  
+                    method: "GET",
+                    beforeSend :function() {
+                    swal({
+                            title: 'Menunggu',
+                            html: 'Memproses data',
+                            onOpen: () => {
+                              swal.showLoading()
+                            }
+                        })      
+                    },
+                    success:function(data){
+                        swal({
+                            title: "Berhasil!",
+                            icon: "success",
+                            text: "Lowongan berhasil diaktifkan kembali",
+                            timer: 1000,
+                            buttons: false,
+                        });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
+                    }
+                });
+            } else {
+                swal({
+                    title: "Lowongan nonaktif!",
                     icon: "info",
                     timer: 10000
                 });

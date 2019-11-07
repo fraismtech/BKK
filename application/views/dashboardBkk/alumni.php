@@ -52,7 +52,8 @@
                     <div class="pl-lg-1">
                         <div class="form-group">
                             <label>File Format</label>
-                            <input type="file" name="file" class="form-control foto" placeholder="Foto">
+                            <input type="file" name="file" class="form-control foto" placeholder="Foto" required="">
+                            <p>File .xlsx Max. 10Mb</p>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="textSlider">Import</span></button>
@@ -63,6 +64,30 @@
         </div>
     </div>
 </div>
+<?php if ($this->session->flashdata('notif1')): ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        swal({
+          title: "Berhasil !",
+          text: "<?php echo $this->session->flashdata('notif1'); ?>",
+          icon: "success",
+          timer: 10000
+        });
+      });
+    </script>
+<?php endif; ?>
+<?php if ($this->session->flashdata('notif2')): ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        swal({
+          title: "Maaf !",
+          text: "<?php echo $this->session->flashdata('notif2'); ?>",
+          icon: "error",
+          timer: 10000
+        });
+      });
+    </script>
+<?php endif; ?>
 <script type="text/javascript">
 $(document).ready(function() {
     var table = $('#example').DataTable({ 
@@ -145,9 +170,9 @@ $(document).ready(function() {
                     },
                     success:function(data){
                         swal({
-                            title: "Terhapus!",
+                            title: "Berhasil!",
                             icon: "success",
-                            text: data.msg,
+                            text: "Data berhasil dihapus",
                             timer: 1000,
                             buttons: false,
                         });
@@ -163,35 +188,10 @@ $(document).ready(function() {
                     timer: 10000
                 });
             }
-            table.ajax.reload();
         })
     });
 });
 </script>
-<?php if ($this->session->flashdata('notif1')): ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        swal({
-          title: "Berhasil !",
-          text: "<?php echo $this->session->flashdata('notif1'); ?>",
-          icon: "success",
-          timer: 10000
-        });
-      });
-    </script>
-<?php endif; ?>
-<?php if ($this->session->flashdata('notif2')): ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        swal({
-          title: "Maaf !",
-          text: "<?php echo $this->session->flashdata('notif2'); ?>",
-          icon: "error",
-          timer: 10000
-        });
-      });
-    </script>
-<?php endif; ?>
 <script type="text/javascript">
 $(".foto").change(function() {
     if (this.files && this.files[0] && this.files[0].name.match(/\.(xlsx)$/) ) {

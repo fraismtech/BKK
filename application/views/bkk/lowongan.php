@@ -60,7 +60,7 @@
             <div class="form-group row">
               <label class="col-md-4" style="color: #000;"><b>Alamat Perusahaan</b></label>
               <div class="col-md-8">
-                <p style="color: #000;"><?= $loker->alamat_lengkap ?>, <?= $loker->kelurahan ?>, <?= $loker->kecamatan ?>, <?= $loker->kota ?>, <?= $loker->provinsi ?> - <?= $loker->kode_pos ?></p>
+                <p style="color: #000;"><?= $loker->alamat ?></p>
               </div>
             </div>
             <div class="form-group row">

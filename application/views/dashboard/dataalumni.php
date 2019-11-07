@@ -24,6 +24,7 @@
                                 <th>Tahun Lulus</th>
                                 <th>Nama Sekolah</th>
                                 <th>Status</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -69,10 +70,10 @@ $(document).ready(function() {
             "targets": [ 0 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
-        // { 
-        //     "targets": [ 6 ], //first column / numbering column
-        //     "orderable": false, //set not orderable
-        // },
+        { 
+            "targets": [ 9 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
         // { 
         //     "targets": [ 4 ], //first column / numbering column
         //     "orderable": false, //set not orderable
@@ -107,7 +108,7 @@ $(document).ready(function() {
         }).then((result) => {
             if (result) {
                 $.ajax({
-                    url: "<?php echo base_url();?>dashboardBkk/hapusAlumni/" + id,  
+                    url: "<?php echo base_url();?>dashboard/hapusAlumniPusat/" + id,  
                     method: "GET",
                     beforeSend :function() {
                     swal({
@@ -120,11 +121,15 @@ $(document).ready(function() {
                     },
                     success:function(data){
                         swal({
-                            title: "Terhapus!",
+                            title: "Berhasil!",
                             icon: "success",
-                            text: data.msg,
-                            buttons: true,
+                            text: "Data berhasil dihapus",
+                            buttons: false,
+                            timer: 1000,
                         });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                 });
             } else {

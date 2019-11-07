@@ -86,10 +86,10 @@
 
 					<!-- Modal body -->
 					<div class="modal-body text-center">
-						<!-- <img src="<?php echo base_url(); ?>assets/home/images/bg_2.jpg" class="img-fluid"> -->
-						<h4><?= $mitra->nama_perusahaan ?></h4>
+						<img src="<?php echo base_url(); ?>assets/upload/image/<?= $mitra->logo_mitra ?>" class="img-fluid"><br/>
+						<h4><br><?= $mitra->nama_perusahaan ?></h4>
 						<span class="badge badge-info"><?= $mitra->bidang_usaha ?></span>
-						<p><?= $mitra->alamat_lengkap ?>, <?= $mitra->kelurahan ?>, <?= $mitra->kecamatan ?>, <?= $mitra->kota ?>, <?= $mitra->provinsi ?>, <?= $mitra->kode_pos ?></p>
+						<p><?= $mitra->alamat ?></p>
 					</div>
 
 					<!-- Modal footer -->

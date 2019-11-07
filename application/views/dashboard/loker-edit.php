@@ -9,7 +9,7 @@
                 </div>
             </div>
             <div class="card-body">
-                <form method="post" action="<?php echo base_url(); ?>/dashboardBkk/editLoker" id="mitraForm" autocomplete="off" enctype="multipart/form-data">
+                <form method="post" action="<?php echo base_url(); ?>/dashboard/editLokerPusat" id="mitraForm" autocomplete="off" enctype="multipart/form-data">
                     <div class="panel-title">
                         <h5>Informasi Lowongan</h5>
                     </div>

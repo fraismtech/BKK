@@ -169,7 +169,7 @@ class Bkk extends CI_Controller {
 			$get = array(
 				'detailSekolah' => $this->bkk->detailSekolah($npsn),
 				'id_sekolah' => $bkk[0]['id_sekolah'],
-				"jurusan" 	=> $this->bkk->jurusan($bkk[0]['id_sekolah']),
+				"jurusan" 	=> $this->bkk->jurusan(),
 			);
 			$data = array(
 				"page" => $this->load("Bursa Kerja Khusus Kota Depok - Alumni", $path),
@@ -187,6 +187,8 @@ class Bkk extends CI_Controller {
 		}else{
 			error_reporting(0);
 			try {
+				date_default_timezone_set('Asia/Jakarta');
+
 				$id_sekolah 	= $this->input->post("id_sekolah");
 
 				$nisn 			= $this->input->post("nisn");
@@ -207,6 +209,8 @@ class Bkk extends CI_Controller {
 	          	$no_telp_perusahaan = $this->input->post("no_telp_perusahaan");
 	          	$alamat_perusahaan 	= $this->input->post("alamat_perusahaan");
 
+	          	$date_created  	= date("Y-m-d H:i:s");
+
 	          	$data = array(
 	          		'nisn' 					=> $nisn,	
 	          		'nik' 					=> $nik,
@@ -224,6 +228,8 @@ class Bkk extends CI_Controller {
 	          		'alamat_perusahaan' 	=> $alamat_perusahaan,
 	          		'no_telp_perusahaan' 	=> $no_telp_perusahaan,
 	          		'id_sekolah' 			=> $id_sekolah,
+	          		'notif' 				=> '1',
+	          		'register_date' 		=> $date_created,
 	          	);
 
 	          	$simpan = $this->db->insert('table_alumni', $data);
@@ -281,7 +287,7 @@ class Bkk extends CI_Controller {
 				$row[] = $alumni->nama;
 				$row[] = $alumni->jurusan;
 				$row[] = $alumni->tahun_lulus;
-				$row[] = $alumni->status;
+				$row[] = $alumni->sts;
 				// $row[] = '
 		  //             	<a href="'.base_url().'dashboardBkk/alumniEdit/'.$alumni->id_alumni.'" title="Edit Data">
 		  //           		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>

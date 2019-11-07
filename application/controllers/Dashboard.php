@@ -19,8 +19,14 @@ class Dashboard extends CI_Controller {
 
 	private function load($title = '', $datapath = '')
 	{
+		$id_user = $this->session->userdata('id');
+		$get = array(
+			"title" => $title,
+			"bkk_baru" => $this->dashboard->bkk_baru(),
+			"profil_user" => $this->dashboard->profil($id_user),
+		);
 		$page = array(
-			"head" => $this->load->view('dashboard/template/head', array("title" => $title), true),
+			"head" => $this->load->view('dashboard/template/head', $get, true),
 			"footer" => $this->load->view('dashboard/template/footer', false, true),
 			"sidebar" => $this->load->view('dashboard/template/sidebar', false, true),
 		);
@@ -157,12 +163,114 @@ class Dashboard extends CI_Controller {
 
 	public function databkk()
 	{
+		$id_kecamatan = '3276';
 		$path = "";
+		$get = array(
+			"kecamatan" => $this->dashboard->kecamatan($id_kecamatan),
+		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Data BKK", $path),
-			"content" => $this->load->view('dashboard/databkk', false, true),
+			"content" => $this->load->view('dashboard/databkk', $get, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
+	}
+
+	// Edit BKK
+	public function updateBKK(){
+		try {
+			$id_sekolah		= $this->input->post('id_s');
+			$id_perijinan 	= $this->input->post('id_perijinan');
+
+			$npsn 			= $this->input->post('npsn');
+			$nama_sekolah 	= $this->input->post('nama_sekolah');
+			$alamat_sekolah = $this->input->post('alamat_sekolah');
+			$kecamatan 		= $this->input->post('kecamatan');
+			$kelurahan 		= $this->input->post('kelurahan');
+			$visi 			= $this->input->post('visi');
+			$misi 			= $this->input->post('misi');
+
+			$ijin_bkk 		= $this->input->post('ijin_bkk');
+			$no_ijin 		= $this->input->post('no_ijin');
+			$tgl_perijinan 	= $this->input->post('tgl_perijinan');
+
+	        $data = array(
+	            'npsn'			=> $npsn,
+	            'nama_sekolah'	=> $nama_sekolah,
+	            'alamat_sekolah'=> $alamat_sekolah,
+	            'kecamatan'		=> $kecamatan,
+	            'kelurahan'		=> $kelurahan,
+	            'visi'			=> $visi,
+	            'misi'			=> $misi,
+	        );  
+
+	        $update_sekolah = $this->dashboard->simpanBKK($data, $id_sekolah);
+
+	        $data_perijinan = array(
+	            'ijin_bkk'		=> $ijin_bkk,
+	            'no_ijin'		=> $no_ijin,
+	            'tgl_perijinan'	=> date('Y-m-d', strtotime($tgl_perijinan)),
+	        ); 	        
+
+	        $update_perijinan = $this->db->where('id_perijinan', $id_perijinan);
+	        $this->db->update('table_perijinan', $data_perijinan);
+
+	        // $arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+
+         //   	if($update_sekolah){
+         //    	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+         //   	}
+         //  	echo json_encode($arr);
+	        if($update_sekolah && $update_perijinan) {
+				$this->session->set_flashdata("notif1", "Data Berhasil Disimpan");
+				redirect('dashboard/databkk');
+			} else {
+				$this->session->set_flashdata("notif2", "Data Gagal Disimpan");
+				redirect('dashboard/databkk');
+			}
+		} catch (Exception $e) {
+
+		}
+	}
+
+	// Hapus BKK
+	public function hapusBKK()
+	{
+		try {
+			$id_sekolah  = $this->uri->segment(3);
+			$id_perijinan  = $this->uri->segment(4);
+			$_id = $this->db->query("SELECT * FROM table_login AS tl JOIN table_sekolah AS ts ON tl.id_sekolah = ts.id_sekolah JOIN table_perijinan AS tp ON tl.id_perijinan = tp.id_perijinan WHERE ts.id_sekolah = '$id_sekolah' AND tp.id_perijinan = '$id_perijinan'")->row();
+
+			if ($_id->foto == NULL) {
+				# code...
+			} else {
+				unlink("./assets/upload/image/user/".$_id->foto);
+			}
+
+			if ($_id->struktur == NULL) {
+				# code...
+			} else {
+				unlink("./assets/upload/struktur_bkk/".$_id->struktur);
+			}
+
+			if ($_id->dokumen == NULL) {
+				# code...
+			} else {
+				unlink("./assets/upload/dokumen/".$_id->dokumen);
+			}
+
+			$query1 = $this->db->delete('table_login',['id_sekolah' => $id_sekolah, 'id_perijinan'=> $id_perijinan]);
+			$query2 = $this->db->delete('table_sekolah',['id_sekolah' => $id_sekolah]);
+			$query3 = $this->db->delete('table_perijinan',['id_perijinan'=> $id_perijinan]);
+
+			$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
+
+			if($query1 && $query2 && $query3){
+				$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
+			}
+			echo json_encode($arr);
+		} catch (Exception $e) {
+			redirect('dashboardBkk/user');
+		}
 	}
 
 	public function dataloker()
@@ -175,6 +283,172 @@ class Dashboard extends CI_Controller {
 		$this->load->view('dashboard/template/default_template', $data);
 	}
 
+	// Edit Loker
+	public function lokerEditPusat()
+	{
+		$id_lowongan  = $this->uri->segment(3);
+
+		$path = "";
+		$get = array(
+			"get_lowongan" => $this->dashboard->data_loker($id_lowongan),
+			"mitra_bkk" => $this->dashboard->mitra_bkk_pusat(),
+			"posisi_jabatan" => $this->dashboard->posisi_jabatan(),
+			"jenis_lowongan" => $this->dashboard->jenis_lowongan(),
+			"data_keahlian" => $this->dashboard->keahlian(),
+			"status_pendidikan" => $this->dashboard->status_pendidikan(),
+			"jenis_pengupahan" => $this->dashboard->jenis_pengupahan(),
+			"hubungan_kerja" => $this->dashboard->hubungan_kerja(),
+			"jurusan" => $this->dashboard->jurusan(),
+		);
+		$data = array(
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Lowongan Kerja", $path),
+			"content" => $this->load->view('dashboard/loker-edit', $get, true),
+		);
+		$this->load->view('dashboard/template/default_template', $data);
+	}
+
+	public function editLokerPusat()
+	{
+		error_reporting(0);
+		try {
+			date_default_timezone_set('Asia/Jakarta');
+			$id_lowongan 			= $this->input->post("id_lowongan");
+
+			$id_mitra 				= $this->input->post("mitra");
+			$id_posisi_jabatan 		= $this->input->post("posisi_jabatan");
+			$id_keahlian 			= $this->input->post("keahlian");
+			$id_status_pendidikan 	= $this->input->post("pendidikan");
+			$id_jenis_pengupahan 	= $this->input->post("jenis_pengupahan");
+			$id_status_hub_kerja 	= $this->input->post("hubungan_kerja");
+
+			$nama_lowongan 		= $this->input->post("nama_lowongan");
+			$tanggal_berlaku 	= date('Y-m-d', strtotime($this->input->post("tanggal_berlaku")));
+			$tanggal_berakhir 	= date('Y-m-d', strtotime($this->input->post("tanggal_berakhir")));
+			$uraian_pekerjaan 	= $this->input->post("uraian_pekerjaan");
+			$uraian_tugas 		= $this->input->post("uraian_tugas");
+			$penempatan 		= $this->input->post("penempatan");
+			$jml_pria 			= $this->input->post("jml_pria");
+			$jml_wanita 		= $this->input->post("jml_wanita");
+
+			$batas_umur 		= $this->input->post("batas_umur");
+			$jurusan 	 		= $this->input->post("jurusan");
+			$pengalaman 		= $this->input->post("pengalaman");
+			$syarat_khusus 		= $this->input->post("syarat_khusus");
+
+			$gaji_per_bulan 	= $this->input->post("gaji_per_bulan");
+			$jam_kerja 			= $this->input->post("jam_kerja");
+
+			$date_created  		= date("Y-m-d H:i:s");
+
+			$data = array(
+				'id_mitra' 				=> $id_mitra,
+				'id_posisi_jabatan' 	=> $id_posisi_jabatan,
+				'id_keahlian' 			=> $id_keahlian, 
+				'id_status_pendidikan' 	=> $id_status_pendidikan,
+				'id_jenis_pengupahan' 	=> $id_jenis_pengupahan,
+				'id_status_hub_kerja' 	=> $id_status_hub_kerja,
+				'tanggal_berlaku' 		=> $tanggal_berlaku,
+				'tanggal_berakhir' 		=> $tanggal_berakhir,
+				'nama_lowongan' 		=> $nama_lowongan,
+				'uraian_pekerjaan' 		=> $uraian_pekerjaan,
+				'uraian_tugas' 			=> $uraian_tugas,
+				'penempatan' 			=> $penempatan,
+				'batas_umur' 			=> $batas_umur,
+				'jml_pria' 				=> $jml_pria,
+				'jml_wanita' 			=> $jml_wanita,
+				'jurusan' 				=> $jurusan,
+				'pengalaman' 			=> $pengalaman,
+				'syarat_khusus' 		=> $syarat_khusus,
+				'gaji_per_bulan'		=> $gaji_per_bulan,
+				'jam_kerja' 			=> $jam_kerja,
+				'register_date' 		=> $date_created,
+			);
+
+			$update = $this->db->where('id_lowongan', $id_lowongan);
+			$this->db->update('table_lowongan', $data);
+
+			if($update) {
+				$this->session->set_flashdata("notif1", "Data Berhasil Disimpan");
+				redirect('dashboard/dataloker');
+			} else {
+				$this->session->set_flashdata("notif2", "Data Gagal Disimpan");
+				redirect('dashboard/dataloker');
+			}
+
+		} catch (Exception $e) {
+			
+		}
+	}
+
+	// Hapus Loker
+	public function hapusLoker()
+	{
+		try {
+			$id  = $this->uri->segment(3);
+			$_id = $this->db->get_where('table_lowongan',['id_lowongan' => $id])->row();
+			$query = $this->db->delete('table_lowongan',['id_lowongan'=>$id]);
+
+			$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
+
+			if($query){
+				$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
+			}
+			echo json_encode($arr);
+		} catch (Exception $e) {
+			redirect('dashboard/dataloker');
+		}
+	}
+
+	// Aktifkan Loker
+	public function aktifkanLoker()
+	{
+		try {
+			date_default_timezone_set('Asia/Jakarta');
+			$id  = $this->uri->segment(3);
+			$_id = $this->db->get_where('table_lowongan',['id_lowongan' => $id])->row();
+			$data = array(
+				'ket' 			=> 'Aktif',
+				'register_date' => date("Y-m-d H:i:s"),
+			);
+			$aktif = $this->db->where('id_lowongan', $id);
+			$this->db->update('table_lowongan', $data);
+
+			$arr = array('msg' => 'Lowongan berhasil diaktifkan kembali', 'success' => false);
+
+			if($aktif){
+				$arr = array('msg' => 'Lowongan gagal diaktifkan kembali', 'success' => true);
+			}
+			echo json_encode($arr);
+		} catch (Exception $e) {
+			redirect('dashboard/dataloker');
+		}
+	}
+
+	// Nonaktifkan Loker
+	public function noaktifkanLoker()
+	{
+		try {
+			date_default_timezone_set('Asia/Jakarta');
+			$id  = $this->uri->segment(3);
+			$_id = $this->db->get_where('table_lowongan',['id_lowongan' => $id])->row();
+			$data = array(
+				'ket' 			=> 'Tidak Aktif',
+				'register_date' => date("Y-m-d H:i:s"),
+			);
+			$nonaktif = $this->db->where('id_lowongan', $id);
+			$this->db->update('table_lowongan', $data);
+
+			$arr = array('msg' => 'Lowongan di nonaktifkan', 'success' => false);
+
+			if($nonaktif){
+				$arr = array('msg' => 'Lowongan gagal di nonaktifkan', 'success' => true);
+			}
+			echo json_encode($arr);
+		} catch (Exception $e) {
+			redirect('dashboard/dataloker');
+		}
+	}
+
 	public function dataalumni()
 	{
 		$path = "";
@@ -183,6 +457,102 @@ class Dashboard extends CI_Controller {
 			"content" => $this->load->view('dashboard/dataalumni', false, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
+	}
+
+	// Edit Alumni
+	public function alumniEditPusat()
+	{
+		$id_sekolah = $this->session->userdata('id_sekolah');
+		$id_alumni  = $this->uri->segment(3);
+
+		$path = "";
+		$get = array(
+			"jurusan" 			=> $this->dashboard->jurusan(),
+			"data_alumni" 		=> $this->dashboard->data_alumni($id_alumni),
+		);
+		$data = array(
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Edit Alumni", $path),
+			"content" => $this->load->view('dashboard/alumni-edit', $get, true),
+		);
+		$this->load->view('dashboard/template/default_template', $data);
+	}
+
+	public function editAlumniPusat()
+	{
+		error_reporting(0);
+		try {
+			date_default_timezone_set('Asia/Jakarta');
+
+			$id_sekolah 	= $this->input->post("id_sekolah");
+			$id_alumni 		= $this->input->post("id_alumni");
+
+			$nisn 			= $this->input->post("nisn");
+			$nik 	 		= $this->input->post("nik");
+			$nama 		 	= $this->input->post("nama");
+			$jenis_kelamin 	= $this->input->post("jenis_kelamin");
+			$tempat_lahir 	= $this->input->post("tempat_lahir");
+			$tanggal_lahir 	= $this->input->post("tanggal_lahir");
+
+			$alamat 		= $this->input->post("alamat");
+			$no_telp 		= $this->input->post("no_telp");
+			$email 			= $this->input->post("email");
+			$jurusan 		= $this->input->post("jurusan");
+			$tahun_lulus 	= $this->input->post("tahun_lulus");
+			$status 		= $this->input->post("status");
+
+			$nama_perusahaan 	= $this->input->post("nama_perusahaan");
+			$no_telp_perusahaan = $this->input->post("no_telp_perusahaan");
+			$alamat_perusahaan 	= $this->input->post("alamat_perusahaan");
+
+			$data = array(
+				'nisn' 					=> $nisn,	
+				'nik' 					=> $nik,
+				'nama' 					=> $nama,
+				'jenis_kelamin' 		=> $jenis_kelamin,
+				'tempat_lahir' 			=> $tempat_lahir,
+				'tanggal_lahir' 		=> date('Y-m-d', strtotime($tanggal_lahir)),
+				'alamat_alumni' 		=> $alamat,
+				'no_telp'				=> $no_telp,
+				'email' 				=> $email,
+				'jurusan' 				=> $jurusan,
+				'tahun_lulus' 			=> $tahun_lulus,
+				'status' 				=> $status,
+				'nama_perusahaan' 		=> $nama_perusahaan,
+				'alamat_perusahaan' 	=> $alamat_perusahaan,
+				'no_telp_perusahaan' 	=> $no_telp_perusahaan,
+				'id_sekolah' 			=> $id_sekolah,
+				'register_date' 		=> date("Y-m-d H:i:s"),
+			);
+
+			$update = $this->db->where('id_alumni', $id_alumni);
+			$this->db->update('table_alumni', $data);
+
+			if($update) {
+				$this->session->set_flashdata("notif1", "Data Berhasil Disimpan");
+				redirect('dashboard/dataalumni');
+			} else {
+				$this->session->set_flashdata("notif2", "Data Gagal Disimpan");
+				redirect('dashboard/dataalumni');
+			}
+
+		} catch (Exception $e) {
+			
+		}
+	}
+
+	// Hapus Alumni
+	public function hapusAlumniPusat(){
+		$id_alumni  = $this->uri->segment(3);
+		$data_alumni = $this->db->get_where('table_alumni',['id_alumni' => $id_alumni])->row();
+
+		$hapus = $this->db->delete('table_alumni',['id_alumni'=>$data_alumni->id_alumni]);
+
+		$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
+
+		if($hapus){
+			$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
+		}
+		echo json_encode($arr);
 	}
 
 	public function laporanBkk()
@@ -204,6 +574,7 @@ class Dashboard extends CI_Controller {
 		$path = "";
 		$get = array(
 			"sekolah" => $this->dashboard->sekolah(),
+			"jurusan" 			=> $this->dashboard->jurusan(),
 		);
 		$data = array(
 			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan Alumni", $path),
@@ -264,11 +635,9 @@ class Dashboard extends CI_Controller {
 	public function tambahJurusan()
 	{
 		try {
-			$id_sekolah 	= $this->input->post('sekolah');
 			$nama_jurusan 	= $this->input->post('nama_jurusan');
 
 	        $data = array(
-	            'id_sekolah' 	=> $id_sekolah,
 	            'nama_jurusan'	=> $nama_jurusan,
 	        );  
 
@@ -291,11 +660,9 @@ class Dashboard extends CI_Controller {
 	{
 		try {
 			$id_jurusan 	= $this->input->post('id_jurusan');
-			$id_sekolah 	= $this->input->post('sekolah');
 			$nama_jurusan 	= $this->input->post('nama_jurusan');
 
 	        $data = array(
-	            'id_sekolah' 	=> $id_sekolah,
 	            'nama_jurusan'	=> $nama_jurusan,
 	        );  
 
@@ -524,11 +891,16 @@ class Dashboard extends CI_Controller {
 		$data = array();
 		$no = 1;
 		foreach ($list as $slider) {
+			if ($slider->foto_slider == NULL) {
+				$button = '<button type="button" class="btn btn-secondary">No File</button>';
+			} else {
+				$button = '<a href="'.base_url().'assets/upload/image/'.$slider->foto_slider.'" class="btn btn-primary fa fa-download"><span> Download</span></a>';
+			}
 			$row = array();
 			$row[] = $no.'.';
 			$row[] = date('d M Y', strtotime($slider->tanggal_slider));
 			$row[] = $slider->judul_slider;
-			$row[] = '<a class="view popup portfolio-img" href="'.base_url().'assets/upload/image/'.$slider->foto_slider.'">'.$slider->foto_slider.'</a>';
+			$row[] = $button;
 			$row[] = '
 	              <a
 	            href="javascript:void(0)"
@@ -580,10 +952,26 @@ class Dashboard extends CI_Controller {
 		$no = 1;
 		foreach ($list as $loker) {
 			$row = array();
-			if(strtotime($loker->tanggal_berlaku) >= strtotime(date('Y-m-d')) AND strtotime($loker->tanggal_berakhir) <= strtotime(date('Y-m-d'))){
-				$status = 'Aktif';
-			}else{
-				$status = 'Tidak Aktif';
+			if($loker->tanggal_berlaku <= date('Y-m-d') && $loker->tanggal_berakhir >= date('Y-m-d')) {
+				$status = '<span class="badge badge-success">OPEN</span>';
+			} else {
+				$status = '<span class="badge badge-danger">EXPIRED</span>';
+			}
+			if ($loker->ket == 'Aktif') {
+				$keterangan = '<span class="badge badge-info">Aktif</span>';
+			} else {
+				$keterangan = '<span class="badge badge-danger">Tidak Aktif</span>';
+			}
+			if ($loker->ket == 'Aktif') {
+				$ket = '
+				<button class="btn btn-sm btn-danger non-loker" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$loker->id_lowongan.'" title="Nonaktifkan Lowongan">
+				<i class="fa fa-times"></i>
+				</button>';
+			} else {
+				$ket = '
+				<button class="btn btn-sm btn-success aktif-loker" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$loker->id_lowongan.'" title="Aktifkan Lowongan">
+				<i class="fa fa-check"></i>
+				</button>';
 			}
 			$row[] = $no.'.';
 			$row[] = $loker->nama_lowongan;
@@ -593,45 +981,20 @@ class Dashboard extends CI_Controller {
 			$row[] = $status;
 			$row[] = $loker->jml_pria;
 			$row[] = $loker->jml_wanita;
-			// $row[] = '
-	  //             	<a href="'.base_url().'dashboardBkk/lokerEdit/'.$loker->id_lowongan.'" title="Edit Data">
-	  //           		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-	  //           	</a>
-		 //            <button class="btn btn-sm btn-danger hapus-loker" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$loker->id_lowongan.'" title="Hapus Data">
-		 //            	<i class="fa fa-trash"></i>
-		 //            </button>';
+			$row[] = $keterangan;
+			$row[] = '
+			<a href="'.base_url().'dashboard/lokerEditPusat/'.$loker->id_lowongan.'" title="Edit Data">
+			<button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button>
+			</a>'.
+			// $ket.
+			'
+			<button class="btn btn-sm btn-warning hapus-loker" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$loker->id_lowongan.'" title="Hapus Data">
+			<i class="fa fa-trash"></i>
+			</button>';
 
 			$data[] = $row;
 			$no++;
 		}
-		// <a
-		//             href="javascript:void(0)"
-		//             data-id_lowongan="'.$loker->id_lowongan.'"
-		//             data-id_sekolah="'.$loker->id_sekolah.'"
-		//             data-id_mitra="'.$loker->id_mitra.'"
-		//             data-id_posisi_jabatan="'.$loker->id_posisi_jabatan.'"
-		//             data-id_keahlian="'.$loker->id_keahlian.'"
-		//             data-id_status_pendidikan="'.$loker->id_status_pendidikan.'"
-		//             data-id_jenis_pengupahan="'.$loker->id_jenis_pengupahan.'"
-		//             data-id_status_hub_kerja="'.$loker->id_status_hub_kerja.'"
-		//             data-tanggal_berlaku="'.$loker->tanggal_berlaku.'"
-		//             data-tanggal_berakhir="'.$loker->tanggal_berakhir.'"
-		//             data-nama_lowongan="'.$loker->nama_lowongan.'"
-		//             data-uraian_pekerjaan="'.$loker->uraian_pekerjaan.'"
-		//             data-uraian_tugas="'.$loker->uraian_tugas.'"
-		//             data-penempatan="'.$loker->penempatan.'"
-		//             data-batas_umur="'.$loker->batas_umur.'"
-		//             data-jml_pria="'.$loker->jml_pria.'"
-		//             data-jml_wanita="'.$loker->jml_wanita.'"
-		//             data-jurusan="'.$loker->jurusan.'"
-		//             data-pengalaman="'.$loker->pengalaman.'"
-		//             data-syarat_khusus="'.$loker->syarat_khusus.'"
-		//             data-gaji_per_bulan="'.$loker->gaji_per_bulan.'"
-		//             data-jam_kerja="'.$loker->jam_kerja.'"
-		//             data-toggle="modal" data-target="#edit-data"
-		//             title="Edit Data">
-		//             	<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-		//             </a>
 
 		$output = array(
 						"draw" => $_POST['draw'],
@@ -661,14 +1024,14 @@ class Dashboard extends CI_Controller {
 			$row[] = $alumni->no_telp;
 			$row[] = $alumni->tahun_lulus;
 			$row[] = $alumni->nama_sekolah;
-			$row[] = $alumni->status;
-			// $row[] = '
-	  //             	<a href="'.base_url().'dashboardBkk/alumniEdit/'.$alumni->id_alumni.'" title="Edit Data">
-	  //           		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-	  //           	</a>
-		 //            <button class="btn btn-sm btn-danger hapus-alumni" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$alumni->id_alumni.'" title="Hapus Data">
-		 //            	<i class="fa fa-trash"></i>
-		 //            </button>';
+			$row[] = $alumni->sts;
+			$row[] = '
+	              	<a href="'.base_url().'dashboard/alumniEditPusat/'.$alumni->id_alumni.'" title="Edit Data">
+	            		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+	            	</a>
+		            <button class="btn btn-sm btn-danger hapus-alumni" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$alumni->id_alumni.'" title="Hapus Data">
+		            	<i class="fa fa-trash"></i>
+		            </button>';
 
 			$data[] = $row;
 			$no++;
@@ -695,14 +1058,11 @@ class Dashboard extends CI_Controller {
 		foreach ($list as $jurusan) {
 			$row = array();
 			$row[] = $no.'.';
-			$row[] = $jurusan->nama_sekolah;
 			$row[] = $jurusan->nama_jurusan;
 			$row[] = '
 	              <a
 	            href="javascript:void(0)"
 	            data-id="'.$jurusan->id_jurusan.'"
-	            data-sekolah="'.$jurusan->nama_sekolah.'"
-	            data-id_sekolah="'.$jurusan->id_sekolah.'"
 	            data-jurusan="'.$jurusan->nama_jurusan.'"
 	            data-toggle="modal" data-target="#edit-data"
 	            title="Edit Data">
@@ -837,6 +1197,18 @@ class Dashboard extends CI_Controller {
 		$data = array();
 		$no = 1;
 		foreach ($list as $bkk) {
+			if ($bkk->struktur == NULL) {
+				$button1 = '<button type="button" class="btn btn-dark" disabled="">No File</button>';
+			} else {
+				$button1 = '<a href="'.base_url().'assets/upload/struktur_bkk/'.$bkk->struktur.'" class="btn btn-primary fa fa-download"><span> Download</span></a>';
+			}
+
+			if ($bkk->dokumen == NULL) {
+				$button2 = '<button type="button" class="btn btn-secondary">No File</button>';
+			} else {
+				$button2 = '<a href="'.base_url().'assets/upload/file/'.$bkk->dokumen.'" class="btn btn-primary fa fa-download"><span> Download</span></a>';
+			}
+
 			$row = array();
 			$row[] = $no.'.';
 			$row[] = $bkk->npsn;
@@ -844,8 +1216,37 @@ class Dashboard extends CI_Controller {
 			$row[] = $bkk->alamat_sekolah.', '.$bkk->kelurahan.', '.$bkk->kecamatan;
 			$row[] = $bkk->no_ijin;
 			$row[] = date('d M Y', strtotime($bkk->tgl_perijinan));
-			$row[] = '<a class="view popup portfolio-img" href="'.base_url().'assets/upload/struktur_bkk/'.$bkk->struktur.'">'.$bkk->struktur.'</a>';
-			$row[] = '<a class="view popup portfolio-img" href="'.base_url().'assets/upload/file/'.$bkk->dokumen.'">'.$bkk->dokumen.'</a>';
+			$row[] = $button1;
+			$row[] = $button2;
+			$row[] = '
+	              <a
+	            href="javascript:void(0)"
+	            data-id_sekolah="'.$bkk->id_sekolah.'"
+	            data-npsn="'.$bkk->npsn.'"
+	            data-nama_sekolah="'.$bkk->nama_sekolah.'"
+	            data-alamat_sekolah="'.$bkk->alamat_sekolah.'"
+	            data-kecamatan="'.$bkk->kecamatan.'"
+	            data-kelurahan="'.$bkk->kelurahan.'"
+	            data-visi="'.$bkk->visi.'"
+	            data-misi="'.$bkk->misi.'"
+	            data-id_perijinan="'.$bkk->id_perijinan.'"
+	            data-tgl_perijinan="'.date('Y-m-d', strtotime($bkk->tgl_perijinan)).'"
+	            data-ijin_bkk="'.$bkk->ijin_bkk.'"
+	            data-no_ijin="'.$bkk->no_ijin.'"
+	            data-toggle="modal" data-target="#edit-data"
+	            title="Edit Data">
+	            	<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+	            </a>
+	            <button
+	            class="btn btn-sm btn-danger hapus-bkk" 
+	            data-toggle="modal"
+	            id="id" 
+	            data-toggle="modal" 
+	            data-id_sekolah="'.$bkk->id_sekolah.'"
+	            data-id_perijinan="'.$bkk->id_perijinan.'"
+	            title="Hapus Data">
+	            	<i class="fa fa-trash"></i>
+	            </button>';
 			// $row[] = '
 	  //             	<a href="'.base_url().'dashboardBkk/lokerEdit/'.$loker->id_lowongan.'" title="Edit Data">
 	  //           		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
@@ -903,26 +1304,23 @@ class Dashboard extends CI_Controller {
 
 		$id_user = $this->session->userdata('id');
 
-		$list = $this->dashboard->get_datatables_bkk();
+		$list = $this->dashboard->get_datatables_laporan_bkk();
 		$data = array();
 		$no = 1;
 		foreach ($list as $bkk) {
 			$row = array();
-			$row[] = $no.'.';
-			$row[] = $bkk->npsn;
-			$row[] = $bkk->nama_sekolah;
-			$row[] = $bkk->alamat_sekolah;
+
 			$row[] = $bkk->kecamatan;
-			$row[] = $bkk->kelurahan;
-			$row[] = $bkk->no_ijin;
-			$row[] = date('d M Y', strtotime($bkk->tgl_perijinan));
+			$row[] = $bkk->total;
+			$row[] = $bkk->belum_terdaftar;
+			$row[] = $bkk->sudah_terdaftar;
 			$data[] = $row;
 			$no++;
 		}
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_bkk(),
-						"recordsFiltered" => $this->dashboard->count_filtered_bkk(),
+						"recordsTotal" => $this->dashboard->count_all_laporan_bkk(),
+						"recordsFiltered" => $this->dashboard->count_filtered_laporan_bkk(),
 						"data" => $data,
 				);
 		//output to json format
@@ -943,7 +1341,7 @@ class Dashboard extends CI_Controller {
 			$row = array();
 			$row[] = $no.'.';
 			$row[] = $mitra->nama_perusahaan;
-			$row[] = $mitra->alamat_lengkap.', '.$mitra->kelurahan.', '.$mitra->kecamatan.', '.$mitra->kota.', '.$mitra->provinsi.', '.$mitra->kode_pos;
+			$row[] = $mitra->alamat;
 			$row[] = $mitra->no_telp;
 			$row[] = $mitra->email;
 			$row[] = $mitra->bidang_usaha;
@@ -951,7 +1349,7 @@ class Dashboard extends CI_Controller {
 			$row[] = $mitra->jabatan_cp;
 			$row[] = $mitra->no_telp_cp;
 			$row[] = $mitra->jenis_kemitraan;
-			$row[] = date('d M Y', strtotime($mitra->dari)).' - '.date('d M Y', strtotime($mitra->sampai));
+			$row[] = date('d M Y', strtotime($mitra->periode_dari)).' - '.date('d M Y', strtotime($mitra->periode_sampai));
 			$data[] = $row;
 			$no++;
 		}
@@ -1010,5 +1408,37 @@ class Dashboard extends CI_Controller {
 
 
 	// End of Ajax Serverside
+
+	public function get_kelurahan()
+    {
+        $kec = $this->input->post('kec');
+
+        echo $this->dashboard->get_kelurahan($kec);
+
+    }
+
+    // Hilangkan Notif
+    public function notifNull(){
+    	try {
+			$id 	 				= $this->input->post('id');
+
+	        $data = array(
+	        	'notif'					=> '0',
+	        );  
+
+	        $update = $this->db->where('notif', $id);
+	        $this->db->update('table_sekolah', $data);
+
+           	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+
+           	if($update){
+            	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+           	}
+          	echo json_encode($arr);
+
+		} catch (Exception $e) {
+			
+		}
+    }
 	
 }

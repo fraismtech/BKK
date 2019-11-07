@@ -54,11 +54,12 @@
                         </div>
                         <div class="form-group">
                             <label>Judul</label>
-                            <input type="text" name="judul" class="form-control" placeholder="Judul">
+                            <input type="text" name="judul" class="form-control" placeholder="Judul" required="">
                         </div>
                         <div class="form-group">
                             <label>Foto</label>
-                            <input type="file" name="file" class="form-control foto" placeholder="Foto">
+                            <input type="file" name="file" class="form-control foto" placeholder="Foto" required="">
+                            <p>Gambar JPG/PNG Max. 2Mb</p>
                         </div>
                         <div class="text-center">
                             <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="textSlider">Simpan</span></button>
@@ -86,7 +87,7 @@
                     <div class="form-group">
                         <label>Tanggal</label>
                         <div class='input-group date' id='datepicker-action'>
-                            <input class="form-control" type='text' name="tanggal" placeholder="Tanggal Slider" id="tanggal" />
+                            <input class="form-control" type='text' name="tanggal" placeholder="Tanggal Slider" id="tanggal" required="" />
                             <span class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                             </span>
@@ -94,11 +95,12 @@
                     </div>
                     <div class="form-group">
                         <label>Judul</label>
-                        <input type="text" name="judul" class="form-control" placeholder="Judul" id="judul">
+                        <input type="text" name="judul" class="form-control" placeholder="Judul" id="judul" required="">
                     </div>
                     <div class="form-group">
                         <label>Foto</label>
-                        <input type="file" name="file" class="form-control foto" placeholder="Foto"><br>
+                        <input type="file" name="file" class="form-control foto" placeholder="Foto" required="">
+                        <p>Gambar JPG/PNG Max. 2Mb</p><br>
                         <div class="portfolio-item">
                             <img id="foto" alt="gallery-img">
                         </div>
@@ -111,23 +113,6 @@
             </form>
         </div>
     </div>
-</div>
-
-<div id="myModal" class="modal fade" style="margin-top: 150px ">
-  <div class="modal-dialog">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h4 class="modal-title">Ooopss..</h4>
-              <!-- <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-          </div>
-          <div class="modal-body">
-              <h4>You dont have any available moneybox,<br>create a new one by clicking button below</h4>
-          </div>
-          <div class="modal-footer">
-            <a class="btn btn-info" href="<?= base_url('Home/celengan'); ?>">Create</a>
-          </div>
-      </div>
-  </div>
 </div>
 
 <script type="text/javascript">
@@ -253,10 +238,10 @@ $(document).ready(function() {
 </script>
 <script type="text/javascript">
 $(".foto").change(function() {
-    if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png|jpeg|PNG)$/) ) {
-        if(this.files[0].size>10485760) {
+    if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png|jpeg|PNG|JPG|JPEG)$/) ) {
+        if(this.files[0].size>2097152) {
             $('.foto').val('');
-            alert('Batas Maximal Ukuran File 8MB !');
+            alert('Batas Maximal Ukuran File 2MB !');
         }
         else {
             var reader = new FileReader();

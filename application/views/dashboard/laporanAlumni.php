@@ -25,6 +25,10 @@
                             <div class="form-group">
                                 <label>Nama Jurusan</label>
                                 <select class="form-control" id="jurusan" name="jurusan">
+                                    <option value="" selected="">Pilih Jurusan</option>
+                                    <?php foreach ($jurusan as $jrs) { ?>
+                                        <option value="<?= $jrs->nama_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
+                                    <?php } ?>
                                 </select>
                             </div>
                         </div>
@@ -74,23 +78,23 @@ $(document).ready(function(){
         minView: 4,
         forceParse: 0
     });
-    $("#sekolah").change(function(){
-        var skl = $(this).val();
-        $.ajax({
-            url:"<?php echo base_url(); ?>dashboard/get_jurusan",
-            method:"POST",
-            data:{skl:skl},
-            success:function(data) {
-                $('#jurusan').html(data);
-            }
-        });
-    });
+    // $("#sekolah").change(function(){
+    //     var skl = $(this).val();
+    //     $.ajax({
+    //         url:"<?php echo base_url(); ?>dashboard/get_jurusan",
+    //         method:"POST",
+    //         data:{skl:skl},
+    //         success:function(data) {
+    //             $('#jurusan').html(data);
+    //         }
+    //     });
+    // });
 });
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
     var table = $('#example').DataTable({ 
-        "dom": 'Bfrtip',
+        // "dom": 'Bfrtip',
         "buttons": [
             'excel', 'pdf'
         ],

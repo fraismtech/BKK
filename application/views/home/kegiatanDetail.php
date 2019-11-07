@@ -46,9 +46,9 @@
           <div class="tab-pane container fade" id="loker">
             <?php foreach($listLowongan as $list) { ?>
             <div class="row mt-4">
-              <!-- <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                <img src="<?php echo base_url(); ?>assets/home/images/bg_3.jpg" class="img-donatur2">
-              </div> -->
+              <div class="col-lg-4 col-md-4 col-sm-4 col-4">
+                <img src="<?php echo base_url(); ?>assets/upload/image/<?= $list->logo_mitra ?>" class="img-donatur2">
+              </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                 <h5 class="mb-0"><b><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal<?= $list->id_lowongan ?>"><?= $list->nama_lowongan ?></a></b></h5>
                 <h6 class="mb-0"><b><?= $list->nama_perusahaan ?></b></h6>
@@ -97,7 +97,7 @@
             <div class="form-group row">
               <label class="col-md-4" style="color: #000;"><b>Alamat Perusahaan</b></label>
               <div class="col-md-8">
-                <p style="color: #000;"><?= $loker->alamat_lengkap ?>, <?= $loker->kelurahan ?>, <?= $loker->kecamatan ?>, <?= $loker->kota ?>, <?= $loker->provinsi ?> - <?= $loker->kode_pos ?></p>
+                <p style="color: #000;"><?= $loker->alamat ?></p>
               </div>
             </div>
             <div class="form-group row">

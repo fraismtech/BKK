@@ -86,7 +86,8 @@
                                 <th>Status</th>
                                 <th>Pria</th>
                                 <th>Wanita</th>
-                                <!-- <th></th> -->
+                                <th>Ket</th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -135,14 +136,14 @@ $(document).ready(function() {
             "targets": [ 7 ], //first column / numbering column
             "orderable": false, //set not orderable
         },
-        // { 
-        //     "targets": [ 8 ], //first column / numbering column
-        //     "orderable": false, //set not orderable
-        // },
-        // { 
-        //     "targets": [ 4 ], //first column / numbering column
-        //     "orderable": false, //set not orderable
-        // },
+        { 
+            "targets": [ 8 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
+        { 
+            "targets": [ 9 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
         ],
             "language": {         
               "info": "",

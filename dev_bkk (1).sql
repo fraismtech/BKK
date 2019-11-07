@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 02, 2019 at 04:20 PM
+-- Generation Time: Nov 07, 2019 at 05:18 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -7845,30 +7845,6 @@ INSERT INTO `regencies` (`id`, `province_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `table_alamat`
---
-
-CREATE TABLE `table_alamat` (
-  `id_alamat` int(11) NOT NULL,
-  `alamat_lengkap` text NOT NULL,
-  `provinsi` varchar(64) NOT NULL,
-  `kota` varchar(64) NOT NULL,
-  `kecamatan` varchar(64) NOT NULL,
-  `kelurahan` varchar(64) NOT NULL,
-  `kode_pos` varchar(12) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `table_alamat`
---
-
-INSERT INTO `table_alamat` (`id_alamat`, `alamat_lengkap`, `provinsi`, `kota`, `kecamatan`, `kelurahan`, `kode_pos`) VALUES
-(1, 'aaa', 'JAWA BARAT', 'KOTA DEPOK', 'CIMANGGIS', 'CURUG', '12345'),
-(3, 'sadad', 'LAMPUNG', 'KABUPATEN PRINGSEWU', 'AMBARAWA', 'TANJUNG ANOM', '234132');
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `table_alumni`
 --
 
@@ -7889,49 +7865,33 @@ CREATE TABLE `table_alumni` (
   `nama_perusahaan` varchar(128) DEFAULT NULL,
   `alamat_perusahaan` text,
   `no_telp_perusahaan` varchar(20) DEFAULT NULL,
-  `id_sekolah` varchar(10) NOT NULL
+  `id_sekolah` varchar(10) NOT NULL,
+  `notif` enum('0','1') NOT NULL,
+  `register_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `table_alumni`
 --
 
-INSERT INTO `table_alumni` (`id_alumni`, `nisn`, `nik`, `nama`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat_alumni`, `no_telp`, `email`, `jurusan`, `tahun_lulus`, `status`, `nama_perusahaan`, `alamat_perusahaan`, `no_telp_perusahaan`, `id_sekolah`) VALUES
-(1, '2313', '123', 'aad', 'L', 'dasd', '2019-10-10', 'asdas', '2131', 'aa@gmail.com', 'Rekayasa Perangkat Lunak', 2019, 'Bekerja', 'AS', 'sad', '213', '1'),
-(2, '2314', '124', 'aae', 'P', 'dase', '2019-10-11', 'asdat', '2132', 'bb@gmail.com', 'Multimedia', 2020, 'Kuliah', NULL, NULL, NULL, '1'),
-(3, '2315', '125', 'aad', 'L', 'dasd', '2019-10-12', 'asdas', '2133', 'cc@gmail.com', 'Rekayasa Perangkat Lunak', 2021, 'Belum Bekerja', NULL, NULL, NULL, '1'),
-(4, '2316', '126', 'aae', 'P', 'dase', '2019-10-13', 'asdat', '2134', 'dd@gmail.com', 'Multimedia', 2022, 'Wiraswasta', NULL, NULL, NULL, '1'),
-(5, '2317', '127', 'aad', 'L', 'dasd', '2019-10-14', 'asdas', '2135', 'ee@gmail.com', 'Rekayasa Perangkat Lunak', 2023, 'Bekerja', 'AS', 'sad', '217', '1'),
-(6, '2313', '123', 'aad', 'L', 'dasd', '2019-10-10', 'asdas', '2131', 'aa@gmail.com', 'Rekayasa Perangkat Lunak', 2019, 'Bekerja', 'AS', 'sad', '213', '2'),
-(7, '2314', '124', 'aae', 'P', 'dase', '2019-10-11', 'asdat', '2132', 'bb@gmail.com', 'Multimedia', 2020, 'Kuliah', NULL, NULL, NULL, '2'),
-(8, '2315', '125', 'aad', 'L', 'dasd', '2019-10-12', 'asdas', '2133', 'cc@gmail.com', 'Rekayasa Perangkat Lunak', 2021, 'Belum Bekerja', NULL, NULL, NULL, '2'),
-(9, '2316', '126', 'aae', 'P', 'dase', '2019-10-13', 'asdat', '2134', 'dd@gmail.com', 'Multimedia', 2022, 'Wiraswasta', NULL, NULL, NULL, '2'),
-(10, '2317', '127', 'aad', 'L', 'dasd', '2019-10-14', 'asdas', '2135', 'ee@gmail.com', 'Rekayasa Perangkat Lunak', 2023, 'Bekerja', 'AS', 'sad', '217', '2'),
-(11, '123124', '65534535', 'Test', 'P', 'KOTA DEPOK', '2019-10-01', 'aaa', '2151353', 'aaa@gmail.com', 'Multimedia', 2019, 'Bekerja', 'abc', 'asdafaga', '1432152', '1'),
-(12, '785764', '124366473', 'test', 'P', 'KOTA DEPOK', '2019-10-22', 'sadad', '324134', 'asda@gmail.com', 'Multimedia', 2019, 'Wiraswasta', NULL, NULL, NULL, '1'),
-(15, '6546345', '34324341', 'USER', 'L', 'KOTA DEPOK', '2019-10-01', 'aaa', '5435435', 'aaa@gmail.com', 'Rekayasa Perangkat Lunak', 2018, 'Bekerja', 'jkdsfs', 'ksjdkasd', '253453', '1'),
-(16, '54634535', '6754353490', 'sadas', 'L', 'KOTA DEPOK', '2019-10-28', 'aaa', '0812312947819', 'aaa@gmail.com', 'Rekayasa Perangkat Lunak', 2018, 'Bekerja', 'sadjaksd', 'asdjkaskd', '324982304', '1');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `table_cp_mitra`
---
-
-CREATE TABLE `table_cp_mitra` (
-  `id_cp_mitra` int(11) NOT NULL,
-  `nama_cp` varchar(128) NOT NULL,
-  `jabatan_cp` varchar(64) NOT NULL,
-  `no_telp_cp` varchar(24) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `table_cp_mitra`
---
-
-INSERT INTO `table_cp_mitra` (`id_cp_mitra`, `nama_cp`, `jabatan_cp`, `no_telp_cp`) VALUES
-(1, 'aaaa', 'aaaaa', '129389121824'),
-(3, 'sadasd', 'adsdasd', '134451231');
+INSERT INTO `table_alumni` (`id_alumni`, `nisn`, `nik`, `nama`, `jenis_kelamin`, `tempat_lahir`, `tanggal_lahir`, `alamat_alumni`, `no_telp`, `email`, `jurusan`, `tahun_lulus`, `status`, `nama_perusahaan`, `alamat_perusahaan`, `no_telp_perusahaan`, `id_sekolah`, `notif`, `register_date`) VALUES
+(1, '2313', '123', 'aad', 'L', 'dasd', '2019-10-10', 'asdas', '2131', 'aa@gmail.com', 'Kesehatan dan Pekerjaan Sosial', 2019, 'Bekerja', 'AS', 'sad', '213', '1', '1', '2019-11-04 07:55:49'),
+(2, '2314', '124', 'aae', 'P', 'dase', '2019-10-11', 'asdat', '2132', 'bb@gmail.com', 'Kemaritiman', 2020, 'Kuliah', NULL, NULL, NULL, '1', '1', '2019-11-03 00:00:00'),
+(3, '2315', '125', 'aad', 'L', 'dasd', '2019-10-12', 'asdas', '2133', 'cc@gmail.com', 'Energi dan Pertambangan', 2021, 'Belum Bekerja', NULL, NULL, NULL, '1', '1', '2019-11-03 00:00:00'),
+(4, '2316', '126', 'aae', 'P', 'dase', '2019-10-13', 'asdat', '2134', 'dd@gmail.com', 'Bisnis dan Manajemen', 2022, 'Wiraswasta', NULL, NULL, NULL, '1', '0', '2019-11-03 00:00:00'),
+(5, '2317', '127', 'aad', 'P', 'dasd', '2019-10-14', 'asdas', '2135', 'ee@gmail.com', 'Teknologi Informasi dan Komunikasi', 2023, 'Bekerja', 'PT ABC', 'sada', '12314141', '1', '0', '2019-11-06 14:01:12'),
+(6, '2313', '123', 'aad', 'L', 'dasd', '2019-10-10', 'asdas', '2131', 'aa@gmail.com', 'Rekayasa Perangkat Lunak', 2019, 'Bekerja', 'AS', 'sad', '213', '2', '0', '2019-11-03 00:00:00'),
+(7, '2314', '124', 'aae', 'P', 'dase', '2019-10-11', 'asdat', '2132', 'bb@gmail.com', 'Multimedia', 2020, 'Kuliah', NULL, NULL, NULL, '2', '0', '2019-11-03 00:00:00'),
+(8, '2315', '125', 'aad', 'L', 'dasd', '2019-10-12', 'asdas', '2133', 'cc@gmail.com', 'Rekayasa Perangkat Lunak', 2021, 'Belum Bekerja', NULL, NULL, NULL, '2', '0', '2019-11-03 00:00:00'),
+(9, '2316', '126', 'aae', 'P', 'dase', '2019-10-13', 'asdat', '2134', 'dd@gmail.com', 'Multimedia', 2022, 'Wiraswasta', NULL, NULL, NULL, '2', '0', '2019-11-03 00:00:00'),
+(10, '2317', '127', 'aad', 'L', 'dasd', '2019-10-14', 'asdas', '2135', 'ee@gmail.com', 'Rekayasa Perangkat Lunak', 2023, 'Bekerja', 'AS', 'sad', '217', '2', '0', '2019-11-03 00:00:00'),
+(11, '123124', '65534535', 'Test', 'P', 'KOTA DEPOK', '2019-10-01', 'aaa', '2151353', 'aaa@gmail.com', 'Pariwisata', 2019, 'Bekerja', 'abc', 'asdafaga', '1432152', '1', '0', '2019-11-03 00:00:00'),
+(12, '785764', '124366473', 'test', 'P', 'KOTA DEPOK', '2019-10-22', 'sadad', '324134', 'asda@gmail.com', 'Seni dan Industri Kreatif', 2019, 'Wiraswasta', NULL, NULL, NULL, '1', '0', '2019-11-03 00:00:00'),
+(15, '6546345', '34324341', 'USER', 'L', 'KOTA DEPOK', '2019-10-01', 'aaa', '5435435', 'aaa@gmail.com', 'Seni dan Industri Kreatif', 2018, 'Bekerja', 'jkdsfs', 'ksjdkasd', '253453', '1', '0', '2019-11-03 23:59:06'),
+(16, '54634535', '6754353490', 'sadas', 'L', 'KOTA DEPOK', '2019-10-28', 'aaa', '0812312947819', 'aaa@gmail.com', 'Teknologi dan Rekayasa', 2018, 'Bekerja', 'sadjaksd', 'asdjkaskd', '324982304', '1', '0', '2019-11-03 23:59:20'),
+(19, '131241', '38491241', 'aaa', 'L', 'KABUPATEN SUMBA TENGAH', '2019-11-05', 'bbb', '415161', 'aaa@gmail.com', 'Teknologi Informasi dan Komunikasi', 2015, 'Kuliah', NULL, NULL, NULL, '1', '0', '2019-11-03 23:59:33'),
+(20, '9791781', 'jkahhsd', 'AAA', 'L', 'as', '1970-01-01', 'bbb', '131411', 'asda@gmail.com', 'Agribisnis dan Agroteknologi', 2011, 'Kuliah', NULL, NULL, NULL, '1', '1', '2019-11-07 13:30:00'),
+(21, '778172', 'asda', 'ABCDE', 'P', 'Bogor', '1970-01-01', 'aaa', '7654335', 'aaa@gmail.com', 'Pariwisata', 2014, 'Bekerja', 'asda', 'adsada', '35678765', '4', '1', '2019-11-07 14:36:38');
 
 -- --------------------------------------------------------
 
@@ -8048,7 +8008,6 @@ INSERT INTO `table_jenis_pengupahan` (`id_jenis_pengupahan`, `nama_jenis_pengupa
 
 CREATE TABLE `table_jurusan` (
   `id_jurusan` int(11) NOT NULL,
-  `id_sekolah` varchar(10) NOT NULL,
   `nama_jurusan` varchar(128) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -8056,11 +8015,16 @@ CREATE TABLE `table_jurusan` (
 -- Dumping data for table `table_jurusan`
 --
 
-INSERT INTO `table_jurusan` (`id_jurusan`, `id_sekolah`, `nama_jurusan`) VALUES
-(1, '1', 'Rekayasa Perangkat Lunak'),
-(2, '1', 'Multimedia'),
-(3, '2', 'Rekayasa Perangkat Lunak'),
-(4, '2', 'Multimedia');
+INSERT INTO `table_jurusan` (`id_jurusan`, `nama_jurusan`) VALUES
+(1, 'Teknologi Informasi dan Komunikasi'),
+(3, 'Energi dan Pertambangan'),
+(4, 'Teknologi dan Rekayasa'),
+(5, 'Kesehatan dan Pekerjaan Sosial'),
+(6, 'Agribisnis dan Agroteknologi'),
+(7, 'Kemaritiman'),
+(8, 'Bisnis dan Manajemen'),
+(9, 'Pariwisata'),
+(10, 'Seni dan Industri Kreatif');
 
 -- --------------------------------------------------------
 
@@ -8149,8 +8113,10 @@ INSERT INTO `table_kegiatan` (`id_kegiatan`, `tanggal_kegiatan`, `judul_kegiatan
 (13, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', '0.jpg', '1'),
 (14, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'preview.png', '1'),
 (15, '2019-10-23', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Check_Version.png', '1'),
-(16, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'OBLIQ_WALL.png', '1'),
-(17, '2019-10-30', 'gdgs', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'chart.png', '1');
+(16, '2019-10-22', 'sadasd', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Preview_Image3.png', '4'),
+(17, '2019-10-30', 'Kegiatan 1', '<ul><li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li><li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li><li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li><li>Lorem ipsum dolor sit amet, consectetur adipisicing elit</li></ul>', 'chart.png', '1'),
+(18, '2019-11-07', 'Kegiatan 1', '<p>jhsadas</p>\r\n', 'rt_01_rw_05.jpeg', '4'),
+(20, '2019-11-27', 'asdas', 'asdadasd', '02.png', '4');
 
 -- --------------------------------------------------------
 
@@ -8169,6 +8135,7 @@ CREATE TABLE `table_login` (
   `id_perijinan` varchar(32) NOT NULL,
   `level` enum('1','2') NOT NULL,
   `status` enum('0','1') NOT NULL,
+  `foto` varchar(255) DEFAULT NULL,
   `date_created` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -8176,11 +8143,13 @@ CREATE TABLE `table_login` (
 -- Dumping data for table `table_login`
 --
 
-INSERT INTO `table_login` (`id_user`, `username`, `password`, `nama_operator`, `email`, `no_hp`, `id_sekolah`, `id_perijinan`, `level`, `status`, `date_created`) VALUES
-(1, '0042170158', 'e10adc3949ba59abbe56e057f20f883e', 'Admin', 'admin@gmail.com', '081231713822', '1', '1', '1', '1', '2019-10-18 15:45:39'),
-(2, 'ari', '827ccb0eea8a706c4c34a16891f84e7b', 'ari', 'aaa@gmail.com', '8128314121', '1', '1', '1', '1', '2019-10-20 14:46:24'),
-(3, '123456', 'e10adc3949ba59abbe56e057f20f883e', 'Handi', 'aaa@gmail.com', '8128314121', '', '', '2', '1', '2019-10-21 09:25:14'),
-(4, '123', '202cb962ac59075b964b07152d234b70', 'Daman', 'aaa@gmail.com', '8128314121', '2', '2', '1', '1', '2019-10-23 00:05:56');
+INSERT INTO `table_login` (`id_user`, `username`, `password`, `nama_operator`, `email`, `no_hp`, `id_sekolah`, `id_perijinan`, `level`, `status`, `foto`, `date_created`) VALUES
+(1, '0042170158', 'e10adc3949ba59abbe56e057f20f883e', 'ADMIN', 'admin@gmail.com', '081231713822', '1', '1', '1', '1', 'photo_2.jpg', '2019-11-07 09:42:45'),
+(3, '123456', '827ccb0eea8a706c4c34a16891f84e7b', 'Handi', 'aaa@gmail.com', '8128314121', '', '', '2', '1', 'photo_21.jpg', '2019-11-07 09:46:50'),
+(4, '123', '202cb962ac59075b964b07152d234b70', 'Daman', 'aaa@gmail.com', '8128314121', '2', '2', '1', '1', NULL, '2019-10-23 00:05:56'),
+(6, '12345', 'd10906c3dac1172d4f60bd41f224ae75', 'Siapa?', 'aaa@gmail.com', '12398102102', '1', '1', '1', '1', 'chart.png', '2019-11-04 08:36:23'),
+(7, 'asda', '7815696ecbf1c96e6894b779456d330e', 'sadasd', 'aaa@gmail.com', '8128314121', '3', '3', '1', '1', NULL, '2019-11-07 14:23:57'),
+(8, 'daman', '79489320b4666d8bbdcf14f3704f35ce', 'Daman', 'daman@gmail.com', '0812641778218', '4', '4', '1', '1', NULL, '2019-11-07 14:26:44');
 
 -- --------------------------------------------------------
 
@@ -8211,6 +8180,7 @@ CREATE TABLE `table_lowongan` (
   `syarat_khusus` text NOT NULL,
   `gaji_per_bulan` decimal(18,0) NOT NULL,
   `jam_kerja` decimal(18,0) NOT NULL,
+  `ket` enum('Aktif','Tidak Aktif') NOT NULL,
   `register_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -8218,34 +8188,35 @@ CREATE TABLE `table_lowongan` (
 -- Dumping data for table `table_lowongan`
 --
 
-INSERT INTO `table_lowongan` (`id_lowongan`, `id_sekolah`, `id_mitra`, `id_posisi_jabatan`, `id_keahlian`, `id_status_pendidikan`, `id_jenis_pengupahan`, `id_status_hub_kerja`, `tanggal_berlaku`, `tanggal_berakhir`, `nama_lowongan`, `uraian_pekerjaan`, `uraian_tugas`, `penempatan`, `batas_umur`, `jml_pria`, `jml_wanita`, `jurusan`, `pengalaman`, `syarat_khusus`, `gaji_per_bulan`, `jam_kerja`, `register_date`) VALUES
-(1, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(2, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(3, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(4, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(5, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(6, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(7, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(8, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(9, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(10, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(11, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(12, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(13, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(14, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(15, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(16, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(17, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(18, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(19, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(20, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(21, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(22, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(23, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(24, '2', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(25, '1', '1', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', '2019-10-22 13:36:22'),
-(26, '1', '3', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', '2019-10-22 16:21:38'),
-(27, '1', '1', '000018', '000005', '000009', '000004', '000001', '2019-10-01', '2019-10-31', 'Programmer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 26, 1, 1, '1', 'Minimal 1 Tahun', 'NO', '4500000', '40', '2019-10-31 16:18:36');
+INSERT INTO `table_lowongan` (`id_lowongan`, `id_sekolah`, `id_mitra`, `id_posisi_jabatan`, `id_keahlian`, `id_status_pendidikan`, `id_jenis_pengupahan`, `id_status_hub_kerja`, `tanggal_berlaku`, `tanggal_berakhir`, `nama_lowongan`, `uraian_pekerjaan`, `uraian_tugas`, `penempatan`, `batas_umur`, `jml_pria`, `jml_wanita`, `jurusan`, `pengalaman`, `syarat_khusus`, `gaji_per_bulan`, `jam_kerja`, `ket`, `register_date`) VALUES
+(2, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(3, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 13:36:22'),
+(4, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(5, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 13:36:22'),
+(6, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(7, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 13:36:22'),
+(8, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(9, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 13:36:22'),
+(10, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(11, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 13:36:22'),
+(12, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(13, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 13:36:22'),
+(14, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(15, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 13:36:22'),
+(16, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(17, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 13:36:22'),
+(18, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(19, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 13:36:22'),
+(20, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(21, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-11-03 22:24:32'),
+(22, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-10-22 16:21:38'),
+(23, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-11-05', 'Project Manager', '<ul><li>Rincian 1</li><li>Rincian 2</li><li>Rincian 3</li></ul>', '<ul><li>Uraian 1</li><li>Uraian 2</li><li>Uraian 3</li></ul>', 'KOTA DEPOK', 21, 1, 2, '1', '<ul><li>Pengalaman 1</li><li>Pengalaman 2</li><li>Pengalaman 3</li></ul>', '<ul><li>Syarat 1</li><li>Syarat 2</li><li>Syarat 3</li></ul>', '4000000', '40', 'Aktif', '2019-11-04 10:06:44'),
+(24, '2', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Tidak Aktif', '2019-11-06 12:57:10'),
+(25, '1', '2', '000018', '000009', '000008', '000004', '000001', '2019-10-01', '2019-10-31', 'IT Support', 'test', 'test', 'KOTA DEPOK', 21, 1, 2, '1', 'test', 'test', '4000000', '40', 'Tidak Aktif', '2019-10-22 13:36:22'),
+(26, '1', '2', '000005', '000007', '000004', '000004', '000001', '2019-10-01', '2019-11-30', 'Web Developer', 'Membuat Website', 'Membuat Website', 'KOTA DEPOK', 18, 2, 1, '1', 'test', 'test', '4000000', '40', 'Aktif', '2019-11-03 22:29:14'),
+(27, '1', '2', '000018', '000005', '000009', '000004', '000001', '2019-10-01', '2019-11-30', 'PHP Developer', '<p>Membuat Website</p>', '<p>Membuat Website</p>', 'KOTA DEPOK', 26, 1, 1, '1', '<p>Minimal 1 Tahun</p>', '<ul><li>Menguasai Bahasa Pemograman PHP (Native, CodeIgniter, Laravel)</li><li>Mengusasai HTML, CSS, Bootstrap, Javascript, JQuery</li></ul>', '4500000', '40', 'Aktif', '2019-11-06 13:20:02'),
+(28, '4', '3', '000005', '100000', '000010', '000003', '000001', '2019-11-06', '2019-11-22', 'asdada', '<p>sadasd</p>', '<p>sadasd</p>', 'sajda', 31, 12, 12, '7', '<p>sada</p>', '<p>sada</p>', '2000000', '40', 'Aktif', '2019-11-07 16:27:23'),
+(29, '4', '3', '000015', '100000', '000009', '000004', '000001', '2019-11-01', '2019-11-06', 'assad', '<p>askdja</p>', '<p>kajskdlaj</p>', 'asda', 42, 21, 1, '3', '<p>askda</p>', '<p>aklsd;a</p>', '1251512', '4121121', 'Aktif', '2019-11-07 23:08:49');
 
 -- --------------------------------------------------------
 
@@ -8255,24 +8226,28 @@ INSERT INTO `table_lowongan` (`id_lowongan`, `id_sekolah`, `id_mitra`, `id_posis
 
 CREATE TABLE `table_mitra` (
   `id_mitra` int(11) NOT NULL,
-  `nama_perusahaan` varchar(255) NOT NULL,
-  `bidang_usaha` varchar(255) NOT NULL,
-  `no_telp` varchar(24) NOT NULL,
-  `email` varchar(128) NOT NULL,
-  `jenis_kemitraan` varchar(128) NOT NULL,
-  `id_alamat` int(11) NOT NULL,
-  `id_cp_mitra` int(11) NOT NULL,
-  `id_periode` int(11) NOT NULL,
-  `id_sekolah` int(11) NOT NULL
+  `nama_perusahaan` varchar(128) NOT NULL,
+  `alamat` text NOT NULL,
+  `no_telp` varchar(20) NOT NULL,
+  `email` varchar(64) NOT NULL,
+  `bidang_usaha` varchar(64) NOT NULL,
+  `nama_cp` varchar(64) NOT NULL,
+  `jabatan_cp` varchar(45) NOT NULL,
+  `no_telp_cp` varchar(20) NOT NULL,
+  `jenis_kemitraan` enum('Magang','Pelatihan','Perekrutan','Lainnya') NOT NULL,
+  `periode_dari` date NOT NULL,
+  `periode_sampai` date NOT NULL,
+  `logo_mitra` varchar(255) NOT NULL,
+  `id_sekolah` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `table_mitra`
 --
 
-INSERT INTO `table_mitra` (`id_mitra`, `nama_perusahaan`, `bidang_usaha`, `no_telp`, `email`, `jenis_kemitraan`, `id_alamat`, `id_cp_mitra`, `id_periode`, `id_sekolah`) VALUES
-(1, 'aaa', 'aaa', '12398102102', 'aaa@gmail.com', 'aaa', 1, 1, 1, 1),
-(3, 'addd', 'adasda', '13414123', 'asda@gmail.com', 'asdajd', 3, 3, 3, 1);
+INSERT INTO `table_mitra` (`id_mitra`, `nama_perusahaan`, `alamat`, `no_telp`, `email`, `bidang_usaha`, `nama_cp`, `jabatan_cp`, `no_telp_cp`, `jenis_kemitraan`, `periode_dari`, `periode_sampai`, `logo_mitra`, `id_sekolah`) VALUES
+(2, 'PT ABC', 'Depok', '02171827318', 'aaa@gmail.com', 'jualan', 'abc', 'abc', '234132', 'Magang', '2019-11-01', '2019-11-30', 'denah_unit_A.PNG', '1'),
+(3, 'PT BCC', 'sada', '812931', 'jasdaj@gmail.com', 'ashda', 'kaj', 'ajs', '02119019', 'Perekrutan', '2019-11-13', '2019-11-22', 'rw_05.jpeg', '4');
 
 -- --------------------------------------------------------
 
@@ -8284,7 +8259,7 @@ CREATE TABLE `table_perijinan` (
   `id_perijinan` int(11) NOT NULL,
   `ijin_bkk` varchar(32) NOT NULL,
   `no_ijin` varchar(128) NOT NULL,
-  `tgl_perijinan` date NOT NULL,
+  `tgl_perijinan` date DEFAULT NULL,
   `dokumen` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -8293,8 +8268,10 @@ CREATE TABLE `table_perijinan` (
 --
 
 INSERT INTO `table_perijinan` (`id_perijinan`, `ijin_bkk`, `no_ijin`, `tgl_perijinan`, `dokumen`) VALUES
-(1, 'Ya', '1341351', '2019-10-18', 'CV_FRAIS_MEDIATECH1.docx'),
-(2, 'Ya', '123456', '2019-10-20', 'Gmail_-_Undangan_Tes_Online_Rekrutmen_Pertamina_Group.pdf');
+(1, 'Ya', '1341351', '2019-10-18', 'SPK_UMR_005-BKK.pdf'),
+(2, 'Ya', '123456', '2019-10-20', 'Gmail_-_Undangan_Tes_Online_Rekrutmen_Pertamina_Group.pdf'),
+(3, 'Tidak', '', NULL, ''),
+(4, 'Ya', '72891738', '2019-07-02', 'Bursa_Kerja_Khusus_Kota_Depok_-_Laporan_Alumni7.pdf');
 
 -- --------------------------------------------------------
 
@@ -8314,7 +8291,10 @@ CREATE TABLE `table_periode` (
 
 INSERT INTO `table_periode` (`id_periode`, `dari`, `sampai`) VALUES
 (1, '2019-10-25', '2019-10-31'),
-(3, '2019-10-20', '2019-11-01');
+(3, '2019-10-20', '2019-11-01'),
+(4, '2019-11-03', '2019-11-04'),
+(5, '2019-11-13', '2019-11-22'),
+(6, '2019-11-13', '2019-11-22');
 
 -- --------------------------------------------------------
 
@@ -8368,16 +8348,20 @@ CREATE TABLE `table_sekolah` (
   `kelurahan` varchar(64) NOT NULL,
   `visi` text NOT NULL,
   `misi` text NOT NULL,
-  `struktur` varchar(255) NOT NULL
+  `struktur` varchar(255) NOT NULL,
+  `status` enum('0','1') NOT NULL,
+  `notif` enum('0','1') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `table_sekolah`
 --
 
-INSERT INTO `table_sekolah` (`id_sekolah`, `npsn`, `nama_sekolah`, `alamat_sekolah`, `kecamatan`, `kelurahan`, `visi`, `misi`, `struktur`) VALUES
-(1, '324812', 'SMK Negeri 1 Depok', 'Jl. Bhakti Suci No. 100', 'TAPOS', 'TAPOS', 'sadas', 'sadas', 'Screenshot_(2).png'),
-(2, '12345', 'SMK Negeri 2 Depok', 'bbb', 'SAWANGAN', 'SAWANGAN BARU', '', '', '');
+INSERT INTO `table_sekolah` (`id_sekolah`, `npsn`, `nama_sekolah`, `alamat_sekolah`, `kecamatan`, `kelurahan`, `visi`, `misi`, `struktur`, `status`, `notif`) VALUES
+(1, '324812', 'SMK Negeri 1 Depok', 'Jl. Bhakti Suci No. 100', 'TAPOS', 'TAPOS', 'sadas', 'sadas', 'Screenshot_(2).png', '1', '0'),
+(2, '12345', 'SMK Negeri 2 Depok', 'bbb', 'SAWANGAN', 'SAWANGAN BARU', '<p>asasda</p>', '<p>asdasda</p>', '', '0', '1'),
+(3, '18492', 'asdas', 'bbb', 'CINERE', 'PANGKALANJATI', '', '', '', '0', '1'),
+(4, '8911', 'SMK Negeri 3 Depok', 'Jl. ABC', 'CIMANGGIS', 'TUGU', '<p>asdad</p>', '<p>asdad</p>', '0.jpg', '0', '1');
 
 -- --------------------------------------------------------
 
@@ -8403,7 +8387,10 @@ INSERT INTO `table_slider` (`id_slider`, `tanggal_slider`, `judul_slider`, `foto
 (7, '2019-10-22', 'abc', 'chart1.png', '2', '1'),
 (8, '2019-10-15', 'aisjda', '0.png', '2', '1'),
 (10, '2019-10-03', 'abc', 'OBLIQ_WALL1.png', '1', '1'),
-(11, '2019-10-30', 'adad', 'Preview_Image1.png', '1', '1');
+(11, '2019-10-30', 'adad', 'Preview_Image1.png', '1', '1'),
+(12, '2019-11-04', 'TEST', 'Preview_Image2.png', '', '1'),
+(13, '2019-11-01', 'Test 1', 'Preview2.png', '', '1'),
+(14, '2019-11-05', 'gggg', 'Preview3.png', '4', '1');
 
 -- --------------------------------------------------------
 
@@ -83558,22 +83545,10 @@ ALTER TABLE `regencies`
   ADD KEY `regencies_province_id_index` (`province_id`);
 
 --
--- Indexes for table `table_alamat`
---
-ALTER TABLE `table_alamat`
-  ADD PRIMARY KEY (`id_alamat`);
-
---
 -- Indexes for table `table_alumni`
 --
 ALTER TABLE `table_alumni`
   ADD PRIMARY KEY (`id_alumni`);
-
---
--- Indexes for table `table_cp_mitra`
---
-ALTER TABLE `table_cp_mitra`
-  ADD PRIMARY KEY (`id_cp_mitra`);
 
 --
 -- Indexes for table `table_helpdesk`
@@ -83684,22 +83659,10 @@ ALTER TABLE `villages`
 --
 
 --
--- AUTO_INCREMENT for table `table_alamat`
---
-ALTER TABLE `table_alamat`
-  MODIFY `id_alamat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
 -- AUTO_INCREMENT for table `table_alumni`
 --
 ALTER TABLE `table_alumni`
-  MODIFY `id_alumni` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
-
---
--- AUTO_INCREMENT for table `table_cp_mitra`
---
-ALTER TABLE `table_cp_mitra`
-  MODIFY `id_cp_mitra` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_alumni` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `table_helpdesk`
@@ -83711,25 +83674,25 @@ ALTER TABLE `table_helpdesk`
 -- AUTO_INCREMENT for table `table_jurusan`
 --
 ALTER TABLE `table_jurusan`
-  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `table_kegiatan`
 --
 ALTER TABLE `table_kegiatan`
-  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_kegiatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `table_login`
 --
 ALTER TABLE `table_login`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `table_lowongan`
 --
 ALTER TABLE `table_lowongan`
-  MODIFY `id_lowongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `id_lowongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `table_mitra`
@@ -83741,25 +83704,25 @@ ALTER TABLE `table_mitra`
 -- AUTO_INCREMENT for table `table_perijinan`
 --
 ALTER TABLE `table_perijinan`
-  MODIFY `id_perijinan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_perijinan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `table_periode`
 --
 ALTER TABLE `table_periode`
-  MODIFY `id_periode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_periode` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `table_sekolah`
 --
 ALTER TABLE `table_sekolah`
-  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `table_slider`
 --
 ALTER TABLE `table_slider`
-  MODIFY `id_slider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_slider` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables

@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/css/buttons.bootstrap4.min.css">
 
     <!-- app style -->
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/dashboard/css/style.css" />
+    <!-- <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/dashboard/css/style.css" /> -->
 
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>assets/vendor/datetimepicker/bootstrap-datetimepicker.min.css"/>
     <link rel="stylesheet" href="<?php echo base_url();?>assets/home/css/animate.css">

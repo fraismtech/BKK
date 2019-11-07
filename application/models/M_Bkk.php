@@ -4,8 +4,8 @@ class M_Bkk extends CI_Model{
     // Alumni
     var $table_4          = 'table_alumni';
     var $table_4_1        = 'table_sekolah';
-    var $column_order_4   = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','tempat_lahir','jurusan','nama_sekolah'); //set column field database for datatable orderable
-    var $column_search_4  = array('nisn','nama','no_telp','tahun_lulus','status','tanggal_lahir','tempat_lahir','jurusan','nama_sekolah'); //set column field database for datatable searchable just firstname , lastname , address are searchable
+    var $column_order_4   = array('nisn','nama','tahun_lulus','table_alumni.status','jurusan'); //set column field database for datatable orderable
+    var $column_search_4  = array('nisn','nama','tahun_lulus','table_alumni.status','jurusan'); //set column field database for datatable searchable just firstname , lastname , address are searchable
     var $where_4 = array('');
     var $order_4 = array('tahun_lulus' => 'asc'); // default order
 
@@ -15,9 +15,9 @@ class M_Bkk extends CI_Model{
         $this->load->database();
     }
 
-    public function jurusan($id_sekolah)
+    public function jurusan()
     {
-        $query = $this->db->query("SELECT * FROM table_jurusan WHERE id_sekolah = '$id_sekolah' ORDER BY nama_jurusan ASC");
+        $query = $this->db->query("SELECT * FROM table_jurusan ORDER BY nama_jurusan ASC");
         return $query->result();
     }
     
@@ -53,7 +53,7 @@ class M_Bkk extends CI_Model{
 
     public function data_lowongan($id)
     {
-        $query = $this->db->query("SELECT * FROM table_lowongan AS tl JOIN table_sekolah AS ts ON tl.id_sekolah = ts.id_sekolah JOIN table_mitra AS tm ON tl.id_mitra = tm.id_mitra JOIN table_posisi_jabatan AS tpj ON tl.id_posisi_jabatan = tpj.id_posisi_jabatan JOIN table_keahlian AS tk ON tl.id_keahlian = tk.id_keahlian JOIN table_status_pendidikan AS tsp ON tl.id_status_pendidikan = tsp.id_status_pendidikan JOIN table_jenis_pengupahan AS tjp ON tl.id_jenis_pengupahan = tjp.id_jenis_pengupahan JOIN table_status_hub_kerja AS tshp ON tl.id_status_hub_kerja = tshp.id_status_hub_kerja JOIN table_jurusan AS tj ON tl.jurusan = tj.id_jurusan JOIN table_jenis_lowongan AS tjl ON tk.id_jenis_lowongan = tjl.id_jenis_lowongan JOIN table_alamat AS ta ON ta.id_alamat = tm.id_alamat WHERE ts.id_sekolah='$id' ORDER BY register_date DESC LIMIT 6");
+        $query = $this->db->query("SELECT * FROM table_lowongan AS tl JOIN table_sekolah AS ts ON tl.id_sekolah = ts.id_sekolah JOIN table_mitra AS tm ON tl.id_mitra = tm.id_mitra JOIN table_posisi_jabatan AS tpj ON tl.id_posisi_jabatan = tpj.id_posisi_jabatan JOIN table_keahlian AS tk ON tl.id_keahlian = tk.id_keahlian JOIN table_status_pendidikan AS tsp ON tl.id_status_pendidikan = tsp.id_status_pendidikan JOIN table_jenis_pengupahan AS tjp ON tl.id_jenis_pengupahan = tjp.id_jenis_pengupahan JOIN table_status_hub_kerja AS tshp ON tl.id_status_hub_kerja = tshp.id_status_hub_kerja JOIN table_jurusan AS tj ON tl.jurusan = tj.id_jurusan JOIN table_jenis_lowongan AS tjl ON tk.id_jenis_lowongan = tjl.id_jenis_lowongan WHERE ts.id_sekolah='$id' ORDER BY register_date DESC LIMIT 6");
         return $query->result();
     }
 
@@ -71,7 +71,7 @@ class M_Bkk extends CI_Model{
 
     public function dataMitra($id)
     {
-        $query = $this->db->query("SELECT * FROM table_mitra AS tm JOIN table_cp_mitra AS tcm ON tm.id_cp_mitra = tcm.id_cp_mitra JOIN table_alamat AS ta ON tm.id_alamat = ta.id_alamat JOIN table_periode AS tp ON tm.id_periode = tp.id_periode JOIN table_sekolah AS ts ON tm.id_sekolah = ts.id_sekolah WHERE ts.id_sekolah='$id' ORDER BY id_mitra DESC LIMIT 4");
+        $query = $this->db->query("SELECT * FROM table_mitra AS tm JOIN table_sekolah AS ts ON tm.id_sekolah = ts.id_sekolah WHERE ts.id_sekolah='$id' ORDER BY id_mitra DESC LIMIT 4");
         return $query->result();
     }
 
@@ -132,7 +132,7 @@ class M_Bkk extends CI_Model{
     {
         $this->load->library('pagination'); // Load librari paginationnya
     
-        $query = "SELECT * FROM table_lowongan AS tl JOIN table_sekolah AS ts ON tl.id_sekolah = ts.id_sekolah JOIN table_mitra AS tm ON tl.id_mitra = tm.id_mitra JOIN table_posisi_jabatan AS tpj ON tl.id_posisi_jabatan = tpj.id_posisi_jabatan JOIN table_keahlian AS tk ON tl.id_keahlian = tk.id_keahlian JOIN table_status_pendidikan AS tsp ON tl.id_status_pendidikan = tsp.id_status_pendidikan JOIN table_jenis_pengupahan AS tjp ON tl.id_jenis_pengupahan = tjp.id_jenis_pengupahan JOIN table_status_hub_kerja AS tshp ON tl.id_status_hub_kerja = tshp.id_status_hub_kerja JOIN table_jurusan AS tj ON tl.jurusan = tj.id_jurusan JOIN table_jenis_lowongan AS tjl ON tk.id_jenis_lowongan = tjl.id_jenis_lowongan JOIN table_alamat AS ta ON ta.id_alamat = tm.id_alamat WHERE ts.id_sekolah = '$id' ORDER BY register_date DESC"; // Query untuk menampilkan semua data siswa
+        $query = "SELECT * FROM table_lowongan AS tl JOIN table_sekolah AS ts ON tl.id_sekolah = ts.id_sekolah JOIN table_mitra AS tm ON tl.id_mitra = tm.id_mitra JOIN table_posisi_jabatan AS tpj ON tl.id_posisi_jabatan = tpj.id_posisi_jabatan JOIN table_keahlian AS tk ON tl.id_keahlian = tk.id_keahlian JOIN table_status_pendidikan AS tsp ON tl.id_status_pendidikan = tsp.id_status_pendidikan JOIN table_jenis_pengupahan AS tjp ON tl.id_jenis_pengupahan = tjp.id_jenis_pengupahan JOIN table_status_hub_kerja AS tshp ON tl.id_status_hub_kerja = tshp.id_status_hub_kerja JOIN table_jurusan AS tj ON tl.jurusan = tj.id_jurusan JOIN table_jenis_lowongan AS tjl ON tk.id_jenis_lowongan = tjl.id_jenis_lowongan WHERE ts.id_sekolah = '$id' ORDER BY register_date DESC"; // Query untuk menampilkan semua data siswa
         
         $config['base_url'] = base_url($npsn.'/loker');
         $config['total_rows'] = $this->db->query($query)->num_rows();
@@ -185,7 +185,7 @@ class M_Bkk extends CI_Model{
     {
         $this->load->library('pagination'); // Load librari paginationnya
     
-        $query = "SELECT * FROM table_mitra AS tm JOIN table_cp_mitra AS tcm ON tm.id_cp_mitra = tcm.id_cp_mitra JOIN table_alamat AS ta ON tm.id_alamat = ta.id_alamat JOIN table_periode AS tp ON tm.id_periode = tp.id_periode JOIN table_sekolah AS ts ON tm.id_sekolah = ts.id_sekolah WHERE ts.id_sekolah='$id'"; // Query untuk menampilkan semua data siswa
+        $query = "SELECT * FROM table_mitra AS tm JOIN table_sekolah AS ts ON tm.id_sekolah = ts.id_sekolah WHERE ts.id_sekolah='$id'"; // Query untuk menampilkan semua data siswa
         
         $config['base_url'] = base_url($npsn.'/mitra');
         $config['total_rows'] = $this->db->query($query)->num_rows();
@@ -248,13 +248,14 @@ class M_Bkk extends CI_Model{
 
     public function listLowongan($id_sekolah)
     {
-        $query = $this->db->query("SELECT * FROM table_lowongan AS tl JOIN table_sekolah AS ts ON tl.id_sekolah = ts.id_sekolah JOIN table_mitra AS tm ON tl.id_mitra = tm.id_mitra JOIN table_posisi_jabatan AS tpj ON tl.id_posisi_jabatan = tpj.id_posisi_jabatan JOIN table_keahlian AS tk ON tl.id_keahlian = tk.id_keahlian JOIN table_status_pendidikan AS tsp ON tl.id_status_pendidikan = tsp.id_status_pendidikan JOIN table_jenis_pengupahan AS tjp ON tl.id_jenis_pengupahan = tjp.id_jenis_pengupahan JOIN table_status_hub_kerja AS tshp ON tl.id_status_hub_kerja = tshp.id_status_hub_kerja JOIN table_jurusan AS tj ON tl.jurusan = tj.id_jurusan JOIN table_jenis_lowongan AS tjl ON tk.id_jenis_lowongan = tjl.id_jenis_lowongan JOIN table_alamat AS ta ON ta.id_alamat = tm.id_alamat WHERE tl.id_sekolah='$id_sekolah' ORDER BY register_date DESC LIMIT 5");
+        $query = $this->db->query("SELECT * FROM table_lowongan AS tl JOIN table_sekolah AS ts ON tl.id_sekolah = ts.id_sekolah JOIN table_mitra AS tm ON tl.id_mitra = tm.id_mitra JOIN table_posisi_jabatan AS tpj ON tl.id_posisi_jabatan = tpj.id_posisi_jabatan JOIN table_keahlian AS tk ON tl.id_keahlian = tk.id_keahlian JOIN table_status_pendidikan AS tsp ON tl.id_status_pendidikan = tsp.id_status_pendidikan JOIN table_jenis_pengupahan AS tjp ON tl.id_jenis_pengupahan = tjp.id_jenis_pengupahan JOIN table_status_hub_kerja AS tshp ON tl.id_status_hub_kerja = tshp.id_status_hub_kerja JOIN table_jurusan AS tj ON tl.jurusan = tj.id_jurusan JOIN table_jenis_lowongan AS tjl ON tk.id_jenis_lowongan = tjl.id_jenis_lowongan WHERE tl.id_sekolah='$id_sekolah' ORDER BY register_date DESC LIMIT 5");
         return $query->result();
     }
 
     // Alumni
     private function _get_datatables_query_alumni($id)
     {
+        $this->db->select("*, table_alumni.status AS sts");
         $this->db->from($this->table_4);
         $this->db->join($this->table_4_1, $this->table_4_1.'.id_sekolah ='.$this->table_4.'.id_sekolah');
         $this->db->where($this->table_4_1.'.id_sekolah', $id);

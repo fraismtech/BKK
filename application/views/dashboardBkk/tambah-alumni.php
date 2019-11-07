@@ -13,13 +13,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>NISN</label>
-                                <input type="text" name="nisn" class="form-control" placeholder="NISN">
+                                <input type="text" name="nisn" class="form-control" placeholder="NISN" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>NIK</label>
-                                <input type="text" name="nik" class="form-control" placeholder="Nomor Induk Kependudukan">
+                                <input type="text" name="nik" class="form-control" placeholder="Nomor Induk Kependudukan" required="">
                             </div>
                         </div>
                     </div>
@@ -27,7 +27,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Lengkap</label>
-                                <input type="text" name="nama" class="form-control" placeholder="Nama">
+                                <input type="text" name="nama" class="form-control" placeholder="Nama" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -35,13 +35,13 @@
                                 <label>Jenis Kelamin</label>
                                 <div class="row col-lg-12">
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios1" value="L">
+                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios1" value="L" required="">
                                         <label class="form-check-label" for="gridRadios1">
                                             Laki-Laki &nbsp;
                                         </label>
                                     </div>
                                     <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios2" value="P">
+                                        <input class="form-check-input" type="radio" name="jenis_kelamin" id="gridRadios2" value="P" required="">
                                         <label class="form-check-label" for="gridRadios2">
                                             Perempuan
                                         </label>
@@ -54,14 +54,14 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Tempat Lahir</label>
-                                <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir">
+                                <input type="text" name="tempat_lahir" class="form-control" placeholder="Tempat Lahir" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Tanggal Lahir</label>
                                 <div class='input-group date' id='datepicker-bottom-left'>
-                                    <input class="form-control" type='text' name="tanggal_lahir" placeholder="Tanggal Lahir" />
+                                    <input class="form-control" type='text' name="tanggal_lahir" placeholder="Tanggal Lahir" required="" />
                                     <span class="input-group-addon">
                                         <i class="fa fa-calendar"></i>
                                     </span>
@@ -73,13 +73,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Alamat</label>
-                                <textarea class="form-control" name="alamat" placeholder="Alamat"></textarea>
+                                <textarea class="form-control" name="alamat" placeholder="Alamat" required=""></textarea>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>No. telp</label>
-                                <input type="number" name="no_telp" class="form-control" placeholder="No. Telp">
+                                <input type="number" name="no_telp" class="form-control" placeholder="No. Telp" required="">
                             </div>
                         </div>
                     </div>
@@ -87,13 +87,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Email</label>
-                                <input type="email" name="email" class="form-control" placeholder="Email">
+                                <input type="email" name="email" class="form-control" placeholder="Email" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Jurusan</label>
-                                <select class="form-control" id="jurusan" name="jurusan">
+                                <select class="form-control" id="jurusan" name="jurusan" required="">
                                     <option value="" selected="">Pilih Jurusan</option>
                                     <?php foreach ($jurusan as $jrs) { ?>
                                         <option value="<?= $jrs->nama_jurusan ?>"><?= $jrs->nama_jurusan ?></option>
@@ -107,7 +107,7 @@
                             <div class="form-group">
                                 <label>Tahun Lulus</label>
                                 <div class="input-group date form_year" data-date-format="yyyy" data-link-field="dtp_input4">
-                                    <input class="form-control" type="text" value="" placeholder="Tahun Lulus" name="tahun_lulus">
+                                    <input class="form-control" type="text" value="" placeholder="Tahun Lulus" name="tahun_lulus" required="">
                                     <span class="input-group-addon"><span class="fa fa-calendar"></span></span>
                                 </div>
                             </div>
@@ -115,7 +115,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Status</label>
-                                <select class="form-control" id="status" name="status">
+                                <select class="form-control" id="status" name="status" required="">
                                     <option value="" selected="">Pilih Status</option>
                                     <option value="Bekerja">Bekerja</option>
                                     <option value="Kuliah">Kuliah</option>
@@ -129,13 +129,13 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Nama Perusahaan</label>
-                                <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan">
+                                <input type="text" name="nama_perusahaan" id="nama_perusahaan" class="form-control" placeholder="Nama Perusahaan" required="">
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>No. Telp Perusahaan</label>
-                                <input type="number" name="no_telp_perusahaan" id="no_telp_perusahaan" class="form-control" placeholder="No Telp Perusahaan">
+                                <input type="number" name="no_telp_perusahaan" id="no_telp_perusahaan" class="form-control" placeholder="No Telp Perusahaan" required="">
                             </div>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label>Alamat Perusahaan</label>
-                                <textarea class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" placeholder="Alamat Perusahaan"></textarea>
+                                <textarea class="form-control" id="alamat_perusahaan" name="alamat_perusahaan" placeholder="Alamat Perusahaan" required=""></textarea>
                             </div>
                         </div>
                     </div>
