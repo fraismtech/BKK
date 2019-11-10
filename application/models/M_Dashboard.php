@@ -86,7 +86,7 @@ class M_Dashboard extends CI_Model
     {
       $where = "";
       if (!empty($tgl_awal) && !empty($tgl_akhir)) {
-        $where .= " WHERE mitra.periode_dari >= '{$tgl_awal}' AND mitra.periode_sampai <= '{$tgl_akhir}' ";
+        $where .= " WHERE mitra.register_date BETWEEN '{$tgl_awal}' AND '{$tgl_akhir}' ";
       }
 
       $sql = "SELECT 
