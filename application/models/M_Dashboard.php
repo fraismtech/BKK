@@ -82,6 +82,99 @@ class M_Dashboard extends CI_Model
     }
     //
 
+    public function laporan_bkk($tgl_awal = "", $tgl_akhir = "")
+    {
+      $where = "";
+      if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+        $where .= " WHERE mitra.periode_dari >= '{$tgl_awal}' AND mitra.periode_sampai <= '{$tgl_akhir}' ";
+      }
+
+      $sql = "SELECT 
+                sekolah.kecamatan, 
+                COUNT(sekolah.kecamatan) as total_bkk,
+                SUM(case when sekolah.status = '1' then 1 else 0 end) as terdaftar, 
+                SUM(case when sekolah.status = '0' then 1 else 0 end) as tidak_terdaftar  
+              FROM `table_mitra` mitra 
+              LEFT JOIN table_sekolah sekolah ON mitra.id_sekolah = sekolah.id_sekolah 
+              {$where}
+              GROUP BY sekolah.kecamatan";
+
+      $prepared = $this->db->query($sql);
+      return $prepared->result();
+    }
+
+    public function laporan_alumni($tgl_awal, $tgl_akhir)
+    {
+      $where = "";
+      if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+        $where .= " WHERE register_date BETWEEN '{$tgl_awal}' AND '{$tgl_akhir}' ";
+      }
+
+      $sql = "SELECT 
+                jurusan, 
+                  COUNT(jurusan) as total, 
+                  SUM(CASE WHEN jenis_kelamin = 'L' THEN 1 ELSE 0 END ) AS laki,
+                  SUM(CASE WHEN jenis_kelamin = 'P' THEN 1 ELSE 0 END ) AS perempuan,
+                  SUM(CASE WHEN status = 'Belum Bekerja' THEN 1 ELSE 0 END ) AS belum_bekerja,
+                  SUM(CASE WHEN status = 'Bekerja' THEN 1 ELSE 0 END ) AS bekerja,
+                  SUM(CASE WHEN status = 'Kuliah' THEN 1 ELSE 0 END ) AS kuliah,
+                  SUM(CASE WHEN status = 'Wiraswasta' THEN 1 ELSE 0 END ) AS wiraswasta
+              FROM `table_alumni` 
+              {$where}  
+              GROUP BY jurusan";
+
+      $prepared = $this->db->query($sql);
+      return $prepared->result();
+    }
+
+    public function laporan_keterserapan($tgl_awal, $tgl_akhir)
+    {
+      $where = "";
+      if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+        $where .= " WHERE register_date BETWEEN '{$tgl_awal}' AND '{$tgl_akhir}' ";
+      }
+      $sql = "SELECT 
+                sekolah.kecamatan,
+                  COUNT(alumni.id_alumni) total,
+                  SUM(CASE WHEN alumni.status = 'Belum Bekerja' THEN 1 ELSE 0 END ) AS belum_bekerja,
+                  SUM(CASE WHEN alumni.status = 'Bekerja' THEN 1 ELSE 0 END ) AS bekerja,
+                  SUM(CASE WHEN alumni.status = 'Kuliah' THEN 1 ELSE 0 END ) AS kuliah,
+                  SUM(CASE WHEN alumni.status = 'Wiraswasta' THEN 1 ELSE 0 END ) AS wiraswasta
+              FROM table_sekolah sekolah 
+              LEFT JOIN table_alumni alumni ON sekolah.id_sekolah = alumni.id_sekolah 
+              {$where}  
+              GROUP BY sekolah.kecamatan";
+
+      $prepared = $this->db->query($sql);
+      return $prepared->result();
+    }
+
+    public function laporan_kemitraan($tgl_awal, $tgl_akhir)
+    {
+      $where = "";
+      if (!empty($tgl_awal) && !empty($tgl_akhir)) {
+        $where .= " WHERE mitra.register_date BETWEEN '{$tgl_awal}' AND '{$tgl_akhir}' ";
+      }
+
+      $sql = "SELECT 
+                sekolah.kecamatan, 
+                  COUNT(DISTINCT sekolah.kecamatan) AS mitra, 
+                  COUNT(lowongan.id_lowongan) AS loker, 
+                  IFNULL(SUM(lowongan.jml_pria + lowongan.jml_wanita), 0) tk, 
+                  IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Magang' THEN 1 ELSE 0 END), 0) magang,
+                  IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Pelatihan' THEN 1 ELSE 0 END), 0) pelatihan,
+                  IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Perekrutan' THEN 1 ELSE 0 END), 0) perekrutan,
+                  IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Lainnya' THEN 1 ELSE 0 END), 0) lainnya 
+              FROM table_sekolah sekolah 
+              LEFT JOIN table_lowongan lowongan ON sekolah.id_sekolah = lowongan.id_sekolah 
+              LEFT JOIN table_mitra mitra ON sekolah.id_sekolah = mitra.id_sekolah 
+              {$where}
+              GROUP BY sekolah.kecamatan";
+
+      $prepared = $this->db->query($sql);
+      return $prepared->result();
+    }
+
     public function jurusan()
     {
         $query = $this->db->query("SELECT * FROM table_jurusan ORDER BY nama_jurusan ASC");

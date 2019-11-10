@@ -1,10 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+\PhpOffice\PhpSpreadsheet\Shared\File::setUseUploadTempDirectory(true);
 class DashboardBkk extends CI_Controller {
 	public function __construct()
 	{
-		parent::__construct();
+		parent::__construct();    
 		$this->load->model("M_Dashboard","dashboard");
 		if ($this->session->has_userdata('logged_in') == TRUE) {
 			if ($this->session->userdata('level_user') == '2') {

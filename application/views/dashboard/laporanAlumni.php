@@ -8,9 +8,9 @@
                 <!-- <a href="<?php echo base_url(); ?>dashboardBkk/tambahAlumni"><button class="btn btn-sm btn-primary pull-right">Tambah</button></a> -->
             </div>
             <div class="card-body">
-                <form id="searchForm" class="form-horizontal">
+                <form id="searchForm" class="form-horizontal" method="post">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-2">
                             <div class="form-group">
                                 <label>Nama Sekolah</label>
                                 <select class="form-control" id="sekolah" name="sekolah">
@@ -21,7 +21,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Nama Jurusan</label>
                                 <select class="form-control" id="jurusan" name="jurusan">
@@ -32,7 +32,7 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <div class="form-group">
                                 <label>Tahun Lulus</label>
                                 <div class="input-group date form_year" data-date-format="yyyy" data-link-field="dtp_input4">
@@ -41,6 +41,20 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="col-md-4">
+                          <div class="form-group">
+                                <label>Periode BKK</label>
+                                <div class="input-group" data-date="23/11/2018" data-date-format="yyyy-mm-dd">
+                                    <input type="text" class="form-control range-from" name="tgl_awal" id="dari">
+                                    <span class="input-group-addon">Sampai</span>
+                                    <input class="form-control range-to" type="text" name="tgl_akhir" id="sampai">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-centere">
+                        <button type="submit" class="btn btn-info mt-4" id="simpan" formaction="<?= base_url('dashboard/laporan_alumni_pdf') ?>"><span id="mitraText">Export to PDF</span></button>
+                        <button type="submit" class="btn btn-success mt-4" id="simpan" formaction="<?= base_url('dashboard/laporan_alumni_xls') ?>"><span id="mitraText">Export to XLS</span></button>
                     </div>
                 </form>
                 <div class="datatable-wrapper table-responsive">

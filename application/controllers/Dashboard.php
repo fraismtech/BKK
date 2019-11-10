@@ -1,11 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
-
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Dashboard extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model("M_Dashboard_Pusat", "dashboard");
+    $this->load->model("M_Dashboard", "dashboardReport");
 		$this->load->model("M_Auth", "auth");
 
 		if ($this->session->has_userdata('logged_in') == TRUE) {
@@ -1304,24 +1306,24 @@ class Dashboard extends CI_Controller {
 
 		$id_user = $this->session->userdata('id');
 
-		$list = $this->dashboard->get_datatables_laporan_bkk();
-		$data = array();
-		$no = 1;
-		foreach ($list as $bkk) {
-			$row = array();
+		$list = $this->dashboardReport->laporan_bkk();
+		// $data = array();
+		// $no = 1;
+		// foreach ($list as $bkk) {
+		// 	$row = array();
 
-			$row[] = $bkk->kecamatan;
-			$row[] = $bkk->total;
-			$row[] = $bkk->belum_terdaftar;
-			$row[] = $bkk->sudah_terdaftar;
-			$data[] = $row;
-			$no++;
-		}
+		// 	$row[] = $bkk->kecamatan;
+		// 	$row[] = $bkk->total;
+		// 	$row[] = $bkk->belum_terdaftar;
+		// 	$row[] = $bkk->sudah_terdaftar;
+		// 	$data[] = $row;
+		// 	$no++;
+		// }
 		$output = array(
 						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_laporan_bkk(),
-						"recordsFiltered" => $this->dashboard->count_filtered_laporan_bkk(),
-						"data" => $data,
+						"recordsTotal" => count($list),
+						"recordsFiltered" => count($list),
+						"data" => $list,
 				);
 		//output to json format
 		echo json_encode($output);
@@ -1440,5 +1442,552 @@ class Dashboard extends CI_Controller {
 			
 		}
     }
-	
+
+  public function laporan_bkk_pdf()
+  {
+    $tgl_awal 			= $this->input->post("tgl_awal");
+		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
+    $tgl_awal       = $this->changeDateFormat($tgl_awal);
+    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+
+    $dataLaporan = $this->dashboardReport->laporan_bkk($tgl_awal, $tgl_akhir);
+
+    $dataView = [
+      'dataLaporan' => $dataLaporan,
+      'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
+      'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
+    ];
+
+    $view = $this->load->view('dashboardBkk/laporan_bkk', $dataView, true);
+    // echo $view;
+    $this->pdfgenerator->generate($view, "Laporan BKK");
+  }
+
+  public function laporan_bkk_xls()
+  {
+    $tgl_awal 			= $this->input->post("tgl_awal");
+		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
+    $tgl_awal       = $this->changeDateFormat($tgl_awal);
+    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+
+    $dataLaporan = $this->dashboardReport->laporan_bkk($tgl_awal, $tgl_akhir);
+
+    $dirPath  = BASEPATH."../assets/excel/format_laporan_bkk.xlsx";
+    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
+
+    $sheet = $spreadsheet->getActiveSheet();
+    // $sheet->setCellValue('A1', 'Hello World !');
+    $styleText = [
+        'font' => [
+            'bold' => false,
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+        ],
+        'borders' => [
+            'top' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'left' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'right' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'bottom' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+        ],
+    ];
+
+      $styleNumber = [
+        'font' => [
+            'bold' => false,
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+        ],
+        'borders' => [
+            'top' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'left' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'right' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'bottom' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+        ],
+    ];
+    $tableIndex = 4;
+    for ($i=0; $i < count($dataLaporan) ; $i++) { 
+      $tableIndex++;
+      $sheet->setCellValue('A'.$tableIndex, $dataLaporan[$i]->kecamatan);
+      $sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->total_bkk);
+      $sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->terdaftar);
+      $sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->tidak_terdaftar);
+      
+      $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+      $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+    }
+
+    if (!empty($tgl_awal)) {
+      $sheet->setCellValue('B2', $tgl_awal);
+    }
+
+    if (!empty($tgl_akhir)) {
+      $sheet->setCellValue('D2', $tgl_akhir);
+    }
+
+    $writer = new Xlsx($spreadsheet);
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment; filename="laporan BKK.xlsx"');
+    $writer->save("php://output");
+    // $fileName = "{$dirPath}/filename.xls";
+
+    // recursively creates all required nested directories   
+    // $writer->save($fileName);
+    // echo $fileName;
+  }
+
+  public function laporan_alumni_pdf()
+  {
+    $tgl_awal 			= $this->input->post("tgl_awal");
+		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
+    $tgl_awal       = $this->changeDateFormat($tgl_awal);
+    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+
+    $dataLaporan = $this->dashboardReport->laporan_alumni($tgl_awal, $tgl_akhir);
+
+    $dataView = [
+      'dataLaporan' => $dataLaporan,
+      'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
+      'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
+    ];
+
+    $view = $this->load->view('dashboardBkk/laporan_alumni', $dataView, true);
+    // echo $view;
+    $this->pdfgenerator->generate($view, "Laporan BKK");
+  }
+
+  public function laporan_alumni_xls()
+  {
+    $tgl_awal 			= $this->input->post("tgl_awal");
+		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
+    $tgl_awal       = $this->changeDateFormat($tgl_awal);
+    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+
+    $dataLaporan = $this->dashboardReport->laporan_alumni($tgl_awal, $tgl_akhir);
+
+    $dirPath  = BASEPATH."../assets/excel/format_laporan_alumni.xlsx";
+    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
+
+    $sheet = $spreadsheet->getActiveSheet();
+    // $sheet->setCellValue('A1', 'Hello World !');
+    $styleText = [
+        'font' => [
+            'bold' => false,
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+        ],
+        'borders' => [
+            'top' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'left' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'right' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'bottom' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+        ],
+    ];
+
+    $styleNumber = [
+        'font' => [
+            'bold' => false,
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+        ],
+        'borders' => [
+            'top' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'left' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'right' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'bottom' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+        ],
+    ];
+
+
+    $total = [
+      'jurusan' => 0,
+      'laki' => 0,
+      'perempuan' => 0,
+      'belum_bekerja' => 0,
+      'bekerja' => 0,
+      'kuliah' => 0,
+      'wiraswasta' => 0
+    ];
+
+    $tableIndex = 5;
+    for ($i=0; $i < count($dataLaporan); $i++) { 
+      $tableIndex++;
+      $sheet->setCellValue('A'.$tableIndex, trim($dataLaporan[$i]->jurusan));
+      $sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->total);
+      $sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->laki);
+      $sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->perempuan);
+      $sheet->setCellValue('E'.$tableIndex, $dataLaporan[$i]->belum_bekerja);
+      $sheet->setCellValue('F'.$tableIndex, $dataLaporan[$i]->bekerja);
+      $sheet->setCellValue('G'.$tableIndex, $dataLaporan[$i]->kuliah);
+      $sheet->setCellValue('H'.$tableIndex, $dataLaporan[$i]->wiraswasta);
+      
+      $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+      $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('G'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('H'.$tableIndex)->applyFromArray($styleNumber);
+
+      $total['jurusan'] += $dataLaporan[$i]->total;
+      $total['laki'] += $dataLaporan[$i]->laki;
+      $total['perempuan'] += $dataLaporan[$i]->perempuan;
+      $total['belum_bekerja'] += $dataLaporan[$i]->belum_bekerja;
+      $total['bekerja'] += $dataLaporan[$i]->bekerja;
+      $total['kuliah'] += $dataLaporan[$i]->kuliah;
+      $total['wiraswasta'] += $dataLaporan[$i]->wiraswasta;
+    }
+
+    $styleText['font']['bold'] = TRUE;
+    $styleNumber['font']['bold'] = TRUE;
+    $tableIndex++;
+    $sheet->setCellValue('A'.$tableIndex, "Total");
+    $sheet->setCellValue('B'.$tableIndex, $total['jurusan']);
+    $sheet->setCellValue('C'.$tableIndex, $total['laki']);
+    $sheet->setCellValue('D'.$tableIndex, $total['perempuan']);
+    $sheet->setCellValue('E'.$tableIndex, $total['belum_bekerja']);
+    $sheet->setCellValue('F'.$tableIndex, $total['bekerja']);
+    $sheet->setCellValue('G'.$tableIndex, $total['kuliah']);
+    $sheet->setCellValue('H'.$tableIndex, $total['wiraswasta']);
+
+    $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+    $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+    $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+    $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+    $spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
+    $spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
+    $spreadsheet->getActiveSheet()->getStyle('G'.$tableIndex)->applyFromArray($styleNumber);
+    $spreadsheet->getActiveSheet()->getStyle('H'.$tableIndex)->applyFromArray($styleNumber);
+
+    if (!empty($tgl_awal)) {
+      $sheet->setCellValue('D2', $tgl_awal);
+    }
+
+    if (!empty($tgl_akhir)) {
+      $sheet->setCellValue('F2', $tgl_akhir);
+    }
+
+    $writer = new Xlsx($spreadsheet);
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment; filename="laporan Alumni.xlsx"');
+    $writer->save("php://output");
+    // $fileName = "{$dirPath}/filename.xls";
+
+    // recursively creates all required nested directories   
+    // $writer->save($fileName);
+    // echo $fileName;
+  }
+
+  public function laporan_kemitraan_pdf()
+  {
+    $tgl_awal 			= $this->input->post("tgl_awal");
+		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
+    $tgl_awal       = $this->changeDateFormat($tgl_awal);
+    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+    // echo $tgl_awal." ".$tgl_akhir;
+
+    $dataLaporan = $this->dashboardReport->laporan_kemitraan($tgl_awal, $tgl_akhir);
+
+    $dataView = [
+      'dataLaporan' => $dataLaporan,
+      'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
+      'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
+    ];
+
+    $view = $this->load->view('dashboardBkk/laporan_kemitraan', $dataView, true);
+    // echo $view;
+    $this->pdfgenerator->generate($view, "Laporan Kemitraan");
+  }
+
+  public function laporan_kemitraan_xls()
+  {
+    $tgl_awal 			= $this->input->post("tgl_awal");
+		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
+    $tgl_awal       = $this->changeDateFormat($tgl_awal);
+    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+
+    $dataLaporan = $this->dashboardReport->laporan_kemitraan($tgl_awal, $tgl_akhir);
+
+    $dirPath  = BASEPATH."../assets/excel/format_laporan_kemitraan.xlsx";
+    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
+
+    $sheet = $spreadsheet->getActiveSheet();
+    // $sheet->setCellValue('A1', 'Hello World !');
+    $styleText = [
+        'font' => [
+            'bold' => false,
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+        ],
+        'borders' => [
+            'top' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'left' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'right' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'bottom' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+        ],
+    ];
+
+    $styleNumber = [
+        'font' => [
+            'bold' => false,
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+        ],
+        'borders' => [
+            'top' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'left' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'right' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'bottom' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+        ],
+    ];
+
+
+    $total = [
+      'jurusan' => 0,
+      'laki' => 0,
+      'perempuan' => 0,
+      'belum_bekerja' => 0,
+      'bekerja' => 0,
+      'kuliah' => 0,
+      'wiraswasta' => 0
+    ];
+
+    $tableIndex = 5;
+    for ($i=0; $i < count($dataLaporan); $i++) { 
+      $tableIndex++;
+      $sheet->setCellValue('A'.$tableIndex, trim($dataLaporan[$i]->kecamatan));
+      $sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->mitra);
+      $sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->loker);
+      $sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->tk);
+      $sheet->setCellValue('E'.$tableIndex, $dataLaporan[$i]->magang);
+      $sheet->setCellValue('F'.$tableIndex, $dataLaporan[$i]->pelatihan);
+      $sheet->setCellValue('G'.$tableIndex, $dataLaporan[$i]->perekrutan);
+      $sheet->setCellValue('H'.$tableIndex, $dataLaporan[$i]->lainnya);
+      
+      $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+      $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('G'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('H'.$tableIndex)->applyFromArray($styleNumber);
+    }
+
+    if (!empty($tgl_awal)) {
+      $sheet->setCellValue('D2', $tgl_awal);
+    }
+
+    if (!empty($tgl_akhir)) {
+      $sheet->setCellValue('F2', $tgl_akhir);
+    }
+
+    $writer = new Xlsx($spreadsheet);
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment; filename="laporan Kemitraan.xlsx"');
+    $writer->save("php://output");
+    // $fileName = "{$dirPath}/filename.xls";
+
+    // recursively creates all required nested directories   
+    // $writer->save($fileName);
+    // echo $fileName;
+  }
+
+  public function laporan_keterserapan_pdf()
+  {
+    $tgl_awal 			= $this->input->post("tgl_awal");
+		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
+    $tgl_awal       = $this->changeDateFormat($tgl_awal);
+    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+
+    $dataLaporan = $this->dashboardReport->laporan_keterserapan($tgl_awal, $tgl_akhir);
+
+    $dataView = [
+      'dataLaporan' => $dataLaporan,
+      'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
+      'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
+    ];
+
+    $view = $this->load->view('dashboardBkk/laporan_keterserapan', $dataView, true);
+    // echo $view;
+    $this->pdfgenerator->generate($view, "Laporan Keterserapan");
+  }
+
+  public function laporan_keterserapan_xls()
+  {
+    $tgl_awal 			= $this->input->post("tgl_awal");
+		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
+    $tgl_awal       = $this->changeDateFormat($tgl_awal);
+    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+
+    $dataLaporan = $this->dashboardReport->laporan_keterserapan($tgl_awal, $tgl_akhir);
+
+    $dirPath  = BASEPATH."../assets/excel/format_laporan_keterserapan.xlsx";
+    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
+
+    $sheet = $spreadsheet->getActiveSheet();
+    // $sheet->setCellValue('A1', 'Hello World !');
+    $styleText = [
+        'font' => [
+            'bold' => false,
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+        ],
+        'borders' => [
+            'top' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'left' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'right' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'bottom' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+        ],
+    ];
+
+    $styleNumber = [
+        'font' => [
+            'bold' => false,
+        ],
+        'alignment' => [
+            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+        ],
+        'borders' => [
+            'top' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'left' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'right' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+            'bottom' => [
+                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+            ],
+        ],
+    ];
+
+
+    $total = [
+      'jurusan' => 0,
+      'laki' => 0,
+      'perempuan' => 0,
+      'belum_bekerja' => 0,
+      'bekerja' => 0,
+      'kuliah' => 0,
+      'wiraswasta' => 0
+    ];
+
+    $tableIndex = 5;
+    for ($i=0; $i < count($dataLaporan); $i++) { 
+      $tableIndex++;
+      $sheet->setCellValue('A'.$tableIndex, trim($dataLaporan[$i]->kecamatan));
+      $sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->total);
+      $sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->belum_bekerja);
+      $sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->bekerja);
+      $sheet->setCellValue('E'.$tableIndex, $dataLaporan[$i]->kuliah);
+      $sheet->setCellValue('F'.$tableIndex, $dataLaporan[$i]->wiraswasta);
+      
+      $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+      $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
+      $spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
+    }
+
+    if (!empty($tgl_awal)) {
+      $sheet->setCellValue('C2', $tgl_awal);
+    }
+
+    if (!empty($tgl_akhir)) {
+      $sheet->setCellValue('E2', $tgl_akhir);
+    }
+
+    $writer = new Xlsx($spreadsheet);
+    header('Content-Type: application/vnd.ms-excel');
+    header('Content-Disposition: attachment; filename="laporan Keterserapan.xlsx"');
+    $writer->save("php://output");
+    // $fileName = "{$dirPath}/filename.xls";
+
+    // recursively creates all required nested directories   
+    // $writer->save($fileName);
+    // echo $fileName;
+  }
+
+	private function changeDateFormat($date)
+  {
+    $date  = str_replace("/","-",$date );
+    $date  = str_replace("%3A",":",$date );
+
+    $datadate= "";
+
+
+    $dateTemp = DateTime::createFromFormat('d-m-Y', $date);
+    $datadate= $dateTemp->format('Y-m-d');
+
+    return $datadate;
+  }
 }
