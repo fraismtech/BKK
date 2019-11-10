@@ -2,19 +2,10 @@
     <div class="col-lg-12">
         <div class="card card-statistics">
             <div class="card-header d-flex align-items-center justify-content-between">
-                <div class="row" style="width:100%;">
-                  <div class="col-md-10">
-                    <div class="card-heading">
-                        <h4 class="card-title">Data Mitra BKK</h4>
-                    </div>
-                  </div>
-                  <div class="col-md-1">
-                    <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#modalAdd">Tambah</button>
-                  </div>
-                  <div class="col-md-1">
-                    <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#modalReport">Report</button>
-                  </div>
-                </div>
+              <div class="card-heading">
+                  <h4 class="card-title">Data Mitra BKK</h4>
+              </div>
+              <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#modalAdd">Tambah</button>
             </div>
             <div class="card-body">
                 <!-- <div class="form-group">
@@ -160,43 +151,6 @@
                     </div>
                     <div class="text-center">
                         <button type="submit" class="btn btn-success mt-4" id="simpan"><span id="mitraText"></span></button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Modal Add -->
-<div class="modal fade" id="modalReport" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="panel-title">
-                    <h4>Laporan Mitra BKK</h4>
-                </div>
-                <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
-            </div>
-            <div class="modal-body">
-                <form method="post" id="mitraForm" autocomplete="off" enctype="multipart/form-data">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Periode : </label>
-                                <input type="date" name="tgl_awal" class="form-control" placeholder="Nama Perusahaan" required="">
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>Sampai : </label>
-                                <input type="date" class="form-control" name="tgl_akhir" placeholder="Alamat Perusahaan" required="">
-                            </div>
-                            
-                        </div>
-                    </div>                    
-                    <div class="text-center">
-                        <button type="submit" class="btn btn-info mt-4" id="simpan" formaction="<?= base_url('dashboardBkk/laporan_bkk_pdf') ?>"><span id="mitraText">Export to PDF</span></button>
-                        <button type="submit" class="btn btn-success mt-4" id="simpan" formaction="<?= base_url('dashboardBkk/laporan_bkk_xls') ?>"><span id="mitraText">Export to XLS</span></button>
                     </div>
                 </form>
             </div>

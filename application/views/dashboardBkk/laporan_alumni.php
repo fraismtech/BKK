@@ -133,14 +133,16 @@
                           <?php endforeach; ?>
                         </tbody>
                         <tfoot>
-                          <th> Total </th>
-                          <th><?= $total['jurusan'] ?></th>
-                          <th><?= $total['laki'] ?></th>
-                          <th><?= $total['perempuan'] ?></th>
-                          <th><?= $total['belum_bekerja'] ?></th>
-                          <th><?= $total['bekerja'] ?></th>
-                          <th><?= $total['kuliah'] ?></th>
-                          <th><?= $total['wiraswasta'] ?></th>
+                          <tr>
+                            <th> Total </th>
+                            <th><?= $total['jurusan'] ?></th>
+                            <th><?= $total['laki'] ?></th>
+                            <th><?= $total['perempuan'] ?></th>
+                            <th><?= $total['belum_bekerja'] ?></th>
+                            <th><?= $total['bekerja'] ?></th>
+                            <th><?= $total['kuliah'] ?></th>
+                            <th><?= $total['wiraswasta'] ?></th>
+                          </tr>
                         </tfoot>
                       </table>
                     </div>
