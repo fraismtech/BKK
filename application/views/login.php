@@ -98,16 +98,40 @@
     <!-- custom app -->
     <script src="<?php echo base_url(); ?>assets/dashboard/js/app.js"></script>
     <?php if ($this->session->flashdata('notif')): ?>
+        <script type="text/javascript">
+          $(document).ready(function() {
+            swal({
+              title: "Login Failed !",
+              text: "<?php echo $this->session->flashdata('notif'); ?>",
+              icon: "error",
+              timer: 10000
+          });
+        });
+    </script>
+<?php endif; ?>
+<?php if ($this->session->flashdata('notif1')): ?>
     <script type="text/javascript">
       $(document).ready(function() {
         swal({
-          title: "Login Failed !",
-          text: "<?php echo $this->session->flashdata('notif'); ?>",
+          title: "Berhasil !",
+          text: "<?php echo $this->session->flashdata('notif1'); ?>",
+          icon: "success",
+          timer: 10000
+      });
+    });
+</script>
+<?php endif; ?>
+<?php if ($this->session->flashdata('notif2')): ?>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        swal({
+          title: "Maaf !",
+          text: "<?php echo $this->session->flashdata('notif2'); ?>",
           icon: "error",
           timer: 10000
-        });
       });
-    </script>
-  <?php endif; ?>
+    });
+</script>
+<?php endif; ?>
 </body>
 </html>

@@ -65,16 +65,16 @@
                         <thead>
                           <tr>
                             <td>
-                              <strostrong>Kecamatan</strostrong>
+                              <strong>Kecamatan</strong>
                             </td>
                             <td>
-                              <strostrong> Jumlah BKK </strostrong>
+                              <strong> Jumlah BKK </strong>
                             </td>
                             <td>
-                              <strostrong> BKK Terdaftar </strostrong>
+                              <strong> BKK Terdaftar </strong>
                             </td>
                             <td>
-                              <strostrong> BKK Tidak Terdaftar </strostrong>
+                              <strong> BKK Belum Terdaftar </strong>
                             </td>
                           </tr>
                         </thead>

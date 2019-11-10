@@ -5,41 +5,10 @@
                 <div class="card-heading">
                     <h4 class="card-title">Laporan BKK Perkecamatan</h4>
                 </div>
-                <!-- <div class="dropdown">
-                    <a class="btn btn-round btn-inverse-primary btn-xs" href="#">Cetak</a>
-                </div> -->
+                <button class="btn btn-sm btn-primary pull-right" data-toggle="modal" data-target="#modalExport">Export</button>
             </div>
             <div class="card-body">
-                <form id="searchForm" method="post">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <div class="form-group">
-                                <label>Kecamatan</label>
-                                <select class="form-control" id="kecamatan" name="kecamatan">
-                                    <option value="" selected="">Pilih Kecamatan</option>
-                                    <?php foreach($kecamatan as $kec){ ?>
-                                        <option value="<?= $kec->name ?>"><?= $kec->name ?></option>
-                                    <?php }?>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                          <div class="form-group">
-                                <label>Periode BKK</label>
-                                <div class="input-group" data-date="23/11/2018" data-date-format="yyyy-mm-dd">
-                                    <input type="text" class="form-control range-from" name="tgl_awal" id="dari">
-                                    <span class="input-group-addon">Sampai</span>
-                                    <input class="form-control range-to" type="text" name="tgl_akhir" id="sampai">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="text-centere">
-                        <button type="submit" class="btn btn-info mt-4" id="simpan" formaction="<?= base_url('dashboard/laporan_bkk_pdf') ?>"><span id="mitraText">Export to PDF</span></button>
-                        <button type="submit" class="btn btn-success mt-4" id="simpan" formaction="<?= base_url('dashboard/laporan_bkk_xls') ?>"><span id="mitraText">Export to XLS</span></button>
-                    </div>
-                </form>
-                <div class="datatable-wrapper table-responsive">
+                <div class="table-responsive">
                     <table id="example" class="display compact table table-striped table-bordered" width="100%">
                         <thead>
                             <tr>
@@ -50,7 +19,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -58,13 +27,71 @@
         </div>
     </div>
 </div>
+<!-- Modal Export -->
+<div class="modal fade" id="modalExport" tabindex="-1" role="dialog" aria-labelledby="searchModal" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="panel-title">
+                    <h4>Export Laporan</h4>
+                </div>
+                <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
+            </div>
+            <div class="modal-body">
+                <form method="post" id="sliderForm" autocomplete="off" enctype="multipart/form-data">
+                    <div class="pl-lg-1">
+                        <div class="form-group">
+                            <label>Dari</label>
+                            <div class="input-group">
+                                <input type="text" name="tgl_awal" class="form-control" id="datepicker-autoclose3" placeholder="Dari" required="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Sampai</label>
+                            <div class="input-group">
+                                <input type="text" name="tgl_akhir" class="form-control" id="datepicker-autoclose4" placeholder="Sampai" required="">
+                                <div class="input-group-append">
+                                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-info mt-4" id="simpan" formaction="<?= base_url('dashboard/laporan_bkk_pdf') ?>"><span id="mitraText">Export to PDF</span></button>
+                            <button type="submit" class="btn btn-success mt-4" id="simpan" formaction="<?= base_url('dashboard/laporan_bkk_xls') ?>"><span id="mitraText">Export to XLS</span></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    /*datwpicker*/
+    jQuery('.mydatepicker').datepicker();
+
+    jQuery('#datepicker-autoclose3').datepicker({
+        format: "yyyy-mm-dd",
+        autoclose: true,
+        todayHighlight: true
+    });
+
+    jQuery('#datepicker-autoclose4').datepicker({
+        format: "yyyy-mm-dd",
+        autoclose: true,
+        todayHighlight: true
+    });
+</script>
 <script type="text/javascript">
-$(document).ready(function() {
-    var table = $('#example').DataTable({ 
+    $(document).ready(function() {
+        var table = $('#example').DataTable({ 
 
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [],
+        "pageLength": 50,
         "paging"         : true,
         "lengthMenu"     : [10,25,50,100],
         "scrollY"        : "300px",
@@ -77,10 +104,10 @@ $(document).ready(function() {
         "searching"      : true,
         "ordering"       : true,
         "info"           : true, //Initial no order.
-        "dom": 'Bfrtip',
-        "buttons": [
-            // 'excel', 'pdf'
-        ],
+        // "dom": 'Bfrtip',
+        // "buttons": [
+        // 'excel', 'pdf'
+        // ],
 
         // Load data for the table's content from an Ajax source
         "ajax": {
@@ -92,17 +119,42 @@ $(document).ready(function() {
         },
 
         //Set column definition initialisation properties.
-        columns: [
-        { data: "kecamatan", className: "dt-head-center" },
-        { data: "total_bkk", className: "dt-head-center dt-body-right" },
-        { data: "terdaftar", className: "dt-head-center dt-body-right" },
-        { data: "tidak_terdaftar", className: "dt-head-center dt-body-right" }],
-            "language": {         
-              "info": "",
-              "infoEmpty": "",       
-              "infoFiltered": ""
-            }
-    });
+        "columnDefs": [
+        { 
+            "targets": [ 0 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
+        { 
+            "targets": [ 1 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
+        { 
+            "targets": [ 2 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
+        { 
+            "targets": [ 3 ], //first column / numbering column
+            "orderable": false, //set not orderable
+        },
+        // { 
+        //     "targets": [ 7 ], //first column / numbering column
+        //     "orderable": false, //set not orderable
+        // },
+        // { 
+        //     "targets": [ 8 ], //first column / numbering column
+        //     "orderable": false, //set not orderable
+        // },
+        // { 
+        //     "targets": [ 4 ], //first column / numbering column
+        //     "orderable": false, //set not orderable
+        // },
+        ],
+        "language": {         
+          "info": "",
+          "infoEmpty": "",       
+          "infoFiltered": ""
+      }
+  });
 
     $('#kecamatan').change(function(){ //button filter event click
         table.ajax.reload();  //just reload table

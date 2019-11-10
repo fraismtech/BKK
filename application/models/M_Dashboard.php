@@ -55,8 +55,8 @@ class M_Dashboard extends CI_Model
     }
 
     // Data Alumni Baru
-    public function alumni_baru(){
-        $query = $this->db->query("SELECT * FROM table_alumni WHERE notif = '1'");
+    public function alumni_baru($id_sekolah){
+        $query = $this->db->query("SELECT * FROM table_alumni WHERE notif = '1' AND id_sekolah = '$id_sekolah'");
         return $query->num_rows();
     }
 
@@ -86,7 +86,7 @@ class M_Dashboard extends CI_Model
     {
       $where = "";
       if (!empty($tgl_awal) && !empty($tgl_akhir)) {
-        $where .= " WHERE mitra.register_date BETWEEN '{$tgl_awal}' AND '{$tgl_akhir}' ";
+        $where .= " WHERE sekolah.register_date BETWEEN '{$tgl_awal}' AND '{$tgl_akhir}' ";
       }
 
       $sql = "SELECT 
@@ -94,8 +94,7 @@ class M_Dashboard extends CI_Model
                 COUNT(sekolah.kecamatan) as total_bkk,
                 SUM(case when sekolah.status = '1' then 1 else 0 end) as terdaftar, 
                 SUM(case when sekolah.status = '0' then 1 else 0 end) as tidak_terdaftar  
-              FROM `table_mitra` mitra 
-              LEFT JOIN table_sekolah sekolah ON mitra.id_sekolah = sekolah.id_sekolah 
+              FROM table_sekolah sekolah 
               {$where}
               GROUP BY sekolah.kecamatan";
 
@@ -131,7 +130,7 @@ class M_Dashboard extends CI_Model
     {
       $where = "";
       if (!empty($tgl_awal) && !empty($tgl_akhir)) {
-        $where .= " WHERE register_date BETWEEN '{$tgl_awal}' AND '{$tgl_akhir}' ";
+        $where .= " WHERE alumni.register_date BETWEEN '{$tgl_awal}' AND '{$tgl_akhir}' ";
       }
       $sql = "SELECT 
                 sekolah.kecamatan,
@@ -158,18 +157,17 @@ class M_Dashboard extends CI_Model
 
       $sql = "SELECT 
                 sekolah.kecamatan, 
-                  COUNT(DISTINCT sekolah.kecamatan) AS mitra, 
-                  COUNT(lowongan.id_lowongan) AS loker, 
-                  IFNULL(SUM(lowongan.jml_pria + lowongan.jml_wanita), 0) tk, 
-                  IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Magang' THEN 1 ELSE 0 END), 0) magang,
-                  IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Pelatihan' THEN 1 ELSE 0 END), 0) pelatihan,
-                  IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Perekrutan' THEN 1 ELSE 0 END), 0) perekrutan,
-                  IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Lainnya' THEN 1 ELSE 0 END), 0) lainnya 
-              FROM table_sekolah sekolah 
-              LEFT JOIN table_lowongan lowongan ON sekolah.id_sekolah = lowongan.id_sekolah 
-              LEFT JOIN table_mitra mitra ON sekolah.id_sekolah = mitra.id_sekolah 
-              {$where}
-              GROUP BY sekolah.kecamatan";
+                    COUNT(DISTINCT mitra.id_mitra) AS mitra, 
+                    COUNT(DISTINCT lowongan.id_lowongan) AS loker, 
+                    IFNULL(SUM(lowongan.jml_pria + lowongan.jml_wanita), 0) tk, 
+                    IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Magang' THEN 1 ELSE 0 END), 0) magang,
+                    IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Pelatihan' THEN 1 ELSE 0 END), 0) pelatihan,
+                    IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Perekrutan' THEN 1 ELSE 0 END), 0) perekrutan,
+                    IFNULL(SUM(CASE WHEN mitra.jenis_kemitraan = 'Lainnya' THEN 1 ELSE 0 END), 0) lainnya 
+                FROM table_sekolah sekolah 
+                LEFT JOIN table_mitra mitra ON sekolah.id_sekolah = mitra.id_sekolah
+                LEFT JOIN table_lowongan lowongan ON sekolah.id_sekolah = lowongan.id_sekolah AND mitra.id_mitra = lowongan.id_mitra
+                GROUP BY sekolah.kecamatan";
 
       $prepared = $this->db->query($sql);
       return $prepared->result();
@@ -755,7 +753,7 @@ class M_Dashboard extends CI_Model
         $this->db->join($this->table_5_1, $this->table_5_1.'.id_mitra ='.$this->table_5.'.id_mitra');
         $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
-        $this->db->order_by('register_date', 'DESC');
+        $this->db->order_by('table_lowongan.register_date', 'DESC');
 
         $i = 0;
         
@@ -832,7 +830,7 @@ class M_Dashboard extends CI_Model
     // Data Alumni
     public function data_alumni($id_alumni)
     {
-        $query = $this->db->query("SELECT * FROM table_alumni AS ta JOIN table_sekolah AS ts ON ta.id_sekolah = ts.id_sekolah WHERE ta.id_alumni = '$id_alumni'");
+        $query = $this->db->query("SELECT *, ta.status AS sts FROM table_alumni AS ta JOIN table_sekolah AS ts ON ta.id_sekolah = ts.id_sekolah WHERE ta.id_alumni = '$id_alumni'");
         return $query->result();
     }
 

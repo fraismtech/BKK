@@ -84,61 +84,61 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-              <div class="panel-title">
-                <h4>Edit Kegiatan</h4>
+                <div class="panel-title">
+                    <h4>Edit Kegiatan</h4>
+                </div>
+                <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
             </div>
-            <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
+            <form class="form-horizontal" method="post" enctype="multipart/form-data" id="editForm" role="form"> 
+                <div class="modal-body">
+                    <input type="hidden" name="id_kegiatan" id="id">
+                    <div class="form-group">
+                        <label>Tanggal</label>
+                        <div class='input-group date' id='datepicker-action'>
+                            <input class="form-control" type='text' name="tanggal" placeholder="Tanggal Slider" id="tanggal" required="" />
+                            <span class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Judul</label>
+                        <input type="text" name="judul" class="form-control" placeholder="Judul" id="judul" required="">
+                    </div>
+                    <div class="form-group">
+                        <label>Uraian</label>
+                        <textarea id="uraian" name="uraian" class="form-control" required=""></textarea>
+                        <!-- <textarea class="form-control" id="" name="uraian" placeholder="Uraian Kegiatan"></textarea> -->
+                    </div>
+                    <div class="form-group">
+                        <label>Foto</label>
+                        <input type="file" name="file" class="form-control foto" placeholder="Foto" required="">
+                        <p>Gambar JPG/PNG Max. 2Mb</p><br>
+                        <div class="portfolio-item">
+                            <img id="foto" alt="gallery-img">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-info" type="submit"> Update&nbsp;</button>
+                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+                </div>
+            </form>
         </div>
-        <form class="form-horizontal" method="post" enctype="multipart/form-data" id="editForm" role="form"> 
-            <div class="modal-body">
-                <input type="hidden" name="id_kegiatan" id="id">
-                <div class="form-group">
-                    <label>Tanggal</label>
-                    <div class='input-group date' id='datepicker-action'>
-                        <input class="form-control" type='text' name="tanggal" placeholder="Tanggal Slider" id="tanggal" required="" />
-                        <span class="input-group-addon">
-                            <i class="fa fa-calendar"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Judul</label>
-                    <input type="text" name="judul" class="form-control" placeholder="Judul" id="judul" required="">
-                </div>
-                <div class="form-group">
-                    <label>Uraian</label>
-                    <textarea id="uraian" name="uraian" class="form-control" required=""></textarea>
-                    <!-- <textarea class="form-control" id="" name="uraian" placeholder="Uraian Kegiatan"></textarea> -->
-                </div>
-                <div class="form-group">
-                    <label>Foto</label>
-                    <input type="file" name="file" class="form-control foto" placeholder="Foto" required="">
-                    <p>Gambar JPG/PNG Max. 2Mb</p><br>
-                    <div class="portfolio-item">
-                        <img id="foto" alt="gallery-img">
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-info" type="submit"> Update&nbsp;</button>
-                <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
-            </div>
-        </form>
     </div>
-</div>
 </div>
 <script type="text/javascript">
     CKEDITOR.replace('uraian', {
       height: 150,
       baseFloatZIndex: 10005
-    });
+  });
 </script>
 
 <script type="text/javascript">
     CKEDITOR.replace('uraian1', {
       height: 150,
       baseFloatZIndex: 10005
-    });
+  });
 </script>
 <script type="text/javascript">
     $(document).ready(function() {
@@ -209,10 +209,10 @@
         modal.find('#judul').attr("value", div.data('judul'));
         var b = modal.find('#uraian').val(div.data('uraian'));
         CKEDITOR.instances['uraian'].setData(b);
-        modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/" + div.data('foto'));
+        modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/kegiatan/" + div.data('foto'));
         modal.find('#roomNumber').text(div.data('foto'));
-        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
-        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/kegiatan/"+ div.data('foto1'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/kegiatan/"+ div.data('foto1'));
     });
 
     $('#example').on('click','.hapus-menabung', function () {
@@ -239,9 +239,9 @@
                     },
                     success:function(data){
                         swal({
-                            title: "Terhapus!",
+                            title: "Berhasil!",
                             icon: "success",
-                            text: data.msg,
+                            text: "Data berhasil dihapus",
                             timer: 1000,
                             buttons: false,
                         });
@@ -283,6 +283,10 @@
         $('#sliderForm').on('submit', function(e){  
             e.preventDefault();  
 
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
+
             $.ajax({  
                 url:"<?php echo base_url(); ?>dashboardBkk/tambahKegiatan",   
                 method:"POST",  
@@ -321,7 +325,11 @@
 <script type="text/javascript">
     $(document).ready(function(){  
         $('#editForm').on('submit', function(e){ 
-            e.preventDefault();  
+            e.preventDefault(); 
+
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            } 
 
             $.ajax({  
                 url:"<?php echo base_url(); ?>dashboardBkk/editKegiatan",   

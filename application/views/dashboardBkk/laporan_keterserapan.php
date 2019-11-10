@@ -76,20 +76,20 @@
                           <tr>
                             <th rowspan="2">Kecamatan</th>
                             <th rowspan="2">Jumlah Alumni</th>
-                            <th colspan="4">Status</th>
+                            <th colspan="4"><center>Status</center></th>
                           </tr>
                           <tr>
                             <th>
-                              <strong>Magang</strong>
+                              <strong>Belum Bekerja</strong>
                             </th>
                             <th>
-                              <strong>Pelatihan</strong>
+                              <strong>Bekerja</strong>
                             </th>
                             <th>
-                              <strong>Perekrutan</strong>
+                              <strong>Kuliah</strong>
                             </th>
                             <th>
-                              <strong>Lainnya</strong>
+                              <strong>Wiraswasta</strong>
                             </th>
                           </tr>
                         </thead>

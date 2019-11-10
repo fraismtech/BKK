@@ -142,7 +142,7 @@
                                                         <?php if ($profil->dokumen == NULL) { ?>
 
                                                         <?php } else { ?>
-                                                            <a href="<?php echo base_url(); ?>assets/upload/struktur_bkk/<?= $profil->dokumen; ?>" class="">
+                                                            <a href="<?php echo base_url(); ?>assets/upload/file/<?= $profil->dokumen; ?>" class="">
                                                                 <button type="button" class="btn btn-info mt-4 fa fa-download" title="Download Dokumen Perijinan"><span> Download</span></button>
                                                             </a>
                                                         <?php } ?>
@@ -167,14 +167,14 @@
                                             <input type="hidden" name="id_user" value="<?= $profil->id_user ?>">
                                             <div class="form-group">
                                                 <label>Username</label>
-                                                <input type="text" class="form-control" id="username" name="username" value="<?= $profil->username ?>" required>
+                                                <input type="text" class="form-control" id="usernamev" name="username" value="<?= $profil->username ?>" required>
                                             </div>
                                             <div class="form-group">
                                                 <label>Password</label>
-                                                <input type="password" class="form-control" name="password" value="" id="password" required="" placeholder="******" id="password" onkeyup="cek_password()">
-                                                <small id="pesan_password" class=""></small>
-                                                <small class='text-danger' id="password-used" style='display:none'>* Username dan password tidak boleh sama!</small>
-                                                <small class='text-success' id="password-available" style='display:none'>* Password bisa digunakan!</small>
+                                                <input type="password" class="form-control" name="password" value="" id="passwordv" required="" placeholder="******" onkeyup="cek_passwordv()">
+                                                <small id="pesan_passwordv" class=""></small>
+                                                <small class='text-danger' id="password-usedv" style='display:none'>* Username dan password tidak boleh sama!</small>
+                                                <small class='text-success' id="password-availablev" style='display:none'>* Password bisa digunakan!</small>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Nama Operator*</label>
@@ -189,7 +189,7 @@
                                                 <input type="text" class="form-control" name="no_hp" value="<?= $profil->no_hp ?>" required="">
                                             </div>
                                             <div class="form-footer">
-                                                <button type="submit" class="btn btn-success mt-4 float-right" id="simpan2"><span id="textSlider">Simpan</span></button>
+                                                <button type="submit" class="btn btn-success mt-4 float-right simpan2" id="simpan2"><span id="textSlider">Simpan</span></button>
                                             </div>
                                         </form>  
                                     </div>
@@ -210,20 +210,20 @@
     function enableBtn() {
         document.getElementById("simpan2").disabled = false;
     }
-    function cek_password(){
-        var username = $("#username").val();
-        var password = $("#password").val();
+    function cek_passwordv(){
+        var username = $("#usernamev").val();
+        var password = $("#passwordv").val();
 
         if (username == password) {
-            $("#password").css({ 'border-color': '#a94442'});
-            $("#password-available").hide();
-            $("#password-used").show();
-            disableBtn();
+            $("#passwordv").css({ 'border-color': '#a94442'});
+            $("#password-availablev").hide();
+            $("#password-usedv").show();
+            $(".simpan2").prop("disabled", true);
         } else {
-            $("#password").css({ 'border-color': '#3c763d'});
-            $("#password-used").hide();
-            $("#password-available").show();
-            enableBtn();
+            $("#passwordv").css({ 'border-color': '#3c763d'});
+            $("#password-usedv").hide();
+            $("#password-availablev").show();
+            $(".simpan2").prop("disabled", false);
         }
     }
 </script>
@@ -317,6 +317,10 @@
     $(document).ready(function(){  
         $('#sekolahForm').on('submit', function(e){  
             e.preventDefault();  
+
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
 
             $.ajax({  
                 url:"<?php echo base_url(); ?>dashboardBkk/updateProfilSekolah",   

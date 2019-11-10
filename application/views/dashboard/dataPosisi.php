@@ -19,7 +19,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+
                         </tbody>
                     </table>
                 </div>
@@ -65,31 +65,31 @@
             <div class="modal-header">
               <div class="panel-title">
                 <h4>Edit Posisi Lowongan Kerja</h4>
-              </div>
-              <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
             </div>
-            <form class="form-horizontal" method="post" enctype="multipart/form-data" id="editForm" role="form" autocomplete="false"> 
-                <div class="modal-body">
-                    <div class="form-group">
-                            <label>ID Posisi Lowongan</label>
-                            <input type="text" name="id_jenis_lowongan" id="id" class="form-control" placeholder="ID Posisi Lowongan" readonly="">
-                        </div>
-                    <div class="form-group">
-                        <label>Nama Posisi Lowongan</label>
-                        <input type="text" name="nama_jenis_lowongan" id="posisi_lowongan" class="form-control" placeholder="Nama Jurusan">
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button class="btn btn-info" type="submit"> Update&nbsp;</button>
-                    <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
-                </div>
-            </form>
+            <button aria-hidden="true" data-dismiss="modal" class="close right" type="button">×</button>
         </div>
+        <form class="form-horizontal" method="post" enctype="multipart/form-data" id="editForm" role="form" autocomplete="false"> 
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>ID Posisi Lowongan</label>
+                    <input type="text" name="id_jenis_lowongan" id="id" class="form-control" placeholder="ID Posisi Lowongan" readonly="">
+                </div>
+                <div class="form-group">
+                    <label>Nama Posisi Lowongan</label>
+                    <input type="text" name="nama_jenis_lowongan" id="posisi_lowongan" class="form-control" placeholder="Nama Jurusan">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-info" type="submit"> Update&nbsp;</button>
+                <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
+            </div>
+        </form>
     </div>
 </div>
+</div>
 <script type="text/javascript">
-$(document).ready(function() {
-    var table = $('#example').DataTable({ 
+    $(document).ready(function() {
+        var table = $('#example').DataTable({ 
 
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -116,12 +116,12 @@ $(document).ready(function() {
         //     "orderable": false, //set not orderable
         // },
         ],
-            "language": {         
-              "info": "",
-              "infoEmpty": "",       
-              "infoFiltered": ""
-            }
-    });
+        "language": {         
+          "info": "",
+          "infoEmpty": "",       
+          "infoFiltered": ""
+      }
+  });
 
     $('#btn-filter').click(function(){ //button filter event click
         table.ajax.reload();  //just reload table
@@ -132,7 +132,7 @@ $(document).ready(function() {
 });
 </script>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
     // Untuk sunting
     $('#edit-data').on('show.bs.modal', function(event) {
         var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
@@ -159,28 +159,27 @@ $(document).ready(function() {
                     url: "<?php echo base_url();?>dashboard/hapusPosisiLowongan/" + id,  
                     method: "GET",
                     beforeSend :function() {
-                    swal({
+                        swal({
                             title: 'Menunggu',
                             html: 'Memproses data',
                             onOpen: () => {
                               swal.showLoading()
-                            }
-                        })      
+                          }
+                      })      
                     },
                     success:function(data){
                         swal({
-                            title: "Deleted!",
+                            title: "Berhasil!",
                             icon: "success",
-                            text: data.msg,
-                            buttons: true,
+                            text: "Data behasil dihapus",
+                            timer: 1000,
+                            buttons: false,
                         });
-                        location.reload();
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
                     }
                 });
-                table.ajax.reload();
-                setTimeout(function(){
-                    location.reload();
-                }, 600);
             } else {
                 swal({
                     title: "Posisi Lowongan Kerja tersimpan!",
@@ -193,100 +192,99 @@ $(document).ready(function() {
 });
 </script>
 <script type="text/javascript">
-$(".foto").change(function() {
-    if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png|jpeg|PNG)$/) ) {
-        if(this.files[0].size>10485760) {
+    $(".foto").change(function() {
+        if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png|jpeg|PNG)$/) ) {
+            if(this.files[0].size>10485760) {
+                $('.foto').val('');
+                alert('Batas Maximal Ukuran File 8MB !');
+            }
+            else {
+                var reader = new FileReader();
+                reader.readAsDataURL(this.files[0]);
+            }
+        } else{
             $('.foto').val('');
-            alert('Batas Maximal Ukuran File 8MB !');
+            alert('Hanya File jpg/png Yang Diizinkan !');
         }
-        else {
-            var reader = new FileReader();
-            reader.readAsDataURL(this.files[0]);
-        }
-    } else{
-        $('.foto').val('');
-        alert('Hanya File jpg/png Yang Diizinkan !');
-    }
-});
+    });
 </script>
 <script type="text/javascript">
-$(document).ready(function(){  
-    $('#sliderForm').on('submit', function(e){  
-        e.preventDefault();  
-       
-        $.ajax({  
-            url:"<?php echo base_url(); ?>dashboard/tambahPosisiLowongan",   
-            method:"POST",  
-            data:new FormData(this),  
-            contentType: false,  
-            cache: false,  
-            processData:false,  
-            dataType: "json",
-            success:function(res)  
-            {  
-                console.log(res.success);
-                if(res.success == true){  
-                    swal({
-                        title: "Berhasil!",
-                        text: res.msg,
-                        icon: "success",
-                    });
-                    location.reload();
-                }
-                else if(res.success == false){
-                    swal({
-                        title: "Gagal!",
-                        text: res.msg,
-                        icon: "error",
-                    });
-                }
-                table.ajax.reload();
-                // setTimeout(function(){
-                //     location.reload(); 
-                // }, 1000);
-            }  
+    $(document).ready(function(){  
+        $('#sliderForm').on('submit', function(e){  
+            e.preventDefault();  
+
+            $.ajax({  
+                url:"<?php echo base_url(); ?>dashboard/tambahPosisiLowongan",   
+                method:"POST",  
+                data:new FormData(this),  
+                contentType: false,  
+                cache: false,  
+                processData:false,  
+                dataType: "json",
+                success:function(res)  
+                {  
+                    console.log(res.success);
+                    if(res.success == true){  
+                        swal({
+                            title: "Berhasil!",
+                            text: res.msg,
+                            icon: "success",
+                            timer: 1000,
+                            buttons: false,
+                        });
+                    }
+                    else if(res.success == false){
+                        swal({
+                            title: "Gagal!",
+                            text: res.msg,
+                            icon: "error",
+                        });
+                    }
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1100);
+                }  
+            });  
         });  
     });  
-});  
 </script>
 <script type="text/javascript">
-$(document).ready(function(){  
-    $('#editForm').on('submit', function(e){  
-        e.preventDefault();  
-       
-        $.ajax({  
-            url:"<?php echo base_url(); ?>dashboard/editPosisiLowongan",   
-            method:"POST",  
-            data:new FormData(this),  
-            contentType: false,  
-            cache: false,  
-            processData:false,  
-            dataType: "json",
-            success:function(res)  
-            {  
-                console.log(res.success);
-                if(res.success == true){  
-                    swal({
-                        title: "Berhasil!",
-                        text: res.msg,
-                        icon: "success",
-                        button: false
-                    });  
-                    location.reload();
-                }
-                else if(res.success == false){
-                    swal({
-                        title: "Gagal!",
-                        text: res.msg,
-                        icon: "error",
-                    });
-                }
-                setTimeout(function(){
-                    $('#edit-data').modal('close');
-                    table.ajax.reload();
-                }, 500);
-            }  
+    $(document).ready(function(){  
+        $('#editForm').on('submit', function(e){  
+            e.preventDefault();  
+
+            $.ajax({  
+                url:"<?php echo base_url(); ?>dashboard/editPosisiLowongan",   
+                method:"POST",  
+                data:new FormData(this),  
+                contentType: false,  
+                cache: false,  
+                processData:false,  
+                dataType: "json",
+                success:function(res)  
+                {  
+                    console.log(res.success);
+                    if(res.success == true){  
+                        swal({
+                            title: "Berhasil!",
+                            text: res.msg,
+                            icon: "success",
+                            timer: 1000,
+                            buttons: false,
+                        });  
+                    }
+                    else if(res.success == false){
+                        swal({
+                            title: "Gagal!",
+                            text: res.msg,
+                            icon: "error",
+                        });
+                    }
+                    setTimeout(function(){
+                        location.reload();
+                    }, 1100);
+                }  
+            });  
         });  
     });  
-});  
 </script>

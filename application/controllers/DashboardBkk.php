@@ -20,9 +20,10 @@ class DashboardBkk extends CI_Controller {
 	private function load($title = '', $datapath = '')
 	{
 		$id_user = $this->session->userdata('id');
+		$id_sekolah = $this->session->userdata('id_sekolah');
 		$get = array(
 			"title" => $title,
-			"alumni_baru" => $this->dashboard->alumni_baru(),
+			"alumni_baru" => $this->dashboard->alumni_baru($id_sekolah),
 			"profil_user" => $this->dashboard->profil($id_user),
 		);
 		$page = array(
@@ -65,7 +66,7 @@ class DashboardBkk extends CI_Controller {
 	{
 		try {
 			if(isset($_FILES["file"]["name"])) {  
-				$config['upload_path'] = './assets/upload/image';  
+				$config['upload_path'] = './assets/upload/image/slider';  
 				$config['allowed_types'] = 'jpg|jpeg|png|JPG|PNG|JPEG';  
 				$this->load->library('upload', $config); 
 
@@ -119,10 +120,15 @@ class DashboardBkk extends CI_Controller {
 		$no = 1;
 		foreach ($list as $slider) {
 			$row = array();
+			if ($slider->foto_slider == NULL) {
+				$button = '<button type="button" class="btn btn-secondary">No File</button>';
+			} else {
+				$button = '<a href="'.base_url().'assets/upload/image/slider/'.$slider->foto_slider.'" class="btn btn-primary fa fa-download"><span> Download</span></a>';
+			}
 			$row[] = $no.'.';
 			$row[] = date('d M Y', strtotime($slider->tanggal_slider));
 			$row[] = $slider->judul_slider;
-			$row[] = '<a class="view popup portfolio-img" href="'.base_url().'assets/upload/image/'.$slider->foto_slider.'">'.$slider->foto_slider.'</a>';
+			$row[] = $button;
 			$row[] = '
 			<a
 			href="javascript:void(0)"
@@ -173,11 +179,16 @@ class DashboardBkk extends CI_Controller {
 		$no = 1;
 		foreach ($list as $kegiatan) {
 			$row = array();
+			if ($kegiatan->foto_kegiatan == NULL) {
+				$button = '<button type="button" class="btn btn-secondary">No File</button>';
+			} else {
+				$button = '<a href="'.base_url().'assets/upload/image/kegiatan/'.$kegiatan->foto_kegiatan.'" class="btn btn-primary fa fa-download"><span> Download</span></a>';
+			}
 			$row[] = $no.'.';
 			$row[] = date('d M Y', strtotime($kegiatan->tanggal_kegiatan));
 			$row[] = $kegiatan->judul_kegiatan;
-			$row[] = word_limiter($kegiatan->uraian_kegiatan, 15);
-			$row[] = '<a class="view popup portfolio-img" href="'.base_url().'assets/upload/image/'.$kegiatan->foto_kegiatan.'">'.$kegiatan->foto_kegiatan.'</a>';
+			$row[] = word_limiter($kegiatan->uraian_kegiatan, 10);
+			$row[] = $button;
 			$row[] = '
 			<a
 			href="javascript:void(0)"
@@ -477,14 +488,14 @@ class DashboardBkk extends CI_Controller {
 	{
 		try {
 			if(isset($_FILES["file"]["name"])) {  
-				$config['upload_path'] = './assets/upload/image/';  
+				$config['upload_path'] = './assets/upload/image/slider';  
 				$config['allowed_types'] = 'jpg|jpeg|png|JPG|PNG|JPEG';  
 				$this->load->library('upload', $config); 
 				$id_slider = $this->input->post("id_slider");
 				$id_sekolah = $this->session->userdata('id_sekolah');
 
 				$_id = $this->db->get_where('table_slider',['id_slider' => $id_slider])->row();
-				unlink("./assets/upload/image/".$_id->foto_slider);
+				unlink("./assets/upload/image/slider/".$_id->foto_slider);
 
 				$tanggal = date('Y-m-d', strtotime($this->input->post("tanggal")));
 				$judul = $this->input->post("judul");
@@ -526,7 +537,7 @@ class DashboardBkk extends CI_Controller {
 		$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
 
 		if($query){
-			unlink("./assets/upload/image/".$_id->foto_slider);
+			unlink("./assets/upload/image/slider/".$_id->foto_slider);
 			$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
 		}
 		echo json_encode($arr);
@@ -705,7 +716,7 @@ class DashboardBkk extends CI_Controller {
 	{
 		try {
 			if(isset($_FILES["file"]["name"])) {  
-				$config['upload_path'] = './assets/upload/image';  
+				$config['upload_path'] = './assets/upload/image/kegiatan';  
 				$config['allowed_types'] = 'jpg|jpeg|png|JPG|PNG|JPEG';  
 				$this->load->library('upload', $config); 
 
@@ -750,14 +761,14 @@ class DashboardBkk extends CI_Controller {
 	{
 		try {
 			if(isset($_FILES["file"]["name"])) {  
-				$config['upload_path'] = './assets/upload/image/';  
+				$config['upload_path'] = './assets/upload/image/kegiatan';  
 				$config['allowed_types'] = 'jpg|jpeg|png|JPG|PNG|JPEG';  
 				$this->load->library('upload', $config); 
 				$id_kegiatan = $this->input->post("id_kegiatan");
 				$id_sekolah = $this->session->userdata('id_sekolah');
 
 				$_id_kegiatan = $this->db->get_where('table_kegiatan',['id_kegiatan' => $id_kegiatan])->row();
-				unlink("./assets/upload/image/".$_id_kegiatan->foto_kegiatan);
+				unlink("./assets/upload/image/kegiatan/".$_id_kegiatan->foto_kegiatan);
 
 				$tanggal = date('Y-m-d', strtotime($this->input->post("tanggal")));
 				$judul = $this->input->post("judul");
@@ -801,7 +812,7 @@ class DashboardBkk extends CI_Controller {
 		$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
 
 		if($query){
-			unlink("./assets/upload/image/".$_id->foto_kegiatan);
+			unlink("./assets/upload/image/kegiatan/".$_id->foto_kegiatan);
 			$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
 		}
 		echo json_encode($arr);
@@ -1139,7 +1150,7 @@ class DashboardBkk extends CI_Controller {
 				'alamat_perusahaan' 	=> $alamat_perusahaan,
 				'no_telp_perusahaan' 	=> $no_telp_perusahaan,
 				'id_sekolah' 			=> $id_sekolah,
-				'register_date' => date("Y-m-d H:i:s"),
+				'register_date' 		=> date("Y-m-d H:i:s"),
 			);
 
 			$simpan = $this->db->insert('table_alumni', $data);
@@ -1334,9 +1345,10 @@ class DashboardBkk extends CI_Controller {
 	public function simpanMitra()
 	{
 		try {
-
 			if(isset($_FILES["file"]["name"])) {  
-				$config['upload_path'] = './assets/upload/image/';  
+				date_default_timezone_set('Asia/Jakarta');
+
+				$config['upload_path'] = './assets/upload/image/mitra';  
 				$config['allowed_types'] = 'jpg|jpeg|png|JPG|PNG|JPEG';  
 				$this->load->library('upload', $config); 
 
@@ -1361,19 +1373,20 @@ class DashboardBkk extends CI_Controller {
 				} else {  
 					$data = $this->upload->data();
 					$data = array(
-						'nama_perusahaan' => $nama_perusahaan,
-						'alamat' => $alamat,
-						'no_telp' => $no_telp,
-						'email' => $email,
-						'bidang_usaha' => $bidang_usaha,
-						'nama_cp' => $nama_cp,
-						'jabatan_cp' => $jabatan_cp,
-						'no_telp_cp' => $no_telp_cp,
-						'jenis_kemitraan' => $jenis_kemitraan,
-						'periode_dari' => $dari,
-						'periode_sampai' => $sampai,
-						'logo_mitra' => $data['file_name'],
-						'id_sekolah' => $id_sekolah,
+						'nama_perusahaan' 	=> $nama_perusahaan,
+						'alamat' 			=> $alamat,
+						'no_telp' 			=> $no_telp,
+						'email' 			=> $email,
+						'bidang_usaha' 		=> $bidang_usaha,
+						'nama_cp' 			=> $nama_cp,
+						'jabatan_cp' 		=> $jabatan_cp,
+						'no_telp_cp' 		=> $no_telp_cp,
+						'jenis_kemitraan' 	=> $jenis_kemitraan,
+						'periode_dari' 		=> $dari,
+						'periode_sampai' 	=> $sampai,
+						'logo_mitra' 		=> $data['file_name'],
+						'id_sekolah' 		=> $id_sekolah,
+						'register_date' 	=> date("Y-m-d H:i:s"),
 					);  
 					$simpan = $this->db->insert('table_mitra', $data);
 
@@ -1411,7 +1424,9 @@ class DashboardBkk extends CI_Controller {
 		try {
 
 			if(isset($_FILES["file"]["name"])) {  
-				$config['upload_path'] = './assets/upload/image/';  
+				date_default_timezone_set('Asia/Jakarta');
+
+				$config['upload_path'] = './assets/upload/image/mitra';  
 				$config['allowed_types'] = 'jpg|jpeg|png|JPG|PNG|JPEG';  
 				$this->load->library('upload', $config); 
 
@@ -1432,7 +1447,7 @@ class DashboardBkk extends CI_Controller {
 				$sampai 			= date('Y-m-d', strtotime($this->input->post("sampai")));
 
 				$_id_mitra = $this->db->get_where('table_mitra',['id_mitra' => $id_mitra])->row();
-				unlink("./assets/upload/image/".$_id_mitra->logo_mitra);
+				unlink("./assets/upload/image/mitra/".$_id_mitra->logo_mitra);
 
 				if(!$this->upload->do_upload('file')) {  
 					$error =  $this->upload->display_errors(); 
@@ -1440,19 +1455,20 @@ class DashboardBkk extends CI_Controller {
 				} else {  
 					$data = $this->upload->data();
 					$data = array(
-						'nama_perusahaan' => $nama_perusahaan,
-						'alamat' => $alamat,
-						'no_telp' => $no_telp,
-						'email' => $email,
-						'bidang_usaha' => $bidang_usaha,
-						'nama_cp' => $nama_cp,
-						'jabatan_cp' => $jabatan_cp,
-						'no_telp_cp' => $no_telp_cp,
-						'jenis_kemitraan' => $jenis_kemitraan,
-						'periode_dari' => $dari,
-						'periode_sampai' => $sampai,
-						'logo_mitra' => $data['file_name'],
-						'id_sekolah' => $id_sekolah,
+						'nama_perusahaan' 	=> $nama_perusahaan,
+						'alamat' 			=> $alamat,
+						'no_telp' 			=> $no_telp,
+						'email' 			=> $email,
+						'bidang_usaha' 		=> $bidang_usaha,
+						'nama_cp' 			=> $nama_cp,
+						'jabatan_cp' 		=> $jabatan_cp,
+						'no_telp_cp' 		=> $no_telp_cp,
+						'jenis_kemitraan' 	=> $jenis_kemitraan,
+						'periode_dari' 		=> $dari,
+						'periode_sampai' 	=> $sampai,
+						'logo_mitra' 		=> $data['file_name'],
+						'id_sekolah' 		=> $id_sekolah,
+						'register_date' 	=> date("Y-m-d H:i:s"),
 					);  
 					$update = $this->db->where('id_mitra', $id_mitra);
 					$this->db->update('table_mitra', $data);
@@ -1477,7 +1493,7 @@ class DashboardBkk extends CI_Controller {
 	{
 		$id_mitra  = $this->uri->segment(3);
 		$data_mitra = $this->db->get_where('table_mitra',['id_mitra' => $id_mitra])->row();
-		unlink("./assets/upload/image/".$data_mitra->logo_mitra);
+		unlink("./assets/upload/image/mitra/".$data_mitra->logo_mitra);
 
         // Hapus Mitra
 		$query_4 = $this->db->delete('table_mitra',['id_mitra'=>$data_mitra->id_mitra]);

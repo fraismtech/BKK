@@ -407,9 +407,9 @@
             modal.find('#datepicker-autoclose1').attr("value", div.data('periode_dari'));
             modal.find('#datepicker-autoclose2').attr("value", div.data('periode_sampai'));
             modal.find('#nama_perusahaan').attr("value", div.data('nama_perusahaan'));
-            modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/" + div.data('logo_mitra'));
+            modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/mitra/" + div.data('logo_mitra'));
             modal.find('#roomNumber').text(div.data('foto'));
-            modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
+            modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/mitra/"+ div.data('foto1'));
         });
 
         $('#example').on('click','.hapus-mitra', function () {

@@ -49,17 +49,17 @@
                         <input type="hidden" name="id_perijinan" value="<?= $this->session->userdata('id_perijinan'); ?>">
                         <div class="form-group">
                             <label>Username</label>
-                            <input type="text" name="username" id="username1" class="form-control" placeholder="Username" required="" onkeyup='cek_username()'>
+                            <input type="text" name="username" id="usernamex" class="form-control" placeholder="Username" required="" onkeyup='cek_username()'>
                             <small id="pesan_username1" class=""></small>
-                            <small class='text-danger' id="username-used1" style='display:none'>* Username sudah digunakan!</small>
-                            <small class='text-success' id="username-available1" style='display:none'>* Username tersedia!</small>
+                            <small class='text-danger' id="username-usedx" style='display:none'>* Username sudah digunakan!</small>
+                            <small class='text-success' id="username-availablex" style='display:none'>* Username tersedia!</small>
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="password" name="password" id="password1" class="form-control" placeholder="Password" required="" onkeyup="cek_password()">
-                            <small id="pesan_password1" class=""></small>
-                            <small class='text-danger' id="password-used1" style='display:none'>* Username dan password tidak boleh sama!</small>
-                            <small class='text-success' id="password-available1" style='display:none'>* Password bisa digunakan!</small>
+                            <input type="password" name="password" id="passwordx" class="form-control" placeholder="Password" required="" onkeyup="cek_password()">
+                            <small id="pesan_passwordx" class=""></small>
+                            <small class='text-danger' id="password-usedx" style='display:none'>* Username dan password tidak boleh sama!</small>
+                            <small class='text-success' id="password-availablex" style='display:none'>* Password bisa digunakan!</small>
                         </div>
                         <div class="form-group">
                             <label>Nama Operator</label>
@@ -108,17 +108,17 @@
                 <input type="hidden" id="id_perijinan" name="id_perijinan" value="<?= $this->session->userdata('id_perijinan'); ?>">
                 <div class="form-group">
                     <label>Username</label>
-                    <input type="text" name="username" id="username" class="form-control" placeholder="Username" required="" onkeyup="cek_username1()" onshow="cek_username1()">
+                    <input type="text" name="username" id="username" class="form-control user" placeholder="Username" required="">
                     <small id="pesan_username" class=""></small>
                     <small class='text-danger' id="username-used" style='display:none'>* Username sudah digunakan!</small>
                     <small class='text-success' id="username-available" style='display:none'>* Username tersedia!</small>
                 </div>
                 <div class="form-group">
                     <label>Password</label>
-                    <input type="password" name="password" id="password" class="form-control" placeholder="******" required="" onshow="cek_password1()" onkeyup="cek_password1()">
-                    <small id="pesan_password" class=""></small>
-                    <small class='text-danger' id="password-used" style='display:none'>* Username dan password tidak boleh sama!</small>
-                    <small class='text-success' id="password-available" style='display:none'>* Password bisa digunakan!</small>
+                    <input type="password" name="password" id="password" class="form-control pass" placeholder="******" required="" onshow="cek_passwordx()" onkeyup="cek_passwordx()">
+                    <small id="pesan_password" class="pp"></small>
+                    <small class='text-danger pu' id="password-used" style='display:none'>* Username dan password tidak boleh sama!</small>
+                    <small class='text-success pa' id="password-available" style='display:none'>* Password bisa digunakan!</small>
                 </div>
                 <div class="form-group">
                     <label>Nama Operator</label>
@@ -139,7 +139,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-info" type="submit" id="update"><span id="textUpdate"></span></button>
+                <button class="btn btn-info update" type="submit" id="updatex"><span id="textUpdate"></span></button>
                 <button type="button" class="btn btn-warning" data-dismiss="modal"> Cancel</button>
             </div>
         </form>
@@ -211,10 +211,10 @@
         document.getElementById("simpan").disabled = false;
     }
     function cek_username(){
-        $("#pesan_username1").hide();
+        $("#pesan_usernamex").hide();
 
-        var username = $("#username1").val();
-        var password = $("#password1").val();
+        var username = $("#usernamex").val();
+        var password = $("#passwordx").val();
 
         if(username != ""){
             $.ajax({
@@ -223,37 +223,37 @@
                 type: "POST",
                 success: function(msg){
                     if(msg==1){
-                        $("#username1").css({ 'border-color': '#a94442'});
-                        $("#username-available1").hide();
-                        $("#username-used1").show();
+                        $("#usernamex").css({ 'border-color': '#a94442'});
+                        $("#username-availablex").hide();
+                        $("#username-usedx").show();
                         // disableBtn();
                         error = 1;
                         if (username == password) {
-                            $("#password1").css({ 'border-color': '#a94442'});
-                            $("#password-available1").hide();
-                            $("#password-used1").show();
+                            $("#passwordx").css({ 'border-color': '#a94442'});
+                            $("#password-availablex").hide();
+                            $("#password-usedx").show();
                             disableBtn();
                         } else {
-                            $("#password1").css({ 'border-color': '#3c763d'});
-                            $("#password-used1").hide();
-                            $("#password-available1").show();
+                            $("#passwordx").css({ 'border-color': '#3c763d'});
+                            $("#password-usedx").hide();
+                            $("#password-availablex").show();
                             enableBtn();
                         }
                     }else{
-                        $("#username1").css({ 'border-color': '#3c763d'});
-                        $("#username-used1").hide();
-                        $("#username-available1").show();
+                        $("#usernamex").css({ 'border-color': '#3c763d'});
+                        $("#username-usedx").hide();
+                        $("#username-availablex").show();
                         // enableBtn();
                         error = 0;
                         if (username == password) {
-                            $("#password1").css({ 'border-color': '#a94442'});
-                            $("#password-available1").hide();
-                            $("#password-used1").show();
+                            $("#passwordx").css({ 'border-color': '#a94442'});
+                            $("#password-availablex").hide();
+                            $("#password-usedx").show();
                             disableBtn();
                         } else {
-                            $("#password1").css({ 'border-color': '#3c763d'});
-                            $("#password-used1").hide();
-                            $("#password-available1").show();
+                            $("#passwordx").css({ 'border-color': '#3c763d'});
+                            $("#password-usedx").hide();
+                            $("#password-availablex").show();
                             enableBtn();
                         }
                     }
@@ -262,32 +262,116 @@
         }  
     }
     function cek_password(){
-        var username = $("#username1").val();
-        var password = $("#password1").val();
+        var username = $("#usernamex").val();
+        var password = $("#passwordx").val();
 
         if (username == password) {
-            $("#password1").css({ 'border-color': '#a94442'});
-            $("#password-available1").hide();
-            $("#password-used1").show();
+            $("#passwordx").css({ 'border-color': '#a94442'});
+            $("#password-availablex").hide();
+            $("#password-usedx").show();
             disableBtn();
         } else {
-            $("#password1").css({ 'border-color': '#3c763d'});
-            $("#password-used1").hide();
-            $("#password-available1").show();
+            $("#passwordx").css({ 'border-color': '#3c763d'});
+            $("#password-usedx").hide();
+            $("#password-availablex").show();
             enableBtn();
         }
     }
 </script>
 <!-- Edit -->
 <script type="text/javascript">
-    function disableBtn1() {
-        document.getElementById("update").disabled = true;
+
+</script>
+<script type="text/javascript">
+    $(".foto").change(function() {
+        if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png|jpeg|PNG|JPG|JPEG)$/) ) {
+            if(this.files[0].size>2097152) {
+                $('.foto').val('');
+                alert('Batas Maximal Ukuran File 2MB !');
+            }
+            else {
+                var reader = new FileReader();
+                reader.readAsDataURL(this.files[0]);
+            }
+        } else{
+            $('.foto').val('');
+            alert('Hanya File jpg/png Yang Diizinkan !');
+        }
+    });
+</script>
+<script>
+    $(document).ready(function() {
+    // Untuk sunting
+    $('#edit-data').on('show.bs.modal', function(event) {
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        // Isi nilai pada field
+        modal.find('#id_user').attr("value", div.data('id_user'));
+        modal.find('#id_sekolah').attr("value", div.data('id_sekolah'));
+        modal.find('#id_perijinan').attr("value", div.data('id_perijinan'));
+        modal.find('#username').attr("value", div.data('username'));
+        modal.find('#email').attr("value", div.data('email'));
+        modal.find('#no_hp').attr("value", div.data('no_hp'));
+        modal.find('#nama').attr("value", div.data('nama'));
+        modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/user/" + div.data('foto'));
+    });
+
+    $('#example').on('click','.hapus-menabung', function () {
+        var id =  $(this).data('id_user');
+        swal({
+            title: "Anda yakin?",
+            text: "Saat dihapus, Anda tidak dapat mengembalikan data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "<?php echo base_url();?>dashboardBkk/hapusUser/" + id,  
+                    method: "GET",
+                    beforeSend :function() {
+                        swal({
+                            title: 'Menunggu',
+                            html: 'Memproses data',
+                            onOpen: () => {
+                              swal.showLoading()
+                          }
+                      })      
+                    },
+                    success:function(data){
+                        swal({
+                            title: "Berhasil!",
+                            icon: "success",
+                            text: "Data berhasil dihapus",
+                            timer: 1000,
+                            buttons: false,
+                        });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
+                    }
+                });
+            } else {
+                swal({
+                    title: "User tersimpan!",
+                    icon: "info",
+                    timer: 10000
+                });
+            }
+        })
+    });
+});
+</script>
+<script type="text/javascript">
+    function disableBtnx() {
+        document.getElementById("updatex").disabled = true;
     }
 
-    function enableBtn1() {
-        document.getElementById("update").disabled = false;
+    function enableBtnx() {
+        document.getElementById("updatex").disabled = false;
     }
-    function cek_username1(){
+    function cek_usernamex(){
         $("#pesan_username").hide();
 
         var username = $("#username").val();
@@ -338,104 +422,22 @@
             });
         }  
     }
-    function cek_password1(){
-        var username = $("#username").val();
-        var password = $("#password").val();
+    function cek_passwordx(){
+        var username = $(".user").val();
+        var password = $(".pass").val();
 
         if (username == password) {
-            $("#password").css({ 'border-color': '#a94442'});
-            $("#password-available").hide();
-            $("#password-used").show();
-            disableBtn1();
+            $(".pass").css({ 'border-color': '#a94442'});
+            $(".pa").hide();
+            $(".pu").show();
+            $(".update").prop("disabled", true);
         } else {
-            $("#password").css({ 'border-color': '#3c763d'});
-            $("#password-used").hide();
-            $("#password-available").show();
-            enableBtn1();
+            $(".pass").css({ 'border-color': '#3c763d'});
+            $(".pu").hide();
+            $(".pa").show();
+            $(".update").prop("disabled", false);
         }
     }
-</script>
-<script type="text/javascript">
-    $(".foto").change(function() {
-        if (this.files && this.files[0] && this.files[0].name.match(/\.(jpg|png|jpeg|PNG|JPG|JPEG)$/) ) {
-            if(this.files[0].size>2097152) {
-                $('.foto').val('');
-                alert('Batas Maximal Ukuran File 2MB !');
-            }
-            else {
-                var reader = new FileReader();
-                reader.readAsDataURL(this.files[0]);
-            }
-        } else{
-            $('.foto').val('');
-            alert('Hanya File jpg/png Yang Diizinkan !');
-        }
-    });
-</script>
-<script>
-    $(document).ready(function() {
-    // Untuk sunting
-    $('#edit-data').on('show.bs.modal', function(event) {
-        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
-        var modal = $(this)
-
-        // Isi nilai pada field
-        modal.find('#id_user').attr("value", div.data('id_user'));
-        modal.find('#id_sekolah').attr("value", div.data('id_sekolah'));
-        modal.find('#id_perijinan').attr("value", div.data('id_perijinan'));
-        modal.find('#username').attr("value", div.data('username'));
-        modal.find('#email').attr("value", div.data('email'));
-        modal.find('#no_hp').attr("value", div.data('no_hp'));
-        modal.find('#nama').attr("value", div.data('nama'));
-        modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/user/" + div.data('foto'));
-        
-    });
-
-    $('#example').on('click','.hapus-menabung', function () {
-        var id =  $(this).data('id_user');
-        swal({
-            title: "Anda yakin?",
-            text: "Saat dihapus, Anda tidak dapat mengembalikan data!",
-            icon: "warning",
-            buttons: true,
-            dangerMode: true,
-        }).then((result) => {
-            if (result) {
-                $.ajax({
-                    url: "<?php echo base_url();?>dashboardBkk/hapusUser/" + id,  
-                    method: "GET",
-                    beforeSend :function() {
-                        swal({
-                            title: 'Menunggu',
-                            html: 'Memproses data',
-                            onOpen: () => {
-                              swal.showLoading()
-                          }
-                      })      
-                    },
-                    success:function(data){
-                        swal({
-                            title: "Berhasil!",
-                            icon: "success",
-                            text: "Data berhasil dihapus",
-                            timer: 1000,
-                            buttons: false,
-                        });
-                        setTimeout(function(){
-                            location.reload();
-                        }, 1100);
-                    }
-                });
-            } else {
-                swal({
-                    title: "User tersimpan!",
-                    icon: "info",
-                    timer: 10000
-                });
-            }
-        })
-    });
-});
 </script>
 <script type="text/javascript">
     $(document).ready(function(){

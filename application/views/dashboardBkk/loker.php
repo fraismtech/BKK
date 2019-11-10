@@ -754,10 +754,17 @@ $(document).ready(function(){
     $('#lokerText').html('Simpan');
     $('#lokerForm').submit(function(e){
         e.preventDefault();
+        for (instance in CKEDITOR.instances) {
+            CKEDITOR.instances[instance].updateElement();
+        }
         $('#lokerText').html('Menyimpan ...');
         var url = '<?php echo base_url(); ?>';
         var loker = $('#lokerForm').serialize();
         var save = function(){
+
+            for (instance in CKEDITOR.instances) {
+                CKEDITOR.instances[instance].updateElement();
+            }
 
             $.ajax({
                 type: 'POST',

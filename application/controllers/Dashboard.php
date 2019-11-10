@@ -7,7 +7,7 @@ class Dashboard extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model("M_Dashboard_Pusat", "dashboard");
-    $this->load->model("M_Dashboard", "dashboardReport");
+		$this->load->model("M_Dashboard", "dashboardReport");
 		$this->load->model("M_Auth", "auth");
 
 		if ($this->session->has_userdata('logged_in') == TRUE) {
@@ -64,103 +64,103 @@ class Dashboard extends CI_Controller {
 	public function tambahSlider()
 	{
 		try {
-    		if(isset($_FILES["file"]["name"])) {  
-              	$config['upload_path'] = './assets/upload/image';  
-              	$config['allowed_types'] = 'jpg|jpeg|png';  
-              	$this->load->library('upload', $config); 
+			if(isset($_FILES["file"]["name"])) {  
+				$config['upload_path'] = './assets/upload/image/slide_admin';  
+				$config['allowed_types'] = 'jpg|jpeg|png';  
+				$this->load->library('upload', $config); 
 
-              	$tanggal = date('Y-m-d', strtotime($this->input->post("tanggal")));
-              	$judul = $this->input->post("judul");
-              	$id_sekolah = $this->session->userdata('id_sekolah');
+				$tanggal = date('Y-m-d', strtotime($this->input->post("tanggal")));
+				$judul = $this->input->post("judul");
+				$id_sekolah = $this->session->userdata('id_sekolah');
 
-              	if(!$this->upload->do_upload('file')) {  
-                  	$error =  $this->upload->display_errors(); 
-                  	echo json_encode(array('msg' => $error, 'success' => false));
-              	} else {  
-                   	$data = $this->upload->data();
-                   	$data = array(
-			            'tanggal_slider' => $tanggal,
-			            'judul_slider' => $judul,
-			            'foto_slider' => $data['file_name'],
-			            'id_sekolah' => $id_sekolah,
-			        );  
-			        $this->db->insert('table_slider', $data); 
+				if(!$this->upload->do_upload('file')) {  
+					$error =  $this->upload->display_errors(); 
+					echo json_encode(array('msg' => $error, 'success' => false));
+				} else {  
+					$data = $this->upload->data();
+					$data = array(
+						'tanggal_slider' => $tanggal,
+						'judul_slider' => $judul,
+						'foto_slider' => $data['file_name'],
+						'id_sekolah' => $id_sekolah,
+					);  
+					$this->db->insert('table_slider', $data); 
                    	// $insert['name'] = $data['file_name'];
                    	// $this->db->insert('images',$insert);
-                   	$getId = $this->db->insert_id();
- 
-                   	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
- 
-                   	if($getId){
-                    	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
-                   	}
-                  	echo json_encode($arr);
-             	}  
-         	}  
+					$getId = $this->db->insert_id();
 
-    	} catch (Exception $e) {
-    		redirect('dashboardBkk/slider');
-    	}
+					$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+
+					if($getId){
+						$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+					}
+					echo json_encode($arr);
+				}  
+			}  
+
+		} catch (Exception $e) {
+			redirect('dashboardBkk/slider');
+		}
 	}
 
 	// Edit Slider
 	public function editSlider()
 	{
 		try {
-    		if(isset($_FILES["file"]["name"])) {  
-              	$config['upload_path'] = './assets/upload/image/';  
-              	$config['allowed_types'] = 'jpg|jpeg|png';  
-              	$this->load->library('upload', $config); 
-              	$id_slider = $this->input->post("id_slider");
-              	$id_sekolah = $this->session->userdata('id_sekolah');
+			if(isset($_FILES["file"]["name"])) {  
+				$config['upload_path'] = './assets/upload/image/slide_admin';  
+				$config['allowed_types'] = 'jpg|jpeg|png';  
+				$this->load->library('upload', $config); 
+				$id_slider = $this->input->post("id_slider");
+				$id_sekolah = $this->session->userdata('id_sekolah');
 
-              	$_id = $this->db->get_where('table_slider',['id_slider' => $id_slider])->row();
-              	unlink("./assets/upload/image/".$_id->foto_slider);
+				$_id = $this->db->get_where('table_slider',['id_slider' => $id_slider])->row();
+				unlink("./assets/upload/image/slide_admin/".$_id->foto_slider);
 
-              	$tanggal = date('Y-m-d', strtotime($this->input->post("tanggal")));
-              	$judul = $this->input->post("judul");
-              	if(!$this->upload->do_upload('file')) {  
-                  	$error =  $this->upload->display_errors(); 
-                  	echo json_encode(array('msg' => $error, 'success' => false));
-              	} else {  
-                   	$data = $this->upload->data();
-                   	$data = array(
-			            'tanggal_slider' => $tanggal,
-			            'judul_slider' => $judul,
-			            'foto_slider' => $data['file_name'],
-			            'id_sekolah' => $id_sekolah,
-			        );  
-			        $update = $this->db->where('id_slider', $id_slider);
-			        $this->db->update('table_slider', $data); 
+				$tanggal = date('Y-m-d', strtotime($this->input->post("tanggal")));
+				$judul = $this->input->post("judul");
+				if(!$this->upload->do_upload('file')) {  
+					$error =  $this->upload->display_errors(); 
+					echo json_encode(array('msg' => $error, 'success' => false));
+				} else {  
+					$data = $this->upload->data();
+					$data = array(
+						'tanggal_slider' => $tanggal,
+						'judul_slider' => $judul,
+						'foto_slider' => $data['file_name'],
+						'id_sekolah' => $id_sekolah,
+					);  
+					$update = $this->db->where('id_slider', $id_slider);
+					$this->db->update('table_slider', $data); 
                    	// $insert['name'] = $data['file_name'];
                    	// $this->db->insert('images',$insert);
- 
-                   	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
- 
-                   	if($update){
-                    	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
-                   	}
-                  	echo json_encode($arr);
-             	}  
-         	}  
 
-    	} catch (Exception $e) {
-    		redirect('dashboardBkk/slider');
-    	}
+					$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+
+					if($update){
+						$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+					}
+					echo json_encode($arr);
+				}  
+			}  
+
+		} catch (Exception $e) {
+			redirect('dashboardBkk/slider');
+		}
 	}
 
 	// Hapus Slider
 	public function hapusSlider(){
 		$id  = $this->uri->segment(3);
 		$_id = $this->db->get_where('table_slider',['id_slider' => $id])->row();
-        $query = $this->db->delete('table_slider',['id_slider'=>$id]);
-        $arr = array('msg' => 'Data gagal dihapus', 'success' => false);
- 
-       	if($query){
-       		unlink("./assets/upload/image/".$_id->foto_slider);
-        	$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
-       	}
-        echo json_encode($arr);
+		$query = $this->db->delete('table_slider',['id_slider'=>$id]);
+		$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
+
+		if($query){
+			unlink("./assets/upload/image/slide_admin/".$_id->foto_slider);
+			$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
+		}
+		echo json_encode($arr);
 	}
 
 	public function databkk()
@@ -195,26 +195,26 @@ class Dashboard extends CI_Controller {
 			$no_ijin 		= $this->input->post('no_ijin');
 			$tgl_perijinan 	= $this->input->post('tgl_perijinan');
 
-	        $data = array(
-	            'npsn'			=> $npsn,
-	            'nama_sekolah'	=> $nama_sekolah,
-	            'alamat_sekolah'=> $alamat_sekolah,
-	            'kecamatan'		=> $kecamatan,
-	            'kelurahan'		=> $kelurahan,
-	            'visi'			=> $visi,
-	            'misi'			=> $misi,
-	        );  
+			$data = array(
+				'npsn'			=> $npsn,
+				'nama_sekolah'	=> $nama_sekolah,
+				'alamat_sekolah'=> $alamat_sekolah,
+				'kecamatan'		=> $kecamatan,
+				'kelurahan'		=> $kelurahan,
+				'visi'			=> $visi,
+				'misi'			=> $misi,
+			);  
 
-	        $update_sekolah = $this->dashboard->simpanBKK($data, $id_sekolah);
+			$update_sekolah = $this->dashboard->simpanBKK($data, $id_sekolah);
 
-	        $data_perijinan = array(
-	            'ijin_bkk'		=> $ijin_bkk,
-	            'no_ijin'		=> $no_ijin,
-	            'tgl_perijinan'	=> date('Y-m-d', strtotime($tgl_perijinan)),
-	        ); 	        
+			$data_perijinan = array(
+				'ijin_bkk'		=> $ijin_bkk,
+				'no_ijin'		=> $no_ijin,
+				'tgl_perijinan'	=> date('Y-m-d', strtotime($tgl_perijinan)),
+			); 	        
 
-	        $update_perijinan = $this->db->where('id_perijinan', $id_perijinan);
-	        $this->db->update('table_perijinan', $data_perijinan);
+			$update_perijinan = $this->db->where('id_perijinan', $id_perijinan);
+			$this->db->update('table_perijinan', $data_perijinan);
 
 	        // $arr = array('msg' => 'Data gagal disimpan', 'success' => false);
 
@@ -222,7 +222,7 @@ class Dashboard extends CI_Controller {
          //    	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
          //   	}
          //  	echo json_encode($arr);
-	        if($update_sekolah && $update_perijinan) {
+			if($update_sekolah && $update_perijinan) {
 				$this->session->set_flashdata("notif1", "Data Berhasil Disimpan");
 				redirect('dashboard/databkk');
 			} else {
@@ -242,6 +242,27 @@ class Dashboard extends CI_Controller {
 			$id_perijinan  = $this->uri->segment(4);
 			$_id = $this->db->query("SELECT * FROM table_login AS tl JOIN table_sekolah AS ts ON tl.id_sekolah = ts.id_sekolah JOIN table_perijinan AS tp ON tl.id_perijinan = tp.id_perijinan WHERE ts.id_sekolah = '$id_sekolah' AND tp.id_perijinan = '$id_perijinan'")->row();
 
+			$slider = $this->db->query("SELECT * FROM table_slider WHERE id_sekolah='$id_sekolah'")->row();
+			if ($slider->foto_slider == NULL) {
+				# code...
+			} else {
+				unlink("./assets/upload/image/slider/".$slider->foto_slider);
+			}
+
+			$kegiatan = $this->db->query("SELECT * FROM table_kegiatan WHERE id_sekolah='$id_sekolah'")->row();
+			if ($kegiatan->foto_kegiatan == NULL) {
+				# code...
+			} else {
+				unlink("./assets/upload/image/kegiatan/".$kegiatan->foto_kegiatan);
+			}
+			
+			$mitra = $this->db->query("SELECT * FROM table_mitra WHERE id_sekolah='$id_sekolah'")->row();
+			if ($mitra->logo_mitra == NULL) {
+				# code...
+			} else {
+				unlink("./assets/upload/image/mitra/".$mitra->logo_mitra);
+			}
+
 			if ($_id->foto == NULL) {
 				# code...
 			} else {
@@ -260,13 +281,26 @@ class Dashboard extends CI_Controller {
 				unlink("./assets/upload/dokumen/".$_id->dokumen);
 			}
 
+			// User
 			$query1 = $this->db->delete('table_login',['id_sekolah' => $id_sekolah, 'id_perijinan'=> $id_perijinan]);
-			$query2 = $this->db->delete('table_sekolah',['id_sekolah' => $id_sekolah]);
-			$query3 = $this->db->delete('table_perijinan',['id_perijinan'=> $id_perijinan]);
+			// Slider
+			$query2 = $this->db->delete('table_slider',['id_sekolah' => $id_sekolah]);
+			// Kegiatan
+			$query3 = $this->db->delete('table_kegiatan',['id_sekolah' => $id_sekolah]);
+			// Mitra
+			$query4 = $this->db->delete('table_mitra',['id_sekolah'=> $id_sekolah]);
+			// Alumni
+			$query5 = $this->db->delete('table_alumni',['id_sekolah' => $id_sekolah]);
+			// Lowongan
+			$query6 = $this->db->delete('table_lowongan',['id_sekolah' => $id_sekolah]);
+			// Sekolah
+			$query7 = $this->db->delete('table_sekolah',['id_sekolah' => $id_sekolah]);
+			// Perijinan
+			$query8 = $this->db->delete('table_perijinan',['id_perijinan'=> $id_perijinan]);
 
 			$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
 
-			if($query1 && $query2 && $query3){
+			if($query1 && $query7 && $query8){
 				$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
 			}
 			echo json_encode($arr);
@@ -587,21 +621,22 @@ class Dashboard extends CI_Controller {
 
 	// Get Jurusan
 	public function get_jurusan()
-    {
-        $skl = $this->input->post('skl');
+	{
+		$skl = $this->input->post('skl');
 
-        echo $this->dashboard->get_jurusan($skl);
+		echo $this->dashboard->get_jurusan($skl);
 
-    }
+	}
 
 	public function laporanMitraKerja()
 	{
 		$path = "";
 		$get = array(
 			"sekolah" => $this->dashboard->sekolah(),
+			"laporan" => $this->dashboard->laporanMitra(),
 		);
 		$data = array(
-			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan Mitra Kerja", $path),
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Laporan Kemitraan", $path),
 			"content" => $this->load->view('dashboard/laporanMitra', $get, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
@@ -639,18 +674,18 @@ class Dashboard extends CI_Controller {
 		try {
 			$nama_jurusan 	= $this->input->post('nama_jurusan');
 
-	        $data = array(
-	            'nama_jurusan'	=> $nama_jurusan,
-	        );  
+			$data = array(
+				'nama_jurusan'	=> $nama_jurusan,
+			);  
 
-	        $simpan = $this->db->insert('table_jurusan', $data);
+			$simpan = $this->db->insert('table_jurusan', $data);
 
-           	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+			$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
 
-           	if($simpan){
-            	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
-           	}
-          	echo json_encode($arr);
+			if($simpan){
+				$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+			}
+			echo json_encode($arr);
 
 		} catch (Exception $e) {
 			
@@ -664,19 +699,19 @@ class Dashboard extends CI_Controller {
 			$id_jurusan 	= $this->input->post('id_jurusan');
 			$nama_jurusan 	= $this->input->post('nama_jurusan');
 
-	        $data = array(
-	            'nama_jurusan'	=> $nama_jurusan,
-	        );  
+			$data = array(
+				'nama_jurusan'	=> $nama_jurusan,
+			);  
 
-	        $update = $this->db->where('id_jurusan', $id_jurusan);
-	        $this->db->update('table_jurusan', $data);
+			$update = $this->db->where('id_jurusan', $id_jurusan);
+			$this->db->update('table_jurusan', $data);
 
-           	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+			$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
 
-           	if($update){
-            	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
-           	}
-          	echo json_encode($arr);
+			if($update){
+				$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+			}
+			echo json_encode($arr);
 
 		} catch (Exception $e) {
 			
@@ -687,14 +722,14 @@ class Dashboard extends CI_Controller {
 	public function hapusJurusan(){
 		try {
 			$id  = $this->uri->segment(3);
-	        $query = $this->db->delete('table_jurusan',['id_jurusan'=>$id]);
+			$query = $this->db->delete('table_jurusan',['id_jurusan'=>$id]);
 
-	        $arr = array('msg' => 'Data gagal dihapus', 'success' => false);
+			$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
 
-	       	if($query){
-	        	$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
-	       	}
-	        echo json_encode($arr);
+			if($query){
+				$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
+			}
+			echo json_encode($arr);
 		} catch (Exception $e) {
 			redirect('dashboardBkk/user');
 		}
@@ -717,19 +752,19 @@ class Dashboard extends CI_Controller {
 			$id_jenis_lowongan 		= $this->input->post('id_jenis_lowongan');
 			$nama_jenis_lowongan 	= $this->input->post('nama_jenis_lowongan');
 
-	        $data = array(
-	        	'id_jenis_lowongan'		=> $id_jenis_lowongan,
-	            'nama_jenis_lowongan'	=> $nama_jenis_lowongan,
-	        );  
+			$data = array(
+				'id_jenis_lowongan'		=> $id_jenis_lowongan,
+				'nama_jenis_lowongan'	=> $nama_jenis_lowongan,
+			);  
 
-	        $simpan = $this->db->insert('table_jenis_lowongan', $data);
+			$simpan = $this->db->insert('table_jenis_lowongan', $data);
 
-           	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+			$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
 
-           	if($simpan){
-            	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
-           	}
-          	echo json_encode($arr);
+			if($simpan){
+				$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+			}
+			echo json_encode($arr);
 
 		} catch (Exception $e) {
 			
@@ -743,19 +778,19 @@ class Dashboard extends CI_Controller {
 			$id_jenis_lowongan 		= $this->input->post('id_jenis_lowongan');
 			$nama_jenis_lowongan 	= $this->input->post('nama_jenis_lowongan');
 
-	        $data = array(
-	            'nama_jenis_lowongan'	=> $nama_jenis_lowongan,
-	        );  
+			$data = array(
+				'nama_jenis_lowongan'	=> $nama_jenis_lowongan,
+			);  
 
-	        $update = $this->db->where('id_jenis_lowongan', $id_jenis_lowongan);
-	        $this->db->update('table_jenis_lowongan', $data);
+			$update = $this->db->where('id_jenis_lowongan', $id_jenis_lowongan);
+			$this->db->update('table_jenis_lowongan', $data);
 
-           	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+			$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
 
-           	if($update){
-            	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
-           	}
-          	echo json_encode($arr);
+			if($update){
+				$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+			}
+			echo json_encode($arr);
 
 		} catch (Exception $e) {
 			
@@ -766,14 +801,14 @@ class Dashboard extends CI_Controller {
 	public function hapusPosisiLowongan(){
 		try {
 			$id  = $this->uri->segment(3);
-	        $query = $this->db->delete('table_jenis_lowongan',['id_jenis_lowongan'=>$id]);
+			$query = $this->db->delete('table_jenis_lowongan',['id_jenis_lowongan'=>$id]);
 
-	        $arr = array('msg' => 'Data gagal dihapus', 'success' => false);
+			$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
 
-	       	if($query){
-	        	$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
-	       	}
-	        echo json_encode($arr);
+			if($query){
+				$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
+			}
+			echo json_encode($arr);
 		} catch (Exception $e) {
 			redirect('dashboardBkk/user');
 		}
@@ -800,20 +835,20 @@ class Dashboard extends CI_Controller {
 			$id_jenis_lowongan 		= $this->input->post('id_jenis_lowongan');
 			$nama_keahlian 			= $this->input->post('nama_keahlian');
 
-	        $data = array(
-	        	'id_keahlian'			=> $id_keahlian,
-	        	'id_jenis_lowongan'		=> $id_jenis_lowongan,
-	            'nama_keahlian'			=> $nama_keahlian,
-	        );  
+			$data = array(
+				'id_keahlian'			=> $id_keahlian,
+				'id_jenis_lowongan'		=> $id_jenis_lowongan,
+				'nama_keahlian'			=> $nama_keahlian,
+			);  
 
-	        $simpan = $this->db->insert('table_keahlian', $data);
+			$simpan = $this->db->insert('table_keahlian', $data);
 
-           	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+			$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
 
-           	if($simpan){
-            	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
-           	}
-          	echo json_encode($arr);
+			if($simpan){
+				$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+			}
+			echo json_encode($arr);
 
 		} catch (Exception $e) {
 			
@@ -828,20 +863,20 @@ class Dashboard extends CI_Controller {
 			$id_jenis_lowongan 		= $this->input->post('id_jenis_lowongan');
 			$nama_keahlian 			= $this->input->post('nama_keahlian');
 
-	        $data = array(
-	        	'id_jenis_lowongan'		=> $id_jenis_lowongan,
-	            'nama_keahlian'			=> $nama_keahlian,
-	        );  
+			$data = array(
+				'id_jenis_lowongan'		=> $id_jenis_lowongan,
+				'nama_keahlian'			=> $nama_keahlian,
+			);  
 
-	        $update = $this->db->where('id_keahlian', $id_keahlian);
-	        $this->db->update('table_keahlian', $data);
+			$update = $this->db->where('id_keahlian', $id_keahlian);
+			$this->db->update('table_keahlian', $data);
 
-           	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+			$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
 
-           	if($update){
-            	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
-           	}
-          	echo json_encode($arr);
+			if($update){
+				$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+			}
+			echo json_encode($arr);
 
 		} catch (Exception $e) {
 			
@@ -852,14 +887,14 @@ class Dashboard extends CI_Controller {
 	public function hapusKeterampilan(){
 		try {
 			$id  = $this->uri->segment(3);
-	        $query = $this->db->delete('table_keahlian',['id_keahlian'=>$id]);
+			$query = $this->db->delete('table_keahlian',['id_keahlian'=>$id]);
 
-	        $arr = array('msg' => 'Data gagal dihapus', 'success' => false);
+			$arr = array('msg' => 'Data gagal dihapus', 'success' => false);
 
-	       	if($query){
-	        	$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
-	       	}
-	        echo json_encode($arr);
+			if($query){
+				$arr = array('msg' => 'Data berhasil dihapus', 'success' => true);
+			}
+			echo json_encode($arr);
 		} catch (Exception $e) {
 			redirect('dashboardBkk/user');
 		}
@@ -880,11 +915,11 @@ class Dashboard extends CI_Controller {
 
 	// Ajax Serverside
 	public function get_alldata(){
-        echo json_encode($this->dashboard->get_alldata());
-    }
+		echo json_encode($this->dashboard->get_alldata());
+	}
 
     // Slider
-    public function ajax_list()
+	public function ajax_list()
 	{
 		$id_user = $this->session->userdata('id');
 
@@ -904,40 +939,40 @@ class Dashboard extends CI_Controller {
 			$row[] = $slider->judul_slider;
 			$row[] = $button;
 			$row[] = '
-	              <a
-	            href="javascript:void(0)"
-	            data-id="'.$slider->id_slider.'"
-	            data-tanggal="'.date('m/d/Y', strtotime($slider->tanggal_slider)).'"
-	            data-judul="'.$slider->judul_slider.'"
-	            data-foto="'.$slider->foto_slider.'"
-	            data-foto1="'.$slider->foto_slider.'"
-	            data-toggle="modal" data-target="#edit-data"
-	            title="Edit Data">
-	            	<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-	            </a>
-	            <button
-	            class="btn btn-sm btn-danger hapus-menabung" 
-	            data-toggle="modal"
-	            id="id" 
-	            data-toggle="modal" 
-	            data-id="'.$slider->id_slider.'"
-	            data-tanggal="'.$slider->tanggal_slider.'"
-	            data-judul="'.$slider->judul_slider.'"
-	            data-foto="'.$slider->foto_slider.'"
-	            title="Hapus Data">
-	            	<i class="fa fa-trash"></i>
-	            </button>';
+			<a
+			href="javascript:void(0)"
+			data-id="'.$slider->id_slider.'"
+			data-tanggal="'.date('m/d/Y', strtotime($slider->tanggal_slider)).'"
+			data-judul="'.$slider->judul_slider.'"
+			data-foto="'.$slider->foto_slider.'"
+			data-foto1="'.$slider->foto_slider.'"
+			data-toggle="modal" data-target="#edit-data"
+			title="Edit Data">
+			<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+			</a>
+			<button
+			class="btn btn-sm btn-danger hapus-menabung" 
+			data-toggle="modal"
+			id="id" 
+			data-toggle="modal" 
+			data-id="'.$slider->id_slider.'"
+			data-tanggal="'.$slider->tanggal_slider.'"
+			data-judul="'.$slider->judul_slider.'"
+			data-foto="'.$slider->foto_slider.'"
+			title="Hapus Data">
+			<i class="fa fa-trash"></i>
+			</button>';
 
 			$data[] = $row;
 			$no++;
 		}
 
 		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all(),
-						"recordsFiltered" => $this->dashboard->count_filtered(),
-						"data" => $data,
-				);
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all(),
+			"recordsFiltered" => $this->dashboard->count_filtered(),
+			"data" => $data,
+		);
 		//output to json format
 		echo json_encode($output);
 	}
@@ -988,7 +1023,7 @@ class Dashboard extends CI_Controller {
 			<a href="'.base_url().'dashboard/lokerEditPusat/'.$loker->id_lowongan.'" title="Edit Data">
 			<button class="btn btn-sm btn-primary"><i class="fa fa-edit"></i></button>
 			</a>'.
-			// $ket.
+			$ket.
 			'
 			<button class="btn btn-sm btn-warning hapus-loker" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$loker->id_lowongan.'" title="Hapus Data">
 			<i class="fa fa-trash"></i>
@@ -999,11 +1034,11 @@ class Dashboard extends CI_Controller {
 		}
 
 		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_loker(),
-						"recordsFiltered" => $this->dashboard->count_filtered_loker(),
-						"data" => $data,
-				);
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all_loker(),
+			"recordsFiltered" => $this->dashboard->count_filtered_loker(),
+			"data" => $data,
+		);
 		//output to json format
 		echo json_encode($output);
 	}
@@ -1028,23 +1063,23 @@ class Dashboard extends CI_Controller {
 			$row[] = $alumni->nama_sekolah;
 			$row[] = $alumni->sts;
 			$row[] = '
-	              	<a href="'.base_url().'dashboard/alumniEditPusat/'.$alumni->id_alumni.'" title="Edit Data">
-	            		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-	            	</a>
-		            <button class="btn btn-sm btn-danger hapus-alumni" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$alumni->id_alumni.'" title="Hapus Data">
-		            	<i class="fa fa-trash"></i>
-		            </button>';
+			<a href="'.base_url().'dashboard/alumniEditPusat/'.$alumni->id_alumni.'" title="Edit Data">
+			<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+			</a>
+			<button class="btn btn-sm btn-danger hapus-alumni" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$alumni->id_alumni.'" title="Hapus Data">
+			<i class="fa fa-trash"></i>
+			</button>';
 
 			$data[] = $row;
 			$no++;
 		}
 
 		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_alumni(),
-						"recordsFiltered" => $this->dashboard->count_filtered_alumni(),
-						"data" => $data,
-				);
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all_alumni(),
+			"recordsFiltered" => $this->dashboard->count_filtered_alumni(),
+			"data" => $data,
+		);
 		//output to json format
 		echo json_encode($output);
 	}
@@ -1062,34 +1097,34 @@ class Dashboard extends CI_Controller {
 			$row[] = $no.'.';
 			$row[] = $jurusan->nama_jurusan;
 			$row[] = '
-	              <a
-	            href="javascript:void(0)"
-	            data-id="'.$jurusan->id_jurusan.'"
-	            data-jurusan="'.$jurusan->nama_jurusan.'"
-	            data-toggle="modal" data-target="#edit-data"
-	            title="Edit Data">
-	            	<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-	            </a>
-	            <button
-	            class="btn btn-sm btn-danger hapus-menabung" 
-	            data-toggle="modal"
-	            id="id" 
-	            data-toggle="modal" 
-	            data-id="'.$jurusan->id_jurusan.'"
-	            title="Hapus Data">
-	            	<i class="fa fa-trash"></i>
-	            </button>';
+			<a
+			href="javascript:void(0)"
+			data-id="'.$jurusan->id_jurusan.'"
+			data-jurusan="'.$jurusan->nama_jurusan.'"
+			data-toggle="modal" data-target="#edit-data"
+			title="Edit Data">
+			<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+			</a>
+			<button
+			class="btn btn-sm btn-danger hapus-menabung" 
+			data-toggle="modal"
+			id="id" 
+			data-toggle="modal" 
+			data-id="'.$jurusan->id_jurusan.'"
+			title="Hapus Data">
+			<i class="fa fa-trash"></i>
+			</button>';
 
 			$data[] = $row;
 			$no++;
 		}
 
 		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_jurusan(),
-						"recordsFiltered" => $this->dashboard->count_filtered_jurusan(),
-						"data" => $data,
-				);
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all_jurusan(),
+			"recordsFiltered" => $this->dashboard->count_filtered_jurusan(),
+			"data" => $data,
+		);
 		//output to json format
 		echo json_encode($output);
 	}
@@ -1108,34 +1143,34 @@ class Dashboard extends CI_Controller {
 			$row[] = $posisi->id_jenis_lowongan;
 			$row[] = $posisi->nama_jenis_lowongan;
 			$row[] = '
-	              <a
-	            href="javascript:void(0)"
-	            data-id="'.$posisi->id_jenis_lowongan.'"
-	            data-posisi_lowongan="'.$posisi->nama_jenis_lowongan.'"
-	            data-toggle="modal" data-target="#edit-data"
-	            title="Edit Data">
-	            	<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-	            </a>
-	            <button
-	            class="btn btn-sm btn-danger hapus-menabung" 
-	            data-toggle="modal"
-	            id="id" 
-	            data-toggle="modal" 
-	            data-id="'.$posisi->id_jenis_lowongan.'"
-	            title="Hapus Data">
-	            	<i class="fa fa-trash"></i>
-	            </button>';
+			<a
+			href="javascript:void(0)"
+			data-id="'.$posisi->id_jenis_lowongan.'"
+			data-posisi_lowongan="'.$posisi->nama_jenis_lowongan.'"
+			data-toggle="modal" data-target="#edit-data"
+			title="Edit Data">
+			<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+			</a>
+			<button
+			class="btn btn-sm btn-danger hapus-menabung" 
+			data-toggle="modal"
+			id="id" 
+			data-toggle="modal" 
+			data-id="'.$posisi->id_jenis_lowongan.'"
+			title="Hapus Data">
+			<i class="fa fa-trash"></i>
+			</button>';
 
 			$data[] = $row;
 			$no++;
 		}
 
 		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_posisi_loker(),
-						"recordsFiltered" => $this->dashboard->count_filtered_posisi_loker(),
-						"data" => $data,
-				);
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all_posisi_loker(),
+			"recordsFiltered" => $this->dashboard->count_filtered_posisi_loker(),
+			"data" => $data,
+		);
 		//output to json format
 		echo json_encode($output);
 	}
@@ -1155,35 +1190,35 @@ class Dashboard extends CI_Controller {
 			$row[] = $keterampilan->nama_jenis_lowongan;
 			$row[] = $keterampilan->nama_keahlian;
 			$row[] = '
-	              <a
-	            href="javascript:void(0)"
-	            data-id="'.$keterampilan->id_keahlian.'"
-	            data-id_posisi="'.$keterampilan->id_jenis_lowongan.'"
-	            data-nama_keahlian="'.$keterampilan->nama_keahlian.'"
-	            data-toggle="modal" data-target="#edit-data"
-	            title="Edit Data">
-	            	<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-	            </a>
-	            <button
-	            class="btn btn-sm btn-danger hapus-menabung" 
-	            data-toggle="modal"
-	            id="id" 
-	            data-toggle="modal" 
-	            data-id="'.$keterampilan->id_keahlian.'"
-	            title="Hapus Data">
-	            	<i class="fa fa-trash"></i>
-	            </button>';
+			<a
+			href="javascript:void(0)"
+			data-id="'.$keterampilan->id_keahlian.'"
+			data-id_posisi="'.$keterampilan->id_jenis_lowongan.'"
+			data-nama_keahlian="'.$keterampilan->nama_keahlian.'"
+			data-toggle="modal" data-target="#edit-data"
+			title="Edit Data">
+			<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+			</a>
+			<button
+			class="btn btn-sm btn-danger hapus-menabung" 
+			data-toggle="modal"
+			id="id" 
+			data-toggle="modal" 
+			data-id="'.$keterampilan->id_keahlian.'"
+			title="Hapus Data">
+			<i class="fa fa-trash"></i>
+			</button>';
 
 			$data[] = $row;
 			$no++;
 		}
 
 		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_keterampilan(),
-						"recordsFiltered" => $this->dashboard->count_filtered_keterampilan(),
-						"data" => $data,
-				);
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all_keterampilan(),
+			"recordsFiltered" => $this->dashboard->count_filtered_keterampilan(),
+			"data" => $data,
+		);
 		//output to json format
 		echo json_encode($output);
 	}
@@ -1221,34 +1256,34 @@ class Dashboard extends CI_Controller {
 			$row[] = $button1;
 			$row[] = $button2;
 			$row[] = '
-	              <a
-	            href="javascript:void(0)"
-	            data-id_sekolah="'.$bkk->id_sekolah.'"
-	            data-npsn="'.$bkk->npsn.'"
-	            data-nama_sekolah="'.$bkk->nama_sekolah.'"
-	            data-alamat_sekolah="'.$bkk->alamat_sekolah.'"
-	            data-kecamatan="'.$bkk->kecamatan.'"
-	            data-kelurahan="'.$bkk->kelurahan.'"
-	            data-visi="'.$bkk->visi.'"
-	            data-misi="'.$bkk->misi.'"
-	            data-id_perijinan="'.$bkk->id_perijinan.'"
-	            data-tgl_perijinan="'.date('Y-m-d', strtotime($bkk->tgl_perijinan)).'"
-	            data-ijin_bkk="'.$bkk->ijin_bkk.'"
-	            data-no_ijin="'.$bkk->no_ijin.'"
-	            data-toggle="modal" data-target="#edit-data"
-	            title="Edit Data">
-	            	<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
-	            </a>
-	            <button
-	            class="btn btn-sm btn-danger hapus-bkk" 
-	            data-toggle="modal"
-	            id="id" 
-	            data-toggle="modal" 
-	            data-id_sekolah="'.$bkk->id_sekolah.'"
-	            data-id_perijinan="'.$bkk->id_perijinan.'"
-	            title="Hapus Data">
-	            	<i class="fa fa-trash"></i>
-	            </button>';
+			<a
+			href="javascript:void(0)"
+			data-id_sekolah="'.$bkk->id_sekolah.'"
+			data-npsn="'.$bkk->npsn.'"
+			data-nama_sekolah="'.$bkk->nama_sekolah.'"
+			data-alamat_sekolah="'.$bkk->alamat_sekolah.'"
+			data-kecamatan="'.$bkk->kecamatan.'"
+			data-kelurahan="'.$bkk->kelurahan.'"
+			data-visi="'.$bkk->visi.'"
+			data-misi="'.$bkk->misi.'"
+			data-id_perijinan="'.$bkk->id_perijinan.'"
+			data-tgl_perijinan="'.date('Y-m-d', strtotime($bkk->tgl_perijinan)).'"
+			data-ijin_bkk="'.$bkk->ijin_bkk.'"
+			data-no_ijin="'.$bkk->no_ijin.'"
+			data-toggle="modal" data-target="#edit-data"
+			title="Edit Data">
+			<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
+			</a>
+			<button
+			class="btn btn-sm btn-danger hapus-bkk" 
+			data-toggle="modal"
+			id="id" 
+			data-toggle="modal" 
+			data-id_sekolah="'.$bkk->id_sekolah.'"
+			data-id_perijinan="'.$bkk->id_perijinan.'"
+			title="Hapus Data">
+			<i class="fa fa-trash"></i>
+			</button>';
 			// $row[] = '
 	  //             	<a href="'.base_url().'dashboardBkk/lokerEdit/'.$loker->id_lowongan.'" title="Edit Data">
 	  //           		<button class="btn btn-sm btn-info"><i class="fa fa-edit"></i></button>
@@ -1290,11 +1325,11 @@ class Dashboard extends CI_Controller {
 		//             </a>
 
 		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_bkk(),
-						"recordsFiltered" => $this->dashboard->count_filtered_bkk(),
-						"data" => $data,
-				);
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all_bkk(),
+			"recordsFiltered" => $this->dashboard->count_filtered_bkk(),
+			"data" => $data,
+		);
 		//output to json format
 		echo json_encode($output);
 	}
@@ -1306,104 +1341,92 @@ class Dashboard extends CI_Controller {
 
 		$id_user = $this->session->userdata('id');
 
-		$list = $this->dashboardReport->laporan_bkk();
-		// $data = array();
-		// $no = 1;
-		// foreach ($list as $bkk) {
-		// 	$row = array();
-
-		// 	$row[] = $bkk->kecamatan;
-		// 	$row[] = $bkk->total;
-		// 	$row[] = $bkk->belum_terdaftar;
-		// 	$row[] = $bkk->sudah_terdaftar;
-		// 	$data[] = $row;
-		// 	$no++;
-		// }
-		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => count($list),
-						"recordsFiltered" => count($list),
-						"data" => $list,
-				);
-		//output to json format
-		echo json_encode($output);
-	}
-
-	// Laporan Mitra Kerja
-	public function ajax_list_laporan_mitra()
-	{
-		date_default_timezone_set('Asia/Jakarta');
-
-		$id_user = $this->session->userdata('id');
-
-		$list = $this->dashboard->get_datatables_laporan_mitra();
+		$list = $this->dashboard->get_datatables_laporan_bkk();
 		$data = array();
 		$no = 1;
-		foreach ($list as $mitra) {
+		foreach ($list as $bkk) {
 			$row = array();
-			$row[] = $no.'.';
-			$row[] = $mitra->nama_perusahaan;
-			$row[] = $mitra->alamat;
-			$row[] = $mitra->no_telp;
-			$row[] = $mitra->email;
-			$row[] = $mitra->bidang_usaha;
-			$row[] = $mitra->nama_cp;
-			$row[] = $mitra->jabatan_cp;
-			$row[] = $mitra->no_telp_cp;
-			$row[] = $mitra->jenis_kemitraan;
-			$row[] = date('d M Y', strtotime($mitra->periode_dari)).' - '.date('d M Y', strtotime($mitra->periode_sampai));
+
+			$row[] = $bkk->kecamatan;
+			$row[] = $bkk->total;
+			$row[] = $bkk->belum_terdaftar;
+			$row[] = $bkk->sudah_terdaftar;
 			$data[] = $row;
 			$no++;
 		}
 		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_laporan_mitra(),
-						"recordsFiltered" => $this->dashboard->count_filtered_laporan_mitra(),
-						"data" => $data,
-				);
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all_laporan_bkk(),
+			"recordsFiltered" => $this->dashboard->count_filtered_laporan_bkk(),
+			"data" => $data,
+		);
 		//output to json format
 		echo json_encode($output);
 	}
 
 	// Alumni
-	public function ajax_list_laporan_keterserapan()
+	public function ajax_list_laporan_alumni()
 	{
 		$id_user = $this->session->userdata('id');
 
-		$list = $this->dashboard->get_datatables_alumni();
+		$list = $this->dashboard->get_datatables_laporan_alumni();
 		$data = array();
 		$no = 1;
-		foreach ($list as $serapan) {
+		foreach ($list as $alumni) {
 			$row = array();
-			if ($serapan->jenis_kelamin == 'L') {
-				$jenis = 'Laki-Laki';
-			} else if ($serapan->jenis_kelamin == 'P'){
-				$jenis = 'Perempuan';
-			}
 			$row[] = $no.'.';
-			$row[] = $serapan->nisn;
-			$row[] = $serapan->nik;
-			$row[] = $serapan->nama;
-			$row[] = $jenis;
-			$row[] = $serapan->alamat_alumni;
-			$row[] = $serapan->no_telp;
-			$row[] = $serapan->email;
-			$row[] = $serapan->jurusan;
-			$row[] = $serapan->tahun_lulus;
-			$row[] = $serapan->status;
-			$row[] = $serapan->nama_perusahaan;
-			$row[] = $serapan->alamat_perusahaan;
+			$row[] = $alumni->jurusan;
+			$row[] = $alumni->total;
+			$row[] = $alumni->jml_pria;
+			$row[] = $alumni->jml_wanita;
+			$row[] = $alumni->belum_bekerja;
+			$row[] = $alumni->bekerja;
+			$row[] = $alumni->kuliah;
+			$row[] = $alumni->wiraswasta;
 
 			$data[] = $row;
 			$no++;
 		}
 
 		$output = array(
-						"draw" => $_POST['draw'],
-						"recordsTotal" => $this->dashboard->count_all_alumni(),
-						"recordsFiltered" => $this->dashboard->count_filtered_alumni(),
-						"data" => $data,
-				);
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all_laporan_alumni(),
+			"recordsFiltered" => $this->dashboard->count_filtered_laporan_alumni(),
+			"data" => $data,
+		);
+		//output to json format
+		echo json_encode($output);
+	}
+
+	// Laporan Keterserapan
+	public function ajax_list_laporan_keterserapan()
+	{
+		$id_user = $this->session->userdata('id');
+
+		$list = $this->dashboard->get_datatables_laporan_keterserapan();
+		$data = array();
+		$no = 1;
+		foreach ($list as $serapan) {
+			$row = array();
+
+			$row[] = $no.'.';
+			$row[] = $serapan->kecamatan;
+			$row[] = $serapan->total;
+			$row[] = $serapan->belum_bekerja;
+			$row[] = $serapan->bekerja;
+			$row[] = $serapan->kuliah;
+			$row[] = $serapan->wiraswasta;
+
+			$data[] = $row;
+			$no++;
+		}
+
+		$output = array(
+			"draw" => $_POST['draw'],
+			"recordsTotal" => $this->dashboard->count_all_laporan_keterserapan(),
+			"recordsFiltered" => $this->dashboard->count_filtered_laporan_keterserapan(),
+			"data" => $data,
+		);
 		//output to json format
 		echo json_encode($output);
 	}
@@ -1412,582 +1435,582 @@ class Dashboard extends CI_Controller {
 	// End of Ajax Serverside
 
 	public function get_kelurahan()
-    {
-        $kec = $this->input->post('kec');
+	{
+		$kec = $this->input->post('kec');
 
-        echo $this->dashboard->get_kelurahan($kec);
+		echo $this->dashboard->get_kelurahan($kec);
 
-    }
+	}
 
     // Hilangkan Notif
-    public function notifNull(){
-    	try {
+	public function notifNull(){
+		try {
 			$id 	 				= $this->input->post('id');
 
-	        $data = array(
-	        	'notif'					=> '0',
-	        );  
+			$data = array(
+				'notif'					=> '0',
+			);  
 
-	        $update = $this->db->where('notif', $id);
-	        $this->db->update('table_sekolah', $data);
+			$update = $this->db->where('notif', $id);
+			$this->db->update('table_sekolah', $data);
 
-           	$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
+			$arr = array('msg' => 'Data gagal disimpan', 'success' => false);
 
-           	if($update){
-            	$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
-           	}
-          	echo json_encode($arr);
+			if($update){
+				$arr = array('msg' => 'Data berhasil disimpan', 'success' => true);
+			}
+			echo json_encode($arr);
 
 		} catch (Exception $e) {
 			
 		}
-    }
+	}
 
-  public function laporan_bkk_pdf()
-  {
-    $tgl_awal 			= $this->input->post("tgl_awal");
+	public function laporan_bkk_pdf()
+	{
+		$tgl_awal 			= $this->input->post("tgl_awal");
 		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
-    $tgl_awal       = $this->changeDateFormat($tgl_awal);
-    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+		$tgl_awal       = $this->changeDateFormat($tgl_awal);
+		$tgl_akhir      = $this->changeDateFormat($tgl_akhir);
 
-    $dataLaporan = $this->dashboardReport->laporan_bkk($tgl_awal, $tgl_akhir);
+		$dataLaporan = $this->dashboardReport->laporan_bkk($tgl_awal, $tgl_akhir);
 
-    $dataView = [
-      'dataLaporan' => $dataLaporan,
-      'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
-      'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
-    ];
+		$dataView = [
+			'dataLaporan' => $dataLaporan,
+			'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
+			'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
+		];
 
-    $view = $this->load->view('dashboardBkk/laporan_bkk', $dataView, true);
+		$view = $this->load->view('dashboardBkk/laporan_bkk', $dataView, true);
     // echo $view;
-    $this->pdfgenerator->generate($view, "Laporan BKK");
-  }
+		$this->pdfgenerator->generate($view, "Laporan BKK");
+	}
 
-  public function laporan_bkk_xls()
-  {
-    $tgl_awal 			= $this->input->post("tgl_awal");
+	public function laporan_bkk_xls()
+	{
+		$tgl_awal 			= $this->input->post("tgl_awal");
 		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
-    $tgl_awal       = $this->changeDateFormat($tgl_awal);
-    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+		$tgl_awal       = $this->changeDateFormat($tgl_awal);
+		$tgl_akhir      = $this->changeDateFormat($tgl_akhir);
 
-    $dataLaporan = $this->dashboardReport->laporan_bkk($tgl_awal, $tgl_akhir);
+		$dataLaporan = $this->dashboardReport->laporan_bkk($tgl_awal, $tgl_akhir);
 
-    $dirPath  = BASEPATH."../assets/excel/format_laporan_bkk.xlsx";
-    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
+		$dirPath  = BASEPATH."../assets/excel/format_laporan_bkk.xlsx";
+		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
 
-    $sheet = $spreadsheet->getActiveSheet();
+		$sheet = $spreadsheet->getActiveSheet();
     // $sheet->setCellValue('A1', 'Hello World !');
-    $styleText = [
-        'font' => [
-            'bold' => false,
-        ],
-        'alignment' => [
-            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-        ],
-        'borders' => [
-            'top' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'left' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'right' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'bottom' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-        ],
-    ];
+		$styleText = [
+			'font' => [
+				'bold' => false,
+			],
+			'alignment' => [
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+			],
+			'borders' => [
+				'top' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'left' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'right' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'bottom' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+			],
+		];
 
-      $styleNumber = [
-        'font' => [
-            'bold' => false,
-        ],
-        'alignment' => [
-            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-        ],
-        'borders' => [
-            'top' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'left' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'right' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'bottom' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-        ],
-    ];
-    $tableIndex = 4;
-    for ($i=0; $i < count($dataLaporan) ; $i++) { 
-      $tableIndex++;
-      $sheet->setCellValue('A'.$tableIndex, $dataLaporan[$i]->kecamatan);
-      $sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->total_bkk);
-      $sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->terdaftar);
-      $sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->tidak_terdaftar);
-      
-      $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
-      $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
-    }
+		$styleNumber = [
+			'font' => [
+				'bold' => false,
+			],
+			'alignment' => [
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+			],
+			'borders' => [
+				'top' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'left' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'right' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'bottom' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+			],
+		];
+		$tableIndex = 4;
+		for ($i=0; $i < count($dataLaporan) ; $i++) { 
+			$tableIndex++;
+			$sheet->setCellValue('A'.$tableIndex, $dataLaporan[$i]->kecamatan);
+			$sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->total_bkk);
+			$sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->terdaftar);
+			$sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->tidak_terdaftar);
 
-    if (!empty($tgl_awal)) {
-      $sheet->setCellValue('B2', $tgl_awal);
-    }
+			$spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+			$spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+		}
 
-    if (!empty($tgl_akhir)) {
-      $sheet->setCellValue('D2', $tgl_akhir);
-    }
+		if (!empty($tgl_awal)) {
+			$sheet->setCellValue('B2', date("d/m/Y", strtotime($tgl_awal)));
+		}
 
-    $writer = new Xlsx($spreadsheet);
-    header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment; filename="laporan BKK.xlsx"');
-    $writer->save("php://output");
+		if (!empty($tgl_akhir)) {
+			$sheet->setCellValue('D2', date("d/m/Y", strtotime($tgl_akhir)));
+		}
+
+		$writer = new Xlsx($spreadsheet);
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment; filename="laporan BKK.xlsx"');
+		$writer->save("php://output");
     // $fileName = "{$dirPath}/filename.xls";
 
     // recursively creates all required nested directories   
     // $writer->save($fileName);
     // echo $fileName;
-  }
+	}
 
-  public function laporan_alumni_pdf()
-  {
-    $tgl_awal 			= $this->input->post("tgl_awal");
+	public function laporan_alumni_pdf()
+	{
+		$tgl_awal 			= $this->input->post("tgl_awal");
 		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
-    $tgl_awal       = $this->changeDateFormat($tgl_awal);
-    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+		$tgl_awal       = $this->changeDateFormat($tgl_awal);
+		$tgl_akhir      = $this->changeDateFormat($tgl_akhir);
 
-    $dataLaporan = $this->dashboardReport->laporan_alumni($tgl_awal, $tgl_akhir);
+		$dataLaporan = $this->dashboardReport->laporan_alumni($tgl_awal, $tgl_akhir);
 
-    $dataView = [
-      'dataLaporan' => $dataLaporan,
-      'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
-      'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
-    ];
+		$dataView = [
+			'dataLaporan' => $dataLaporan,
+			'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
+			'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
+		];
 
-    $view = $this->load->view('dashboardBkk/laporan_alumni', $dataView, true);
+		$view = $this->load->view('dashboardBkk/laporan_alumni', $dataView, true);
     // echo $view;
-    $this->pdfgenerator->generate($view, "Laporan BKK");
-  }
+		$this->pdfgenerator->generate($view, "Laporan Alumni");
+	}
 
-  public function laporan_alumni_xls()
-  {
-    $tgl_awal 			= $this->input->post("tgl_awal");
+	public function laporan_alumni_xls()
+	{
+		$tgl_awal 			= $this->input->post("tgl_awal");
 		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
-    $tgl_awal       = $this->changeDateFormat($tgl_awal);
-    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+		$tgl_awal       = $this->changeDateFormat($tgl_awal);
+		$tgl_akhir      = $this->changeDateFormat($tgl_akhir);
 
-    $dataLaporan = $this->dashboardReport->laporan_alumni($tgl_awal, $tgl_akhir);
+		$dataLaporan = $this->dashboardReport->laporan_alumni($tgl_awal, $tgl_akhir);
 
-    $dirPath  = BASEPATH."../assets/excel/format_laporan_alumni.xlsx";
-    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
+		$dirPath  = BASEPATH."../assets/excel/format_laporan_alumni.xlsx";
+		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
 
-    $sheet = $spreadsheet->getActiveSheet();
+		$sheet = $spreadsheet->getActiveSheet();
     // $sheet->setCellValue('A1', 'Hello World !');
-    $styleText = [
-        'font' => [
-            'bold' => false,
-        ],
-        'alignment' => [
-            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-        ],
-        'borders' => [
-            'top' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'left' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'right' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'bottom' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-        ],
-    ];
+		$styleText = [
+			'font' => [
+				'bold' => false,
+			],
+			'alignment' => [
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+			],
+			'borders' => [
+				'top' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'left' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'right' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'bottom' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+			],
+		];
 
-    $styleNumber = [
-        'font' => [
-            'bold' => false,
-        ],
-        'alignment' => [
-            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-        ],
-        'borders' => [
-            'top' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'left' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'right' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'bottom' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-        ],
-    ];
+		$styleNumber = [
+			'font' => [
+				'bold' => false,
+			],
+			'alignment' => [
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+			],
+			'borders' => [
+				'top' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'left' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'right' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'bottom' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+			],
+		];
 
 
-    $total = [
-      'jurusan' => 0,
-      'laki' => 0,
-      'perempuan' => 0,
-      'belum_bekerja' => 0,
-      'bekerja' => 0,
-      'kuliah' => 0,
-      'wiraswasta' => 0
-    ];
+		$total = [
+			'jurusan' => 0,
+			'laki' => 0,
+			'perempuan' => 0,
+			'belum_bekerja' => 0,
+			'bekerja' => 0,
+			'kuliah' => 0,
+			'wiraswasta' => 0
+		];
 
-    $tableIndex = 5;
-    for ($i=0; $i < count($dataLaporan); $i++) { 
-      $tableIndex++;
-      $sheet->setCellValue('A'.$tableIndex, trim($dataLaporan[$i]->jurusan));
-      $sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->total);
-      $sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->laki);
-      $sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->perempuan);
-      $sheet->setCellValue('E'.$tableIndex, $dataLaporan[$i]->belum_bekerja);
-      $sheet->setCellValue('F'.$tableIndex, $dataLaporan[$i]->bekerja);
-      $sheet->setCellValue('G'.$tableIndex, $dataLaporan[$i]->kuliah);
-      $sheet->setCellValue('H'.$tableIndex, $dataLaporan[$i]->wiraswasta);
-      
-      $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
-      $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('G'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('H'.$tableIndex)->applyFromArray($styleNumber);
+		$tableIndex = 5;
+		for ($i=0; $i < count($dataLaporan); $i++) { 
+			$tableIndex++;
+			$sheet->setCellValue('A'.$tableIndex, trim($dataLaporan[$i]->jurusan));
+			$sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->total);
+			$sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->laki);
+			$sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->perempuan);
+			$sheet->setCellValue('E'.$tableIndex, $dataLaporan[$i]->belum_bekerja);
+			$sheet->setCellValue('F'.$tableIndex, $dataLaporan[$i]->bekerja);
+			$sheet->setCellValue('G'.$tableIndex, $dataLaporan[$i]->kuliah);
+			$sheet->setCellValue('H'.$tableIndex, $dataLaporan[$i]->wiraswasta);
 
-      $total['jurusan'] += $dataLaporan[$i]->total;
-      $total['laki'] += $dataLaporan[$i]->laki;
-      $total['perempuan'] += $dataLaporan[$i]->perempuan;
-      $total['belum_bekerja'] += $dataLaporan[$i]->belum_bekerja;
-      $total['bekerja'] += $dataLaporan[$i]->bekerja;
-      $total['kuliah'] += $dataLaporan[$i]->kuliah;
-      $total['wiraswasta'] += $dataLaporan[$i]->wiraswasta;
-    }
+			$spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+			$spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('G'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('H'.$tableIndex)->applyFromArray($styleNumber);
 
-    $styleText['font']['bold'] = TRUE;
-    $styleNumber['font']['bold'] = TRUE;
-    $tableIndex++;
-    $sheet->setCellValue('A'.$tableIndex, "Total");
-    $sheet->setCellValue('B'.$tableIndex, $total['jurusan']);
-    $sheet->setCellValue('C'.$tableIndex, $total['laki']);
-    $sheet->setCellValue('D'.$tableIndex, $total['perempuan']);
-    $sheet->setCellValue('E'.$tableIndex, $total['belum_bekerja']);
-    $sheet->setCellValue('F'.$tableIndex, $total['bekerja']);
-    $sheet->setCellValue('G'.$tableIndex, $total['kuliah']);
-    $sheet->setCellValue('H'.$tableIndex, $total['wiraswasta']);
+			$total['jurusan'] += $dataLaporan[$i]->total;
+			$total['laki'] += $dataLaporan[$i]->laki;
+			$total['perempuan'] += $dataLaporan[$i]->perempuan;
+			$total['belum_bekerja'] += $dataLaporan[$i]->belum_bekerja;
+			$total['bekerja'] += $dataLaporan[$i]->bekerja;
+			$total['kuliah'] += $dataLaporan[$i]->kuliah;
+			$total['wiraswasta'] += $dataLaporan[$i]->wiraswasta;
+		}
 
-    $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
-    $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
-    $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
-    $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
-    $spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
-    $spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
-    $spreadsheet->getActiveSheet()->getStyle('G'.$tableIndex)->applyFromArray($styleNumber);
-    $spreadsheet->getActiveSheet()->getStyle('H'.$tableIndex)->applyFromArray($styleNumber);
+		$styleText['font']['bold'] = TRUE;
+		$styleNumber['font']['bold'] = TRUE;
+		$tableIndex++;
+		$sheet->setCellValue('A'.$tableIndex, "Total");
+		$sheet->setCellValue('B'.$tableIndex, $total['jurusan']);
+		$sheet->setCellValue('C'.$tableIndex, $total['laki']);
+		$sheet->setCellValue('D'.$tableIndex, $total['perempuan']);
+		$sheet->setCellValue('E'.$tableIndex, $total['belum_bekerja']);
+		$sheet->setCellValue('F'.$tableIndex, $total['bekerja']);
+		$sheet->setCellValue('G'.$tableIndex, $total['kuliah']);
+		$sheet->setCellValue('H'.$tableIndex, $total['wiraswasta']);
 
-    if (!empty($tgl_awal)) {
-      $sheet->setCellValue('D2', $tgl_awal);
-    }
+		$spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+		$spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+		$spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+		$spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+		$spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
+		$spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
+		$spreadsheet->getActiveSheet()->getStyle('G'.$tableIndex)->applyFromArray($styleNumber);
+		$spreadsheet->getActiveSheet()->getStyle('H'.$tableIndex)->applyFromArray($styleNumber);
 
-    if (!empty($tgl_akhir)) {
-      $sheet->setCellValue('F2', $tgl_akhir);
-    }
+		if (!empty($tgl_awal)) {
+			$sheet->setCellValue('D2', date("d/m/Y", strtotime($tgl_awal)));
+		}
 
-    $writer = new Xlsx($spreadsheet);
-    header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment; filename="laporan Alumni.xlsx"');
-    $writer->save("php://output");
+		if (!empty($tgl_akhir)) {
+			$sheet->setCellValue('F2', date("d/m/Y", strtotime($tgl_akhir)));
+		}
+
+		$writer = new Xlsx($spreadsheet);
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment; filename="laporan Alumni.xlsx"');
+		$writer->save("php://output");
     // $fileName = "{$dirPath}/filename.xls";
 
     // recursively creates all required nested directories   
     // $writer->save($fileName);
     // echo $fileName;
-  }
+	}
 
-  public function laporan_kemitraan_pdf()
-  {
-    $tgl_awal 			= $this->input->post("tgl_awal");
+	public function laporan_kemitraan_pdf()
+	{
+		$tgl_awal 			= $this->input->post("tgl_awal");
 		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
-    $tgl_awal       = $this->changeDateFormat($tgl_awal);
-    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+		$tgl_awal       = $this->changeDateFormat($tgl_awal);
+		$tgl_akhir      = $this->changeDateFormat($tgl_akhir);
     // echo $tgl_awal." ".$tgl_akhir;
 
-    $dataLaporan = $this->dashboardReport->laporan_kemitraan($tgl_awal, $tgl_akhir);
+		$dataLaporan = $this->dashboardReport->laporan_kemitraan($tgl_awal, $tgl_akhir);
 
-    $dataView = [
-      'dataLaporan' => $dataLaporan,
-      'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
-      'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
-    ];
+		$dataView = [
+			'dataLaporan' => $dataLaporan,
+			'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
+			'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
+		];
 
-    $view = $this->load->view('dashboardBkk/laporan_kemitraan', $dataView, true);
+		$view = $this->load->view('dashboardBkk/laporan_kemitraan', $dataView, true);
     // echo $view;
-    $this->pdfgenerator->generate($view, "Laporan Kemitraan");
-  }
+		$this->pdfgenerator->generate($view, "Laporan Kemitraan");
+	}
 
-  public function laporan_kemitraan_xls()
-  {
-    $tgl_awal 			= $this->input->post("tgl_awal");
+	public function laporan_kemitraan_xls()
+	{
+		$tgl_awal 			= $this->input->post("tgl_awal");
 		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
-    $tgl_awal       = $this->changeDateFormat($tgl_awal);
-    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+		$tgl_awal       = $this->changeDateFormat($tgl_awal);
+		$tgl_akhir      = $this->changeDateFormat($tgl_akhir);
 
-    $dataLaporan = $this->dashboardReport->laporan_kemitraan($tgl_awal, $tgl_akhir);
+		$dataLaporan = $this->dashboardReport->laporan_kemitraan($tgl_awal, $tgl_akhir);
 
-    $dirPath  = BASEPATH."../assets/excel/format_laporan_kemitraan.xlsx";
-    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
+		$dirPath  = BASEPATH."../assets/excel/format_laporan_kemitraan.xlsx";
+		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
 
-    $sheet = $spreadsheet->getActiveSheet();
+		$sheet = $spreadsheet->getActiveSheet();
     // $sheet->setCellValue('A1', 'Hello World !');
-    $styleText = [
-        'font' => [
-            'bold' => false,
-        ],
-        'alignment' => [
-            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-        ],
-        'borders' => [
-            'top' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'left' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'right' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'bottom' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-        ],
-    ];
+		$styleText = [
+			'font' => [
+				'bold' => false,
+			],
+			'alignment' => [
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+			],
+			'borders' => [
+				'top' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'left' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'right' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'bottom' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+			],
+		];
 
-    $styleNumber = [
-        'font' => [
-            'bold' => false,
-        ],
-        'alignment' => [
-            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-        ],
-        'borders' => [
-            'top' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'left' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'right' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'bottom' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-        ],
-    ];
+		$styleNumber = [
+			'font' => [
+				'bold' => false,
+			],
+			'alignment' => [
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+			],
+			'borders' => [
+				'top' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'left' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'right' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'bottom' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+			],
+		];
 
 
-    $total = [
-      'jurusan' => 0,
-      'laki' => 0,
-      'perempuan' => 0,
-      'belum_bekerja' => 0,
-      'bekerja' => 0,
-      'kuliah' => 0,
-      'wiraswasta' => 0
-    ];
+		$total = [
+			'jurusan' => 0,
+			'laki' => 0,
+			'perempuan' => 0,
+			'belum_bekerja' => 0,
+			'bekerja' => 0,
+			'kuliah' => 0,
+			'wiraswasta' => 0
+		];
 
-    $tableIndex = 5;
-    for ($i=0; $i < count($dataLaporan); $i++) { 
-      $tableIndex++;
-      $sheet->setCellValue('A'.$tableIndex, trim($dataLaporan[$i]->kecamatan));
-      $sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->mitra);
-      $sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->loker);
-      $sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->tk);
-      $sheet->setCellValue('E'.$tableIndex, $dataLaporan[$i]->magang);
-      $sheet->setCellValue('F'.$tableIndex, $dataLaporan[$i]->pelatihan);
-      $sheet->setCellValue('G'.$tableIndex, $dataLaporan[$i]->perekrutan);
-      $sheet->setCellValue('H'.$tableIndex, $dataLaporan[$i]->lainnya);
-      
-      $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
-      $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('G'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('H'.$tableIndex)->applyFromArray($styleNumber);
-    }
+		$tableIndex = 5;
+		for ($i=0; $i < count($dataLaporan); $i++) { 
+			$tableIndex++;
+			$sheet->setCellValue('A'.$tableIndex, trim($dataLaporan[$i]->kecamatan));
+			$sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->mitra);
+			$sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->loker);
+			$sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->tk);
+			$sheet->setCellValue('E'.$tableIndex, $dataLaporan[$i]->magang);
+			$sheet->setCellValue('F'.$tableIndex, $dataLaporan[$i]->pelatihan);
+			$sheet->setCellValue('G'.$tableIndex, $dataLaporan[$i]->perekrutan);
+			$sheet->setCellValue('H'.$tableIndex, $dataLaporan[$i]->lainnya);
 
-    if (!empty($tgl_awal)) {
-      $sheet->setCellValue('D2', $tgl_awal);
-    }
+			$spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+			$spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('G'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('H'.$tableIndex)->applyFromArray($styleNumber);
+		}
 
-    if (!empty($tgl_akhir)) {
-      $sheet->setCellValue('F2', $tgl_akhir);
-    }
+		if (!empty($tgl_awal)) {
+			$sheet->setCellValue('D2', date("d/m/Y", strtotime($tgl_awal)));
+		}
 
-    $writer = new Xlsx($spreadsheet);
-    header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment; filename="laporan Kemitraan.xlsx"');
-    $writer->save("php://output");
+		if (!empty($tgl_akhir)) {
+			$sheet->setCellValue('F2', date("d/m/Y", strtotime($tgl_akhir)));
+		}
+
+		$writer = new Xlsx($spreadsheet);
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment; filename="laporan Kemitraan.xlsx"');
+		$writer->save("php://output");
     // $fileName = "{$dirPath}/filename.xls";
 
     // recursively creates all required nested directories   
     // $writer->save($fileName);
     // echo $fileName;
-  }
+	}
 
-  public function laporan_keterserapan_pdf()
-  {
-    $tgl_awal 			= $this->input->post("tgl_awal");
+	public function laporan_keterserapan_pdf()
+	{
+		$tgl_awal 			= $this->input->post("tgl_awal");
 		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
-    $tgl_awal       = $this->changeDateFormat($tgl_awal);
-    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+		$tgl_awal       = $this->changeDateFormat($tgl_awal);
+		$tgl_akhir      = $this->changeDateFormat($tgl_akhir);
 
-    $dataLaporan = $this->dashboardReport->laporan_keterserapan($tgl_awal, $tgl_akhir);
+		$dataLaporan = $this->dashboardReport->laporan_keterserapan($tgl_awal, $tgl_akhir);
 
-    $dataView = [
-      'dataLaporan' => $dataLaporan,
-      'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
-      'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
-    ];
+		$dataView = [
+			'dataLaporan' => $dataLaporan,
+			'tgl_awal' => date("d M Y", strtotime($tgl_awal)),
+			'tgl_akhir' => date("d M Y", strtotime($tgl_akhir))
+		];
 
-    $view = $this->load->view('dashboardBkk/laporan_keterserapan', $dataView, true);
+		$view = $this->load->view('dashboardBkk/laporan_keterserapan', $dataView, true);
     // echo $view;
-    $this->pdfgenerator->generate($view, "Laporan Keterserapan");
-  }
+		$this->pdfgenerator->generate($view, "Laporan Keterserapan");
+	}
 
-  public function laporan_keterserapan_xls()
-  {
-    $tgl_awal 			= $this->input->post("tgl_awal");
+	public function laporan_keterserapan_xls()
+	{
+		$tgl_awal 			= $this->input->post("tgl_awal");
 		$tgl_akhir 	 		= $this->input->post("tgl_akhir");
-    $tgl_awal       = $this->changeDateFormat($tgl_awal);
-    $tgl_akhir      = $this->changeDateFormat($tgl_akhir);
+		$tgl_awal       = $this->changeDateFormat($tgl_awal);
+		$tgl_akhir      = $this->changeDateFormat($tgl_akhir);
 
-    $dataLaporan = $this->dashboardReport->laporan_keterserapan($tgl_awal, $tgl_akhir);
+		$dataLaporan = $this->dashboardReport->laporan_keterserapan($tgl_awal, $tgl_akhir);
 
-    $dirPath  = BASEPATH."../assets/excel/format_laporan_keterserapan.xlsx";
-    $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
+		$dirPath  = BASEPATH."../assets/excel/format_laporan_keterserapan.xlsx";
+		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($dirPath);
 
-    $sheet = $spreadsheet->getActiveSheet();
+		$sheet = $spreadsheet->getActiveSheet();
     // $sheet->setCellValue('A1', 'Hello World !');
-    $styleText = [
-        'font' => [
-            'bold' => false,
-        ],
-        'alignment' => [
-            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
-        ],
-        'borders' => [
-            'top' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'left' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'right' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'bottom' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-        ],
-    ];
+		$styleText = [
+			'font' => [
+				'bold' => false,
+			],
+			'alignment' => [
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_LEFT,
+			],
+			'borders' => [
+				'top' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'left' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'right' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'bottom' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+			],
+		];
 
-    $styleNumber = [
-        'font' => [
-            'bold' => false,
-        ],
-        'alignment' => [
-            'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
-        ],
-        'borders' => [
-            'top' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'left' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'right' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-            'bottom' => [
-                'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
-            ],
-        ],
-    ];
+		$styleNumber = [
+			'font' => [
+				'bold' => false,
+			],
+			'alignment' => [
+				'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_RIGHT,
+			],
+			'borders' => [
+				'top' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'left' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'right' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+				'bottom' => [
+					'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+				],
+			],
+		];
 
 
-    $total = [
-      'jurusan' => 0,
-      'laki' => 0,
-      'perempuan' => 0,
-      'belum_bekerja' => 0,
-      'bekerja' => 0,
-      'kuliah' => 0,
-      'wiraswasta' => 0
-    ];
+		$total = [
+			'jurusan' => 0,
+			'laki' => 0,
+			'perempuan' => 0,
+			'belum_bekerja' => 0,
+			'bekerja' => 0,
+			'kuliah' => 0,
+			'wiraswasta' => 0
+		];
 
-    $tableIndex = 5;
-    for ($i=0; $i < count($dataLaporan); $i++) { 
-      $tableIndex++;
-      $sheet->setCellValue('A'.$tableIndex, trim($dataLaporan[$i]->kecamatan));
-      $sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->total);
-      $sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->belum_bekerja);
-      $sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->bekerja);
-      $sheet->setCellValue('E'.$tableIndex, $dataLaporan[$i]->kuliah);
-      $sheet->setCellValue('F'.$tableIndex, $dataLaporan[$i]->wiraswasta);
-      
-      $spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
-      $spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
-      $spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
-    }
+		$tableIndex = 5;
+		for ($i=0; $i < count($dataLaporan); $i++) { 
+			$tableIndex++;
+			$sheet->setCellValue('A'.$tableIndex, trim($dataLaporan[$i]->kecamatan));
+			$sheet->setCellValue('B'.$tableIndex, $dataLaporan[$i]->total);
+			$sheet->setCellValue('C'.$tableIndex, $dataLaporan[$i]->belum_bekerja);
+			$sheet->setCellValue('D'.$tableIndex, $dataLaporan[$i]->bekerja);
+			$sheet->setCellValue('E'.$tableIndex, $dataLaporan[$i]->kuliah);
+			$sheet->setCellValue('F'.$tableIndex, $dataLaporan[$i]->wiraswasta);
 
-    if (!empty($tgl_awal)) {
-      $sheet->setCellValue('C2', $tgl_awal);
-    }
+			$spreadsheet->getActiveSheet()->getStyle('A'.$tableIndex)->applyFromArray($styleText);
+			$spreadsheet->getActiveSheet()->getStyle('B'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('C'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('D'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('E'.$tableIndex)->applyFromArray($styleNumber);
+			$spreadsheet->getActiveSheet()->getStyle('F'.$tableIndex)->applyFromArray($styleNumber);
+		}
 
-    if (!empty($tgl_akhir)) {
-      $sheet->setCellValue('E2', $tgl_akhir);
-    }
+		if (!empty($tgl_awal)) {
+			$sheet->setCellValue('C2', date("d/m/Y", strtotime($tgl_awal)));
+		}
 
-    $writer = new Xlsx($spreadsheet);
-    header('Content-Type: application/vnd.ms-excel');
-    header('Content-Disposition: attachment; filename="laporan Keterserapan.xlsx"');
-    $writer->save("php://output");
+		if (!empty($tgl_akhir)) {
+			$sheet->setCellValue('E2', date("d/m/Y", strtotime($tgl_akhir)));
+		}
+
+		$writer = new Xlsx($spreadsheet);
+		header('Content-Type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment; filename="laporan Keterserapan.xlsx"');
+		$writer->save("php://output");
     // $fileName = "{$dirPath}/filename.xls";
 
     // recursively creates all required nested directories   
     // $writer->save($fileName);
     // echo $fileName;
-  }
+	}
 
 	private function changeDateFormat($date)
-  {
-    $date  = str_replace("/","-",$date );
-    $date  = str_replace("%3A",":",$date );
+	{
+		$date  = str_replace("/","-",$date );
+		$date  = str_replace("%3A",":",$date );
 
-    $datadate= "";
+		$datadate= "";
 
 
-    $dateTemp = DateTime::createFromFormat('d-m-Y', $date);
-    $datadate= $dateTemp->format('Y-m-d');
+		$dateTemp = DateTime::createFromFormat('Y-m-d', $date);
+		$datadate= $dateTemp->format('Y-m-d');
 
-    return $datadate;
-  }
+		return $datadate;
+	}
 }

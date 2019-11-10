@@ -6,9 +6,7 @@
     <?php foreach ($dataMitra['mitra'] as $mitra) { ?>
       <div class="col-lg-3 col-md-4 col-sm-6 col-12 mb-3">
         <div class="card text-center">
-          <div class="card-body">
-            <a href="#" data-toggle="modal" data-target="#myModal<?= $mitra->id_mitra ?>"><h5 class="text-info mb-0"><?= $mitra->nama_perusahaan ?></h5></a>
-          </div>
+          <a href="#" data-toggle="modal" data-target="#myModal<?= $mitra->id_mitra ?>"><img src="<?php echo base_url(); ?>assets/upload/image/mitra/<?= $mitra->logo_mitra ?>" class="img-fluid"></a>
         </div>
       </div>
     <?php } ?>
@@ -37,7 +35,7 @@
 
         <!-- Modal body -->
         <div class="modal-body text-center">
-          <img src="<?php echo base_url(); ?>assets/upload/image/<?= $mitra->logo_mitra ?>" class="img-fluid"><br/>
+          <img src="<?php echo base_url(); ?>assets/upload/image/mitra/<?= $mitra->logo_mitra ?>" class="img-fluid"><br/>
           <h4><br><?= $mitra->nama_perusahaan ?></h4>
           <span class="badge badge-info"><?= $mitra->bidang_usaha ?></span>
           <p><?= $mitra->alamat ?></p>

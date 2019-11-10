@@ -123,10 +123,10 @@
                                 <label>Status</label>
                                 <select class="form-control" id="status" name="status" required="">
                                     <option value="" selected="">Pilih Status</option>
-                                    <option value="Bekerja"<?= $alumni->status == 'Bekerja' ? ' selected="selected"' : '';?>>Bekerja</option>
-                                    <option value="Kuliah"<?= $alumni->status == 'Kuliah' ? ' selected="selected"' : '';?>>Kuliah</option>
-                                    <option value="Wiraswasta"<?= $alumni->status == 'Wiraswasta' ? ' selected="selected"' : '';?>>Wiraswasta</option>
-                                    <option value="Belum Bekerja"<?= $alumni->status == 'Belum Bekerja' ? ' selected="selected"' : '';?>>Belum/Tidak Bekerja</option>
+                                    <option value="Bekerja"<?= $alumni->sts == 'Bekerja' ? ' selected="selected"' : '';?>>Bekerja</option>
+                                    <option value="Kuliah"<?= $alumni->sts == 'Kuliah' ? ' selected="selected"' : '';?>>Kuliah</option>
+                                    <option value="Wiraswasta"<?= $alumni->sts == 'Wiraswasta' ? ' selected="selected"' : '';?>>Wiraswasta</option>
+                                    <option value="Belum Bekerja"<?= $alumni->sts == 'Belum Bekerja' ? ' selected="selected"' : '';?>>Belum/Tidak Bekerja</option>
                                 </select>
                             </div>
                         </div>

@@ -36,7 +36,7 @@
             </div>
           <?php } else { ?>
             <div class="carousel-item <?php if($no <= 1){echo 'active';}?>">
-              <img src="<?php echo base_url(); ?>assets/upload/image/<?= $slide->foto_slider; ?>" alt="Slider1" class="carousel-obj" style="width: 100%; height: 100%;">
+              <img src="<?php echo base_url(); ?>assets/upload/image/slide_admin/<?= $slide->foto_slider; ?>" alt="Slider1" class="carousel-obj" style="width: 100%; height: 100%;">
               <!-- <div class="carousel-caption" style="bottom: 50%;">
                 <h3 class="text-white"><?= $slide->judul_slider; ?></h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -121,160 +121,7 @@
     </div>
   </div>
 </section>
-<!-- <section class="ftco-section mt-4">
- <div class="container">
-  <h2 class="text-center text-info ftco-animate"><b>Informasi BKK</b></h2>
-  <div class="row d-flex ftco-animate justify-content-center">
-    <div class="col-md-4 d-flex ftco-animate fadeInUp ftco-animated">
-      <div class="card w-100 p-2">
-        <h6 class="text-center">Per Kecamantan</h6>
-        <table class="table table-striped table-hover text-center">
-          <thead class="bg-info text-white">
-           <tr>
-             <th>No</th>
-             <th>Nama</th>
-             <th>Total</th>
-           </tr>
-         </thead>
-         <tbody>
-           <tr>
-             <td>1</td>
-             <td>Cilodong</td>
-             <td>123</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>Cilodong</td>
-             <td>123</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>Cilodong</td>
-             <td>123</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>Cilodong</td>
-             <td>123</td>
-           </tr>
-           <tr>
-             <td>1</td>
-             <td>Cilodong</td>
-             <td>123</td>
-           </tr>
-         </tbody>
-       </table>
-     </div>
-   </div>
-   <div class="col-md-4 d-flex ftco-animate fadeInUp ftco-animated">
-    <div class="card w-100 p-2">
-      <h6 class="text-center">Per Jurusan</h6>
-      <table class="table table-striped table-hover text-center">
-       <thead class="bg-info text-white">
-         <tr>
-           <th>No</th>
-           <th>Nama</th>
-           <th>2017</th>
-           <th>2018</th>
-           <th>Total</th>
-         </tr>
-       </thead>
-       <tbody>
-         <tr>
-           <td>1</td>
-           <td>RPL</td>
-           <td>123</td>
-           <td>123</td>
-           <td>123</td>
-         </tr>
-         <tr>
-           <td>1</td>
-           <td>RPL</td>
-           <td>123</td>
-           <td>123</td>
-           <td>123</td>
-         </tr>
-         <tr>
-           <td>1</td>
-           <td>RPL</td>
-           <td>123</td>
-           <td>123</td>
-           <td>123</td>
-         </tr>
-         <tr>
-           <td>1</td>
-           <td>RPL</td>
-           <td>123</td>
-           <td>123</td>
-           <td>123</td>
-         </tr>
-         <tr>
-           <td>1</td>
-           <td>RPL</td>
-           <td>123</td>
-           <td>123</td>
-           <td>123</td>
-         </tr>
-       </tbody>
-     </table>
-   </div>
- </div>
- <div class="col-md-4 d-flex ftco-animate fadeInUp ftco-animated">
-  <div class="card w-100 p-2">
-    <h6 class="text-center">BKK Lowongan</h6>
-    <table class="table table-striped table-hover text-center">
-     <thead class="bg-info text-white">
-       <tr>
-         <th>No</th>
-         <th>Nama</th>
-         <th>2017</th>
-         <th>2018</th>
-         <th>Total</th>
-       </tr>
-     </thead>
-     <tbody>
-       <tr>
-         <td>1</td>
-         <td>RPL</td>
-         <td>123</td>
-         <td>123</td>
-         <td>123</td>
-       </tr>
-       <tr>
-         <td>1</td>
-         <td>RPL</td>
-         <td>123</td>
-         <td>123</td>
-         <td>123</td>
-       </tr>
-       <tr>
-         <td>1</td>
-         <td>RPL</td>
-         <td>123</td>
-         <td>123</td>
-         <td>123</td>
-       </tr>
-       <tr>
-         <td>1</td>
-         <td>RPL</td>
-         <td>123</td>
-         <td>123</td>
-         <td>123</td>
-       </tr>
-       <tr>
-         <td>1</td>
-         <td>RPL</td>
-         <td>123</td>
-         <td>123</td>
-         <td>123</td>
-       </tr>
-     </tbody>
-   </table>
- </div>
-</div>
-</div>
-</div>
-</section> -->
+
 <section class="ftco-section">
  <div class="container">
   <h2 class="text-center ftco-animate">Kegiatan</h2>
@@ -284,12 +131,12 @@
       <div class="col-lg-4 col-md-6 col-sm-12 col-12 mb-3 d-flex ftco-animate fadeInUp ftco-animated">
         <div class="blog-entry justify-content-end w-100">
           <a href="<?php echo base_url(); ?>kegiatandetail/<?= $kegiatan->id_kegiatan?>" class="block-20">
-            <img src="<?php echo base_url(); ?>assets/upload/image/<?= $kegiatan->foto_kegiatan ?>" style="width: 100%; height: 100%;">
+            <img src="<?php echo base_url(); ?>assets/upload/image/kegiatan/<?= $kegiatan->foto_kegiatan ?>" style="width: 100%; height: 100%;">
           </a>
           <div class="text mt-3 mb-3 float-right d-block">
             <h3 class="heading"><a href="<?php echo base_url(); ?>Home/beritaDetail/<?= $kegiatan->id_kegiatan?>"><?= $kegiatan->judul_kegiatan ?></a></h3>
             <p class="text-justify">
-              <?= word_limiter($kegiatan->uraian_kegiatan, 25)?> 
+              <?= word_limiter($kegiatan->uraian_kegiatan, 25)?></em>
             </p>
             <a href="<?php echo base_url(); ?>Home/beritaDetail/<?= $kegiatan->id_kegiatan?>" class="btn btn-info float-right">Selengkapnya</a>
           </div>

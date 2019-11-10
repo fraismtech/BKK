@@ -3,7 +3,7 @@
    <div class="row mt-3">
      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ftco-animate">
       <?php foreach($detailKegiatan as $kegiatan) { ?>
-      <img src="<?php echo base_url(); ?>assets/upload/image/<?= $kegiatan->foto_kegiatan ?>" class="img-fluid mb-3 w-100">
+      <img src="<?php echo base_url(); ?>assets/upload/image/kegiatan/<?= $kegiatan->foto_kegiatan ?>" class="img-fluid mb-3 w-100">
       <?php } ?>
     </div>
   </div>
@@ -17,7 +17,8 @@
       <?php foreach($detailKegiatan as $kegiatan) { ?>
       <div class="col-lg-8 col-md-7 col-sm-12 col-12">
         <h3><b><?= $kegiatan->judul_kegiatan ?></b></h3>
-        <p class="text-justify"><?= $kegiatan->uraian_kegiatan ?></p>
+        <small><?= date('d M Y', strtotime($kegiatan->tanggal_kegiatan)) ?></small>
+        <p class="text-justify"><?= $kegiatan->uraian_kegiatan ?></em></p>
       </div>
       <?php } ?>
       <div class="col-lg-4 col-md-5 col-sm-12 col-12">
@@ -34,7 +35,7 @@
             <?php foreach($listKegiatan as $list) { ?>
             <div class="row mt-4">
               <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                <img src="<?php echo base_url(); ?>assets/upload/image/<?= $list->foto_kegiatan ?>" class="img-donatur2">
+                <img src="<?php echo base_url(); ?>assets/upload/image/kegiatan/<?= $list->foto_kegiatan ?>" class="img-donatur2">
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                 <h6 class="mb-0"><b><a href="<?php echo base_url(); ?>Home/beritaDetail/<?= $list->id_kegiatan ?>"><?= $list->judul_kegiatan ?></a></b></h6>
@@ -47,7 +48,7 @@
             <?php foreach($listLowongan as $list) { ?>
             <div class="row mt-4">
               <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                <img src="<?php echo base_url(); ?>assets/upload/image/<?= $list->logo_mitra ?>" class="img-donatur2">
+                <img src="<?php echo base_url(); ?>assets/upload/image/mitra/<?= $list->logo_mitra ?>" class="img-donatur2">
               </div>
               <div class="col-lg-8 col-md-8 col-sm-8 col-8">
                 <h5 class="mb-0"><b><a href="javascript:void(0)" data-toggle="modal" data-target="#myModal<?= $list->id_lowongan ?>"><?= $list->nama_lowongan ?></a></b></h5>

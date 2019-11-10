@@ -76,8 +76,8 @@
                           <tr>
                             <th rowspan="2">Kecamatan</th>
                             <th rowspan="2">Kemitraan</th>
-                            <th colspan="2">Loker</th>
-                            <th colspan="4">Status Kemitraan</th>
+                            <th colspan="2"><center>Loker</center></th>
+                            <th colspan="4"><center>Status Kemitraan</center></th>
                           </tr>
                           <tr>
                             <th>

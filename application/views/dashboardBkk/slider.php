@@ -182,10 +182,10 @@ $(document).ready(function() {
         modal.find('#id').attr("value", div.data('id'));
         modal.find('#tanggal').attr("value", div.data('tanggal'));
         modal.find('#judul').attr("value", div.data('judul'));
-        modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/" + div.data('foto'));
+        modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/slider/" + div.data('foto'));
         modal.find('#roomNumber').text(div.data('foto'));
-        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
-        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/slider/"+ div.data('foto1'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/slider/"+ div.data('foto1'));
     });
 
     $('#example').on('click','.hapus-menabung', function () {

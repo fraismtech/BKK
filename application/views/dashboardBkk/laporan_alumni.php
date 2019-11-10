@@ -76,8 +76,8 @@
                           <tr>
                             <th rowspan="2">Bidang keahlian/jurusan</th>
                             <th rowspan="2">Jumlah alumni</th>
-                            <th colspan="2">Jenis Kelamin</th>
-                            <th colspan="4">Status</th>
+                            <th colspan="2"><center>Jenis Kelamin</center></th>
+                            <th colspan="4"><center>Status</center></th>
                           </tr>
                           <tr>
                             <th>
