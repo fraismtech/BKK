@@ -10974,6 +10974,7 @@ $('.date-picker-default').datepicker({
     });
 
 var checkin = $('.range-from').datepicker({
+        format: 'dd/mm/yyyy',
         onRender: function(date) {
             return date.valueOf() < now.valueOf() ? 'disabled' : '';
         }
@@ -10988,6 +10989,7 @@ var checkin = $('.range-from').datepicker({
         $('.range-to')[0].focus();
     }).data('datepicker');
     var checkout = $('.range-to').datepicker({
+        format: 'dd/mm/yyyy',
         onRender: function(date) {
             return date.valueOf() <= checkin.date.valueOf() ? 'disabled' : '';
         }
