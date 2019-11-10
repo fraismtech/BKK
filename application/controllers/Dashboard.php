@@ -180,6 +180,8 @@ class Dashboard extends CI_Controller {
 	// Edit BKK
 	public function updateBKK(){
 		try {
+			date_default_timezone_set('Asia/Jakarta');
+
 			$id_sekolah		= $this->input->post('id_s');
 			$id_perijinan 	= $this->input->post('id_perijinan');
 
@@ -195,6 +197,8 @@ class Dashboard extends CI_Controller {
 			$no_ijin 		= $this->input->post('no_ijin');
 			$tgl_perijinan 	= $this->input->post('tgl_perijinan');
 
+			$date_created  		= date("Y-m-d H:i:s");
+
 			$data = array(
 				'npsn'			=> $npsn,
 				'nama_sekolah'	=> $nama_sekolah,
@@ -203,6 +207,7 @@ class Dashboard extends CI_Controller {
 				'kelurahan'		=> $kelurahan,
 				'visi'			=> $visi,
 				'misi'			=> $misi,
+				'register_date' => $date_created,
 			);  
 
 			$update_sekolah = $this->dashboard->simpanBKK($data, $id_sekolah);
