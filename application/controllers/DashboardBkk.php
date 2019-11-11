@@ -1,8 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
-\PhpOffice\PhpSpreadsheet\Shared\File::setUseUploadTempDirectory(true);
+defined('BASEPATH') OR exit('No direct script access allowed');=
 class DashboardBkk extends CI_Controller {
 	public function __construct()
 	{

@@ -29,7 +29,7 @@
 						class="nav-link nav-active" <?php }else{ ?> class="nav-link" <?php } ?>><span>Login</span></a></li>
 					<li class="nav-item cta text-center openSearchbox"><button type="button" class="btn btn-info mt-2 w-100">Cari</button></li>
 				</ul>
-				<form action="<?php echo base_url(); ?>/Home/pencarian" class="search-box">
+				<form action="<?php echo base_url(); ?>Home/pencarian" class="search-box">
 					<button type="button" class="btn btn-sm float-right close-search-box"><i class="fas fa-times"></i></button> 
 					<input type="text" name="cari" class="text search-input" placeholder="Type here to search..." />
 				</form>
