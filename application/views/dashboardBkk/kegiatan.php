@@ -301,7 +301,7 @@
                     if(res.success == true){  
                         swal({
                             title: "Berhasil!",
-                            text: "Data berhasil dihapus",
+                            text: res.msg,
                             icon: "success",
                             timer: 1000,
                             buttons: false,

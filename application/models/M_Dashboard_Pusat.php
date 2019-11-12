@@ -759,7 +759,7 @@ class M_Dashboard_Pusat extends CI_Model
         $this->db->join($this->table_5_1, $this->table_5_1.'.id_mitra ='.$this->table_5.'.id_mitra');
         // $this->db->where($this->table_5.'.id_sekolah=', $id_sekolah);
         // $this->db->where('table_nabung.username=', $username);
-        $this->db->order_by('id_lowongan', 'DESC');
+        $this->db->order_by('table_lowongan.register_date', 'DESC');
 
         $i = 0;
     

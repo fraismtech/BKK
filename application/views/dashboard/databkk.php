@@ -135,7 +135,30 @@
 <script type="text/javascript">
     $(document).ready(function() {
         var table = $('#example').DataTable({ 
-
+            "dom": 'Bfrtip',
+            "buttons": [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5 ]
+                },
+            },
+                // {
+                //     extend: 'pdfHtml5',
+                //     exportOptions: {
+                //         columns: [ 0, 1, 2, 3, 4, 5 ]
+                //     },
+                //     title: 'My title' + '\n' + 'a new line',
+                //     customize: function(doc) {
+                //         doc.styles.title = {
+                //             color: 'red',
+                //             fontSize: '40',
+                //             background: 'blue',
+                //             alignment: 'center'
+                //         }   
+                //     }  
+                // },
+                ],
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [],
@@ -236,24 +259,6 @@
         var kelurahan = div.data('kelurahan');
         var ijin_bkk = div.data('ijin_bkk');        
 
-        // Isi nilai pada field
-        modal.find('#id_sekolah').attr("value", div.data('id_sekolah'));
-        modal.find('#nama_sekolah').attr("value", div.data('nama_sekolah'));
-        modal.find('#npsn').attr("value", div.data('npsn'));
-        modal.find('#alamat_sekolah').text(div.data('alamat_sekolah'));
-        $('#kec').val(kecamatan);
-        $('#kec').attr("selected", true);
-        $('#kec').text(kecamatan);
-        var a = modal.find('#visi').val(div.data('visi'));
-        CKEDITOR.instances['visi'].setData(a);
-        var b = modal.find('#misi').val(div.data('misi'));
-        CKEDITOR.instances['misi'].setData(b);
-        modal.find('#id_perijinan').attr("value", div.data('id_perijinan'));
-        $('input[name="ijin_bkk"]:checked').prop('checked', false);
-        $('input[name="ijin_bkk"][value="'+ijin_bkk+'"]').prop('checked',true);
-        modal.find('#no_ijin').attr("value", div.data('no_ijin'));
-        modal.find('#datepicker-autoclose1').attr("value", div.data('tgl_perijinan'));
-
         var kec = $('#kecamatan').val();
         $.ajax({
             url:"<?php echo base_url(); ?>dashboard/get_kelurahan",
@@ -268,8 +273,8 @@
         $('#no_ijin').prop("disabled", true);
         $('#datepicker-autoclose1').prop("disabled", true);
 
-        $('#gridRadios1').show(function(){
-            if ($(this).is(':checked')) {
+        $('#edit-data').show(function(){
+            if ($('#gridRadios1').is(':checked')) {
                 $('#no_ijin').prop("disabled", false);
                 $('#datepicker-autoclose1').prop("disabled", false);
             } else {
@@ -278,9 +283,10 @@
             }
         });
 
-        $('#gridRadios2').show(function(){
-            if ($(this).is(':checked')) {
+        $('#edit-data').show(function(){
+            if ($('#gridRadios2').is(':checked')) {
                 $('#no_ijin').prop("disabled", true);
+                $('#datepicker-autoclose1').val("");
                 $('#datepicker-autoclose1').prop("disabled", true);
             } else {
                 $('#no_ijin').prop("disabled", false);
@@ -309,6 +315,24 @@
                 $('#datepicker-autoclose1').prop("disabled", false);
             }
         });
+        
+        // Isi nilai pada field
+        modal.find('#id_sekolah').attr("value", div.data('id_sekolah'));
+        modal.find('#nama_sekolah').attr("value", div.data('nama_sekolah'));
+        modal.find('#npsn').attr("value", div.data('npsn'));
+        modal.find('#alamat_sekolah').text(div.data('alamat_sekolah'));
+        $('#kec').val(kecamatan);
+        $('#kec').attr("selected", true);
+        $('#kec').text(kecamatan);
+        var a = modal.find('#visi').val(div.data('visi'));
+        CKEDITOR.instances['visi'].setData(a);
+        var b = modal.find('#misi').val(div.data('misi'));
+        CKEDITOR.instances['misi'].setData(b);
+        modal.find('#id_perijinan').attr("value", div.data('id_perijinan'));
+        // $('input[name="ijin_bkk"]:checked').prop('checked', false);
+        $('input[name="ijin_bkk"][value="'+ijin_bkk+'"]').prop('checked',true);
+        modal.find('#no_ijin').attr("value", div.data('no_ijin'));
+        modal.find('#datepicker-autoclose1').attr("value", div.data('tgl_perijinan'));
     });
 
     $('#example').on('click','.hapus-bkk', function () {
@@ -495,9 +519,9 @@ $(document).ready(function(){
           text: "<?php echo $this->session->flashdata('notif1'); ?>",
           icon: "success",
           timer: 10000
-        });
       });
-    </script>
+    });
+</script>
 <?php endif; ?>
 <?php if ($this->session->flashdata('notif2')): ?>
     <script type="text/javascript">
@@ -507,7 +531,7 @@ $(document).ready(function(){
           text: "<?php echo $this->session->flashdata('notif2'); ?>",
           icon: "error",
           timer: 10000
-        });
       });
-    </script>
+    });
+</script>
 <?php endif; ?>

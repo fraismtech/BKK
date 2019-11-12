@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2019 at 06:08 PM
+-- Generation Time: Nov 12, 2019 at 07:53 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -8157,6 +8157,7 @@ CREATE TABLE `table_lowongan` (
   `gaji_per_bulan` decimal(18,0) NOT NULL,
   `jam_kerja` decimal(18,0) NOT NULL,
   `ket` enum('Aktif','Tidak Aktif') NOT NULL,
+  `foto` varchar(255) NOT NULL,
   `register_date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -8164,13 +8165,14 @@ CREATE TABLE `table_lowongan` (
 -- Dumping data for table `table_lowongan`
 --
 
-INSERT INTO `table_lowongan` (`id_lowongan`, `id_sekolah`, `id_mitra`, `id_posisi_jabatan`, `id_keahlian`, `id_status_pendidikan`, `id_jenis_pengupahan`, `id_status_hub_kerja`, `tanggal_berlaku`, `tanggal_berakhir`, `nama_lowongan`, `uraian_pekerjaan`, `uraian_tugas`, `penempatan`, `batas_umur`, `jml_pria`, `jml_wanita`, `jurusan`, `pengalaman`, `syarat_khusus`, `gaji_per_bulan`, `jam_kerja`, `ket`, `register_date`) VALUES
-(1, '1', '1', '000009', '000009', '000011', '000001', '000002', '2019-11-01', '2019-11-11', 'Lowongan 5', '<p>A</p>', '<p>A</p>', 'A', 21, 1, 1, '3', '<p>A</p>', '<p>A</p>', '1000000', '29', 'Aktif', '2019-11-10 21:26:04'),
-(2, '1', '2', '000021', '000025', '000005', '000004', '000001', '2019-11-01', '2019-11-04', 'Lowongan 4', '<p>B</p>', '<p>B</p>', 'B', 32, 1, 1, '5', '<p>B</p>', '<p>B</p>', '2000000', '122', 'Tidak Aktif', '2019-11-10 21:25:49'),
-(3, '1', '3', '000018', '000012', '000004', '000004', '000002', '2019-11-01', '2019-11-14', 'Lowongan 3', '<p>C</p>', '<p>C</p>', 'C', 21, 1, 1, '1', '<p>C</p>', '<p>C</p>', '2000000', '12', 'Aktif', '2019-11-10 21:25:32'),
-(4, '1', '4', '000018', '100001', '000005', '000004', '000001', '2019-11-01', '2019-11-10', 'Lowongan 2', '<p>D</p>', '<p>D</p>', 'KOTA DEPOK', 32, 1, 2, '4', '<p>D</p>', '<p>D</p>', '3000000', '39', 'Aktif', '2019-11-10 21:25:16'),
-(5, '1', '5', '000018', '000004', '000005', '000004', '000001', '2019-11-01', '2019-11-11', 'Lowongan 1', '<p>EEE</p>', '<p>EEEE</p>', 'KOTA DEPOK', 21, 1, 1, '1', '<p>EEE</p>', '<p>EEE</p>', '3500000', '30', 'Aktif', '2019-11-10 23:52:05'),
-(6, '1', '6', '000018', '000002', '000008', '000004', '000001', '2019-11-01', '2019-11-11', 'Lowongan 6', '<p>Rincian 1</p>', '<p>Tugas 1</p>', 'KOTA DEPOK', 22, 1, 1, '1', '<p>Pengalaman 1</p>', '<p>Syarat 1</p>', '4500000', '40', 'Aktif', '2019-11-10 21:28:42');
+INSERT INTO `table_lowongan` (`id_lowongan`, `id_sekolah`, `id_mitra`, `id_posisi_jabatan`, `id_keahlian`, `id_status_pendidikan`, `id_jenis_pengupahan`, `id_status_hub_kerja`, `tanggal_berlaku`, `tanggal_berakhir`, `nama_lowongan`, `uraian_pekerjaan`, `uraian_tugas`, `penempatan`, `batas_umur`, `jml_pria`, `jml_wanita`, `jurusan`, `pengalaman`, `syarat_khusus`, `gaji_per_bulan`, `jam_kerja`, `ket`, `foto`, `register_date`) VALUES
+(1, '1', '1', '000009', '000009', '000011', '000001', '000002', '2019-11-01', '2019-11-11', 'Lowongan 5', '<p>A</p>', '<p>A</p>', 'A', 21, 1, 1, '3', '<p>A</p>', '<p>A</p>', '1000000', '29', 'Aktif', '', '2019-11-10 21:26:04'),
+(2, '1', '2', '000021', '000025', '000005', '000004', '000001', '2019-11-01', '2019-11-04', 'Lowongan 4', '<p>B</p>', '<p>B</p>', 'B', 32, 1, 1, '5', '<p>B</p>', '<p>B</p>', '2000000', '122', 'Tidak Aktif', '', '2019-11-10 21:25:49'),
+(3, '1', '3', '000018', '000012', '000004', '000004', '000002', '2019-11-01', '2019-11-14', 'Lowongan 3', '<p>C</p>', '<p>C</p>', 'C', 21, 1, 1, '1', '<p>C</p>', '<p>C</p>', '2000000', '12', 'Aktif', '', '2019-11-10 21:25:32'),
+(4, '1', '4', '000018', '100001', '000005', '000004', '000001', '2019-11-01', '2019-11-10', 'Lowongan 2', '<p>D</p>', '<p>D</p>', 'KOTA DEPOK', 32, 1, 2, '4', '<p>D</p>', '<p>D</p>', '3000000', '39', 'Tidak Aktif', 'pixel_google.jpg', '2019-11-12 13:36:36'),
+(5, '1', '5', '000018', '000004', '000005', '000004', '000001', '2019-11-01', '2019-11-11', 'Lowongan 1', '<p>EEE</p>', '<p>EEEE</p>', 'KOTA DEPOK', 21, 1, 1, '1', '<p>EEE</p>', '<p>EEE</p>', '3500000', '30', 'Aktif', '', '2019-11-10 23:52:05'),
+(6, '1', '6', '000018', '000002', '000008', '000004', '000001', '2019-11-01', '2019-11-11', 'Lowongan 6', '<p>Rincian 1</p>', '<p>Tugas 1</p>', 'KOTA DEPOK', 22, 1, 1, '1', '<p>Pengalaman 1</p>', '<p>Syarat 1</p>', '4500000', '40', 'Aktif', '', '2019-11-10 21:28:42'),
+(7, '1', '6', '000012', '000019', '000005', '000004', '000001', '2019-11-01', '2019-11-12', 'Test Gambar', '<p>Test</p>', '<p>test</p>', 'depok', 21, 1, 1, '3', '<p>test</p>', '<p>testsadada</p>', '4000000', '40', 'Aktif', 'pixel_google1.jpg', '2019-11-12 13:40:42');
 
 -- --------------------------------------------------------
 
@@ -8227,10 +8229,10 @@ CREATE TABLE `table_perijinan` (
 --
 
 INSERT INTO `table_perijinan` (`id_perijinan`, `ijin_bkk`, `no_ijin`, `tgl_perijinan`, `dokumen`) VALUES
-(1, 'Ya', '1234567890', '2019-11-10', 'LAPORAN_PERTANGGUNGJAWABAN_PESERTA_OA.pdf'),
+(1, 'Tidak', '', NULL, ''),
 (2, 'Ya', '123456', '2019-10-20', 'Gmail_-_Undangan_Tes_Online_Rekrutmen_Pertamina_Group.pdf'),
-(3, 'Tidak', '', '1970-01-01', ''),
-(7, 'Tidak', '', '1970-01-01', ''),
+(3, 'Tidak', '', NULL, ''),
+(7, 'Tidak', '', NULL, ''),
 (8, 'Tidak', '', NULL, '');
 
 -- --------------------------------------------------------
@@ -8298,8 +8300,8 @@ CREATE TABLE `table_sekolah` (
 INSERT INTO `table_sekolah` (`id_sekolah`, `npsn`, `nama_sekolah`, `alamat_sekolah`, `kecamatan`, `kelurahan`, `visi`, `misi`, `struktur`, `status`, `notif`, `register_date`) VALUES
 (1, '324812', 'SMK Negeri 1 Depok', 'Jl. Bhakti Suci No. 100', 'TAPOS', 'TAPOS', '<ul><li>Visi 1</li><li>Visi 2</li></ul>', '<ul><li>Misi 1</li><li>Misi 2</li><li>Misi 3</li></ul>', 'STRUKTUR-ORGANISASI.png', '1', '0', '2019-11-04 00:00:00'),
 (2, '12345', 'SMK Negeri 2 Depok', 'bbb', 'SAWANGAN', 'SAWANGAN BARU', '<p>asasda</p>', '<p>asdasda</p>', '', '0', '0', '2019-11-05 00:00:00'),
-(3, '18492', 'asdas', 'bbb', 'CINERE', 'PANGKALANJATI', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '0', '0', '2019-10-01 00:00:00'),
-(7, '0987654321', 'SEKOLAH 12', 'Depok', 'BEJI', 'KUKUSAN', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '1', '0', NULL);
+(3, '18492', 'asdas', 'bbb', 'CILODONG', 'CILODONG', '<p>asdfghjkl</p>', '<p>asdfghjkl</p>', '', '0', '0', '2019-11-12 13:30:09'),
+(7, '0987654321', 'SEKOLAH 12', 'Depok', 'BEJI', 'KUKUSAN', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>', '', '1', '0', '2019-11-11 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -83603,7 +83605,7 @@ ALTER TABLE `table_helpdesk`
 -- AUTO_INCREMENT for table `table_jurusan`
 --
 ALTER TABLE `table_jurusan`
-  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_jurusan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `table_kegiatan`
@@ -83615,13 +83617,13 @@ ALTER TABLE `table_kegiatan`
 -- AUTO_INCREMENT for table `table_login`
 --
 ALTER TABLE `table_login`
-  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id_user` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `table_lowongan`
 --
 ALTER TABLE `table_lowongan`
-  MODIFY `id_lowongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_lowongan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `table_mitra`
@@ -83639,7 +83641,7 @@ ALTER TABLE `table_perijinan`
 -- AUTO_INCREMENT for table `table_sekolah`
 --
 ALTER TABLE `table_sekolah`
-  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_sekolah` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `table_slider`

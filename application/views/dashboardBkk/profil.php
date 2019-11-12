@@ -101,13 +101,13 @@
                                                 <label>Ijin BKK*</label>
                                                 <div class="row col-lg-12">
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="ijin_bkk" id="gridRadios1" required="" value="Ya"  <?= $profil->ijin_bkk == 'Ya' ? ' checked="checked"' : '';?>>
+                                                        <input class="form-check-input ya<?= $profil->id_perijinan ?>" type="radio" name="ijin_bkk" id="gridRadios1" required="" value="Ya"  <?= $profil->ijin_bkk == 'Ya' ? ' checked="checked"' : '';?>>
                                                         <label class="form-check-label" for="gridRadios1">
                                                             YA &nbsp;
                                                         </label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input class="form-check-input" type="radio" name="ijin_bkk" id="gridRadios2" required="" value="Tidak" <?= $profil->ijin_bkk == 'Tidak' ? ' checked="checked"' : '';?>>
+                                                        <input class="form-check-input tidak<?= $profil->id_perijinan ?>" type="radio" name="ijin_bkk" id="gridRadios2" required="" value="Tidak" <?= $profil->ijin_bkk == 'Tidak' ? ' checked="checked"' : '';?>>
                                                         <label class="form-check-label" for="gridRadios2">
                                                             Tidak
                                                         </label>
@@ -116,12 +116,12 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>No Ijin*</label>
-                                                <input type="text" class="form-control" name="no_ijin" value="<?= $profil->no_ijin ?>" required="" placeholder="No. Ijin" id="no_ijin">
+                                                <input type="text" class="form-control no_ijin<?= $profil->id_perijinan ?>" name="no_ijin" value="<?= $profil->no_ijin ?>" required="" placeholder="No. Ijin" id="no_ijin">
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label">Tanggal Perijinan*</label>
                                                 <div class="input-group">
-                                                    <input type="text" name="tgl_perijinan" class="form-control" id="datepicker-autoclose1" placeholder="Tanggal Perijinan" required="" value="<?= date('Y-m-d', strtotime($profil->tgl_perijinan)) ?>">
+                                                    <input type="text" name="tgl_perijinan" class="form-control tanggal<?= $profil->id_perijinan ?>" id="datepicker-autoclose1" placeholder="Tanggal Perijinan" required="" value="<?= $profil->tgl_perijinan ?>">
                                                     <div class="input-group-append">
                                                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                                     </div>
@@ -129,7 +129,7 @@
                                             </div>
                                             <div class="form-group">
                                                 <label>Dokumen Perijinan*</label>
-                                                <input type="file" name="file" class="form-control dokumen" placeholder="Foto" required="">
+                                                <input type="file" name="file" class="form-control dokumen<?= $profil->id_perijinan ?>" placeholder="Foto" required="">
                                                 <div class="row">
                                                     <div class="col-md-12">
                                                         <p>File PDF Max. 10Mb</p>
@@ -156,6 +156,62 @@
                                     </div>
                                 </div>
                             </div>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $('.ya<?= $profil->id_perijinan ?>').show(function(){
+                                        if($('.ya<?= $profil->id_perijinan ?>').is(':checked')) {
+                                            $('.no_ijin<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                            $('.tanggal<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                            $('.dokumen<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                        } else {
+                                            $('.no_ijin<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                            $('.tanggal<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                            $('.dokumen<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                        }
+                                    });
+
+                                    $('.tidak<?= $profil->id_perijinan ?>').show(function(){
+                                        if($('.tidak<?= $profil->id_perijinan ?>').is(':checked')) {
+                                            $('.no_ijin<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                            $('.tanggal<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                            $('.dokumen<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                        } else {
+                                            $('.no_ijin<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                            $('.tanggal<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                            $('.dokumen<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                        }
+                                    });
+                                });
+                            </script>
+                            <script type="text/javascript">
+                                $(document).ready(function () {
+                                    $('.ya<?= $profil->id_perijinan ?>').click(function(){
+                                        var stat = $(this).val();
+                                        if (stat == 'Ya') {
+                                            $('.no_ijin<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                            $('.tanggal<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                            $('.dokumen<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                        } else {
+                                            $('.no_ijin<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                            $('.tanggal<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                            $('.dokumen<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                        }
+                                    });
+
+                                    $('.tidak<?= $profil->id_perijinan ?>').click(function(){
+                                        var stat = $(this).val();
+                                        if (stat == 'Tidak') {
+                                            $('.no_ijin<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                            $('.tanggal<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                            $('.dokumen<?= $profil->id_perijinan ?>').prop("disabled", true);
+                                        } else {
+                                            $('.no_ijin<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                            $('.tanggal<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                            $('.dokumen<?= $profil->id_perijinan ?>').prop("disabled", false);
+                                        }
+                                    });
+                                });
+                            </script>
 
                             <div class="col-md-12">
                                 <div class="card">

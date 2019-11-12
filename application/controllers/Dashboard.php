@@ -66,7 +66,7 @@ class Dashboard extends CI_Controller {
 		try {
 			if(isset($_FILES["file"]["name"])) {  
 				$config['upload_path'] = './assets/upload/image/slide_admin';  
-				$config['allowed_types'] = 'jpg|jpeg|png';  
+				$config['allowed_types'] = 'jpg|jpeg|png|JPG|PNG|JPEG';  
 				$this->load->library('upload', $config); 
 
 				$tanggal = date('Y-m-d', strtotime($this->input->post("tanggal")));
@@ -109,7 +109,7 @@ class Dashboard extends CI_Controller {
 		try {
 			if(isset($_FILES["file"]["name"])) {  
 				$config['upload_path'] = './assets/upload/image/slide_admin';  
-				$config['allowed_types'] = 'jpg|jpeg|png';  
+				$config['allowed_types'] = 'jpg|jpeg|png|JPG|PNG|JPEG';  
 				$this->load->library('upload', $config); 
 				$id_slider = $this->input->post("id_slider");
 				$id_sekolah = $this->session->userdata('id_sekolah');
@@ -215,7 +215,7 @@ class Dashboard extends CI_Controller {
 			$data_perijinan = array(
 				'ijin_bkk'		=> $ijin_bkk,
 				'no_ijin'		=> $no_ijin,
-				'tgl_perijinan'	=> date('Y-m-d', strtotime($tgl_perijinan)),
+				'tgl_perijinan'	=> $tgl_perijinan,
 			); 	        
 
 			$update_perijinan = $this->db->where('id_perijinan', $id_perijinan);
@@ -318,7 +318,7 @@ class Dashboard extends CI_Controller {
 	{
 		$path = "";
 		$data = array(
-			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Data Loker", $path),
+			"page" => $this->load("Bursa Kerja Khusus Kota Depok - Data Lowongan", $path),
 			"content" => $this->load->view('dashboard/dataloker', false, true),
 		);
 		$this->load->view('dashboard/template/default_template', $data);
@@ -352,72 +352,232 @@ class Dashboard extends CI_Controller {
 	{
 		error_reporting(0);
 		try {
-			date_default_timezone_set('Asia/Jakarta');
-			$id_lowongan 			= $this->input->post("id_lowongan");
+			if(isset($_FILES["file"]["name"])) {  
+				$config['upload_path'] = './assets/upload/image/loker';  
+				$config['allowed_types'] = 'jpg|jpeg|png|JPG|PNG|JPEG';  
+				$this->load->library('upload', $config);
 
-			$id_mitra 				= $this->input->post("mitra");
-			$id_posisi_jabatan 		= $this->input->post("posisi_jabatan");
-			$id_keahlian 			= $this->input->post("keahlian");
-			$id_status_pendidikan 	= $this->input->post("pendidikan");
-			$id_jenis_pengupahan 	= $this->input->post("jenis_pengupahan");
-			$id_status_hub_kerja 	= $this->input->post("hubungan_kerja");
+				date_default_timezone_set('Asia/Jakarta');
+				$id_lowongan 			= $this->input->post("id_lowongan");
 
-			$nama_lowongan 		= $this->input->post("nama_lowongan");
-			$tanggal_berlaku 	= date('Y-m-d', strtotime($this->input->post("tanggal_berlaku")));
-			$tanggal_berakhir 	= date('Y-m-d', strtotime($this->input->post("tanggal_berakhir")));
-			$uraian_pekerjaan 	= $this->input->post("uraian_pekerjaan");
-			$uraian_tugas 		= $this->input->post("uraian_tugas");
-			$penempatan 		= $this->input->post("penempatan");
-			$jml_pria 			= $this->input->post("jml_pria");
-			$jml_wanita 		= $this->input->post("jml_wanita");
+				$_id_lowongan = $this->db->get_where('table_lowongan',['id_lowongan' => $id_lowongan])->row();
+				if ($_id_lowongan->foto == NULL) {
+              		# code...
+				} else {
+					unlink("./assets/upload/image/loker/".$_id_lowongan->foto);
+				}
 
-			$batas_umur 		= $this->input->post("batas_umur");
-			$jurusan 	 		= $this->input->post("jurusan");
-			$pengalaman 		= $this->input->post("pengalaman");
-			$syarat_khusus 		= $this->input->post("syarat_khusus");
+				$id_sekolah 			= $this->session->userdata('id_sekolah');
+				$id_mitra 				= $this->input->post("mitra");
+				$id_posisi_jabatan 		= $this->input->post("posisi_jabatan");
+				$id_keahlian 			= $this->input->post("keahlian");
+				$id_status_pendidikan 	= $this->input->post("pendidikan");
+				$id_jenis_pengupahan 	= $this->input->post("jenis_pengupahan");
+				$id_status_hub_kerja 	= $this->input->post("hubungan_kerja");
 
-			$gaji_per_bulan 	= $this->input->post("gaji_per_bulan");
-			$jam_kerja 			= $this->input->post("jam_kerja");
+				$nama_lowongan 		= $this->input->post("nama_lowongan");
+				$tanggal_berlaku 	= date('Y-m-d', strtotime($this->input->post("tanggal_berlaku")));
+				$tanggal_berakhir 	= date('Y-m-d', strtotime($this->input->post("tanggal_berakhir")));
+				$uraian_pekerjaan 	= $this->input->post("uraian_pekerjaan");
+				$uraian_tugas 		= $this->input->post("uraian_tugas");
+				$penempatan 		= $this->input->post("penempatan");
+				$jml_pria 			= $this->input->post("jml_pria");
+				$jml_wanita 		= $this->input->post("jml_wanita");
 
-			$date_created  		= date("Y-m-d H:i:s");
+				$batas_umur 		= $this->input->post("batas_umur");
+				$jurusan 	 		= $this->input->post("jurusan");
+				$pengalaman 		= $this->input->post("pengalaman");
+				$syarat_khusus 		= $this->input->post("syarat_khusus");
 
-			$data = array(
-				'id_mitra' 				=> $id_mitra,
-				'id_posisi_jabatan' 	=> $id_posisi_jabatan,
-				'id_keahlian' 			=> $id_keahlian, 
-				'id_status_pendidikan' 	=> $id_status_pendidikan,
-				'id_jenis_pengupahan' 	=> $id_jenis_pengupahan,
-				'id_status_hub_kerja' 	=> $id_status_hub_kerja,
-				'tanggal_berlaku' 		=> $tanggal_berlaku,
-				'tanggal_berakhir' 		=> $tanggal_berakhir,
-				'nama_lowongan' 		=> $nama_lowongan,
-				'uraian_pekerjaan' 		=> $uraian_pekerjaan,
-				'uraian_tugas' 			=> $uraian_tugas,
-				'penempatan' 			=> $penempatan,
-				'batas_umur' 			=> $batas_umur,
-				'jml_pria' 				=> $jml_pria,
-				'jml_wanita' 			=> $jml_wanita,
-				'jurusan' 				=> $jurusan,
-				'pengalaman' 			=> $pengalaman,
-				'syarat_khusus' 		=> $syarat_khusus,
-				'gaji_per_bulan'		=> $gaji_per_bulan,
-				'jam_kerja' 			=> $jam_kerja,
-				'register_date' 		=> $date_created,
-			);
+				$gaji_per_bulan 	= $this->input->post("gaji_per_bulan");
+				$jam_kerja 			= $this->input->post("jam_kerja");
 
-			$update = $this->db->where('id_lowongan', $id_lowongan);
-			$this->db->update('table_lowongan', $data);
+				$date_created  		= date("Y-m-d H:i:s");
 
-			if($update) {
-				$this->session->set_flashdata("notif1", "Data Berhasil Disimpan");
-				redirect('dashboard/dataloker');
+				if(!$this->upload->do_upload('file')) {  
+					date_default_timezone_set('Asia/Jakarta');
+					$id_lowongan 			= $this->input->post("id_lowongan");
+
+					$_id_lowongan = $this->db->get_where('table_lowongan',['id_lowongan' => $id_lowongan])->row();
+					if ($_id_lowongan->foto == NULL) {
+              		# code...
+					} else {
+						unlink("./assets/upload/image/loker/".$_id_lowongan->foto);
+					}
+
+					$id_mitra 				= $this->input->post("mitra");
+					$id_posisi_jabatan 		= $this->input->post("posisi_jabatan");
+					$id_keahlian 			= $this->input->post("keahlian");
+					$id_status_pendidikan 	= $this->input->post("pendidikan");
+					$id_jenis_pengupahan 	= $this->input->post("jenis_pengupahan");
+					$id_status_hub_kerja 	= $this->input->post("hubungan_kerja");
+
+					$nama_lowongan 		= $this->input->post("nama_lowongan");
+					$tanggal_berlaku 	= date('Y-m-d', strtotime($this->input->post("tanggal_berlaku")));
+					$tanggal_berakhir 	= date('Y-m-d', strtotime($this->input->post("tanggal_berakhir")));
+					$uraian_pekerjaan 	= $this->input->post("uraian_pekerjaan");
+					$uraian_tugas 		= $this->input->post("uraian_tugas");
+					$penempatan 		= $this->input->post("penempatan");
+					$jml_pria 			= $this->input->post("jml_pria");
+					$jml_wanita 		= $this->input->post("jml_wanita");
+
+					$batas_umur 		= $this->input->post("batas_umur");
+					$jurusan 	 		= $this->input->post("jurusan");
+					$pengalaman 		= $this->input->post("pengalaman");
+					$syarat_khusus 		= $this->input->post("syarat_khusus");
+
+					$gaji_per_bulan 	= $this->input->post("gaji_per_bulan");
+					$jam_kerja 			= $this->input->post("jam_kerja");
+
+					$date_created  		= date("Y-m-d H:i:s");
+
+					$data = array(
+						'id_mitra' 				=> $id_mitra,
+						'id_posisi_jabatan' 	=> $id_posisi_jabatan,
+						'id_keahlian' 			=> $id_keahlian, 
+						'id_status_pendidikan' 	=> $id_status_pendidikan,
+						'id_jenis_pengupahan' 	=> $id_jenis_pengupahan,
+						'id_status_hub_kerja' 	=> $id_status_hub_kerja,
+						'tanggal_berlaku' 		=> $tanggal_berlaku,
+						'tanggal_berakhir' 		=> $tanggal_berakhir,
+						'nama_lowongan' 		=> $nama_lowongan,
+						'uraian_pekerjaan' 		=> $uraian_pekerjaan,
+						'uraian_tugas' 			=> $uraian_tugas,
+						'penempatan' 			=> $penempatan,
+						'batas_umur' 			=> $batas_umur,
+						'jml_pria' 				=> $jml_pria,
+						'jml_wanita' 			=> $jml_wanita,
+						'jurusan' 				=> $jurusan,
+						'pengalaman' 			=> $pengalaman,
+						'syarat_khusus' 		=> $syarat_khusus,
+						'gaji_per_bulan'		=> $gaji_per_bulan,
+						'jam_kerja' 			=> $jam_kerja,
+						'foto' 					=> '',
+						'register_date' 		=> $date_created,
+					);  
+					$update = $this->db->where('id_lowongan', $id_lowongan);
+					$this->db->update('table_lowongan', $data);
+
+					if($update) {
+						$this->session->set_flashdata("notif1", "Data Berhasil Disimpan");
+						redirect('dashboard/dataloker');
+					} else {
+						$this->session->set_flashdata("notif2", "Data Gagal Disimpan");
+						redirect('dashboard/dataloker');
+					}
+				} else {  
+					$data = $this->upload->data();
+					$data = array(
+						'id_mitra' 				=> $id_mitra,
+						'id_posisi_jabatan' 	=> $id_posisi_jabatan,
+						'id_keahlian' 			=> $id_keahlian, 
+						'id_status_pendidikan' 	=> $id_status_pendidikan,
+						'id_jenis_pengupahan' 	=> $id_jenis_pengupahan,
+						'id_status_hub_kerja' 	=> $id_status_hub_kerja,
+						'tanggal_berlaku' 		=> $tanggal_berlaku,
+						'tanggal_berakhir' 		=> $tanggal_berakhir,
+						'nama_lowongan' 		=> $nama_lowongan,
+						'uraian_pekerjaan' 		=> $uraian_pekerjaan,
+						'uraian_tugas' 			=> $uraian_tugas,
+						'penempatan' 			=> $penempatan,
+						'batas_umur' 			=> $batas_umur,
+						'jml_pria' 				=> $jml_pria,
+						'jml_wanita' 			=> $jml_wanita,
+						'jurusan' 				=> $jurusan,
+						'pengalaman' 			=> $pengalaman,
+						'syarat_khusus' 		=> $syarat_khusus,
+						'gaji_per_bulan'		=> $gaji_per_bulan,
+						'jam_kerja' 			=> $jam_kerja,
+						'foto' 					=> $data['file_name'],
+						'register_date' 		=> $date_created,
+					);
+					$update = $this->db->where('id_lowongan', $id_lowongan);
+					$this->db->update('table_lowongan', $data);
+
+					if($update) {
+						$this->session->set_flashdata("notif1", "Data Berhasil Disimpan");
+						redirect('dashboard/dataloker');
+					} else {
+						$this->session->set_flashdata("notif2", "Data Gagal Disimpan");
+						redirect('dashboard/dataloker');
+					}
+				}  
 			} else {
-				$this->session->set_flashdata("notif2", "Data Gagal Disimpan");
-				redirect('dashboard/dataloker');
+				date_default_timezone_set('Asia/Jakarta');
+				$id_lowongan 			= $this->input->post("id_lowongan");
+
+				$_id_lowongan = $this->db->get_where('table_lowongan',['id_lowongan' => $id_lowongan])->row();
+				if ($_id_lowongan->foto == NULL) {
+              		# code...
+				} else {
+					unlink("./assets/upload/image/loker/".$_id_lowongan->foto);
+				}
+
+				$id_sekolah 			= $this->session->userdata('id_sekolah');
+				$id_mitra 				= $this->input->post("mitra");
+				$id_posisi_jabatan 		= $this->input->post("posisi_jabatan");
+				$id_keahlian 			= $this->input->post("keahlian");
+				$id_status_pendidikan 	= $this->input->post("pendidikan");
+				$id_jenis_pengupahan 	= $this->input->post("jenis_pengupahan");
+				$id_status_hub_kerja 	= $this->input->post("hubungan_kerja");
+
+				$nama_lowongan 		= $this->input->post("nama_lowongan");
+				$tanggal_berlaku 	= date('Y-m-d', strtotime($this->input->post("tanggal_berlaku")));
+				$tanggal_berakhir 	= date('Y-m-d', strtotime($this->input->post("tanggal_berakhir")));
+				$uraian_pekerjaan 	= $this->input->post("uraian_pekerjaan");
+				$uraian_tugas 		= $this->input->post("uraian_tugas");
+				$penempatan 		= $this->input->post("penempatan");
+				$jml_pria 			= $this->input->post("jml_pria");
+				$jml_wanita 		= $this->input->post("jml_wanita");
+
+				$batas_umur 		= $this->input->post("batas_umur");
+				$jurusan 	 		= $this->input->post("jurusan");
+				$pengalaman 		= $this->input->post("pengalaman");
+				$syarat_khusus 		= $this->input->post("syarat_khusus");
+
+				$gaji_per_bulan 	= $this->input->post("gaji_per_bulan");
+				$jam_kerja 			= $this->input->post("jam_kerja");
+
+				$date_created  		= date("Y-m-d H:i:s");
+
+				$data = array(
+					'id_mitra' 				=> $id_mitra,
+					'id_posisi_jabatan' 	=> $id_posisi_jabatan,
+					'id_keahlian' 			=> $id_keahlian, 
+					'id_status_pendidikan' 	=> $id_status_pendidikan,
+					'id_jenis_pengupahan' 	=> $id_jenis_pengupahan,
+					'id_status_hub_kerja' 	=> $id_status_hub_kerja,
+					'tanggal_berlaku' 		=> $tanggal_berlaku,
+					'tanggal_berakhir' 		=> $tanggal_berakhir,
+					'nama_lowongan' 		=> $nama_lowongan,
+					'uraian_pekerjaan' 		=> $uraian_pekerjaan,
+					'uraian_tugas' 			=> $uraian_tugas,
+					'penempatan' 			=> $penempatan,
+					'batas_umur' 			=> $batas_umur,
+					'jml_pria' 				=> $jml_pria,
+					'jml_wanita' 			=> $jml_wanita,
+					'jurusan' 				=> $jurusan,
+					'pengalaman' 			=> $pengalaman,
+					'syarat_khusus' 		=> $syarat_khusus,
+					'gaji_per_bulan'		=> $gaji_per_bulan,
+					'jam_kerja' 			=> $jam_kerja,
+					'foto' 					=> '',
+					'register_date' 		=> $date_created,
+				);  
+				$update = $this->db->where('id_lowongan', $id_lowongan);
+				$this->db->update('table_lowongan', $data);
+
+				if($update) {
+					$this->session->set_flashdata("notif1", "Data Berhasil Disimpan");
+					redirect('dashboard/dataloker');
+				} else {
+					$this->session->set_flashdata("notif2", "Data Gagal Disimpan");
+					redirect('dashboard/dataloker');
+				}
 			}
 
 		} catch (Exception $e) {
-			
+
 		}
 	}
 
@@ -577,7 +737,7 @@ class Dashboard extends CI_Controller {
 			}
 
 		} catch (Exception $e) {
-			
+
 		}
 	}
 
@@ -693,7 +853,7 @@ class Dashboard extends CI_Controller {
 			echo json_encode($arr);
 
 		} catch (Exception $e) {
-			
+
 		}
 	}
 
@@ -719,7 +879,7 @@ class Dashboard extends CI_Controller {
 			echo json_encode($arr);
 
 		} catch (Exception $e) {
-			
+
 		}
 	}
 
@@ -772,7 +932,7 @@ class Dashboard extends CI_Controller {
 			echo json_encode($arr);
 
 		} catch (Exception $e) {
-			
+
 		}
 	}
 
@@ -798,7 +958,7 @@ class Dashboard extends CI_Controller {
 			echo json_encode($arr);
 
 		} catch (Exception $e) {
-			
+
 		}
 	}
 
@@ -856,7 +1016,7 @@ class Dashboard extends CI_Controller {
 			echo json_encode($arr);
 
 		} catch (Exception $e) {
-			
+
 		}
 	}
 
@@ -884,7 +1044,7 @@ class Dashboard extends CI_Controller {
 			echo json_encode($arr);
 
 		} catch (Exception $e) {
-			
+
 		}
 	}
 
@@ -936,7 +1096,7 @@ class Dashboard extends CI_Controller {
 			if ($slider->foto_slider == NULL) {
 				$button = '<button type="button" class="btn btn-secondary">No File</button>';
 			} else {
-				$button = '<a href="'.base_url().'assets/upload/image/'.$slider->foto_slider.'" class="btn btn-primary fa fa-download"><span> Download</span></a>';
+				$button = '<a href="'.base_url().'assets/upload/image/slide_admin/'.$slider->foto_slider.'" class="btn btn-primary fa fa-download"><span> Download</span></a>';
 			}
 			$row = array();
 			$row[] = $no.'.';
@@ -1010,10 +1170,7 @@ class Dashboard extends CI_Controller {
 				<i class="fa fa-times"></i>
 				</button>';
 			} else {
-				$ket = '
-				<button class="btn btn-sm btn-success aktif-loker" data-toggle="modal" id="id" data-toggle="modal" data-id="'.$loker->id_lowongan.'" title="Aktifkan Lowongan">
-				<i class="fa fa-check"></i>
-				</button>';
+				$ket = '';
 			}
 			$row[] = $no.'.';
 			$row[] = $loker->nama_lowongan;
@@ -1251,13 +1408,19 @@ class Dashboard extends CI_Controller {
 				$button2 = '<a href="'.base_url().'assets/upload/file/'.$bkk->dokumen.'" class="btn btn-primary fa fa-download"><span> Download</span></a>';
 			}
 
+			if ($bkk->tgl_perijinan == NULL) {
+				$tanggal = '';
+			} else {
+				$tanggal = date('d M Y', strtotime($bkk->tgl_perijinan));
+			}
+
 			$row = array();
 			$row[] = $no.'.';
 			$row[] = $bkk->npsn;
 			$row[] = $bkk->nama_sekolah;
 			$row[] = $bkk->alamat_sekolah.', '.$bkk->kelurahan.', '.$bkk->kecamatan;
 			$row[] = $bkk->no_ijin;
-			$row[] = date('d M Y', strtotime($bkk->tgl_perijinan));
+			$row[] = $tanggal;
 			$row[] = $button1;
 			$row[] = $button2;
 			$row[] = '
@@ -1467,7 +1630,7 @@ class Dashboard extends CI_Controller {
 			echo json_encode($arr);
 
 		} catch (Exception $e) {
-			
+
 		}
 	}
 

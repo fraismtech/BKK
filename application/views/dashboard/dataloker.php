@@ -490,7 +490,15 @@
 <script type="text/javascript">
 $(document).ready(function() {
     var table = $('#example').DataTable({ 
-
+        "dom": 'Bfrtip',
+        "buttons": [
+            {
+                extend: 'excelHtml5',
+                exportOptions: {
+                    columns: [ 0, 1, 2, 3, 4, 5, 6, 7, 8 ]
+                },
+            },
+        ],
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "order": [],
