@@ -160,3 +160,156 @@ $(document).ready(function() {
     });
 });
 </script>
+<script>
+$(document).ready(function() {
+    // Untuk sunting
+    $('#editForm').on('show.bs.modal', function(event) {
+        var div = $(event.relatedTarget) // Tombol dimana modal di tampilkan
+        var modal = $(this)
+
+        // Isi nilai pada field
+        modal.find('#id').attr("value", div.data('id'));
+        modal.find('#tanggal').attr("value", div.data('tanggal'));
+        modal.find('#judul').attr("value", div.data('judul'));
+        modal.find('#foto').attr("src", "<?php echo base_url(); ?>assets/upload/image/" + div.data('foto'));
+        modal.find('#roomNumber').text(div.data('foto'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
+        modal.find('#image').attr("href", "<?php echo base_url(); ?>assets/upload/image/"+ div.data('foto1'));
+    });
+
+    $('#example').on('click','.hapus-loker', function () {
+        var id =  $(this).data('id');
+        swal({
+            title: "Anda yakin?",
+            text: "Saat dihapus, Anda tidak dapat mengembalikan data!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "<?php echo base_url();?>dashboard/hapusLoker/" + id,  
+                    method: "GET",
+                    beforeSend :function() {
+                    swal({
+                            title: 'Menunggu',
+                            html: 'Memproses data',
+                            onOpen: () => {
+                              swal.showLoading()
+                            }
+                        })      
+                    },
+                    success:function(data){
+                        swal({
+                            title: "Berhasil!",
+                            icon: "success",
+                            text: "Data berhasil dihapus",
+                            buttons: false,
+                            timer: 1000,
+                        });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
+                    }
+                });
+            } else {
+                swal({
+                    title: "Lowongan tersimpan!",
+                    icon: "info",
+                    timer: 10000
+                });
+            }
+        })
+    });
+
+    $('#example').on('click','.non-loker', function () {
+        var id =  $(this).data('id');
+        swal({
+            title: "Nonaktifkan Lowongan?",
+            text: "Anda tidak dapat melihat lowongan ini di halaman pusat!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "<?php echo base_url();?>dashboard/noaktifkanLoker/" + id,  
+                    method: "GET",
+                    beforeSend :function() {
+                    swal({
+                            title: 'Menunggu',
+                            html: 'Memproses data',
+                            onOpen: () => {
+                              swal.showLoading()
+                            }
+                        })      
+                    },
+                    success:function(data){
+                        swal({
+                            title: "Berhasil!",
+                            icon: "success",
+                            text: "Lowongan di nonaktifkan",
+                            timer: 1000,
+                            buttons: false,
+                        });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
+                    }
+                });
+            } else {
+                swal({
+                    title: "Lowongan diaktifkan!",
+                    icon: "info",
+                    timer: 10000
+                });
+            }
+        })
+    });
+
+    $('#example').on('click','.aktif-loker', function () {
+        var id =  $(this).data('id');
+        swal({
+            title: "Aktifkan Lowongan?",
+            text: "Anda dapat melihat lowongan ini di halaman pusat!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        }).then((result) => {
+            if (result) {
+                $.ajax({
+                    url: "<?php echo base_url();?>dashboard/aktifkanLoker/" + id,  
+                    method: "GET",
+                    beforeSend :function() {
+                    swal({
+                            title: 'Menunggu',
+                            html: 'Memproses data',
+                            onOpen: () => {
+                              swal.showLoading()
+                            }
+                        })      
+                    },
+                    success:function(data){
+                        swal({
+                            title: "Berhasil!",
+                            icon: "success",
+                            text: "Lowongan berhasil diaktifkan kembali",
+                            timer: 1000,
+                            buttons: false,
+                        });
+                        setTimeout(function(){
+                            location.reload();
+                        }, 1100);
+                    }
+                });
+            } else {
+                swal({
+                    title: "Lowongan nonaktif!",
+                    icon: "info",
+                    timer: 10000
+                });
+            }
+        })
+    });
+});
+</script>
