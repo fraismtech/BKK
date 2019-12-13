@@ -179,7 +179,7 @@ function timeago($date) {
 															<div class="notification d-flex flex-row align-items-center">
 																<div class="notify-message">
 																	<p class="font-weight-bold">Tidak Ada Notifikasi</p>
-																	<!-- <small><?= timeago($help->tanggal_pesan); ?></small> -->
+																	<!-- <small><?php //timeago($help->tanggal_pesan); ?></small> -->
 																</div>
 															</div>
 														</a>
@@ -195,7 +195,7 @@ function timeago($date) {
 																</div>
 																<div class="notify-message">
 																	<p class="font-weight-bold">Alumni baru telah terdaftar</p>
-																	<!-- <small><?= timeago($help->tanggal_pesan); ?></small> -->
+																	<!-- <small><?php //timeago($help->tanggal_pesan); ?></small> -->
 																</div>
 															</div>
 														</a>
@@ -238,7 +238,7 @@ function timeago($date) {
 													<div class="notification d-flex flex-row align-items-center">
 														<div class="notify-message">
 															<p class="font-weight-bold">Tidak Ada Notifikasi</p>
-															<!-- <small><?= timeago($help->tanggal_pesan); ?></small> -->
+															<!-- <small><?php //echo timeago($help->tanggal_pesan); ?></small> -->
 														</div>
 													</div>
 												</a>
@@ -254,7 +254,7 @@ function timeago($date) {
 														</div>
 														<div class="notify-message">
 															<p class="font-weight-bold">Akun BKK baru telah terdaftar</p>
-															<!-- <small><?= timeago($help->tanggal_pesan); ?></small> -->
+															<!-- <small><?php //echo timeago($help->tanggal_pesan); ?></small> -->
 														</div>
 													</div>
 												</a>

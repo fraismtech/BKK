@@ -10,3 +10,17 @@
     </div>
 </footer>
 <!-- end footer -->
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".sidebar-toggle").click(function(){
+			$('.app-navbar').toggleClass("now-sidebar");
+			$('.app-main').toggleClass("now-wraper");
+		});
+
+		$(".mobile-toggle").click(function(){
+			$('.app-navbar').toggleClass("now-sidebar");
+			$('.app-main').toggleClass("now-wraper");
+		});
+	});
+</script>
