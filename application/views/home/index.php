@@ -1,42 +1,33 @@
+<style type="text/css">
+  .carousel-item {
+  height: 100vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+</style>
 <section class="hero-wrap hero-wrap-2 margin-section-top">
-  <div id="demo" class="carousel slide" data-ride="carousel" data-interval="3000">
+  <div id="demo" class="carousel slide" data-ride="carousel">
     <!-- The slideshow -->
     <div class="carousel-inner">
       <?php 
       if (empty($slider)) { ?>
         <div class="carousel-item active">
-          <img src="<?php echo base_url(); ?>assets/home/images/bg_1.jpg" alt="Slider2" class="carousel-obj" style="width: 100%; height: 100%;">
-          <!-- <div class="carousel-caption" style="bottom: 50%;">
-            <h2 class="text-white">Bursa Kerja Khusus Kota Depok</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-              consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-              cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-            proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+          <img src="<?= base_url(); ?>assets/home/images/bg_1.jpg" alt="Slider2" class="carousel-obj">
+<!--           <div class="carousel-caption">
+            <h3 class="text-white">Sistem Pelatihan Kota Depok</h3>
+            <p>Selamat Datang Di Website Sistem Pelatihan Kota Depok</p>
             <button class="btn btn-info" type="button">Selengkapnya</button>
           </div> -->
         </div>
       <?php } else {
-        $no = 1;
-        foreach ($slider as $slide) { 
-          if ($slide->foto_slider == NULL) { ?>
-            <div class="carousel-item active">
-              <img src="<?php echo base_url(); ?>assets/home/images/bg_1.jpg" alt="Slider2" class="carousel-obj" style="width: 100%; height: 100%;">
-              <!-- <div class="carousel-caption" style="bottom: 50%;">
-                <h2 class="text-white">Bursa Kerja Khusus Kota Depok</h2>
-                <p class="text-white">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                  quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                  cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                <button class="btn btn-info" type="button">Selengkapnya</button>
-              </div> -->
-            </div>
-          <?php } else { ?>
-            <div class="carousel-item <?php if($no <= 1){echo 'active';}?>">
-              <img src="<?php echo base_url(); ?>assets/upload/image/slide_admin/<?= $slide->foto_slider; ?>" alt="Slider1" class="carousel-obj" style="width: 100%; height: 100%;">
+        $no = 0;
+        foreach ($slider as $slide) { $no++;?>
+          <div class="carousel-item <?php if($no <= 1){echo 'active';}?>">
+              <img src="<?php echo base_url(); ?>assets/upload/image/slide_admin/<?= $slide->foto_slider; ?>" alt="Slider1" class="carousel-obj">
               <!-- <div class="carousel-caption" style="bottom: 50%;">
                 <h3 class="text-white"><?= $slide->judul_slider; ?></h3>
                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -47,11 +38,10 @@
                 proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                 <button class="btn btn-info" type="button">Selengkapnya</button>
               </div> -->
-            </div> 
-          <?php } 
-          $no++;
-        }
-      } ?>
+            </div>
+        <?php }
+
+      }  ?>
     </div>
 
     <!-- Left and right controls -->

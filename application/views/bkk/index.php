@@ -1,3 +1,14 @@
+<style type="text/css">
+  .carousel-item {
+  height: 100vh;
+  min-height: 350px;
+  background: no-repeat center center scroll;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+</style>
 <?php $nameurl = $this->uri->segment(1); ?>
 <section class="hero-wrap hero-wrap-2 margin-section-top">
   <div id="demo" class="carousel slide" data-ride="carousel" data-interval="3000">
